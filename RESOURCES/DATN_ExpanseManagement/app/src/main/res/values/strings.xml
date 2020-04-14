@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">DATN_ExpanseManagement</string>
     <string name="check_double_click_exit_app">Please click BACK again to exit</string>
+    <string name="text_overview">Tổng quan</string>
+    <string name="text_account">Tài khoản</string>
+    <string name="text_report">Báo cáo</string>
+    <string name="text_other">Khác</string>
 </resources>
