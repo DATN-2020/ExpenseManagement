@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">DATN_ExpanseManagement</string>
+    <string name="check_double_click_exit_app">Please click BACK again to exit</string>
+</resources>

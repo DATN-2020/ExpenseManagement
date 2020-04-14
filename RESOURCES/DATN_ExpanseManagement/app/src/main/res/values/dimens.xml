@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 320dp. -->
+    <!-- Spacing. Độ lớn tăng dần. -->
+    <dimen name="spacing_2dp">2dp</dimen>
+    <dimen name="spacing_4dp">4dp</dimen>
+    <dimen name="spacing_6dp">6dp</dimen>
+    <dimen name="spacing_8dp">8dp</dimen>
+    <dimen name="spacing_10dp">10dp</dimen>
+    <dimen name="spacing_14dp">14dp</dimen>
+    <dimen name="spacing_16dp">16dp</dimen>
+    <dimen name="spacing_20dp">20dp</dimen>
+    <dimen name="spacing_24dp">24dp</dimen>
+    <dimen name="spacing_26dp">26dp</dimen>
+    <dimen name="spacing_28dp">28dp</dimen>
+    <dimen name="spacing_30dp">30dp</dimen>
+    <dimen name="spacing_32dp">32dp</dimen>
+    <dimen name="spacing_40dp">40dp</dimen>
+    <dimen name="spacing_44dp">44dp</dimen>
+    <dimen name="spacing_48dp">48dp</dimen>
+    <dimen name="spacing_56dp">56dp</dimen>
+    <dimen name="spacing_64dp">64dp</dimen>
+    <dimen name="spacing_72dp">72dp</dimen>
+    <!-- Text. Độ lớn tăng dần. -->
+    <dimen name="text_8sp">8dp</dimen>
+    <dimen name="text_10sp">10dp</dimen>
+    <dimen name="text_11sp">11dp</dimen>
+    <dimen name="text_12sp">12dp</dimen>
+    <dimen name="text_13sp">13dp</dimen>
+    <dimen name="text_14sp">14dp</dimen>
+    <dimen name="text_15sp">15dp</dimen>
+    <dimen name="text_16sp">16dp</dimen>
+    <dimen name="text_17sp">17dp</dimen>
+    <dimen name="text_18sp">18dp</dimen>
+    <dimen name="text_20sp">20dp</dimen>
+    <dimen name="text_22sp">22dp</dimen>
+    <dimen name="text_24sp">24dp</dimen>
+    <dimen name="text_28sp">28dp</dimen>
+    <dimen name="text_30sp">30dp</dimen>
+    <dimen name="text_32sp">32dp</dimen>
+    <dimen name="text_36sp">36dp</dimen>
+
+</resources>

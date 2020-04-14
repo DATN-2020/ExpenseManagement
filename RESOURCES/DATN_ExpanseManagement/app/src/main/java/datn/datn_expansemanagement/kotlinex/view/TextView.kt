@@ -1,0 +1,8 @@
+package datn.datn_expansemanagement.kotlinex.view
+
+import androidx.core.content.ContextCompat
+import android.widget.TextView
+
+fun TextView.setColorText(color: Int) {
+    this.setTextColor(ContextCompat.getColor(context, color))
+}
