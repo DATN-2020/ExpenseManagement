@@ -49,6 +49,10 @@
         <item name="android:textSize">@dimen/text_16sp</item>
     </style>
 
+    <style name="StyleTextView.Medium.Silver">
+        <item name="android:textColor">@color/color_696969</item>
+    </style>
+
     <style name="StyleTextView.MediumX">
         <item name="android:textSize">@dimen/text_17sp</item>
     </style>

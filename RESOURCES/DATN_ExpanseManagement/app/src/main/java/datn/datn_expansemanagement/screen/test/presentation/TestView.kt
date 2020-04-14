@@ -12,7 +12,6 @@ class TestView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreato
         AndroidMvpView.LayoutViewCreator(R.layout.activity_main, context, viewGroup)
 
     override fun initCreateView() {
-
     }
 
     override fun showError(msgError: String) {
