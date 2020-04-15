@@ -2,6 +2,7 @@ package datn.datn_expansemanagement.screen.overview.presentation
 
 import android.content.Context
 import android.view.ViewGroup
+import android.widget.Toast
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
@@ -17,7 +18,7 @@ class OverviewView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCr
     private val mResource = OverviewResource()
 
     override fun initCreateView() {
-
+        Toast.makeText(mvpActivity, "Ok", Toast.LENGTH_LONG)
     }
 
     override fun showLoading() {

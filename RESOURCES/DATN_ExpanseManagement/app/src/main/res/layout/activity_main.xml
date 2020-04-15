@@ -20,6 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/bottomNavigation"
         app:itemTextColor="@color/black"
+        app:itemIconTint="@color/bottom_navigation_state"
         android:background="@color/white"
         app:menu="@menu/menu"
         android:layout_width="match_parent"
