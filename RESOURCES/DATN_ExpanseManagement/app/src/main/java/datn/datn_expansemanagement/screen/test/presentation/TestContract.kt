@@ -9,9 +9,10 @@ interface TestContract {
         fun showError(msgError: String)
         fun showLoading()
         fun hideLoading()
+        fun showData(list: MutableList<ViewModel>)
     }
 
     abstract class Presenter : MvpPresenter<View>(){
-
+        abstract fun getData()
     }
 }
