@@ -12,18 +12,7 @@ import retrofit2.create
 class TestPresenter : TestContract.Presenter(){
     override fun getData() {
         view?.showLoading()
-        val apiInterface =  RetrofitClientInstance().getClient()?.create<GetDataService>()
-        val call = apiInterface?.getListUser()
-        call?.enqueue(object : Callback<TestReponse>{
-            override fun onFailure(call: Call<TestReponse>, t: Throwable) {
-                view?.hideLoading()
-            }
 
-            override fun onResponse(call: Call<TestReponse>, response: Response<TestReponse>) {
-                view?.hideLoading()
-                view?.showData(TestMapper().map(response.body()!!))
-            }
-        })
     }
 
 }

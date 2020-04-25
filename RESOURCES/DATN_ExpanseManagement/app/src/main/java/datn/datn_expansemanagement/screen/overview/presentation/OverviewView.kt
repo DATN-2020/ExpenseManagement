@@ -10,6 +10,7 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvp
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
 import datn.datn_expansemanagement.screen.overview.presentation.renderer.ExchangeReteViewRenderer
+import datn.datn_expansemanagement.screen.overview.presentation.renderer.TestCharRenderer
 import kotlinx.android.synthetic.main.layout_overview.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 
@@ -37,6 +38,7 @@ class OverviewView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCr
     private fun initRecycleView(){
         rvExchangeRate = ListViewMvp(mvpActivity, view.rvOverview, renderConfig)
         rvExchangeRate?.addViewRenderer(ExchangeReteViewRenderer(mvpActivity))
+        rvExchangeRate?.addViewRenderer(TestCharRenderer(mvpActivity))
         rvExchangeRate?.createView()
     }
 
