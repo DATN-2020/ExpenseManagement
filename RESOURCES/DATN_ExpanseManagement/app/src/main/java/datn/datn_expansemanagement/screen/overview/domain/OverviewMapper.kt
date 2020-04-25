@@ -5,6 +5,7 @@ import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.core.base.domain.mapper.Mapper
 import datn.datn_expansemanagement.screen.overview.presentation.model.ExchangeRateViewModel
 import datn.datn_expansemanagement.screen.overview.presentation.model.TestChart
+import datn.datn_expansemanagement.screen.account.presentation.model.WalletViewModel
 
 class OverviewMapper : Mapper<String, MutableList<ViewModel>> {
     override fun map(input: String): MutableList<ViewModel> {
@@ -15,10 +16,12 @@ class OverviewMapper : Mapper<String, MutableList<ViewModel>> {
                 ExchangeRateViewModel(
                     id = i,
                     exchange = "1 VGO ~ 482000d",
-                    name = "VGO"
+                    name = "VGO",
+                    imageurl = ""
                 )
             )
         }
+
 
         val listBarEntry = mutableListOf<BarEntry>()
         listBarEntry.add(BarEntry(945f, 0f))

@@ -1,4 +1,4 @@
-package datn.datn_expansemanagement.screen.overview.presentation
+package datn.datn_expansemanagement.screen.account.presentation
 
 import android.content.Context
 import android.view.ViewGroup
@@ -8,22 +8,18 @@ import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
-import datn.datn_expansemanagement.screen.overview.presentation.renderer.ExchangeReteViewRenderer
-import datn.datn_expansemanagement.screen.overview.presentation.renderer.TestCharRenderer
 import datn.datn_expansemanagement.screen.account.presentation.renderer.WalletViewRenderer
-import kotlinx.android.synthetic.main.layout_overview.view.*
+import kotlinx.android.synthetic.main.layout_account.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 
-class OverviewView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator): AndroidMvpView(mvpActivity, viewCreator), OverviewContract.View{
-
-    class ViewCreator(context: Context, viewGroup: ViewGroup?) :
-    AndroidMvpView.LayoutViewCreator(R.layout.layout_overview, context, viewGroup)
-
+class AccountView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator): AndroidMvpView(mvpActivity, viewCreator),AccountContract.View{
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
-    private val mPresenter = OverviewPresenter()
-    private val mResource = OverviewResource()
-    private val listExchangeRate = mutableListOf<ViewModel>()
-    private var rvExchangeRate : ListViewMvp? = null
+    class ViewCreator(context: Context, viewGroup: ViewGroup?) :
+        AndroidMvpView.LayoutViewCreator(R.layout.layout_account, context, viewGroup)
+
+    private val mPresenter = AccountPresenter()
+    private val listAccount = mutableListOf<ViewModel>()
+    private var listData : ListViewMvp? = null
 
     private val renderInputProject = LinearRenderConfigFactory.Input(
         context = mvpActivity,
@@ -33,18 +29,6 @@ class OverviewView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCr
     private val renderConfig = LinearRenderConfigFactory(renderInputProject).create()
     override fun initCreateView() {
         initRecycleView()
-    }
-
-    private fun initRecycleView(){
-        rvExchangeRate = ListViewMvp(mvpActivity, view.rvOverview, renderConfig)
-        rvExchangeRate?.addViewRenderer(ExchangeReteViewRenderer(mvpActivity))
-        rvExchangeRate?.addViewRenderer(TestCharRenderer(mvpActivity))
-        rvExchangeRate?.addViewRenderer(
-            WalletViewRenderer(
-                mvpActivity
-            )
-        )
-        rvExchangeRate?.createView()
     }
 
     override fun showLoading() {
@@ -71,11 +55,17 @@ class OverviewView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCr
     }
 
     override fun showData(list: MutableList<ViewModel>) {
-        this.listExchangeRate.clear()
+        this.listAccount.clear()
         if(list.isNotEmpty()){
-            this.listExchangeRate.addAll(list)
+            this.listAccount.addAll(list)
         }
-        rvExchangeRate?.setItems(this.listExchangeRate)
-        rvExchangeRate?.notifyDataChanged()
+        listData?.setItems(this.listAccount)
+        listData?.notifyDataChanged()
     }
+    private fun initRecycleView(){
+        listData = ListViewMvp(mvpActivity, view.rvAccount, renderConfig)
+        listData?.addViewRenderer(WalletViewRenderer(mvpActivity))
+        listData?.createView()
+    }
+
 }

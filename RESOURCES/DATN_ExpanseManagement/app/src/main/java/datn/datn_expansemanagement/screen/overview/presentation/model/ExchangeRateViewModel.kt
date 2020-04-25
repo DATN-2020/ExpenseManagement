@@ -7,5 +7,6 @@ class ExchangeRateViewModel (
     var id: Int,
     var name : String,
     var exchange: String,
+    var imageurl: String,
     var isChoose: Boolean? = false
 ): ViewModel
