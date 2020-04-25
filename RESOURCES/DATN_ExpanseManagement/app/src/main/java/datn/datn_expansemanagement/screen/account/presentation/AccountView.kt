@@ -28,7 +28,6 @@ class AccountView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCrea
 
     private val renderConfig = LinearRenderConfigFactory(renderInputProject).create()
     override fun initCreateView() {
-        initRecycleView()
     }
 
     override fun showLoading() {
@@ -41,7 +40,7 @@ class AccountView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCrea
 
     override fun initData() {
         super.initData()
-        mPresenter.getData()
+        //mPresenter.getData()
     }
 
     override fun startMvpView() {
@@ -61,11 +60,6 @@ class AccountView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCrea
         }
         listData?.setItems(this.listAccount)
         listData?.notifyDataChanged()
-    }
-    private fun initRecycleView(){
-        listData = ListViewMvp(mvpActivity, view.rvAccount, renderConfig)
-        listData?.addViewRenderer(WalletViewRenderer(mvpActivity))
-        listData?.createView()
     }
 
 }

@@ -8,24 +8,18 @@
         layout="@layout/toolbar_account"/>
     <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
-        android:id="@+id/tabLayout"
+        android:id="@+id/tlAccount"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tbAccount"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
-        app:layout_constraintTop_toBottomOf="@id/tabLayout"
+        android:id="@+id/vpAccount"
+        app:layout_constraintTop_toBottomOf="@id/tlAccount"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
         android:layout_height="0dp"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvAccount"
-        android:paddingStart="@dimen/spacing_10dp"
-        android:paddingEnd="@dimen/spacing_10dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

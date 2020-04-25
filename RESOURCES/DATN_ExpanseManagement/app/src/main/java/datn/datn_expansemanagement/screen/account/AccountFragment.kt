@@ -8,5 +8,4 @@ class AccountFragment:MvpFragment(){
     override fun createAndroidMvpView(): AndroidMvpView {
         return AccountView(getMvpActivity(),AccountView.ViewCreator(getMvpActivity(),null))
     }
-
 }
