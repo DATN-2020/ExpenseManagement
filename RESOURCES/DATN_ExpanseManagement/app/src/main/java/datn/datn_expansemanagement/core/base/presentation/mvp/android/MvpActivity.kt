@@ -48,7 +48,7 @@ abstract class MvpActivity : AppCompatActivity(),
     }
 
     private fun initWindow() {
-        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         val drawableId = getBackgroundScreen()
         if(drawableId!=0) {
             setBackgroundData(drawableId)

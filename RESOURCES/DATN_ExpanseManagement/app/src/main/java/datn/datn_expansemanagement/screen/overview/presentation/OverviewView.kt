@@ -10,7 +10,7 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivit
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
 import datn.datn_expansemanagement.screen.overview.presentation.renderer.ExchangeReteViewRenderer
 import datn.datn_expansemanagement.screen.overview.presentation.renderer.TestCharRenderer
-import datn.datn_expansemanagement.screen.account.presentation.renderer.WalletViewRenderer
+import datn.datn_expansemanagement.screen.account.item_account.presentation.renderer.WalletViewRenderer
 import kotlinx.android.synthetic.main.layout_overview.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 

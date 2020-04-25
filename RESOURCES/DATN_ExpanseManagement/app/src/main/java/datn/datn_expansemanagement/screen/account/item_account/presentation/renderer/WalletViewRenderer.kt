@@ -1,0 +1,39 @@
+package datn.datn_expansemanagement.screen.account.item_account.presentation.renderer
+
+import android.content.Context
+import android.view.View
+import datn.datn_expansemanagement.R
+import datn.datn_expansemanagement.core.app.util.Utils
+import datn.datn_expansemanagement.core.base.presentation.mvp.android.model.ViewRenderer
+import datn.datn_expansemanagement.kotlinex.view.gone
+import datn.datn_expansemanagement.kotlinex.view.visible
+import datn.datn_expansemanagement.screen.account.item_account.presentation.model.WalletViewModel
+import kotlinx.android.synthetic.main.item_wallet.view.*
+
+class WalletViewRenderer (context: Context): ViewRenderer<WalletViewModel>(context){
+    override fun getLayoutId(): Int {
+        return R.layout.item_wallet
+    }
+
+    override fun getModelClass(): Class<WalletViewModel> = WalletViewModel::class.java
+    override fun bindView(model: WalletViewModel, viewRoot: View) {
+        viewRoot.tvWallet.text = model.name
+        val money = Utils.formatMoneyVND(model.money)
+        viewRoot.tvMoney.text = money
+
+        if(model.tabId == 1){
+            viewRoot.llPercent.gone()
+            viewRoot.imgMore.gone()
+        }else{
+            viewRoot.llPercent.visible()
+            viewRoot.imgMore.visible()
+        }
+        if(model.isLast){
+            viewRoot.viewBottom.gone()
+        }else{
+            viewRoot.viewBottom.visible()
+        }
+    }
+
+
+}

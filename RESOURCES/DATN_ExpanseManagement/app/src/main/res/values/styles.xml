@@ -11,6 +11,10 @@
         <item name="android:windowContentTransitions">true</item>
     </style>
 
+    <style name="MyCustomTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+    </style>
+
     <style name="StyleTextView">
         <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:layout_width">wrap_content</item>
@@ -256,6 +260,10 @@
 
     <style name="StyleTextView.Medium.Red">
         <item name="android:textColor">@color/color_e94c4c</item>
+    </style>
+
+    <style name="StyleTextView.Medium.696969">
+        <item name="android:textColor">@color/color_696969</item>
     </style>
 
     <style name="StyleTextView.Medium.Blue">

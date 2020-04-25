@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/spacing_20dp"
+    android:padding="@dimen/spacing_10dp"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="50dp"
@@ -14,32 +15,65 @@
         android:src="@drawable/ic_wallet"
         android:id="@+id/ivWallet"/>
     <TextView
-        android:layout_width="0dp"
+        android:layout_marginTop="@dimen/spacing_4dp"
+        style="@style/StyleTextView.Medium.Black"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ví tiền mặt"
+        android:text="@string/text_wallet_money"
         android:textStyle="bold"
         android:layout_marginLeft="10dp"
-        app:layout_constraintEnd_toStartOf="@id/imgMore"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/ivWallet"
-        android:textSize="20dp"
         android:id="@+id/tvWallet"
         tools:ignore="MissingConstraints" />
+    <LinearLayout
+        android:layout_marginTop="@dimen/spacing_4dp"
+        android:id="@+id/llPercent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingTop="@dimen/spacing_4dp"
+        android:paddingBottom="@dimen/spacing_4dp"
+        android:paddingStart="@dimen/spacing_6dp"
+        android:paddingEnd="@dimen/spacing_6dp"
+        android:layout_marginStart="@dimen/spacing_4dp"
+        android:background="@drawable/bg_corner_white"
+        app:layout_constraintBottom_toBottomOf="@id/tvWallet"
+        app:layout_constraintStart_toEndOf="@id/tvWallet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="15%"
+            android:id="@+id/tvPercent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
     <TextView
+        android:layout_marginTop="@dimen/spacing_8dp"
+        style="@style/StyleTextView.Medium.Black"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="1.000.000 $"
-        app:layout_constraintEnd_toStartOf="@id/imgMore"
         app:layout_constraintTop_toBottomOf="@id/tvWallet"
         app:layout_constraintStart_toStartOf="@id/tvWallet"
-        android:textSize="20dp"
         android:id="@+id/tvMoney"/>
     <androidx.appcompat.widget.AppCompatImageView
+        android:background="?attr/selectableItemBackground"
         android:id="@+id/imgMore"
         android:layout_width="@dimen/spacing_30dp"
         android:layout_height="@dimen/spacing_30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tvWallet"
         app:layout_constraintBottom_toBottomOf="@id/tvMoney"
-        android:src="@drawable/ic_menu"/>
+        android:src="@drawable/ic_more_vert_black_24dp"/>
+
+    <View
+        android:layout_marginTop="@dimen/spacing_6dp"
+        android:paddingBottom="@dimen/spacing_2dp"
+        android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/tvMoney"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvWallet"
+        android:id="@+id/viewBottom"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

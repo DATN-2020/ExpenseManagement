@@ -5,4 +5,8 @@
     <string name="text_account">Tài khoản</string>
     <string name="text_report">Báo cáo</string>
     <string name="text_other">Khác</string>
+    <string name="text_total_money">Tổng tiền:</string>
+    <string name="text_wallet_money">Ví tiền mặt</string>
+    <string name="text_accumulation">Tích lũy</string>
+    <string name="text_card">Sổ tiết kiệm</string>
 </resources>

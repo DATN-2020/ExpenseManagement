@@ -7,6 +7,13 @@
         android:id="@+id/tbAccount"
         layout="@layout/toolbar_account"/>
     <com.google.android.material.tabs.TabLayout
+        android:background="@color/color_219dfd"
+        app:tabSelectedTextColor="@color/white"
+        app:tabTextAppearance="@style/MyCustomTextAppearance"
+        app:tabTextColor="@color/color_ebebeb"
+        app:tabInlineLabel="true"
+        app:tabIndicatorColor="@color/white"
+        style="@style/StyleTextView.Large"
         android:layout_width="match_parent"
         android:id="@+id/tlAccount"
         android:layout_height="wrap_content"
