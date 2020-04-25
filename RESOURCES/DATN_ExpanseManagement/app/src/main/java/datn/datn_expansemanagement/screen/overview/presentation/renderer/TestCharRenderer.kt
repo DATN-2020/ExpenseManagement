@@ -30,6 +30,7 @@ class TestCharRenderer (context: Context): ViewRenderer<TestChart>(context){
         viewRoot.chartsTest.fitScreen()
         viewRoot.chartsTest.enableScroll()
         viewRoot.chartsTest.data = barData
+        viewRoot.chartsTest.invalidate()
     }
 
 }

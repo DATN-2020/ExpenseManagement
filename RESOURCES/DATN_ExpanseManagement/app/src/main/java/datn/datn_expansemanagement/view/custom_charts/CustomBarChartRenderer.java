@@ -17,4 +17,6 @@ public class CustomBarChartRenderer extends BarChart {
     public CustomBarChartRenderer(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
+
+
 }
