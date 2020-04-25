@@ -7,6 +7,7 @@ import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
+import datn.datn_expansemanagement.screen.account.AccountFragment
 import datn.datn_expansemanagement.screen.overview.OverviewFragment
 import kotlinx.android.synthetic.main.activity_main.view.*
 
@@ -21,6 +22,7 @@ class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :
     private val mPresenter = MainPresenter()
 
     private var overviewFragment: OverviewFragment? = null
+    private var accountFragment: AccountFragment? = null
 
     override fun initCreateView() {
         view.bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
@@ -60,12 +62,12 @@ class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :
                     ft.replace(R.id.mainFrameLayout, overviewFragment!!, itemId.toString())
                 }
 
-//                R.id.action_notification -> if (notificationFragment != null && notificationFragment?.isAdded!!) {
-//                    ft.show(notificationFragment!!)
-//                } else {
-//                    notificationFragment = NotificationFragment()
-//                    ft.replace(R.id.mainFrameLayout, notificationFragment!!, itemId.toString())
-//                }
+                R.id.menuAccount -> if (accountFragment != null && accountFragment?.isAdded!!) {
+                    ft.show(accountFragment!!)
+                } else {
+                    accountFragment = AccountFragment()
+                    ft.replace(R.id.mainFrameLayout, accountFragment!!, itemId.toString())
+                }
 //                R.id.action_sale -> if (saleFragment != null && saleFragment!!.isAdded) {
 //                    ft.show(saleFragment!!)
 //                } else {
@@ -94,9 +96,9 @@ class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :
             if (overviewFragment == null && f is OverviewFragment) {
                 overviewFragment = f
             }
-//            if (notificationFragment == null && f is NotificationFragment) {
-//                notificationFragment = f
-//            }
+            if (accountFragment == null && f is AccountFragment) {
+                accountFragment = f
+            }
 //            if (saleFragment == null && f is SaleFragment) {
 //                saleFragment = f
 //            }
@@ -109,8 +111,8 @@ class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :
     private fun hideOtherFragment(ft: FragmentTransaction, itemId: Int) {
         if (overviewFragment != null && overviewFragment!!.isAdded && itemId != R.id.menuOverview)
             ft.hide(overviewFragment!!)
-//        if (notificationFragment != null && notificationFragment?.isAdded!! && itemId != R.id.action_notification)
-//            ft.hide(notificationFragment!!)
+        if (accountFragment != null && accountFragment?.isAdded!! && itemId != R.id.menuAccount)
+            ft.hide(accountFragment!!)
 //        if (saleFragment != null && saleFragment!!.isAdded && itemId != R.id.action_sale)
 //            ft.hide(saleFragment!!)
 //        if (accountFragment != null && accountFragment!!.isAdded && itemId != R.id.action_account)
