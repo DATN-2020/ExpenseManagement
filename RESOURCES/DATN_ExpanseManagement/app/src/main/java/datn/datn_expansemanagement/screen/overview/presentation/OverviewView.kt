@@ -39,11 +39,6 @@ class OverviewView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCr
         rvExchangeRate = ListViewMvp(mvpActivity, view.rvOverview, renderConfig)
         rvExchangeRate?.addViewRenderer(ExchangeReteViewRenderer(mvpActivity))
         rvExchangeRate?.addViewRenderer(TestCharRenderer(mvpActivity))
-        rvExchangeRate?.addViewRenderer(
-            WalletViewRenderer(
-                mvpActivity
-            )
-        )
         rvExchangeRate?.createView()
     }
 

@@ -9,4 +9,11 @@
     <string name="text_wallet_money">Ví tiền mặt</string>
     <string name="text_accumulation">Tích lũy</string>
     <string name="text_card">Sổ tiết kiệm</string>
+    <string name="text_control">Điều chỉnh số dư</string>
+    <string name="text_delete">Xóa</string>
+    <string name="text_update">Sửa</string>
+    <string name="text_send_to">Gửi vào</string>
+    <string name="text_put_out">Lấy ra</string>
+    <string name="text_finish">Kết thúc</string>
+    <string name="text_current_finance">Tài chính hiện tại</string>
 </resources>

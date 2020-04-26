@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/spacing_20dp">
+
+    <View
+        android:id="@+id/viewTop"
+        android:layout_width="100dp"
+        android:layout_height="4dp"
+        android:background="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgSendTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/tvSendTo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvSendTo"
+        app:srcCompat="@drawable/ic_present_to_all_black_24dp" />
+
+    <TextView
+        android:id="@+id/tvSendTo"
+        style="@style/StyleTextView.Medium.Black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_20dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="@string/text_send_to"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imgSendTo"
+        app:layout_constraintTop_toBottomOf="@id/viewTop" />
+
+    <View
+        android:id="@+id/viewBottom1"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/spacing_20dp"
+        android:background="@color/black"
+        android:paddingBottom="@dimen/spacing_2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSendTo" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/tvDelete"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvDelete"
+        app:srcCompat="@drawable/ic_delete_forever_black_24dp" />
+
+    <TextView
+        android:id="@+id/tvDelete"
+        style="@style/StyleTextView.Medium.Black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_20dp"
+        android:gravity="center"
+        android:text="@string/text_delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imgDelete"
+        app:layout_constraintTop_toBottomOf="@id/viewBottom1" />
+
+    <View
+        android:id="@+id/viewDelete"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/spacing_20dp"
+        android:background="@color/black"
+        android:paddingBottom="@dimen/spacing_2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDelete" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/tvUpdate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvUpdate"
+        app:srcCompat="@drawable/ic_update_black_24dp" />
+
+    <TextView
+        android:id="@+id/tvUpdate"
+        style="@style/StyleTextView.Medium.Black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_20dp"
+        android:gravity="center"
+        android:text="@string/text_update"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imgUpdate"
+        app:layout_constraintTop_toBottomOf="@id/viewDelete" />
+
+    <View
+        android:id="@+id/viewUpdate"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/spacing_20dp"
+        android:background="@color/black"
+        android:paddingBottom="@dimen/spacing_2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvUpdate" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgPutOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/tvPutOut"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvPutOut"
+        app:srcCompat="@drawable/ic_open_in_new_black_24dp" />
+
+    <TextView
+        android:id="@+id/tvPutOut"
+        style="@style/StyleTextView.Medium.Black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_20dp"
+        android:gravity="center"
+        android:text="@string/text_put_out"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imgPutOut"
+        app:layout_constraintTop_toBottomOf="@id/viewUpdate" />
+
+    <View
+        android:id="@+id/viewPutOut"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/spacing_20dp"
+        android:background="@color/black"
+        android:paddingBottom="@dimen/spacing_2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPutOut" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgFinish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/tvFinish"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvFinish"
+        app:srcCompat="@drawable/ic_check_box_black_24dp" />
+
+    <TextView
+        android:id="@+id/tvFinish"
+        style="@style/StyleTextView.Medium.Black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_20dp"
+        android:gravity="center"
+        android:text="@string/text_finish"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imgFinish"
+        app:layout_constraintTop_toBottomOf="@id/viewPutOut" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

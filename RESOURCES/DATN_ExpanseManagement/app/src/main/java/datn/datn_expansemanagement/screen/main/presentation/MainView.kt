@@ -11,6 +11,7 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvp
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.screen.account.AccountFragment
 import datn.datn_expansemanagement.screen.overview.OverviewFragment
+import datn.datn_expansemanagement.screen.report.ReportFragment
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :
@@ -25,6 +26,7 @@ class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :
 
     private var overviewFragment: OverviewFragment? = null
     private var accountFragment: AccountFragment? = null
+    private var reportFragment: ReportFragment? = null
 
     override fun initCreateView() {
         view.bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
@@ -70,12 +72,12 @@ class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :
                     accountFragment = AccountFragment()
                     ft.replace(R.id.mainFrameLayout, accountFragment!!, itemId.toString())
                 }
-//                R.id.action_sale -> if (saleFragment != null && saleFragment!!.isAdded) {
-//                    ft.show(saleFragment!!)
-//                } else {
-//                    saleFragment = SaleFragment()
-//                    ft.replace(R.id.mainFrameLayout, saleFragment!!, itemId.toString())
-//                }
+                R.id.menuReport -> if (reportFragment != null && reportFragment!!.isAdded) {
+                    ft.show(reportFragment!!)
+                } else {
+                    reportFragment = ReportFragment()
+                    ft.replace(R.id.mainFrameLayout, reportFragment!!, itemId.toString())
+                }
 //                R.id.action_account -> if (accountFragment != null && accountFragment!!.isAdded) {
 //                    ft.show(accountFragment!!)
 //                }
@@ -101,9 +103,9 @@ class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :
             if (accountFragment == null && f is AccountFragment) {
                 accountFragment = f
             }
-//            if (saleFragment == null && f is SaleFragment) {
-//                saleFragment = f
-//            }
+            if (reportFragment == null && f is ReportFragment) {
+                reportFragment = f
+            }
 //            if (accountFragment == null && f is AccountFragment) {
 //                accountFragment = f
 //            }
@@ -115,8 +117,8 @@ class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :
             ft.hide(overviewFragment!!)
         if (accountFragment != null && accountFragment?.isAdded!! && itemId != R.id.menuAccount)
             ft.hide(accountFragment!!)
-//        if (saleFragment != null && saleFragment!!.isAdded && itemId != R.id.action_sale)
-//            ft.hide(saleFragment!!)
+        if (reportFragment != null && reportFragment!!.isAdded && itemId != R.id.menuReport)
+            ft.hide(reportFragment!!)
 //        if (accountFragment != null && accountFragment!!.isAdded && itemId != R.id.action_account)
 //            ft.hide(accountFragment!!)
     }

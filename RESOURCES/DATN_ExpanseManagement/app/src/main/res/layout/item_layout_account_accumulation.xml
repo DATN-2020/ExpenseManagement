@@ -28,6 +28,10 @@
         android:id="@+id/tvWallet"
         tools:ignore="MissingConstraints" />
     <SeekBar
+        android:progress="60"
+        android:thumb="@null"
+        android:progressDrawable="@drawable/custom_bottom_sheet"
+        android:max="100"
         android:paddingTop="@dimen/spacing_4dp"
         android:paddingBottom="@dimen/spacing_4dp"
         android:layout_marginEnd="@dimen/spacing_8dp"
