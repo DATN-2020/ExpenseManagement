@@ -2,6 +2,8 @@ package datn.datn_expansemanagement.screen.main.presentation
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.os.Build
+import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.FragmentTransaction
@@ -34,6 +36,7 @@ class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :
             return@setOnNavigationItemSelectedListener true
         }
         view.bottomNavigation.selectedItemId = R.id.menuOverview
+        mvpActivity.setFullScreen()
     }
 
     override fun showLoading() {
