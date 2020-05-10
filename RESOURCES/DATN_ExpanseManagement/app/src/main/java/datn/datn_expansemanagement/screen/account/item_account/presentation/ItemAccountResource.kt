@@ -7,4 +7,8 @@ class ItemAccountResource : AndroidResourceProvider(){
     fun getColorName(): Int{
         return resourceManager.getColor(R.color.black)
     }
+
+    fun getColorStatusBar(): Int{
+        return resourceManager.getColor(R.color.transparent)
+    }
 }

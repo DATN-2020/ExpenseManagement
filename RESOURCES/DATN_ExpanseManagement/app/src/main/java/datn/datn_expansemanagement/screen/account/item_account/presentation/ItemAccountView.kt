@@ -1,9 +1,13 @@
 package datn.datn_expansemanagement.screen.account.item_account.presentation
 
+import android.app.AlertDialog
 import android.content.Context
+import android.graphics.Color
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import datn.datn_expansemanagement.R
@@ -57,6 +61,8 @@ class ItemAccountView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.View
         val bottomDialog = BottomSheetDialog(mvpActivity, R.style.BaseBottomSheetDialog)
         bottomDialogView = LayoutInflater.from(mvpActivity).inflate(R.layout.custom_bottom_sheet_account, null, false)
         bottomDialog.setContentView(bottomDialogView)
+        bottomDialog.create()
+        setDialogFullScreen(bottomDialog)
         bottomDialog.show()
     }
 
@@ -64,7 +70,19 @@ class ItemAccountView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.View
         val bottomDialog = BottomSheetDialog(mvpActivity, R.style.BaseBottomSheetDialog)
         bottomDialogView = LayoutInflater.from(mvpActivity).inflate(R.layout.custom_bottom_sheet_accumulation, null, false)
         bottomDialog.setContentView(bottomDialogView)
+        bottomDialog.create()
+        setDialogFullScreen(bottomDialog)
         bottomDialog.show()
+    }
+
+    private fun setDialogFullScreen(dialog: BottomSheetDialog) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            dialog.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            dialog.window?.statusBarColor = mResource.getColorStatusBar()
+            dialog.window?.navigationBarColor = Color.TRANSPARENT
+            dialog.window?.decorView?.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        }
     }
 
     override fun initCreateView() {

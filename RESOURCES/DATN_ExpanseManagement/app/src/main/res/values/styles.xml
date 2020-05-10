@@ -21,7 +21,7 @@
 
     <style name="BaseBottomSheetDialog" parent="@style/Theme.Design.Light.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
-        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowFullscreen">false</item>
         <item name="bottomSheetStyle">@style/BottomSheet</item>
     </style>
 
@@ -66,6 +66,11 @@
     <style name="StyleTextView.Medium.Silver">
         <item name="android:textColor">@color/color_696969</item>
     </style>
+
+    <style name="StyleTextView.Medium.BDBEC1">
+        <item name="android:textColor">@color/color_bdbec1</item>
+    </style>
+
 
     <style name="StyleTextView.MediumX">
         <item name="android:textSize">@dimen/text_17sp</item>
@@ -296,6 +301,10 @@
         <item name="android:textColor">@color/color_219dfd</item>
     </style>
 
+    <style name="StyleTextView.Huge.219DFD">
+        <item name="android:textColor">@color/color_219dfd</item>
+    </style>
+
     <style name="StyleTextView.Medium.828282">
         <item name="android:textColor">@color/color_828282</item>
     </style>
@@ -326,6 +335,10 @@
 
     <style name="StyleTextView.MediumLarge.6D30AB">
         <item name="android:textColor">@color/color_6d30ab</item>
+    </style>
+
+    <style name="StyleTextView.Huge.E94C4C">
+        <item name="android:textColor">@color/color_e94c4c</item>
     </style>
 
     <style name="StyleTextView.MediumLarge.696969">

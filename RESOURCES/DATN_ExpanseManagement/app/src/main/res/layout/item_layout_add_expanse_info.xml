@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:visibility="gone"
+        android:id="@+id/clTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgTrip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/edtTrip"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edtTrip"
+            app:srcCompat="@drawable/ic_airplanemode_active_black_24dp" />
+
+        <TextView
+            android:id="@+id/edtTrip"
+            style="@style/StyleTextView.Medium.Black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_20dp"
+            android:background="?attr/selectableItemBackground"
+            android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:hint="@string/text_trip"
+            android:padding="@dimen/spacing_10dp"
+            android:paddingStart="@dimen/spacing_20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgTrip"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/viewBottom"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="@dimen/spacing_20dp"
+            android:background="@color/color_bdbec1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/edtTrip"
+            app:layout_constraintTop_toBottomOf="@id/edtTrip" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgFriend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/edtFriend"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edtFriend"
+            app:srcCompat="@drawable/ic_assignment_ind_black_24dp" />
+
+        <TextView
+            android:id="@+id/edtFriend"
+            style="@style/StyleTextView.Medium.Black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_20dp"
+            android:background="?attr/selectableItemBackground"
+            android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:hint="@string/text_hint_for_friend"
+            android:padding="@dimen/spacing_10dp"
+            android:paddingStart="@dimen/spacing_20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgFriend"
+            app:layout_constraintTop_toBottomOf="@id/viewBottom" />
+
+        <View
+            android:id="@+id/viewBottom2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="@dimen/spacing_20dp"
+            android:background="@color/color_bdbec1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/edtFriend"
+            app:layout_constraintTop_toBottomOf="@id/edtFriend" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgLocation"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:layout_constraintBottom_toBottomOf="@id/edtLocation"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edtLocation"
+            app:srcCompat="@drawable/ic_wallet" />
+
+        <TextView
+            android:id="@+id/edtLocation"
+            style="@style/StyleTextView.Medium.Black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_20dp"
+            android:background="?attr/selectableItemBackground"
+            android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:hint="@string/text_hint_for_friend"
+            android:padding="@dimen/spacing_10dp"
+            android:paddingStart="@dimen/spacing_20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgLocation"
+            app:layout_constraintTop_toBottomOf="@id/viewBottom2" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        app:layout_constraintTop_toBottomOf="@id/viewBottom3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/clExpand">
+        <TextView
+            android:layout_marginEnd="@dimen/spacing_10dp"
+            android:paddingEnd="@dimen/spacing_10dp"
+            android:background="?attr/selectableItemBackground"
+            android:paddingTop="@dimen/spacing_10dp"
+            android:paddingBottom="@dimen/spacing_16dp"
+            style="@style/StyleTextView.Medium.219DFD"
+            android:gravity="center"
+            android:text="@string/text_add_detail"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/tvExpand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            app:srcCompat="@drawable/ic_keyboard_arrow_down_blue_24dp"
+            android:id="@+id/imgExpand"
+            app:layout_constraintTop_toTopOf="@id/tvExpand"
+            app:layout_constraintBottom_toBottomOf="@id/tvExpand"
+            app:layout_constraintStart_toEndOf="@id/tvExpand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:id="@+id/viewBottom4"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/color_e4e4e4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvExpand" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:visibility="gone"
+        android:id="@+id/viewBottom3"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/color_e4e4e4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clTop" />
+</androidx.constraintlayout.widget.ConstraintLayout>

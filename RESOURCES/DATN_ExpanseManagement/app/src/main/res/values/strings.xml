@@ -16,4 +16,14 @@
     <string name="text_put_out">Lấy ra</string>
     <string name="text_finish">Kết thúc</string>
     <string name="text_current_finance">Tài chính hiện tại</string>
+    <string name="text_choose_category">Chọn hạng mục</string>
+    <string name="text_comment">Diễn giải</string>
+    <string name="text_choose_example">Chọn mẫu</string>
+    <string name="text_money">Số tiền</string>
+    <string name="text_trip">Chuyến đi, sự kiện</string>
+    <string name="text_hint_for_friend">Chi cho ai</string>
+    <string name="text_add_detail">Thêm chi tiết</string>
+    <string name="text_collapse">Thu gọn</string>
+    <string name="text_donate">Chi tiền</string>
+    <string name="text_receive">Thu tiền</string>
 </resources>
