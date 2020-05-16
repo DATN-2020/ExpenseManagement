@@ -31,8 +31,10 @@ class AddExpenseDonateTotalMoneyRenderer(
         viewRoot.edtMoney.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 viewRoot.edtMoney.removeTextChangedListener(this)
-                viewRoot.edtMoney.setText(Utils.customFormatMoney(s.toString()))
-                viewRoot.edtMoney.setSelection(viewRoot.edtMoney.text.toString().length)
+                if(!viewRoot.edtMoney.text.isNullOrEmpty()){
+                    viewRoot.edtMoney.setText(Utils.customFormatMoney(s.toString()))
+                    viewRoot.edtMoney.setSelection(viewRoot.edtMoney.text.toString().length)
+                }
                 viewRoot.edtMoney.addTextChangedListener(this)
             }
 

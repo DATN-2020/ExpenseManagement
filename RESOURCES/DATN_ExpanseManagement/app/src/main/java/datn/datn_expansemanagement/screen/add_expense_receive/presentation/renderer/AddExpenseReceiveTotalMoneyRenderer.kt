@@ -1,8 +1,11 @@
 package datn.datn_expansemanagement.screen.add_expense_receive.presentation.renderer
 
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import datn.datn_expansemanagement.R
+import datn.datn_expansemanagement.core.app.util.Utils
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.model.ViewRenderer
 import datn.datn_expansemanagement.screen.add_expense_receive.presentation.AddExpenseReceiveResource
 import datn.datn_expansemanagement.screen.add_expense_receive.presentation.model.AddExpenseReceiveTotalMoneyViewModel
@@ -19,6 +22,22 @@ private val mResource : AddExpenseReceiveResource
 
     override fun bindView(model: AddExpenseReceiveTotalMoneyViewModel, viewRoot: View) {
         viewRoot.edtMoney.setHintTextColor(mResource.getColorTotalMoney())
+        viewRoot.edtMoney.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                viewRoot.edtMoney.removeTextChangedListener(this)
+                if(!viewRoot.edtMoney.text.isNullOrEmpty()){
+                    viewRoot.edtMoney.setText(Utils.customFormatMoney(s.toString()))
+                    viewRoot.edtMoney.setSelection(viewRoot.edtMoney.text.toString().length)
+                }
+                viewRoot.edtMoney.addTextChangedListener(this)
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        })
     }
 
 }

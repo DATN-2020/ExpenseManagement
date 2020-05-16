@@ -301,6 +301,10 @@
         <item name="android:textColor">@color/color_219dfd</item>
     </style>
 
+    <style name="StyleTextView.Large.219DFD">
+        <item name="android:textColor">@color/color_219dfd</item>
+    </style>
+
     <style name="StyleTextView.Huge.219DFD">
         <item name="android:textColor">@color/color_219dfd</item>
     </style>

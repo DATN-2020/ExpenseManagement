@@ -117,15 +117,6 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
     private fun initView(){
         view.cvType.gone()
         view.tvToolbar.text = mResource.getTextDonate()
-        view.tvToolbar.setOnClickListener {
-            isOpen = if(!isOpen){
-                view.cvType.visible()
-                true
-            }else{
-                view.cvType.gone()
-                false
-            }
-        }
         view.imgChooseType.setOnClickListener {
             isOpen = if(!isOpen){
                 view.cvType.visible()
