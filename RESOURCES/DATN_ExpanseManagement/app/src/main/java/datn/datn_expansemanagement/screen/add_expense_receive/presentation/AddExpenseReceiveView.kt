@@ -80,7 +80,7 @@ class AddExpenseReceiveView(mvpActivity: MvpActivity, viewCreator: AndroidMvpVie
         listViewMvp = ListViewMvp(mvpActivity, view.rvAddExpanse, renderConfig)
         listViewMvp?.addViewRenderer(AddExpenseReceiveCategoryRenderer(mvpActivity))
         listViewMvp?.addViewRenderer(AddExpenseReceiveInfoRenderer(mvpActivity, mResource, onClickExpand))
-        listViewMvp?.addViewRenderer(AddExpenseReceiveTotalMoneyRenderer(mvpActivity))
+        listViewMvp?.addViewRenderer(AddExpenseReceiveTotalMoneyRenderer(mvpActivity, mResource))
         listViewMvp?.createView()
     }
 }

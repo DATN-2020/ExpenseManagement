@@ -21,4 +21,8 @@ class AddExpenseReceiveResource :AndroidResourceProvider(){
     fun getTextCollapse(): String{
         return resourceManager.getString(R.string.text_collapse)
     }
+
+    fun getColorTotalMoney(): Int{
+        return resourceManager.getColor(R.color.color_51c471)
+    }
 }
