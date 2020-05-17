@@ -29,4 +29,7 @@
     <string name="text_loan">Vay nợ</string>
     <string name="text_invest">Đầu tư</string>
     <string name="text_hint_0">0</string>
+    <string name="text_add_category">Thêm hạng mục</string>
+    <string name="text_category_name">Tên hạng mục</string>
+    <string name="add_icon">Thêm icon</string>
 </resources>

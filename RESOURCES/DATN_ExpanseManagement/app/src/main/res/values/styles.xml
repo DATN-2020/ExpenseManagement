@@ -163,6 +163,10 @@
         <item name="android:textColor">@color/color_aaaaaa</item>
     </style>
 
+    <style name="StyleTextView.Small.219DFD">
+        <item name="android:textColor">@color/color_219dfd</item>
+    </style>
+
     <style name="StyleTextView.Small.DB5A5A">
         <item name="android:textColor">@color/color_db5a5a</item>
     </style>
