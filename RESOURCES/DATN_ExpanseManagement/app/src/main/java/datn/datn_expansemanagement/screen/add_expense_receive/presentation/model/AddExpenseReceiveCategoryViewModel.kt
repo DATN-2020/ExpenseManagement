@@ -3,5 +3,5 @@ package datn.datn_expansemanagement.screen.add_expense_receive.presentation.mode
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 
 class AddExpenseReceiveCategoryViewModel (
-
+    var nameCategory: String? = null
 ): ViewModel

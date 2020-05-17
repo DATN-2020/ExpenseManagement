@@ -22,7 +22,19 @@ class AddExpenseReceiveResource :AndroidResourceProvider(){
         return resourceManager.getString(R.string.text_collapse)
     }
 
+    fun getTextCategoryEmpty(): String{
+        return resourceManager.getString(R.string.text_choose_category)
+    }
+
     fun getColorTotalMoney(): Int{
         return resourceManager.getColor(R.color.color_51c471)
+    }
+
+    fun getColorCategory(): Int{
+        return resourceManager.getColor(R.color.black)
+    }
+
+    fun getColorEmpty(): Int{
+        return resourceManager.getColor(R.color.color_bdbec1)
     }
 }

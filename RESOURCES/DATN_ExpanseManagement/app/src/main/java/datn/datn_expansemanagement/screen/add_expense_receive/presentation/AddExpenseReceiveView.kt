@@ -5,19 +5,20 @@ import android.view.ViewGroup
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
-import datn.datn_expansemanagement.core.app.change_screen.Request
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
-import datn.datn_expansemanagement.core.base.presentation.mvp.android.lifecycle.ViewResult
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
+import datn.datn_expansemanagement.core.event.EventBusData
+import datn.datn_expansemanagement.core.event.EventBusLifeCycle
+import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.screen.add_expense_receive.presentation.model.AddExpenseReceiveCategoryViewModel
 import datn.datn_expansemanagement.screen.add_expense_receive.presentation.model.AddExpenseReceiveInfoViewModel
 import datn.datn_expansemanagement.screen.add_expense_receive.presentation.renderer.AddExpenseReceiveCategoryRenderer
 import datn.datn_expansemanagement.screen.add_expense_receive.presentation.renderer.AddExpenseReceiveInfoRenderer
 import datn.datn_expansemanagement.screen.add_expense_receive.presentation.renderer.AddExpenseReceiveTotalMoneyRenderer
-import datn.datn_expansemanagement.screen.category.item_category.presentation.model.ItemCategoryViewModel
+import datn.datn_expansemanagement.screen.main.data.EventBusCategory
 import kotlinx.android.synthetic.main.layout_add_expense_receive.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 
@@ -30,12 +31,31 @@ class AddExpenseReceiveView(mvpActivity: MvpActivity, viewCreator: AndroidMvpVie
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
     private val listData = mutableListOf<ViewModel>()
     private val mResource = AddExpenseReceiveResource()
-    private val mPresenter = AddExpenseReceivePresenter(screenNavigator = AndroidScreenNavigator((mvpActivity)))
+    private val mPresenter =
+        AddExpenseReceivePresenter(screenNavigator = AndroidScreenNavigator((mvpActivity)))
     private var listViewMvp: ListViewMvp? = null
     private val renderInput = LinearRenderConfigFactory.Input(
         context = mvpActivity,
         orientation = LinearRenderConfigFactory.Orientation.VERTICAL
     )
+
+    private val eventBusLifeCycle = EventBusLifeCycle(object : OnActionData<EventBusData> {
+        override fun onAction(data: EventBusData) {
+            when (data) {
+                is EventBusCategory -> {
+                    listData.forEach {
+                        if (it is AddExpenseReceiveCategoryViewModel) {
+                            it.nameCategory = data.data?.name.getValueOrDefaultIsEmpty()
+                        }
+                    }
+
+                    listViewMvp?.setItems(listData)
+                    listViewMvp?.notifyDataChanged()
+                }
+            }
+        }
+    })
+
     private val renderConfig = LinearRenderConfigFactory(renderInput).create()
     private val onClickExpand = object : OnActionData<AddExpenseReceiveInfoViewModel> {
         override fun onAction(data: AddExpenseReceiveInfoViewModel) {
@@ -44,26 +64,15 @@ class AddExpenseReceiveView(mvpActivity: MvpActivity, viewCreator: AndroidMvpVie
         }
     }
 
-    private val onChooseCategory = object : OnActionData<AddExpenseReceiveCategoryViewModel>{
+    private val onChooseCategory = object : OnActionData<AddExpenseReceiveCategoryViewModel> {
         override fun onAction(data: AddExpenseReceiveCategoryViewModel) {
             mPresenter.gotoCategoryActivity()
         }
 
     }
 
-    private var dataCategory : ItemCategoryViewModel? = null
-
-    override fun onViewResult(viewResult: ViewResult) {
-        super.onViewResult(viewResult)
-        if(viewResult.requestCode == Request.REQUEST_CODE_CATEGORY){
-            dataCategory = viewResult.data?.getParcelableExtra(ItemCategoryViewModel::class.java.simpleName)
-//            if (dataCategory != null){
-//
-//            }
-        }
-    }
-
     override fun initCreateView() {
+        addLifeCycle(eventBusLifeCycle)
         initRecycleView()
     }
 
@@ -102,8 +111,20 @@ class AddExpenseReceiveView(mvpActivity: MvpActivity, viewCreator: AndroidMvpVie
 
     private fun initRecycleView() {
         listViewMvp = ListViewMvp(mvpActivity, view.rvAddExpanse, renderConfig)
-        listViewMvp?.addViewRenderer(AddExpenseReceiveCategoryRenderer(mvpActivity, onChooseCategory))
-        listViewMvp?.addViewRenderer(AddExpenseReceiveInfoRenderer(mvpActivity, mResource, onClickExpand))
+        listViewMvp?.addViewRenderer(
+            AddExpenseReceiveCategoryRenderer(
+                mvpActivity,
+                mResource,
+                onChooseCategory
+            )
+        )
+        listViewMvp?.addViewRenderer(
+            AddExpenseReceiveInfoRenderer(
+                mvpActivity,
+                mResource,
+                onClickExpand
+            )
+        )
         listViewMvp?.addViewRenderer(AddExpenseReceiveTotalMoneyRenderer(mvpActivity, mResource))
         listViewMvp?.createView()
     }

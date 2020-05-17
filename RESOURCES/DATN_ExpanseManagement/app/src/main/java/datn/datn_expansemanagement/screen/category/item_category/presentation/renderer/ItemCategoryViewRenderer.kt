@@ -19,7 +19,7 @@ private val onChooseCategory: OnActionData<ItemCategoryViewModel>): ViewRenderer
 
     override fun bindView(model: ItemCategoryViewModel, viewRoot: View) {
         viewRoot.tvCategory.text = model.name
-        viewRoot.clItemCategory.setOnClickListener {
+        viewRoot.tvCategory.setOnClickListener {
             EventFireUtil.fireEvent(onChooseCategory, model)
         }
     }

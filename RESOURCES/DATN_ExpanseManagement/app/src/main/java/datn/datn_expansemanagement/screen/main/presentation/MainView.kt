@@ -4,11 +4,18 @@ import android.content.Context
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
 import datn.datn_expansemanagement.R
+import datn.datn_expansemanagement.core.app.change_screen.Request
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
+import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
+import datn.datn_expansemanagement.core.base.presentation.mvp.android.lifecycle.ViewResult
+import datn.datn_expansemanagement.core.event.EventBusData
+import datn.datn_expansemanagement.core.event.EventBusLifeCycle
 import datn.datn_expansemanagement.screen.account.AccountFragment
 import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
+import datn.datn_expansemanagement.screen.category.item_category.presentation.model.ItemCategoryViewModel
+import datn.datn_expansemanagement.screen.main.data.EventBusCategory
 import datn.datn_expansemanagement.screen.overview.OverviewFragment
 import datn.datn_expansemanagement.screen.report.ReportFragment
 import kotlinx.android.synthetic.main.activity_main.view.*
@@ -28,7 +35,14 @@ class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :
     private var reportFragment: ReportFragment? = null
     private var addExpenseFragment: AddExpenseFragment? = null
 
+    private val eventBusLifeCycle = EventBusLifeCycle(object : OnActionData<EventBusData> {
+        override fun onAction(data: EventBusData) {
+
+        }
+    })
+
     override fun initCreateView() {
+        addLifeCycle(eventBusLifeCycle)
         view.bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
             showFragmentForMenuItem(menuItem.itemId)
             return@setOnNavigationItemSelectedListener true
@@ -47,12 +61,28 @@ class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :
 
     override fun startMvpView() {
         mPresenter.attachView(this)
+        if(isViewResult){
+            eventBusLifeCycle.sendData(EventBusCategory(categoryData))
+        }
         super.startMvpView()
     }
 
     override fun stopMvpView() {
         mPresenter.detachView()
         super.stopMvpView()
+    }
+
+    private var categoryData : ItemCategoryViewModel? = null
+    private var isViewResult = false
+    override fun onViewResult(viewResult: ViewResult) {
+        super.onViewResult(viewResult)
+        when (viewResult.requestCode) {
+            Request.REQUEST_CODE_CATEGORY -> {
+                isViewResult = true
+                categoryData = viewResult.data?.getParcelableExtra(ItemCategoryViewModel::class.java.simpleName)
+//                eventBusLifeCycle.sendData(EventBusCategory())
+            }
+        }
     }
 
     private fun showFragmentForMenuItem(itemId: Int) {
