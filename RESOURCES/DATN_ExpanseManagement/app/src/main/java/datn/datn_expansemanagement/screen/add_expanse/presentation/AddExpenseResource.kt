@@ -21,4 +21,12 @@ class AddExpenseResource : AndroidResourceProvider(){
         return resourceManager.getString(R.string.text_donate)
     }
 
+    fun getColorSelected(): Int{
+        return resourceManager.getColor(R.color.color_219dfd)
+    }
+
+    fun getColorUnSelected(): Int{
+        return resourceManager.getColor(R.color.black)
+    }
+
 }

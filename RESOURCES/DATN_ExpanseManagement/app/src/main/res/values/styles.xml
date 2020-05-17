@@ -527,5 +527,9 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="CustomSearchView" parent="Widget.AppCompat.SearchView">
+        <item name="android:textSize">@dimen/text_14sp</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+    </style>
 
 </resources>

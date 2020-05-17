@@ -26,5 +26,7 @@
     <string name="text_collapse">Thu gọn</string>
     <string name="text_donate">Chi tiền</string>
     <string name="text_receive">Thu tiền</string>
+    <string name="text_loan">Vay nợ</string>
+    <string name="text_invest">Đầu tư</string>
     <string name="text_hint_0">0</string>
 </resources>

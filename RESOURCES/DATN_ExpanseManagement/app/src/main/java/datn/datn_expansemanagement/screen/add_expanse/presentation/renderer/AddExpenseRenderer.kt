@@ -45,12 +45,14 @@ class AddExpenseRenderer(
         }
 
         if (model.isChoose) {
+            viewRoot.tvTypeExpense.setTextColor(mResource.getColorSelected())
             viewRoot.imgSelected.visible()
         } else {
             viewRoot.imgSelected.invisible()
+            viewRoot.tvTypeExpense.setTextColor(mResource.getColorUnSelected())
         }
 
-        viewRoot.tvTypeExpense.setOnClickListener {
+        viewRoot.clItemLayoutAddExpense.setOnClickListener {
             EventFireUtil.fireEvent(onClickTypeExpense, model)
         }
     }

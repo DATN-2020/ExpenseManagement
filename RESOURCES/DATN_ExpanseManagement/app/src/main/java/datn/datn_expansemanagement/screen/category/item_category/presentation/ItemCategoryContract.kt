@@ -1,10 +1,11 @@
-package datn.datn_expansemanagement.screen.add_expense_receive.presentation
+package datn.datn_expansemanagement.screen.category.item_category.presentation
 
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.core.base.presentation.mvp.base.MvpPresenter
 import datn.datn_expansemanagement.core.base.presentation.mvp.base.MvpView
+import datn.datn_expansemanagement.screen.category.presentation.CategoryContract
 
-interface AddExpenseReceiveContract {
+interface ItemCategoryContract {
     interface View : MvpView {
         fun showLoading()
         fun hideLoading()
@@ -12,7 +13,6 @@ interface AddExpenseReceiveContract {
     }
 
     abstract class Presenter : MvpPresenter<View>() {
-        abstract fun getData()
-        abstract fun gotoCategoryActivity()
+        abstract fun getData(tabId: Int)
     }
 }
