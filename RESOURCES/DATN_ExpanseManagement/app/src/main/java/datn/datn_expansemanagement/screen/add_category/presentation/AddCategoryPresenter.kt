@@ -1,10 +1,10 @@
 package datn.datn_expansemanagement.screen.add_category.presentation
 
-import datn.datn_expansemanagement.screen.add_category.domain.AddCategoryMapper
+import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
+import datn.datn_expansemanagement.screen.add_category.presentation.data.TypeCategoryDataIntent
 
-class AddCategoryPresenter : AddCategoryContract.Presenter(){
-    override fun getData() {
-        view?.showData(AddCategoryMapper().map(""))
+class AddCategoryPresenter(private val screenNavigator: AndroidScreenNavigator) : AddCategoryContract.Presenter(){
+    override fun gotoListTypeCategoryActivity(data: TypeCategoryDataIntent?) {
+        screenNavigator.gotoListTypeCategory(data)
     }
-
 }

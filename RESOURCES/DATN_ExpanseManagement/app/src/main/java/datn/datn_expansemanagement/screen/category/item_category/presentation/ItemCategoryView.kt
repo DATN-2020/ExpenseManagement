@@ -15,6 +15,7 @@ import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
+import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.OnItemRvClickedListener
 import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.screen.category.item_category.presentation.model.ItemCategoryViewModel
@@ -44,10 +45,11 @@ class ItemCategoryView(
     private val renderConfig = LinearRenderConfigFactory(renderInput).create()
     private var keyQuery: String? = null
 
-    private val onChooseCategory = object : OnActionData<ItemCategoryViewModel>{
-        override fun onAction(data: ItemCategoryViewModel) {
+    private val onItemRvClickedListener = object : OnItemRvClickedListener<ViewModel>{
+        override fun onItemClicked(view: View, position: Int, dataItem: ViewModel) {
             val intent = Intent()
-            intent.putExtra(ItemCategoryViewModel::class.java.simpleName, data)
+            dataItem as ItemCategoryViewModel
+            intent.putExtra(ItemCategoryViewModel::class.java.simpleName, dataItem)
             mvpActivity.setResult(Activity.RESULT_OK, intent)
             mvpActivity.finish()
         }
@@ -79,7 +81,8 @@ class ItemCategoryView(
 
     private fun initRecycleView() {
         listViewMvp = ListViewMvp(mvpActivity, view.rvCategory, renderConfig)
-        listViewMvp?.addViewRenderer(ItemCategoryViewRenderer(mvpActivity, onChooseCategory))
+        listViewMvp?.addViewRenderer(ItemCategoryViewRenderer(mvpActivity))
+        listViewMvp?.setOnItemRvClickedListener(onItemRvClickedListener)
         listViewMvp?.createView()
     }
 

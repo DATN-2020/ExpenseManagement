@@ -11,8 +11,7 @@ import datn.datn_expansemanagement.kotlinex.view.visible
 import datn.datn_expansemanagement.screen.category.item_category.presentation.model.ItemCategoryViewModel
 import kotlinx.android.synthetic.main.item_category.view.*
 
-class ItemCategoryViewRenderer(context: Context,
-private val onChooseCategory: OnActionData<ItemCategoryViewModel>): ViewRenderer<ItemCategoryViewModel>(context){
+class ItemCategoryViewRenderer(context: Context): ViewRenderer<ItemCategoryViewModel>(context){
     override fun getLayoutId(): Int {
         return R.layout.item_category
     }
@@ -21,9 +20,6 @@ private val onChooseCategory: OnActionData<ItemCategoryViewModel>): ViewRenderer
 
     override fun bindView(model: ItemCategoryViewModel, viewRoot: View) {
         viewRoot.tvCategory.text = model.name
-        viewRoot.tvCategory.setOnClickListener {
-            EventFireUtil.fireEvent(onChooseCategory, model)
-        }
 
         if(model.isChoose){
             viewRoot.imgChecked.visible()

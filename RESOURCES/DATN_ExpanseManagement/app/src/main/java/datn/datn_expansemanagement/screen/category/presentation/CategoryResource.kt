@@ -19,4 +19,8 @@ class CategoryResource : AndroidResourceProvider(){
     fun getTextInvest(): String{
         return resourceManager.getString(R.string.text_invest)
     }
+
+    fun getTitleCategory(): String{
+        return resourceManager.getString(R.string.text_choose_category)
+    }
 }

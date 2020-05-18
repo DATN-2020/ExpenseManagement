@@ -6,6 +6,8 @@ interface Request {
             get() = 1
         val REQUEST_CODE_ADD_CATEGORY: Int
             get() = 2
+        val REQUEST_CODE_TYPE_CATEGORY: Int
+            get() = 3
     }
 
 }

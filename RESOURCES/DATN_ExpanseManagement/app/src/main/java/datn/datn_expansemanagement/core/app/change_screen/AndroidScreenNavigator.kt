@@ -3,8 +3,10 @@ package datn.datn_expansemanagement.core.app.change_screen
 import android.content.Intent
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.screen.add_category.AddCategoryActivity
+import datn.datn_expansemanagement.screen.add_category.presentation.data.TypeCategoryDataIntent
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.model.AddExpenseDonateCategoryViewModel
 import datn.datn_expansemanagement.screen.category.CategoryActivity
+import datn.datn_expansemanagement.screen.list_type_category.ListTypeCategory
 
 class AndroidScreenNavigator constructor(private val mvpActivity: MvpActivity) : ScreenNavigator{
     override fun gotoCategoryActivity(categoryId: Int?) {
@@ -16,5 +18,11 @@ class AndroidScreenNavigator constructor(private val mvpActivity: MvpActivity) :
     override fun gotoAddCategoryActivity() {
         val intent = Intent(mvpActivity, AddCategoryActivity::class.java)
         mvpActivity.startActivityForResult(intent, Request.REQUEST_CODE_ADD_CATEGORY)
+    }
+
+    override fun gotoListTypeCategory(data: TypeCategoryDataIntent?) {
+        val intent = Intent(mvpActivity, ListTypeCategory::class.java)
+        intent.putExtra(TypeCategoryDataIntent::class.java.simpleName, data)
+        mvpActivity.startActivityForResult(intent, Request.REQUEST_CODE_TYPE_CATEGORY)
     }
 }

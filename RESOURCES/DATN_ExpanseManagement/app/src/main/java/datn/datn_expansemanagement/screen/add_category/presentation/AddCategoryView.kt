@@ -1,27 +1,29 @@
 package datn.datn_expansemanagement.screen.add_category.presentation
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.R
+import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
+import datn.datn_expansemanagement.core.app.change_screen.Request
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
+import datn.datn_expansemanagement.core.base.presentation.mvp.android.lifecycle.ViewResult
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
+import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.kotlinex.view.gone
 import datn.datn_expansemanagement.kotlinex.view.visible
 import datn.datn_expansemanagement.screen.ValidateItemViewModel
+import datn.datn_expansemanagement.screen.add_category.presentation.data.TypeCategoryDataIntent
 import datn.datn_expansemanagement.screen.add_category.presentation.model.CategoryDataIntent
-import datn.datn_expansemanagement.screen.add_category.presentation.renderer.TypeCategoryItemViewRenderer
-import kotlinx.android.synthetic.main.dialog_type_category.*
+import datn.datn_expansemanagement.screen.list_type_category.presentation.model.TypeCategoryItemViewModel
 import kotlinx.android.synthetic.main.layout_add_category.view.*
 import kotlinx.android.synthetic.main.layout_toolbar_add_category.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
@@ -39,9 +41,9 @@ class AddCategoryView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.Vie
         orientation = LinearRenderConfigFactory.Orientation.VERTICAL
     )
     private val renderConfig = LinearRenderConfigFactory(renderInput).create()
-    private val mPresenter = AddCategoryPresenter()
+    private val mPresenter = AddCategoryPresenter(screenNavigator = AndroidScreenNavigator(mvpActivity))
     private val mResource = AddCategoryResource()
-    private var dialogChooseTypeCategory : Dialog? = null
+    private var dataType : TypeCategoryDataIntent? = null
 
     override fun initCreateView() {
         mvpActivity.setFullScreen()
@@ -71,14 +73,8 @@ class AddCategoryView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.Vie
         })
 
         view.tvChooseCategory.setOnClickListener {
-            showDialogChooseTypeCategory()
+            mPresenter.gotoListTypeCategoryActivity(dataType)
         }
-
-        initRecycleView()
-    }
-
-    private fun showDialogChooseTypeCategory(){
-        dialogChooseTypeCategory?.show()
     }
 
     private fun validationName(model: ValidateItemViewModel): Boolean {
@@ -107,38 +103,24 @@ class AddCategoryView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.Vie
         }
     }
 
+    override fun onViewResult(viewResult: ViewResult) {
+        super.onViewResult(viewResult)
+        when (viewResult.requestCode) {
+            Request.REQUEST_CODE_TYPE_CATEGORY -> {
+                var typeData : TypeCategoryItemViewModel? = null
+                typeData = viewResult.data?.getParcelableExtra(TypeCategoryItemViewModel::class.java.simpleName)
+                dataType = TypeCategoryDataIntent(id = typeData?.id.getValueOrDefaultIsZero())
+                view.tvChooseCategory.text = typeData?.name.getValueOrDefaultIsEmpty()
+            }
+        }
+    }
+
     override fun showLoading() {
         loadingView.show()
     }
 
     override fun hideLoading() {
         loadingView.hide()
-    }
-
-    override fun showData(list: MutableList<ViewModel>) {
-        this.listData.clear()
-        if (list.isNotEmpty()) {
-            this.listData.addAll(list)
-        }
-
-        listViewMvp?.setItems(this.listData)
-        listViewMvp?.notifyDataChanged()
-    }
-
-    private fun initRecycleView(){
-        val layoutView = LayoutInflater.from(mvpActivity)
-            .inflate(R.layout.dialog_type_category, null, false)
-        dialogChooseTypeCategory = Dialog(mvpActivity, R.style.DialogNotify)
-        dialogChooseTypeCategory?.setContentView(layoutView)
-//        dialogChooseTypeCategory?.show()
-        listViewMvp = ListViewMvp(mvpActivity, dialogChooseTypeCategory!!.rvTypeCategory, renderConfig)
-        listViewMvp?.addViewRenderer(TypeCategoryItemViewRenderer(mvpActivity))
-        listViewMvp?.createView()
-    }
-
-    override fun initData() {
-        super.initData()
-        mPresenter.getData()
     }
 
     override fun startMvpView() {

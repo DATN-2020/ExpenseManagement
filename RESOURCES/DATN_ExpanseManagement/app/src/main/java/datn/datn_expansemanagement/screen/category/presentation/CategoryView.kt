@@ -51,6 +51,7 @@ class CategoryView(
             mPresenter.gotoAddCategoryActivity()
         }
         categoryId = itemId
+        view.tvToolbar.text = mResource.getTitleCategory()
     }
 
     override fun initData() {

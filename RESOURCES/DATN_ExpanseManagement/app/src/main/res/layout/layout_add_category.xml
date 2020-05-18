@@ -102,8 +102,8 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/spacing_40dp"
+        android:layout_height="@dimen/spacing_40dp"
         app:layout_constraintBottom_toBottomOf="@id/tvChooseCategory"
         app:layout_constraintEnd_toEndOf="@id/imgAddIcon"
         app:layout_constraintStart_toStartOf="@id/imgAddIcon"

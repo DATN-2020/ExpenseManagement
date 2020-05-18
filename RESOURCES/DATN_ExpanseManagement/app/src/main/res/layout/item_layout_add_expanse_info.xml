@@ -90,7 +90,7 @@
             app:layout_constraintBottom_toBottomOf="@id/edtLocation"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/edtLocation"
-            app:srcCompat="@drawable/ic_wallet" />
+            app:srcCompat="@drawable/ic_location_on_black_24dp" />
 
         <TextView
             android:id="@+id/edtLocation"
@@ -100,7 +100,7 @@
             android:layout_marginTop="@dimen/spacing_20dp"
             android:background="?attr/selectableItemBackground"
             android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
-            android:hint="@string/text_hint_for_friend"
+            android:hint="@string/text_location"
             android:padding="@dimen/spacing_10dp"
             android:paddingStart="@dimen/spacing_20dp"
             app:layout_constraintEnd_toEndOf="parent"
