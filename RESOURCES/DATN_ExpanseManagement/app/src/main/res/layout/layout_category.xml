@@ -7,7 +7,9 @@
         android:id="@+id/layoutToolbar"
         layout="@layout/toolbar_category"/>
     <com.google.android.material.tabs.TabLayout
-        app:tabPaddingStart="@dimen/spacing_72dp"
+        app:tabPaddingStart="@dimen/spacing_40dp"
+        app:tabPaddingEnd="@dimen/spacing_40dp"
+        app:tabGravity="center"
         app:tabMode="scrollable"
         android:background="@color/color_219dfd"
         app:tabSelectedTextColor="@color/white"

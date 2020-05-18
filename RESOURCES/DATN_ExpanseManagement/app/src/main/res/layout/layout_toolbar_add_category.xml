@@ -28,7 +28,7 @@
     <ImageView
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="@dimen/spacing_6dp"
-        android:id="@+id/imgAdd"
+        android:id="@+id/imgSave"
         android:layout_marginEnd="@dimen/spacing_20dp"
         android:layout_width="@dimen/spacing_40dp"
         android:layout_height="@dimen/spacing_40dp"

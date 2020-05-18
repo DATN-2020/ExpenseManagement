@@ -4,6 +4,8 @@ interface Request {
     companion object{
         val REQUEST_CODE_CATEGORY: Int
             get() = 1
+        val REQUEST_CODE_ADD_CATEGORY: Int
+            get() = 2
     }
 
 }

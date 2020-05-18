@@ -13,5 +13,6 @@ interface AddExpenseDonateContract {
 
     abstract class Presenter : MvpPresenter<View>() {
         abstract fun getData()
+        abstract fun gotoCategoryActivity()
     }
 }

@@ -32,4 +32,6 @@
     <string name="text_add_category">Thêm hạng mục</string>
     <string name="text_category_name">Tên hạng mục</string>
     <string name="add_icon">Thêm icon</string>
+    <string name="text_warning_add_category_title">Vui lòng nhập tên hạng mục</string>
+    <string name="text_warning_empty">Xin vui lòng nhập thông tin</string>
 </resources>

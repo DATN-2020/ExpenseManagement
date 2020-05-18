@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.R
+import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
@@ -15,6 +16,7 @@ import datn.datn_expansemanagement.screen.account.item_account.ItemAccountFragme
 import datn.datn_expansemanagement.screen.account.presentation.AccountView
 import datn.datn_expansemanagement.screen.account.presentation.model.TabItemViewModel
 import datn.datn_expansemanagement.screen.category.item_category.ItemCategoryFragment
+import kotlinex.view.hideKeyboard
 import kotlinx.android.synthetic.main.layout_category.view.*
 import kotlinx.android.synthetic.main.toolbar_category.view.*
 
@@ -27,7 +29,7 @@ class CategoryView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCr
     private val adapter = ViewPagerAdapter(mvpActivity.supportFragmentManager)
 
     private val mResource = CategoryResource()
-    private val mPresenter =  CategoryPresenter(mResource)
+    private val mPresenter =  CategoryPresenter(mResource, screenNavigator = AndroidScreenNavigator((mvpActivity)))
 
     companion object{
         val listTab = mutableListOf<ViewModel>()
@@ -37,6 +39,10 @@ class CategoryView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCr
         mvpActivity.setFullScreen()
         view.imgBack.setOnClickListener {
             mvpActivity.onBackPressed()
+        }
+
+        view.imgAdd.setOnClickListener {
+            mPresenter.gotoAddCategoryActivity()
         }
     }
 

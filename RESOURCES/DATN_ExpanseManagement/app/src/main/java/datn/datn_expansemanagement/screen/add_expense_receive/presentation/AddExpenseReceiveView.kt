@@ -19,6 +19,7 @@ import datn.datn_expansemanagement.screen.add_expense_receive.presentation.rende
 import datn.datn_expansemanagement.screen.add_expense_receive.presentation.renderer.AddExpenseReceiveInfoRenderer
 import datn.datn_expansemanagement.screen.add_expense_receive.presentation.renderer.AddExpenseReceiveTotalMoneyRenderer
 import datn.datn_expansemanagement.screen.main.data.EventBusCategory
+import kotlinex.view.hideKeyboard
 import kotlinx.android.synthetic.main.layout_add_expense_receive.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 

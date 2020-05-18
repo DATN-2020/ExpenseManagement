@@ -25,4 +25,16 @@ class AddExpenseDonateResource : AndroidResourceProvider(){
     fun getColorTotalMoney(): Int{
         return resourceManager.getColor(R.color.color_ee403f)
     }
+
+    fun getTextCategoryEmpty(): String{
+        return resourceManager.getString(R.string.text_choose_category)
+    }
+
+    fun getColorCategory(): Int{
+        return resourceManager.getColor(R.color.black)
+    }
+
+    fun getColorEmpty(): Int{
+        return resourceManager.getColor(R.color.color_bdbec1)
+    }
 }

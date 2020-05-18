@@ -42,6 +42,19 @@
         android:paddingStart="@dimen/spacing_14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutToolbar" />
+
+    <TextView
+        android:id="@+id/tvWarning"
+        android:visibility="gone"
+        android:paddingEnd="@dimen/spacing_20dp"
+        android:gravity="end"
+        style="@style/StyleTextView.Small.DB5A5A"
+        android:text="@string/text_warning_add_category_title"
+        app:layout_constraintEnd_toEndOf="@id/edtCategoryName"
+        app:layout_constraintStart_toStartOf="@id/edtCategoryName"
+        app:layout_constraintTop_toBottomOf="@id/edtCategoryName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
     <View
         android:layout_marginTop="@dimen/spacing_20dp"
         android:background="@color/black"
