@@ -7,6 +7,7 @@ import datn.datn_expansemanagement.screen.add_category.presentation.data.TypeCat
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.model.AddExpenseDonateCategoryViewModel
 import datn.datn_expansemanagement.screen.category.CategoryActivity
 import datn.datn_expansemanagement.screen.list_type_category.ListTypeCategory
+import datn.datn_expansemanagement.screen.list_wallet.ListWalletActivity
 
 class AndroidScreenNavigator constructor(private val mvpActivity: MvpActivity) : ScreenNavigator{
     override fun gotoCategoryActivity(categoryId: Int?) {
@@ -24,5 +25,10 @@ class AndroidScreenNavigator constructor(private val mvpActivity: MvpActivity) :
         val intent = Intent(mvpActivity, ListTypeCategory::class.java)
         intent.putExtra(TypeCategoryDataIntent::class.java.simpleName, data)
         mvpActivity.startActivityForResult(intent, Request.REQUEST_CODE_TYPE_CATEGORY)
+    }
+
+    override fun gotoChooseWalletActivity() {
+        val intent = Intent(mvpActivity, ListWalletActivity::class.java)
+        mvpActivity.startActivityForResult(intent, Request.REQUEST_CODE_WALLET)
     }
 }

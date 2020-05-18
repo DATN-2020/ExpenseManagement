@@ -8,6 +8,8 @@ interface Request {
             get() = 2
         val REQUEST_CODE_TYPE_CATEGORY: Int
             get() = 3
+        val REQUEST_CODE_WALLET: Int
+            get() = 4
     }
 
 }

@@ -13,7 +13,8 @@ import kotlinx.android.synthetic.main.item_layout_add_expanse_choose_category.vi
 class AddExpenseDonateCategoryRenderer(
     context: Context,
     private val mResource: AddExpenseDonateResource,
-    private val onChooseCategory: OnActionData<AddExpenseDonateCategoryViewModel>
+    private val onChooseCategory: OnActionData<AddExpenseDonateCategoryViewModel>,
+    private val onChooseWallet: OnActionData<AddExpenseDonateCategoryViewModel>
 ) :
     ViewRenderer<AddExpenseDonateCategoryViewModel>(context) {
     override fun getLayoutId(): Int {
@@ -33,6 +34,10 @@ class AddExpenseDonateCategoryRenderer(
         }
         viewRoot.tvChooseCategory.setOnClickListener {
             EventFireUtil.fireEvent(onChooseCategory, model)
+        }
+
+        viewRoot.tvWallet.setOnClickListener {
+            EventFireUtil.fireEvent(onChooseWallet, model)
         }
     }
 

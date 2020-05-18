@@ -38,7 +38,8 @@ class AddExpenseDonateView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
     private val mResource = AddExpenseDonateResource()
-    private val mPresenter = AddExpenseDonatePresenter(screenNavigator = AndroidScreenNavigator((mvpActivity)))
+    private val mPresenter =
+        AddExpenseDonatePresenter(screenNavigator = AndroidScreenNavigator((mvpActivity)))
     private val listData = mutableListOf<ViewModel>()
     private var listViewMvp: ListViewMvp? = null
     private val renderInput = LinearRenderConfigFactory.Input(
@@ -73,11 +74,17 @@ class AddExpenseDonateView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView
 
     private val onChooseCategory = object : OnActionData<AddExpenseDonateCategoryViewModel> {
         override fun onAction(data: AddExpenseDonateCategoryViewModel) {
-            if(data.id != null){
+            if (data.id != null) {
                 mPresenter.gotoCategoryActivity(data.id)
-            }else{
+            } else {
                 mPresenter.gotoCategoryActivity()
             }
+        }
+    }
+
+    private val onChooseWallet = object : OnActionData<AddExpenseDonateCategoryViewModel> {
+        override fun onAction(data: AddExpenseDonateCategoryViewModel) {
+            mPresenter.gotoChooseWalletActivity()
         }
     }
 
@@ -121,7 +128,14 @@ class AddExpenseDonateView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView
 
     private fun initRecycleView() {
         listViewMvp = ListViewMvp(mvpActivity, view.rvAddExpanseDonate, renderConfig)
-        listViewMvp?.addViewRenderer(AddExpenseDonateCategoryRenderer(mvpActivity, mResource, onChooseCategory))
+        listViewMvp?.addViewRenderer(
+            AddExpenseDonateCategoryRenderer(
+                mvpActivity,
+                mResource,
+                onChooseCategory,
+                onChooseWallet
+            )
+        )
         listViewMvp?.addViewRenderer(
             AddExpenseDonateInfoRenderer(
                 mvpActivity,

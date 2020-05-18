@@ -7,4 +7,5 @@ interface ScreenNavigator {
     fun gotoCategoryActivity(categoryId: Int? = null)
     fun gotoListTypeCategory(data: TypeCategoryDataIntent? = null)
     fun gotoAddCategoryActivity()
+    fun gotoChooseWalletActivity()
 }

@@ -36,4 +36,5 @@
     <string name="text_warning_empty">Xin vui lòng nhập thông tin</string>
     <string name="text_title_category">Hạng mục cha</string>
     <string name="text_location">Địa điểm</string>
+    <string name="text_choose_wallet">Chọn tài khoản</string>
 </resources>
