@@ -8,7 +8,7 @@ class AddExpenseDonatePresenter(private val screenNavigator: AndroidScreenNaviga
         view?.showData(AddExpenseDonateMapper().map(""))
     }
 
-    override fun gotoCategoryActivity() {
-        screenNavigator.gotoCategoryActivity()
+    override fun gotoCategoryActivity(categoryId: Int?) {
+        screenNavigator.gotoCategoryActivity(categoryId)
     }
 }

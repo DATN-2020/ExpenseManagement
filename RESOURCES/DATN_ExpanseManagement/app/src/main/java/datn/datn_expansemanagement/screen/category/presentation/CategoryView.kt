@@ -20,19 +20,25 @@ import kotlinex.view.hideKeyboard
 import kotlinx.android.synthetic.main.layout_category.view.*
 import kotlinx.android.synthetic.main.toolbar_category.view.*
 
-class CategoryView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator): AndroidMvpView(mvpActivity, viewCreator), CategoryContract.View{
+class CategoryView(
+    mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator,
+    private val itemId: Int? = null
+) : AndroidMvpView(mvpActivity, viewCreator), CategoryContract.View {
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
 
     class ViewCreator(context: Context, viewGroup: ViewGroup?) :
         AndroidMvpView.LayoutViewCreator(R.layout.layout_category, context, viewGroup)
+
     private val adapter = ViewPagerAdapter(mvpActivity.supportFragmentManager)
 
     private val mResource = CategoryResource()
-    private val mPresenter =  CategoryPresenter(mResource, screenNavigator = AndroidScreenNavigator((mvpActivity)))
+    private val mPresenter =
+        CategoryPresenter(mResource, screenNavigator = AndroidScreenNavigator((mvpActivity)))
 
-    companion object{
+    companion object {
         val listTab = mutableListOf<ViewModel>()
+        var categoryId : Int? = null
     }
 
     override fun initCreateView() {
@@ -44,6 +50,7 @@ class CategoryView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCr
         view.imgAdd.setOnClickListener {
             mPresenter.gotoAddCategoryActivity()
         }
+        categoryId = itemId
     }
 
     override fun initData() {
@@ -71,7 +78,7 @@ class CategoryView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCr
 
     override fun showData(list: MutableList<ViewModel>) {
         listTab.clear()
-        if(list.isNotEmpty()){
+        if (list.isNotEmpty()) {
             listTab.addAll(list)
         }
 
@@ -83,7 +90,7 @@ class CategoryView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCr
         view.vpCategory.adapter = adapter
         view.tlCategory.setupWithViewPager(view.vpCategory)
         listTab.forEachIndexed { index, viewModel ->
-            if(viewModel is TabItemViewModel) {
+            if (viewModel is TabItemViewModel) {
                 view.tlCategory.getTabAt(index)?.text = viewModel.name
             }
         }
@@ -95,7 +102,7 @@ class CategoryView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCr
         private val mFragmentList: SparseArray<Fragment> = SparseArray()
 
         override fun getItem(position: Int): Fragment {
-            return ItemCategoryFragment.newInstance(listTab[position])
+            return ItemCategoryFragment.newInstance(listTab[position], categoryId)
         }
 
         override fun getCount(): Int {

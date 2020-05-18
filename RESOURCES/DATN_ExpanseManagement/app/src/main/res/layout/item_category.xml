@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:id="@+id/clItemCategory"
     android:layout_height="wrap_content"
-    android:padding="@dimen/spacing_10dp"
+    android:paddingTop="@dimen/spacing_10dp"
+    android:paddingEnd="@dimen/spacing_20dp"
+    android:paddingStart="@dimen/spacing_20dp"
     android:background="?attr/selectableItemBackground"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <de.hdodenhof.circleimageview.CircleImageView

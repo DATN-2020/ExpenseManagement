@@ -24,7 +24,8 @@ import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 
 class ItemCategoryView(
     mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator,
-    private val tabId: Int?
+    private val tabId: Int?,
+    private val itemId: Int? = null
 ) : AndroidMvpView(mvpActivity, viewCreator), ItemCategoryContract.View {
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
@@ -84,7 +85,7 @@ class ItemCategoryView(
 
     override fun initData() {
         super.initData()
-        mPresenter.getData(tabId.getValueOrDefaultIsZero())
+        mPresenter.getData(tabId.getValueOrDefaultIsZero(), itemId)
     }
 
     override fun startMvpView() {

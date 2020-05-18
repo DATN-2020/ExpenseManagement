@@ -16,6 +16,7 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivit
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
 import datn.datn_expansemanagement.core.event.EventBusData
 import datn.datn_expansemanagement.core.event.EventBusLifeCycle
+import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.model.AddExpenseDonateCategoryViewModel
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.model.AddExpenseDonateInfoViewModel
@@ -58,6 +59,7 @@ class AddExpenseDonateView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView
                 is EventBusCategory -> {
                     listData.forEach {
                         if (it is AddExpenseDonateCategoryViewModel) {
+                            it.id = data.data?.id.getValueOrDefaultIsZero()
                             it.nameCategory = data.data?.name.getValueOrDefaultIsEmpty()
                         }
                     }
@@ -71,9 +73,12 @@ class AddExpenseDonateView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView
 
     private val onChooseCategory = object : OnActionData<AddExpenseDonateCategoryViewModel> {
         override fun onAction(data: AddExpenseDonateCategoryViewModel) {
-            mPresenter.gotoCategoryActivity()
+            if(data.id != null){
+                mPresenter.gotoCategoryActivity(data.id)
+            }else{
+                mPresenter.gotoCategoryActivity()
+            }
         }
-
     }
 
     override fun initCreateView() {

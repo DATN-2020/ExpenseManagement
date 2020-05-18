@@ -11,10 +11,12 @@ class ItemCategoryFragment : MvpFragment(){
 
     companion object {
         private const val KEY_TAB = "KEY_TAB"
+        private const val CATEGORY_ID = "CATEGORY_ID"
 
-        fun newInstance(data: ViewModel): ItemCategoryFragment {
+        fun newInstance(data: ViewModel, categoryId: Int? = null): ItemCategoryFragment {
             val recipeTabFragment = ItemCategoryFragment()
             val bundle = Bundle()
+            categoryId?.let { bundle.putInt(CATEGORY_ID, it) }
             if(data is TabItemViewModel){
                 bundle.putInt(KEY_TAB, data.id)
             }
@@ -25,7 +27,8 @@ class ItemCategoryFragment : MvpFragment(){
 
     override fun createAndroidMvpView(): AndroidMvpView {
         val tabId = arguments?.getInt(KEY_TAB)
-        return ItemCategoryView(getMvpActivity(), ItemCategoryView.ViewCreator(getMvpActivity(), null), tabId)
+        val categoryId = arguments?.getInt((CATEGORY_ID))
+        return ItemCategoryView(getMvpActivity(), ItemCategoryView.ViewCreator(getMvpActivity(), null), tabId, categoryId)
     }
 
 }
