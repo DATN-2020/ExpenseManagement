@@ -12,10 +12,15 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivit
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.lifecycle.ViewResult
 import datn.datn_expansemanagement.core.event.EventBusData
 import datn.datn_expansemanagement.core.event.EventBusLifeCycle
+import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
+import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.screen.account.AccountFragment
 import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
 import datn.datn_expansemanagement.screen.category.item_category.presentation.model.ItemCategoryViewModel
+import datn.datn_expansemanagement.screen.list_wallet.presentation.model.ListWalletItemViewModel
+import datn.datn_expansemanagement.screen.main.data.CategoryResultData
 import datn.datn_expansemanagement.screen.main.data.EventBusCategory
+import datn.datn_expansemanagement.screen.main.data.EventBusWallet
 import datn.datn_expansemanagement.screen.overview.OverviewFragment
 import datn.datn_expansemanagement.screen.report.ReportFragment
 import kotlinx.android.synthetic.main.activity_main.view.*
@@ -61,8 +66,12 @@ class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :
 
     override fun startMvpView() {
         mPresenter.attachView(this)
-        if(isViewResult){
+        if(isCategory){
             eventBusLifeCycle.sendData(EventBusCategory(categoryData))
+        }
+
+        if(isWallet){
+            eventBusLifeCycle.sendData(EventBusWallet(walletData))
         }
         super.startMvpView()
     }
@@ -73,14 +82,19 @@ class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :
     }
 
     private var categoryData : ItemCategoryViewModel? = null
-    private var isViewResult = false
+    private var walletData : ListWalletItemViewModel? = null
+    private var isCategory = false
+    private var isWallet = false
     override fun onViewResult(viewResult: ViewResult) {
         super.onViewResult(viewResult)
         when (viewResult.requestCode) {
             Request.REQUEST_CODE_CATEGORY -> {
-                isViewResult = true
+                isCategory = true
                 categoryData = viewResult.data?.getParcelableExtra(ItemCategoryViewModel::class.java.simpleName)
-//                eventBusLifeCycle.sendData(EventBusCategory())
+            }
+            Request.REQUEST_CODE_WALLET -> {
+                isWallet = true
+                walletData  = viewResult.data?.getParcelableExtra(ListWalletItemViewModel::class.java.simpleName)
             }
         }
     }

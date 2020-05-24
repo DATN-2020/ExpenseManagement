@@ -8,13 +8,12 @@ import android.view.ViewGroup
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
-import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.OnItemRvClickedListener
 import datn.datn_expansemanagement.kotlinex.view.gone
-import datn.datn_expansemanagement.screen.add_category.presentation.data.TypeCategoryDataIntent
+import datn.datn_expansemanagement.screen.add_category.data.TypeCategoryDataIntent
 import datn.datn_expansemanagement.screen.list_type_category.presentation.model.TypeCategoryItemViewModel
 import datn.datn_expansemanagement.screen.list_type_category.presentation.renderer.TypeCategoryItemViewRenderer
 import kotlinx.android.synthetic.main.layout_list_type_category.view.*
@@ -53,6 +52,18 @@ private val type: TypeCategoryDataIntent? = null): AndroidMvpView(mvpActivity, v
         view.imgAdd.gone()
         mvpActivity.setFullScreen()
         initRecycleView()
+        view.imgBack.setOnClickListener {
+            listData.forEach {
+                if(it is TypeCategoryItemViewModel){
+                    if(it.isChoose){
+                        val intent = Intent()
+                        intent.putExtra(TypeCategoryItemViewModel::class.java.simpleName, it)
+                        mvpActivity.setResult(Activity.RESULT_OK, intent)
+                    }
+                }
+            }
+            mvpActivity.finish()
+        }
     }
 
     override fun showLoading() {

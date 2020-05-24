@@ -22,6 +22,10 @@ class AddExpenseReceiveResource :AndroidResourceProvider(){
         return resourceManager.getString(R.string.text_collapse)
     }
 
+    fun getTextWalletEmpty(): String{
+        return resourceManager.getString(R.string.text_choose_wallet)
+    }
+
     fun getTextCategoryEmpty(): String{
         return resourceManager.getString(R.string.text_choose_category)
     }

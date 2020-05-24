@@ -5,7 +5,11 @@ import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class AddExpenseDonateCategoryViewModel (
-    var id: Int? = null,
-    var nameCategory: String? = null
+class AddExpenseCategoryViewModel (
+    var idCategory: Int? = null,
+    var nameCategory: String? = null,
+    var idWallet: Int? = null,
+    var nameWallet: String? = null,
+    var date: String? = null,
+    var time: String? = null
 ): ViewModel, Parcelable

@@ -1,16 +1,12 @@
 package datn.datn_expansemanagement.screen.add_expense_donate.presentation
 
 import android.content.Context
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.ViewGroup
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
-import datn.datn_expansemanagement.core.app.util.Utils
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
-import datn.datn_expansemanagement.core.base.domain.listener.OnActionNotify
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
@@ -18,15 +14,13 @@ import datn.datn_expansemanagement.core.event.EventBusData
 import datn.datn_expansemanagement.core.event.EventBusLifeCycle
 import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
-import datn.datn_expansemanagement.screen.add_expense_donate.presentation.model.AddExpenseDonateCategoryViewModel
+import datn.datn_expansemanagement.screen.add_expense_donate.presentation.model.AddExpenseCategoryViewModel
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.model.AddExpenseDonateInfoViewModel
-import datn.datn_expansemanagement.screen.add_expense_donate.presentation.renderer.AddExpenseDonateCategoryRenderer
+import datn.datn_expansemanagement.screen.add_expense_donate.presentation.renderer.AddExpenseCategoryRenderer
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.renderer.AddExpenseDonateInfoRenderer
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.renderer.AddExpenseDonateTotalMoneyRenderer
-import datn.datn_expansemanagement.screen.add_expense_receive.presentation.model.AddExpenseReceiveCategoryViewModel
 import datn.datn_expansemanagement.screen.main.data.EventBusCategory
-import kotlinex.view.hideKeyboard
-import kotlinx.android.synthetic.main.item_layout_add_expanse_total_money.view.*
+import datn.datn_expansemanagement.screen.main.data.EventBusWallet
 import kotlinx.android.synthetic.main.layout_add_expense_donate.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 
@@ -59,32 +53,43 @@ class AddExpenseDonateView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView
             when (data) {
                 is EventBusCategory -> {
                     listData.forEach {
-                        if (it is AddExpenseDonateCategoryViewModel) {
-                            it.id = data.data?.id.getValueOrDefaultIsZero()
+                        if (it is AddExpenseCategoryViewModel) {
+                            it.idCategory = data.data?.id.getValueOrDefaultIsZero()
                             it.nameCategory = data.data?.name.getValueOrDefaultIsEmpty()
                         }
                     }
-
-                    listViewMvp?.setItems(listData)
-                    listViewMvp?.notifyDataChanged()
+                }
+                is EventBusWallet->{
+                    listData.forEach {
+                        if (it is AddExpenseCategoryViewModel) {
+                            it.idWallet = data.data?.id.getValueOrDefaultIsZero()
+                            it.nameWallet = data.data?.name.getValueOrDefaultIsEmpty()
+                        }
+                    }
                 }
             }
+            listViewMvp?.setItems(listData)
+            listViewMvp?.notifyDataChanged()
         }
     })
 
-    private val onChooseCategory = object : OnActionData<AddExpenseDonateCategoryViewModel> {
-        override fun onAction(data: AddExpenseDonateCategoryViewModel) {
-            if (data.id != null) {
-                mPresenter.gotoCategoryActivity(data.id)
+    private val onChooseCategory = object : OnActionData<AddExpenseCategoryViewModel> {
+        override fun onAction(data: AddExpenseCategoryViewModel) {
+            if (data.idCategory != null) {
+                mPresenter.gotoCategoryActivity(data.idCategory)
             } else {
                 mPresenter.gotoCategoryActivity()
             }
         }
     }
 
-    private val onChooseWallet = object : OnActionData<AddExpenseDonateCategoryViewModel> {
-        override fun onAction(data: AddExpenseDonateCategoryViewModel) {
-            mPresenter.gotoChooseWalletActivity()
+    private val onChooseWallet = object : OnActionData<AddExpenseCategoryViewModel> {
+        override fun onAction(data: AddExpenseCategoryViewModel) {
+            if(data.idWallet != null){
+                mPresenter.gotoChooseWalletActivity(data.idWallet)
+            }else{
+                mPresenter.gotoChooseWalletActivity()
+            }
         }
     }
 
@@ -129,7 +134,7 @@ class AddExpenseDonateView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView
     private fun initRecycleView() {
         listViewMvp = ListViewMvp(mvpActivity, view.rvAddExpanseDonate, renderConfig)
         listViewMvp?.addViewRenderer(
-            AddExpenseDonateCategoryRenderer(
+            AddExpenseCategoryRenderer(
                 mvpActivity,
                 mResource,
                 onChooseCategory,

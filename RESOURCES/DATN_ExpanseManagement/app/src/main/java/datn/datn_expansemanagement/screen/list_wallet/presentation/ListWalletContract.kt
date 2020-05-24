@@ -12,7 +12,7 @@ interface ListWalletContract {
     }
 
     abstract class Presenter : MvpPresenter<View>() {
-        abstract fun getData()
+        abstract fun getData(walletId: Int? = null)
         abstract fun gotoCreateWalletActivity()
     }
 }

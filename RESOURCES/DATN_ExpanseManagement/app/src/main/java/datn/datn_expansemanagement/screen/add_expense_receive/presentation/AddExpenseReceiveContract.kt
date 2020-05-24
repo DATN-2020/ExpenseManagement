@@ -13,6 +13,7 @@ interface AddExpenseReceiveContract {
 
     abstract class Presenter : MvpPresenter<View>() {
         abstract fun getData()
-        abstract fun gotoCategoryActivity()
+        abstract fun gotoCategoryActivity(categoryId: Int? = null)
+        abstract fun gotoChooseWalletActivity(walletId: Int? = null)
     }
 }

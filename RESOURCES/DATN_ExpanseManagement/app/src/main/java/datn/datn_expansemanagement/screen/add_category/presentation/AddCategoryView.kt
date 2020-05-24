@@ -1,7 +1,6 @@
 package datn.datn_expansemanagement.screen.add_category.presentation
 
 import android.app.Activity
-import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.text.Editable
@@ -21,7 +20,7 @@ import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.kotlinex.view.gone
 import datn.datn_expansemanagement.kotlinex.view.visible
 import datn.datn_expansemanagement.screen.ValidateItemViewModel
-import datn.datn_expansemanagement.screen.add_category.presentation.data.TypeCategoryDataIntent
+import datn.datn_expansemanagement.screen.add_category.data.TypeCategoryDataIntent
 import datn.datn_expansemanagement.screen.add_category.presentation.model.CategoryDataIntent
 import datn.datn_expansemanagement.screen.list_type_category.presentation.model.TypeCategoryItemViewModel
 import kotlinx.android.synthetic.main.layout_add_category.view.*

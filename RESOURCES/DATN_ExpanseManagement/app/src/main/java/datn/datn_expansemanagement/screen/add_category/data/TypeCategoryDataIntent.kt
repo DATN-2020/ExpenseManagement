@@ -1,4 +1,4 @@
-package datn.datn_expansemanagement.screen.add_category.presentation.data
+package datn.datn_expansemanagement.screen.add_category.data
 
 import android.os.Parcelable
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel

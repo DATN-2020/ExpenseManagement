@@ -24,7 +24,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".screen.list_wallet.ListWalletActivity"></activity>
         <activity
-            android:name=".screen.list_type_category.ListTypeCategory"
+            android:name=".screen.list_type_category.ListTypeCategoryActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />

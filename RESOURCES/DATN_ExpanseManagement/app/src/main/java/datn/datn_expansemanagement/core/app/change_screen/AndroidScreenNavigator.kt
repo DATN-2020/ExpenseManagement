@@ -3,16 +3,16 @@ package datn.datn_expansemanagement.core.app.change_screen
 import android.content.Intent
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.screen.add_category.AddCategoryActivity
-import datn.datn_expansemanagement.screen.add_category.presentation.data.TypeCategoryDataIntent
-import datn.datn_expansemanagement.screen.add_expense_donate.presentation.model.AddExpenseDonateCategoryViewModel
+import datn.datn_expansemanagement.screen.add_category.data.TypeCategoryDataIntent
+import datn.datn_expansemanagement.screen.add_expense_donate.presentation.model.AddExpenseCategoryViewModel
 import datn.datn_expansemanagement.screen.category.CategoryActivity
-import datn.datn_expansemanagement.screen.list_type_category.ListTypeCategory
+import datn.datn_expansemanagement.screen.list_type_category.ListTypeCategoryActivity
 import datn.datn_expansemanagement.screen.list_wallet.ListWalletActivity
 
 class AndroidScreenNavigator constructor(private val mvpActivity: MvpActivity) : ScreenNavigator{
     override fun gotoCategoryActivity(categoryId: Int?) {
         val intent = Intent(mvpActivity, CategoryActivity::class.java)
-        intent.putExtra(AddExpenseDonateCategoryViewModel::class.java.simpleName, categoryId)
+        intent.putExtra(AddExpenseCategoryViewModel::class.java.simpleName, categoryId)
         mvpActivity.startActivityForResult(intent, Request.REQUEST_CODE_CATEGORY)
     }
 
@@ -22,13 +22,14 @@ class AndroidScreenNavigator constructor(private val mvpActivity: MvpActivity) :
     }
 
     override fun gotoListTypeCategory(data: TypeCategoryDataIntent?) {
-        val intent = Intent(mvpActivity, ListTypeCategory::class.java)
+        val intent = Intent(mvpActivity, ListTypeCategoryActivity::class.java)
         intent.putExtra(TypeCategoryDataIntent::class.java.simpleName, data)
         mvpActivity.startActivityForResult(intent, Request.REQUEST_CODE_TYPE_CATEGORY)
     }
 
-    override fun gotoChooseWalletActivity() {
+    override fun gotoChooseWalletActivity(walletId: Int?) {
         val intent = Intent(mvpActivity, ListWalletActivity::class.java)
+        intent.putExtra("walletId", walletId)
         mvpActivity.startActivityForResult(intent, Request.REQUEST_CODE_WALLET)
     }
 }

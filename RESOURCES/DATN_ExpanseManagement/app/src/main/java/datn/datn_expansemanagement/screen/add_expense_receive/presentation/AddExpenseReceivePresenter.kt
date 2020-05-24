@@ -8,7 +8,11 @@ class AddExpenseReceivePresenter(private val screenNavigator: AndroidScreenNavig
         view?.showData(AddExpenseReceiveMapper().map(""))
     }
 
-    override fun gotoCategoryActivity() {
-        screenNavigator.gotoCategoryActivity()
+    override fun gotoCategoryActivity(categoryId: Int?) {
+        screenNavigator.gotoCategoryActivity(categoryId)
+    }
+
+    override fun gotoChooseWalletActivity(walletId: Int?) {
+        screenNavigator.gotoChooseWalletActivity(walletId)
     }
 }

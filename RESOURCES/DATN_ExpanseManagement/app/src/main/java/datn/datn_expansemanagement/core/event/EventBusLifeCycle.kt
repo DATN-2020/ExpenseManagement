@@ -1,6 +1,5 @@
 package datn.datn_expansemanagement.core.event
 
-import android.view.MotionEvent
 import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.lifecycle.LifeCycleAndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.lifecycle.PermissionsResult

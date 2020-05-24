@@ -8,5 +8,4 @@ class AddExpenseDonateFragment :MvpFragment(){
     override fun createAndroidMvpView(): AndroidMvpView {
         return AddExpenseDonateView(getMvpActivity(), AddExpenseDonateView.ViewCreator(getMvpActivity(), null))
     }
-
 }

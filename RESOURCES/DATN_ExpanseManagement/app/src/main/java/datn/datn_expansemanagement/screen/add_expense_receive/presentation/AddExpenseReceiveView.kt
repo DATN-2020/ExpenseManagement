@@ -12,14 +12,16 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivit
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
 import datn.datn_expansemanagement.core.event.EventBusData
 import datn.datn_expansemanagement.core.event.EventBusLifeCycle
+import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
-import datn.datn_expansemanagement.screen.add_expense_receive.presentation.model.AddExpenseReceiveCategoryViewModel
+import datn.datn_expansemanagement.screen.add_expense_donate.presentation.AddExpenseDonateResource
+import datn.datn_expansemanagement.screen.add_expense_donate.presentation.model.AddExpenseCategoryViewModel
+import datn.datn_expansemanagement.screen.add_expense_donate.presentation.renderer.AddExpenseCategoryRenderer
 import datn.datn_expansemanagement.screen.add_expense_receive.presentation.model.AddExpenseReceiveInfoViewModel
-import datn.datn_expansemanagement.screen.add_expense_receive.presentation.renderer.AddExpenseReceiveCategoryRenderer
 import datn.datn_expansemanagement.screen.add_expense_receive.presentation.renderer.AddExpenseReceiveInfoRenderer
 import datn.datn_expansemanagement.screen.add_expense_receive.presentation.renderer.AddExpenseReceiveTotalMoneyRenderer
 import datn.datn_expansemanagement.screen.main.data.EventBusCategory
-import kotlinex.view.hideKeyboard
+import datn.datn_expansemanagement.screen.main.data.EventBusWallet
 import kotlinx.android.synthetic.main.layout_add_expense_receive.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 
@@ -45,15 +47,23 @@ class AddExpenseReceiveView(mvpActivity: MvpActivity, viewCreator: AndroidMvpVie
             when (data) {
                 is EventBusCategory -> {
                     listData.forEach {
-                        if (it is AddExpenseReceiveCategoryViewModel) {
+                        if (it is AddExpenseCategoryViewModel) {
+                            it.idCategory = data.data?.id.getValueOrDefaultIsZero()
                             it.nameCategory = data.data?.name.getValueOrDefaultIsEmpty()
                         }
                     }
-
-                    listViewMvp?.setItems(listData)
-                    listViewMvp?.notifyDataChanged()
+                }
+                is EventBusWallet -> {
+                    listData.forEach {
+                        if (it is AddExpenseCategoryViewModel) {
+                            it.idWallet = data.data?.id.getValueOrDefaultIsZero()
+                            it.nameWallet = data.data?.name.getValueOrDefaultIsEmpty()
+                        }
+                    }
                 }
             }
+            listViewMvp?.setItems(listData)
+            listViewMvp?.notifyDataChanged()
         }
     })
 
@@ -65,11 +75,25 @@ class AddExpenseReceiveView(mvpActivity: MvpActivity, viewCreator: AndroidMvpVie
         }
     }
 
-    private val onChooseCategory = object : OnActionData<AddExpenseReceiveCategoryViewModel> {
-        override fun onAction(data: AddExpenseReceiveCategoryViewModel) {
-            mPresenter.gotoCategoryActivity()
+    private val onChooseCategory = object : OnActionData<AddExpenseCategoryViewModel> {
+        override fun onAction(data: AddExpenseCategoryViewModel) {
+            if (data.idCategory != null) {
+                mPresenter.gotoCategoryActivity(data.idCategory)
+            } else {
+                mPresenter.gotoCategoryActivity()
+            }
         }
 
+    }
+
+    private val onChooseWallet = object : OnActionData<AddExpenseCategoryViewModel> {
+        override fun onAction(data: AddExpenseCategoryViewModel) {
+            if (data.idWallet != null) {
+                mPresenter.gotoChooseWalletActivity(data.idWallet)
+            } else {
+                mPresenter.gotoChooseWalletActivity()
+            }
+        }
     }
 
     override fun initCreateView() {
@@ -110,13 +134,15 @@ class AddExpenseReceiveView(mvpActivity: MvpActivity, viewCreator: AndroidMvpVie
         listViewMvp?.notifyDataChanged()
     }
 
+    private val resourceProvider = AddExpenseDonateResource()
     private fun initRecycleView() {
         listViewMvp = ListViewMvp(mvpActivity, view.rvAddExpanse, renderConfig)
         listViewMvp?.addViewRenderer(
-            AddExpenseReceiveCategoryRenderer(
+            AddExpenseCategoryRenderer(
                 mvpActivity,
-                mResource,
-                onChooseCategory
+                resourceProvider,
+                onChooseCategory,
+                onChooseWallet
             )
         )
         listViewMvp?.addViewRenderer(

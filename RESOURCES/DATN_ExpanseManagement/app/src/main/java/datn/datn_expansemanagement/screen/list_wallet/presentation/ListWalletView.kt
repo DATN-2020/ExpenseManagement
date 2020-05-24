@@ -1,6 +1,9 @@
 package datn.datn_expansemanagement.screen.list_wallet.presentation
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.view.View
 import android.view.ViewGroup
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.R
@@ -8,12 +11,17 @@ import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
+import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.OnItemRvClickedListener
+import datn.datn_expansemanagement.screen.list_wallet.presentation.model.ListWalletItemViewModel
 import datn.datn_expansemanagement.screen.list_wallet.presentation.renderer.ListWalletItemViewRenderer
 import kotlinx.android.synthetic.main.layout_list_wallet.view.*
 import kotlinx.android.synthetic.main.toolbar_category.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 
-class ListWalletView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator): AndroidMvpView(mvpActivity, viewCreator), ListWalletContract.View{
+class ListWalletView(
+    mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator,
+    private val walletId: Int? = null
+) : AndroidMvpView(mvpActivity, viewCreator), ListWalletContract.View {
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
 
@@ -31,14 +39,39 @@ class ListWalletView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.View
     )
     private val renderConfig = LinearRenderConfigFactory(renderInput).create()
 
+    private val onClickItem = object : OnItemRvClickedListener<ViewModel> {
+        override fun onItemClicked(view: View, position: Int, dataItem: ViewModel) {
+            dataItem as ListWalletItemViewModel
+            val intent = Intent()
+            intent.putExtra(ListWalletItemViewModel::class.java.simpleName, dataItem)
+            mvpActivity.setResult(Activity.RESULT_OK, intent)
+            mvpActivity.finish()
+        }
+    }
+
     override fun initCreateView() {
         mvpActivity.setFullScreen()
         initRecycleView()
         initView()
     }
 
-    private fun initView(){
+    private fun initView() {
         view.tvToolbar.text = mResource.getTextTitleScreen()
+        view.imgBack.setOnClickListener {
+            listData.forEach {
+                if(it is ListWalletItemViewModel){
+                    if(it.isChoose){
+                        val intent = Intent()
+                        intent.putExtra(ListWalletItemViewModel::class.java.simpleName, it)
+                        mvpActivity.setResult(Activity.RESULT_OK, intent)
+                    }
+                }
+            }
+            mvpActivity.finish()
+        }
+        view.imgAdd.setOnClickListener {
+            mPresenter.gotoCreateWalletActivity()
+        }
     }
 
     override fun showLoading() {
@@ -51,7 +84,12 @@ class ListWalletView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.View
 
     override fun initData() {
         super.initData()
-        mPresenter.getData()
+        if (walletId == null){
+            mPresenter.getData()
+        }else{
+            mPresenter.getData(walletId)
+        }
+
     }
 
     override fun startMvpView() {
@@ -77,6 +115,7 @@ class ListWalletView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.View
     private fun initRecycleView() {
         listViewMvp = ListViewMvp(mvpActivity, view.rvListWallet, renderConfig)
         listViewMvp?.addViewRenderer(ListWalletItemViewRenderer(mvpActivity))
+        listViewMvp?.setOnItemRvClickedListener(onClickItem)
         listViewMvp?.createView()
     }
 

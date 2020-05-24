@@ -2,7 +2,7 @@ package datn.datn_expansemanagement.screen.add_category.presentation
 
 import datn.datn_expansemanagement.core.base.presentation.mvp.base.MvpPresenter
 import datn.datn_expansemanagement.core.base.presentation.mvp.base.MvpView
-import datn.datn_expansemanagement.screen.add_category.presentation.data.TypeCategoryDataIntent
+import datn.datn_expansemanagement.screen.add_category.data.TypeCategoryDataIntent
 
 interface AddCategoryContract {
     interface View : MvpView {
