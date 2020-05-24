@@ -10,6 +10,8 @@ interface Request {
             get() = 3
         val REQUEST_CODE_WALLET: Int
             get() = 4
+        val REQUEST_CODE_TRIP: Int
+            get() = 5
     }
 
 }

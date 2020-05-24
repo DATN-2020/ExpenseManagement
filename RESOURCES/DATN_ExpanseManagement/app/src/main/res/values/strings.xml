@@ -37,4 +37,8 @@
     <string name="text_title_category">Hạng mục cha</string>
     <string name="text_location">Địa điểm</string>
     <string name="text_choose_wallet">Chọn tài khoản</string>
+    <string name="text_edit_trip">Chỉnh sửa sự kiện</string>
+    <string name="text_finished">Đã kết thúc ?</string>
+    <string name="text_cancel">HỦY</string>
+    <string name="text_ok">ĐỒNG Ý</string>
 </resources>

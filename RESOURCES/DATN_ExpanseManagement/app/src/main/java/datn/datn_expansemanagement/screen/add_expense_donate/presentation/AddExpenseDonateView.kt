@@ -116,6 +116,13 @@ class AddExpenseDonateView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView
         }
     }
 
+    private val onChooseTrip = object : OnActionData<AddExpenseDonateInfoViewModel>{
+        override fun onAction(data: AddExpenseDonateInfoViewModel) {
+            mPresenter.gotoChooseTripActivity()
+        }
+
+    }
+
     private val onChooseTime = object : OnActionData<AddExpenseCategoryViewModel> {
         override fun onAction(data: AddExpenseCategoryViewModel) {
             val c: Calendar = Calendar.getInstance()
@@ -193,7 +200,8 @@ class AddExpenseDonateView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView
             AddExpenseDonateInfoRenderer(
                 mvpActivity,
                 mResource,
-                onClickExpand
+                onClickExpand,
+                onChooseTrip
             )
         )
         listViewMvp?.addViewRenderer(AddExpenseDonateTotalMoneyRenderer(mvpActivity, mResource))

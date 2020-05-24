@@ -15,4 +15,8 @@ class AddExpenseDonatePresenter(private val screenNavigator: AndroidScreenNaviga
     override fun gotoChooseWalletActivity(walletId: Int?) {
         screenNavigator.gotoChooseWalletActivity(walletId)
     }
+
+    override fun gotoChooseTripActivity() {
+        screenNavigator.gotoChooseTripActivity()
+    }
 }

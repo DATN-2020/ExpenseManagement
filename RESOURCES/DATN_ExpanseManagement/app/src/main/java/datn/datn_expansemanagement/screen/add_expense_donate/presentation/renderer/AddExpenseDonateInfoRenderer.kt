@@ -15,7 +15,8 @@ import kotlinx.android.synthetic.main.item_layout_add_expanse_info.view.*
 
 class AddExpenseDonateInfoRenderer(
     context: Context, private val mResource: AddExpenseDonateResource,
-    private val onClickExpand: OnActionData<AddExpenseDonateInfoViewModel>
+    private val onClickExpand: OnActionData<AddExpenseDonateInfoViewModel>,
+    private val onChooseTrip: OnActionData<AddExpenseDonateInfoViewModel>
 ) : ViewRenderer<AddExpenseDonateInfoViewModel>(context) {
     override fun getLayoutId(): Int {
         return R.layout.item_layout_add_expanse_info
@@ -47,6 +48,10 @@ class AddExpenseDonateInfoRenderer(
 
         viewRoot.tvExpand.setOnClickListener {
             EventFireUtil.fireEvent(onClickExpand, model)
+        }
+
+        viewRoot.edtTrip.setOnClickListener {
+            EventFireUtil.fireEvent(onChooseTrip, model)
         }
     }
 

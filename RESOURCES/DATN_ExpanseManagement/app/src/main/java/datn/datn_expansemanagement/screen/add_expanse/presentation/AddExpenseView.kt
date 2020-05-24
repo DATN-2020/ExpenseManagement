@@ -126,6 +126,8 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
                 false
             }
         }
+        view.imgAdd.setOnClickListener {
+        }
     }
 
     private fun initRecycleView() {

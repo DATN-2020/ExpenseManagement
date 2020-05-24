@@ -22,7 +22,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".screen.list_wallet.ListWalletActivity"></activity>
+        <activity
+            android:name=".screen.trip.TripActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity
+            android:name=".screen.list_wallet.ListWalletActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".screen.list_type_category.ListTypeCategoryActivity"
             android:configChanges="orientation|keyboardHidden"
