@@ -1,5 +1,7 @@
 package datn.datn_expansemanagement.screen.add_expense_receive.presentation
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Context
 import android.view.ViewGroup
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
@@ -24,6 +26,7 @@ import datn.datn_expansemanagement.screen.main.data.EventBusCategory
 import datn.datn_expansemanagement.screen.main.data.EventBusWallet
 import kotlinx.android.synthetic.main.layout_add_expense_receive.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
+import java.util.*
 
 class AddExpenseReceiveView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator) :
     AndroidMvpView(mvpActivity, viewCreator), AddExpenseReceiveContract.View {
@@ -96,6 +99,49 @@ class AddExpenseReceiveView(mvpActivity: MvpActivity, viewCreator: AndroidMvpVie
         }
     }
 
+    private val onChooseDate = object : OnActionData<AddExpenseCategoryViewModel> {
+        override fun onAction(data: AddExpenseCategoryViewModel) {
+            val c: Calendar = Calendar.getInstance()
+            val yyyy = c.get(Calendar.YEAR)
+            val mm = c.get(Calendar.MONTH)
+            val dd = c.get(Calendar.DAY_OF_MONTH)
+            val datePickerDialog = DatePickerDialog(
+                mvpActivity,
+                DatePickerDialog.OnDateSetListener { view, year, month, day ->
+                    data.date= "$day/$month/$year"
+                    listViewMvp?.notifyDataChanged()
+                },
+                yyyy,
+                mm,
+                dd
+            )
+            datePickerDialog.show()
+        }
+    }
+
+    private val onChooseTime = object : OnActionData<AddExpenseCategoryViewModel> {
+        override fun onAction(data: AddExpenseCategoryViewModel) {
+            val c: Calendar = Calendar.getInstance()
+            val hh = c.get(Calendar.HOUR_OF_DAY)
+            val mm = c.get(Calendar.MINUTE)
+            val timePickerDialog = TimePickerDialog(
+                mvpActivity,
+                TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                    if(minute < 10){
+                        data.time = "$hourOfDay: 0$minute"
+                    }else{
+                        data.time = "$hourOfDay: $minute"
+                    }
+                    listViewMvp?.notifyDataChanged()
+                },
+                hh,
+                mm,
+                true
+            )
+            timePickerDialog.show()
+        }
+    }
+
     override fun initCreateView() {
         addLifeCycle(eventBusLifeCycle)
         initRecycleView()
@@ -142,7 +188,9 @@ class AddExpenseReceiveView(mvpActivity: MvpActivity, viewCreator: AndroidMvpVie
                 mvpActivity,
                 resourceProvider,
                 onChooseCategory,
-                onChooseWallet
+                onChooseWallet,
+                onChooseDate,
+                onChooseTime
             )
         )
         listViewMvp?.addViewRenderer(

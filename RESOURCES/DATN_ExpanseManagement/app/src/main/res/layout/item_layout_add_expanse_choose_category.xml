@@ -81,6 +81,13 @@
             app:layout_constraintTop_toTopOf="@id/edtCalendar"
             app:srcCompat="@drawable/ic_date_range_black_24dp" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glVertical2"
+            app:layout_constraintGuide_percent="0.8"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
         <TextView
             android:id="@+id/edtCalendar"
             style="@style/StyleTextView.Medium.Black"
@@ -91,8 +98,21 @@
             android:padding="@dimen/spacing_10dp"
             android:paddingStart="@dimen/spacing_20dp"
             android:text="19/03/1998"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/glVertical2"
             app:layout_constraintStart_toEndOf="@id/imgLeft"
+            app:layout_constraintTop_toBottomOf="@id/viewBottom" />
+
+        <TextView
+            android:id="@+id/tvTime"
+            style="@style/StyleTextView.Medium.Black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_10dp"
+            android:background="?attr/selectableItemBackground"
+            android:padding="@dimen/spacing_10dp"
+            android:text="11:59"
+            app:layout_constraintStart_toEndOf="@id/glVertical2"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/viewBottom" />
 
         <View
