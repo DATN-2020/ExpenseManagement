@@ -18,11 +18,10 @@ import datn.datn_expansemanagement.screen.account.AccountFragment
 import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
 import datn.datn_expansemanagement.screen.category.item_category.presentation.model.ItemCategoryViewModel
 import datn.datn_expansemanagement.screen.list_wallet.presentation.model.ListWalletItemViewModel
-import datn.datn_expansemanagement.screen.main.data.CategoryResultData
-import datn.datn_expansemanagement.screen.main.data.EventBusCategory
-import datn.datn_expansemanagement.screen.main.data.EventBusWallet
+import datn.datn_expansemanagement.screen.main.data.*
 import datn.datn_expansemanagement.screen.overview.OverviewFragment
 import datn.datn_expansemanagement.screen.report.ReportFragment
+import datn.datn_expansemanagement.screen.trip.item_trip.presentation.model.ItemTripViewModel
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :
@@ -67,11 +66,18 @@ class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :
     override fun startMvpView() {
         mPresenter.attachView(this)
         if(isCategory){
-            eventBusLifeCycle.sendData(EventBusCategory(categoryData))
+            eventBusLifeCycle.sendData(EventBusCategory())
         }
 
         if(isWallet){
-            eventBusLifeCycle.sendData(EventBusWallet(walletData))
+            eventBusLifeCycle.sendData(EventBusWallet())
+        }
+
+        if(isTrip){
+            eventBusLifeCycle.sendData(EventBusTrip())
+        }
+        if(isFriend){
+            eventBusLifeCycle.sendData(EventBusFriend())
         }
         super.startMvpView()
     }
@@ -81,20 +87,24 @@ class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :
         super.stopMvpView()
     }
 
-    private var categoryData : ItemCategoryViewModel? = null
-    private var walletData : ListWalletItemViewModel? = null
     private var isCategory = false
     private var isWallet = false
+    private var isTrip = false
+    private var isFriend = false
     override fun onViewResult(viewResult: ViewResult) {
         super.onViewResult(viewResult)
         when (viewResult.requestCode) {
             Request.REQUEST_CODE_CATEGORY -> {
                 isCategory = true
-                categoryData = viewResult.data?.getParcelableExtra(ItemCategoryViewModel::class.java.simpleName)
             }
             Request.REQUEST_CODE_WALLET -> {
                 isWallet = true
-                walletData  = viewResult.data?.getParcelableExtra(ListWalletItemViewModel::class.java.simpleName)
+            }
+            Request.REQUEST_CODE_TRIP -> {
+                isTrip = true
+            }
+            Request.REQUEST_CODE_FRIEND -> {
+                isFriend = true
             }
         }
     }

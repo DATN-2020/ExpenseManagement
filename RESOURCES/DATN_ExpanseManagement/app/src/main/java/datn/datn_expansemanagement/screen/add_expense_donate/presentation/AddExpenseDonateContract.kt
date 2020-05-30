@@ -16,5 +16,6 @@ interface AddExpenseDonateContract {
         abstract fun gotoCategoryActivity(categoryId: Int? = null)
         abstract fun gotoChooseWalletActivity(walletId: Int? = null)
         abstract fun gotoChooseTripActivity()
+        abstract fun gotoChooseFriend()
     }
 }

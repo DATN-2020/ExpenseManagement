@@ -7,6 +7,7 @@ import android.view.View
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.util.Utils
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.model.ViewRenderer
+import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.AddExpenseDonateResource
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.model.AddExpenseDonateTotalMoneyViewModel
 import kotlinx.android.synthetic.main.item_layout_add_expanse_total_money.view.*
@@ -35,6 +36,8 @@ class AddExpenseDonateTotalMoneyRenderer(
                     viewRoot.edtMoney.setText(Utils.customFormatMoney(s.toString()))
                     viewRoot.edtMoney.setSelection(viewRoot.edtMoney.text.toString().length)
                 }
+                val result = viewRoot.edtMoney.text.toString().replace(",","")
+                AddExpenseFragment.model.totalMoney = result.toDouble()
                 viewRoot.edtMoney.addTextChangedListener(this)
             }
 

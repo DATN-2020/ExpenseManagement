@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="@color/white"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:visibility="gone"
+        android:visibility="visible"
         android:id="@+id/clTop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -58,20 +59,34 @@
             app:layout_constraintTop_toTopOf="@id/edtFriend"
             app:srcCompat="@drawable/ic_assignment_ind_black_24dp" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:visibility="gone"
+            android:paddingStart="@dimen/spacing_14dp"
+            android:id="@+id/rvFriend"
+            app:layout_constraintBottom_toBottomOf="@id/edtFriend"
+            app:layout_constraintEnd_toEndOf="@id/edtFriend"
+            app:layout_constraintStart_toStartOf="@id/edtFriend"
+            app:layout_constraintTop_toTopOf="@id/edtFriend"
+            android:layout_width="0dp"
+            android:layout_height="0dp"/>
+
         <TextView
             android:id="@+id/edtFriend"
             style="@style/StyleTextView.Medium.Black"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginTop="@dimen/spacing_20dp"
             android:background="?attr/selectableItemBackground"
             android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
             android:hint="@string/text_hint_for_friend"
             android:padding="@dimen/spacing_10dp"
+            android:gravity="center"
+            android:textAlignment="viewStart"
             android:paddingStart="@dimen/spacing_20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/imgFriend"
-            app:layout_constraintTop_toBottomOf="@id/viewBottom" />
+            app:layout_constraintTop_toBottomOf="@id/viewBottom"
+            tools:ignore="RtlCompat" />
 
         <View
             android:id="@+id/viewBottom2"

@@ -12,6 +12,10 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvp
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.OnItemRvClickedListener
+import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
+import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
+import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
+import datn.datn_expansemanagement.screen.add_expanse.presentation.model.AddExpenseViewModel
 import datn.datn_expansemanagement.screen.list_wallet.presentation.model.ListWalletItemViewModel
 import datn.datn_expansemanagement.screen.list_wallet.presentation.renderer.ListWalletItemViewRenderer
 import kotlinx.android.synthetic.main.layout_list_wallet.view.*
@@ -42,9 +46,12 @@ class ListWalletView(
     private val onClickItem = object : OnItemRvClickedListener<ViewModel> {
         override fun onItemClicked(view: View, position: Int, dataItem: ViewModel) {
             dataItem as ListWalletItemViewModel
-            val intent = Intent()
-            intent.putExtra(ListWalletItemViewModel::class.java.simpleName, dataItem)
-            mvpActivity.setResult(Activity.RESULT_OK, intent)
+            val model = AddExpenseViewModel.Info.Wallet(
+                id = dataItem.id.getValueOrDefaultIsZero(),
+                name = dataItem.name.getValueOrDefaultIsEmpty()
+            )
+            AddExpenseFragment.model.wallet = model
+            mvpActivity.setResult(Activity.RESULT_OK)
             mvpActivity.finish()
         }
     }

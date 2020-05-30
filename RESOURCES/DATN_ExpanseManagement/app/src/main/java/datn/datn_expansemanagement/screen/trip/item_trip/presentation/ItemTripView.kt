@@ -17,6 +17,8 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.Linea
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.OnItemRvClickedListener
 import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
+import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
+import datn.datn_expansemanagement.screen.add_expanse.presentation.model.AddExpenseViewModel
 import datn.datn_expansemanagement.screen.trip.item_trip.presentation.model.ItemTripViewModel
 import datn.datn_expansemanagement.screen.trip.item_trip.presentation.renderer.ItemTripViewRenderer
 import kotlinx.android.synthetic.main.custom_dialog_edit_trip.*
@@ -49,9 +51,12 @@ private val isFinished: Boolean?): AndroidMvpView(mvpActivity, viewCreator), Ite
 
     private val onItemRvClickedListener = object : OnItemRvClickedListener<ViewModel>{
         override fun onItemClicked(view: View, position: Int, dataItem: ViewModel) {
-            val intent = Intent()
             dataItem as ItemTripViewModel
-            intent.putExtra(ItemTripViewModel::class.java.simpleName, dataItem)
+            val model = AddExpenseViewModel.Info.Trip(
+                id = dataItem.id.getValueOrDefaultIsZero(),
+                name = dataItem.name.getValueOrDefaultIsEmpty()
+            )
+            AddExpenseFragment.model.trip = model
             mvpActivity.setResult(Activity.RESULT_OK)
             mvpActivity.finish()
         }

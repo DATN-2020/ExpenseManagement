@@ -12,6 +12,8 @@ interface Request {
             get() = 4
         val REQUEST_CODE_TRIP: Int
             get() = 5
+        val REQUEST_CODE_FRIEND: Int
+            get() = 6
     }
 
 }

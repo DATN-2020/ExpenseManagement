@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <include layout="@layout/toolbar_category"
+        android:id="@+id/layoutToolbar"/>
+    <androidx.appcompat.widget.AppCompatEditText
+        style="@style/StyleTextView.Medium.Black"
+        android:hint="@string/text_add_contacts"
+        android:paddingStart="@dimen/spacing_20dp"
+        android:paddingEnd="@dimen/spacing_20dp"
+        android:maxLines="1"
+        android:paddingTop="@dimen/spacing_10dp"
+        android:paddingBottom="@dimen/spacing_10dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/layoutToolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/edtAddContact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <View
+        android:background="#F5F5F5"
+        app:layout_constraintTop_toBottomOf="@id/edtAddContact"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/viewCenter"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spacing_6dp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvContacts"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/viewCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

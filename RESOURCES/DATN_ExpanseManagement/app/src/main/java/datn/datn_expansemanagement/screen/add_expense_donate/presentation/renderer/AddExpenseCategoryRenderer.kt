@@ -65,7 +65,7 @@ class AddExpenseCategoryRenderer(
         } else {
             val c: Calendar = Calendar.getInstance()
             val yyyy = c.get(Calendar.YEAR)
-            val mm = c.get(Calendar.MONTH)
+            val mm = c.get(Calendar.MONTH) + 1
             val dd = c.get(Calendar.DAY_OF_MONTH)
             viewRoot.edtCalendar.text = "$dd/$mm/$yyyy"
         }

@@ -8,4 +8,5 @@ interface ScreenNavigator {
     fun gotoAddCategoryActivity()
     fun gotoChooseWalletActivity(walletId: Int? = null)
     fun gotoChooseTripActivity()
+    fun gotoChooseFriendActivity()
 }

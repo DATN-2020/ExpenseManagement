@@ -51,16 +51,14 @@ class AddExpenseReceiveView(mvpActivity: MvpActivity, viewCreator: AndroidMvpVie
                 is EventBusCategory -> {
                     listData.forEach {
                         if (it is AddExpenseCategoryViewModel) {
-                            it.idCategory = data.data?.id.getValueOrDefaultIsZero()
-                            it.nameCategory = data.data?.name.getValueOrDefaultIsEmpty()
+
                         }
                     }
                 }
                 is EventBusWallet -> {
                     listData.forEach {
                         if (it is AddExpenseCategoryViewModel) {
-                            it.idWallet = data.data?.id.getValueOrDefaultIsZero()
-                            it.nameWallet = data.data?.name.getValueOrDefaultIsEmpty()
+
                         }
                     }
                 }

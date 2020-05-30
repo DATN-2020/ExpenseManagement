@@ -18,6 +18,8 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.Linea
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.OnItemRvClickedListener
 import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
+import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
+import datn.datn_expansemanagement.screen.add_expanse.presentation.model.AddExpenseViewModel
 import datn.datn_expansemanagement.screen.category.item_category.presentation.model.ItemCategoryViewModel
 import datn.datn_expansemanagement.screen.category.item_category.presentation.renderer.ItemCategoryViewRenderer
 import kotlinx.android.synthetic.main.layout_item_category.view.*
@@ -47,10 +49,13 @@ class ItemCategoryView(
 
     private val onItemRvClickedListener = object : OnItemRvClickedListener<ViewModel>{
         override fun onItemClicked(view: View, position: Int, dataItem: ViewModel) {
-            val intent = Intent()
             dataItem as ItemCategoryViewModel
-            intent.putExtra(ItemCategoryViewModel::class.java.simpleName, dataItem)
-            mvpActivity.setResult(Activity.RESULT_OK, intent)
+            val model = AddExpenseViewModel.Info.Category(
+                id = dataItem.id.getValueOrDefaultIsZero(),
+                name = dataItem.name.getValueOrDefaultIsEmpty()
+            )
+            AddExpenseFragment.model.category = model
+            mvpActivity.setResult(Activity.RESULT_OK)
             mvpActivity.finish()
         }
 

@@ -6,6 +6,7 @@ import datn.datn_expansemanagement.screen.add_category.AddCategoryActivity
 import datn.datn_expansemanagement.screen.add_category.data.TypeCategoryDataIntent
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.model.AddExpenseCategoryViewModel
 import datn.datn_expansemanagement.screen.category.CategoryActivity
+import datn.datn_expansemanagement.screen.contacts.ContactsActivity
 import datn.datn_expansemanagement.screen.list_type_category.ListTypeCategoryActivity
 import datn.datn_expansemanagement.screen.list_wallet.ListWalletActivity
 import datn.datn_expansemanagement.screen.trip.TripActivity
@@ -36,7 +37,11 @@ class AndroidScreenNavigator constructor(private val mvpActivity: MvpActivity) :
 
     override fun gotoChooseTripActivity() {
         val intent = Intent(mvpActivity, TripActivity::class.java)
-//        intent.putExtra("walletId", walletId)
         mvpActivity.startActivityForResult(intent, Request.REQUEST_CODE_TRIP)
+    }
+
+    override fun gotoChooseFriendActivity() {
+        val intent = Intent(mvpActivity, ContactsActivity::class.java)
+        mvpActivity.startActivityForResult(intent, Request.REQUEST_CODE_FRIEND)
     }
 }
