@@ -1,14 +1,18 @@
 package datn.datn_expansemanagement.screen.add_expense_donate.presentation.renderer
 
 import android.view.View
+import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.domain.excecutor.EventFireUtil
 import datn.datn_expansemanagement.core.app.util.image.GlideImageHelper
 import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
+import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.OnItemRvClickedListener
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.model.ViewRenderer
 import datn.datn_expansemanagement.kotlinex.collection.getValueOrDefault
+import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
+import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.kotlinex.view.gone
 import datn.datn_expansemanagement.kotlinex.view.invisible
 import datn.datn_expansemanagement.kotlinex.view.visible
@@ -23,7 +27,8 @@ class AddExpenseDonateInfoRenderer(
     val mvpActivity: MvpActivity, private val mResource: AddExpenseDonateResource,
     private val onClickExpand: OnActionData<AddExpenseDonateInfoViewModel>,
     private val onChooseTrip: OnActionData<AddExpenseDonateInfoViewModel>,
-    private val onChooseFriend: OnActionData<AddExpenseDonateInfoViewModel>
+    private val onChooseFriend: OnActionData<AddExpenseDonateInfoViewModel>,
+    private val onChooseLocation: OnActionData<AddExpenseDonateInfoViewModel>
 ) : ViewRenderer<AddExpenseDonateInfoViewModel>(mvpActivity) {
     override fun getLayoutId(): Int {
         return R.layout.item_layout_add_expanse_info
@@ -52,6 +57,19 @@ class AddExpenseDonateInfoRenderer(
                 }
                 listViewMvp.setItems(AddExpenseFragment.listFriend.list.getValueOrDefault())
                 listViewMvp.notifyDataChanged()
+
+                if(AddExpenseFragment.listFriend.list.isNullOrEmpty()){
+                    viewRoot.edtFriend.visible()
+                }else{
+                    viewRoot.edtFriend.invisible()
+                }
+            }
+
+        }
+
+        val onItemRvClickedListener = object : OnItemRvClickedListener<ViewModel>{
+            override fun onItemClicked(view: View, position: Int, dataItem: ViewModel) {
+                EventFireUtil.fireEvent(onChooseFriend, model)
             }
 
         }
@@ -60,6 +78,7 @@ class AddExpenseDonateInfoRenderer(
             viewRoot.rvFriend.visible()
             viewRoot.edtFriend.invisible()
             listViewMvp.addViewRenderer(ItemFriendViewRenderer(mvpActivity, actionRemove))
+            listViewMvp.setOnItemRvClickedListener(onItemRvClickedListener)
             listViewMvp.createView()
             listViewMvp.setItems(AddExpenseFragment.listFriend.list.getValueOrDefault())
             listViewMvp.notifyDataChanged()
@@ -68,8 +87,8 @@ class AddExpenseDonateInfoRenderer(
             viewRoot.rvFriend.gone()
         }
 
-        if(model.idTrip != null){
-            viewRoot.edtTrip.text = model.tripName
+        if(AddExpenseFragment.model.trip != null){
+            viewRoot.edtTrip.text = AddExpenseFragment.model.trip?.name.getValueOrDefaultIsEmpty()
         }else{
             viewRoot.edtTrip.text = ""
         }
@@ -92,6 +111,9 @@ class AddExpenseDonateInfoRenderer(
             viewRoot.viewBottom3.gone()
             viewRoot.clTop.gone()
             viewRoot.tvExpand.text = mResource.getTextExpand()
+            AddExpenseFragment.model.trip = null
+            AddExpenseFragment.listFriend.list.clear()
+            AddExpenseFragment.model.listFriend?.list?.clear()
         }
 
         viewRoot.tvExpand.setOnClickListener {
@@ -108,6 +130,10 @@ class AddExpenseDonateInfoRenderer(
 
         viewRoot.rvFriend.setOnClickListener {
             EventFireUtil.fireEvent(onChooseFriend, model)
+        }
+
+        viewRoot.edtLocation.setOnClickListener {
+            EventFireUtil.fireEvent(onChooseLocation, model)
         }
     }
 

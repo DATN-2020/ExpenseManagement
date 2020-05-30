@@ -57,8 +57,9 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTypeExpense"
+            android:minHeight="@dimen/spacing_30dp"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:background="@color/white" />
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

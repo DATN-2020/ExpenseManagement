@@ -34,6 +34,10 @@ class AddExpenseDonateResource : AndroidResourceProvider(){
         return resourceManager.getString(R.string.text_choose_wallet)
     }
 
+    fun getTextChooseFriend(): String{
+        return resourceManager.getString(R.string.text_hint_for_friend)
+    }
+
     fun getColorCategory(): Int{
         return resourceManager.getColor(R.color.black)
     }

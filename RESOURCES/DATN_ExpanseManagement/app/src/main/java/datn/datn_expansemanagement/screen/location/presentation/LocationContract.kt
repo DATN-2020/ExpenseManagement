@@ -1,12 +1,11 @@
-package datn.datn_expansemanagement.screen.test.presentation
+package datn.datn_expansemanagement.screen.location.presentation
 
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.core.base.presentation.mvp.base.MvpPresenter
 import datn.datn_expansemanagement.core.base.presentation.mvp.base.MvpView
 
-interface TestContract {
+interface LocationContract {
     interface View: MvpView {
-        fun showError(msgError: String)
         fun showLoading()
         fun hideLoading()
         fun showData(list: MutableList<ViewModel>)

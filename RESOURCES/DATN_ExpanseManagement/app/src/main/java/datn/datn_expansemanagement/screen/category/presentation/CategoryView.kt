@@ -1,8 +1,6 @@
 package datn.datn_expansemanagement.screen.category.presentation
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.util.SparseArray
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -14,18 +12,13 @@ import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
-import datn.datn_expansemanagement.screen.account.item_account.ItemAccountFragment
-import datn.datn_expansemanagement.screen.account.presentation.AccountView
 import datn.datn_expansemanagement.screen.account.presentation.model.TabItemViewModel
 import datn.datn_expansemanagement.screen.category.item_category.ItemCategoryFragment
-import datn.datn_expansemanagement.screen.category.item_category.presentation.model.ItemCategoryViewModel
-import kotlinex.view.hideKeyboard
 import kotlinx.android.synthetic.main.layout_category.view.*
 import kotlinx.android.synthetic.main.toolbar_category.view.*
 
 class CategoryView(
-    mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator,
-    private val itemId: Int? = null
+    mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator
 ) : AndroidMvpView(mvpActivity, viewCreator), CategoryContract.View {
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
@@ -41,7 +34,6 @@ class CategoryView(
 
     companion object {
         val listTab = mutableListOf<ViewModel>()
-        var categoryId : Int? = null
     }
 
     override fun initCreateView() {
@@ -53,7 +45,6 @@ class CategoryView(
         view.imgAdd.setOnClickListener {
             mPresenter.gotoAddCategoryActivity()
         }
-        categoryId = itemId
         view.tvToolbar.text = mResource.getTitleCategory()
     }
 
@@ -106,7 +97,7 @@ class CategoryView(
         private val mFragmentList: SparseArray<Fragment> = SparseArray()
 
         override fun getItem(position: Int): Fragment {
-            return ItemCategoryFragment.newInstance(listTab[position], categoryId)
+            return ItemCategoryFragment.newInstance(listTab[position])
         }
 
         override fun getCount(): Int {

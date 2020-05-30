@@ -17,5 +17,6 @@ interface AddExpenseDonateContract {
         abstract fun gotoChooseWalletActivity(walletId: Int? = null)
         abstract fun gotoChooseTripActivity()
         abstract fun gotoChooseFriend()
+        abstract fun gotoLocationActivity()
     }
 }

@@ -16,6 +16,16 @@ class ReportViewRenderer (context: Context): ViewRenderer<ReportViewModel>(conte
 
     override fun bindView(model: ReportViewModel, viewRoot: View) {
         viewRoot.tvReport.text = model.name
+        when(model.type){
+            ReportViewModel.TypeReport.RECEIVE->{
+
+            }
+            ReportViewModel.TypeReport.DONATE->{}
+            ReportViewModel.TypeReport.FINANCE->{}
+            ReportViewModel.TypeReport.LOAN->{}
+            ReportViewModel.TypeReport.FRIEND->{}
+            ReportViewModel.TypeReport.TRIP->{}
+        }
     }
 
 }

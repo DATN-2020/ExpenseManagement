@@ -7,7 +7,7 @@ import datn.datn_expansemanagement.screen.category.item_category.presentation.mo
 class ItemCategoryMapper(val tabId: Int, val categoryId: Int? = null) : Mapper<String, MutableList<ViewModel>>{
     override fun map(input: String): MutableList<ViewModel> {
         val list = mutableListOf<ViewModel>()
-        for(i in 1..10){
+        for(i in 1..4){
             list.add(ItemCategoryViewModel(id = i,name = "Ăn uống"))
         }
 

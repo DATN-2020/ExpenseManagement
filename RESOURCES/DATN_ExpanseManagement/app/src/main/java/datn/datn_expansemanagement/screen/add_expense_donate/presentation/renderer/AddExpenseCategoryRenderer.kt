@@ -8,6 +8,8 @@ import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.domain.excecutor.EventFireUtil
 import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.model.ViewRenderer
+import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
+import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.AddExpenseDonateResource
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.model.AddExpenseCategoryViewModel
 import kotlinx.android.synthetic.main.item_layout_add_expanse_choose_category.view.*
@@ -30,16 +32,16 @@ class AddExpenseCategoryRenderer(
         AddExpenseCategoryViewModel::class.java
 
     override fun bindView(model: AddExpenseCategoryViewModel, viewRoot: View) {
-        if (!model.nameCategory.isNullOrEmpty()) {
-            viewRoot.tvChooseCategory.text = model.nameCategory
+        if (AddExpenseFragment.model.category != null) {
+            viewRoot.tvChooseCategory.text = AddExpenseFragment.model.category?.name.getValueOrDefaultIsEmpty()
             viewRoot.tvChooseCategory.setTextColor(mResource.getColorCategory())
         } else {
             viewRoot.tvChooseCategory.text = mResource.getTextCategoryEmpty()
             viewRoot.tvChooseCategory.setTextColor(mResource.getColorEmpty())
         }
 
-        if (!model.nameWallet.isNullOrEmpty()) {
-            viewRoot.tvWallet.text = model.nameWallet
+        if (AddExpenseFragment.model.wallet != null) {
+            viewRoot.tvWallet.text = AddExpenseFragment.model.wallet?.name.getValueOrDefaultIsEmpty()
             viewRoot.tvWallet.setTextColor(mResource.getColorCategory())
         } else {
             viewRoot.tvWallet.text = mResource.getTextWalletEmpty()

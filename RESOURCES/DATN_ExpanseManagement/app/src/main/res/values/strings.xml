@@ -42,4 +42,14 @@
     <string name="text_cancel">HỦY</string>
     <string name="text_ok">ĐỒNG Ý</string>
     <string name="text_add_contacts">Thêm liên hệ mới ở đây</string>
+    <string name="text_contacts_new">Liên hệ gần đây</string>
+    <string name="text_contacts">Danh bạ</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="text_report_finance">Tài chính hiện tại</string>
+    <string name="text_report_receive">Tình hình thu</string>
+    <string name="text_report_donate">Tình hình chi</string>
+    <string name="text_report_friend">Đối tượng thu chi</string>
+    <string name="text_report_loan">Theo dõi vay nợ</string>
+    <string name="text_report_trip">Chuyến đi/Sự kiện</string>
+    <string name="text_title_report">Báo cáo</string>
 </resources>

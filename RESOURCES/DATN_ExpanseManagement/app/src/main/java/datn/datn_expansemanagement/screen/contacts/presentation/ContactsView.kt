@@ -18,11 +18,14 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.Linea
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.OnItemRvClickedListener
 import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
+import datn.datn_expansemanagement.kotlinex.view.gone
+import datn.datn_expansemanagement.kotlinex.view.visible
 import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
 import datn.datn_expansemanagement.screen.add_expanse.presentation.model.AddExpenseViewModel
 import datn.datn_expansemanagement.screen.contacts.presentation.model.ContactsViewModel
 import datn.datn_expansemanagement.screen.contacts.presentation.renderer.ContactsItemViewRenderer
 import kotlinx.android.synthetic.main.layout_contacts.view.*
+import kotlinx.android.synthetic.main.toolbar_category.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 
 class ContactsView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator) :
@@ -33,7 +36,16 @@ class ContactsView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCre
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
     private val mPresenter = ContactsPresenter(mvpActivity)
+    private val mResource = ContactsResource()
     private val listData = mutableListOf<ViewModel>()
+    private val listNewContacts = mutableListOf<ViewModel>()
+    private var mvpNewContacts: ListViewMvp? = null
+    private val render = LinearRenderConfigFactory.Input(
+        context = mvpActivity,
+        orientation = LinearRenderConfigFactory.Orientation.VERTICAL
+    )
+    private val config = LinearRenderConfigFactory(render).create()
+
     private var listViewMvp: ListViewMvp? = null
     private val renderInput = LinearRenderConfigFactory.Input(
         context = mvpActivity,
@@ -44,11 +56,39 @@ class ContactsView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCre
     override fun initCreateView() {
         initRecycleView()
         mvpActivity.setFullScreen()
+        view.imgBack.setOnClickListener {
+            mvpActivity.onBackPressed()
+        }
+        view.imgAdd.setOnClickListener {
+            // add them contact
+            if(!view.edtAddContact.text.isNullOrEmpty()){
+                this.listNewContacts.add(ContactsViewModel(
+                    id = this.listNewContacts.size + 1,
+                    name = view.edtAddContact.text.toString()
+                ))
+                view.edtAddContact.setText("")
+                view.edtAddContact.setHintTextColor(mResource.getColorBlack())
+                mvpNewContacts?.setItems(this.listNewContacts)
+                mvpNewContacts?.notifyDataChanged()
+            }else{
+                view.edtAddContact.setHintTextColor(mResource.getColorRed())
+            }
+
+        }
     }
 
     private val onItemClick = object : OnItemRvClickedListener<ViewModel> {
         override fun onItemClicked(view: View, position: Int, dataItem: ViewModel) {
             dataItem as ContactsViewModel
+            AddExpenseFragment.listFriend.list.forEach {
+                if (it is AddExpenseViewModel.Info.ListFriend.Friend) {
+                    if (it.id == dataItem.id) {
+                        mvpActivity.finish()
+                        return
+                    }
+                }
+            }
+
             val item = AddExpenseViewModel.Info.ListFriend.Friend(
                 id = dataItem.id.getValueOrDefaultIsZero(),
                 name = dataItem.name.getValueOrDefaultIsEmpty()
@@ -87,9 +127,24 @@ class ContactsView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCre
     override fun showData(list: MutableList<ViewModel>) {
         this.listData.clear()
         if (list.isNotEmpty()) {
-            this.listData.addAll(list)
+            list.forEach {
+                if (it is ContactsViewModel) {
+                    if (it.isNew) {
+                        this.listNewContacts.add(it)
+                    } else {
+                        this.listData.add(it)
+                    }
+                }
+            }
         }
 
+        if (!this.listNewContacts.isNullOrEmpty()) {
+            view.llNewContact.visible()
+            mvpNewContacts?.setItems(this.listNewContacts)
+            mvpNewContacts?.notifyDataChanged()
+        } else {
+            view.llNewContact.gone()
+        }
         listViewMvp?.setItems(this.listData)
         listViewMvp?.notifyDataChanged()
     }
@@ -99,6 +154,11 @@ class ContactsView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCre
         listViewMvp?.addViewRenderer(ContactsItemViewRenderer(mvpActivity))
         listViewMvp?.setOnItemRvClickedListener(onItemClick)
         listViewMvp?.createView()
+
+        mvpNewContacts = ListViewMvp(mvpActivity, view.rvContactsNew, config)
+        mvpNewContacts?.addViewRenderer(ContactsItemViewRenderer(mvpActivity))
+        mvpNewContacts?.setOnItemRvClickedListener(onItemClick)
+        mvpNewContacts?.createView()
     }
 
     private fun requestStoragePermission() {

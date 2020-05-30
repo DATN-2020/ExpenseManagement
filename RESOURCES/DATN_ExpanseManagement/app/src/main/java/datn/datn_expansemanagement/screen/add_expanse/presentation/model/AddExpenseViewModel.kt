@@ -5,6 +5,7 @@ import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 class AddExpenseViewModel(
     var type: Type? = Type.DONATE,
     var isChoose: Boolean = false,
+    var isLast: Boolean = false,
     var info: Info? = null
 ) : ViewModel {
 
@@ -26,12 +27,14 @@ class AddExpenseViewModel(
     ) : ViewModel {
         class Category(
             var id: Int? = null,
-            var name: String? = null
+            var name: String? = null,
+            var isChoose: Boolean = false
         ) : ViewModel
 
         class Wallet(
             var id: Int? = null,
-            var name: String? = null
+            var name: String? = null,
+            var isChoose: Boolean = false
         ) : ViewModel
 
         class Trip(

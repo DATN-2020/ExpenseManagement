@@ -33,6 +33,10 @@ class ContractsMapper(private val mvpActivity: MvpActivity) : Mapper<String, Mut
             }
         }
         phones.close()
+
+        for(i in 1..2){
+            list.add(ContactsViewModel(id = i, name = "Bạn mới", isNew = true))
+        }
         return list
     }
 

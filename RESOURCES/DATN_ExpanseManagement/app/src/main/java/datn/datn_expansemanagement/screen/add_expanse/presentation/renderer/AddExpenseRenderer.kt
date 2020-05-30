@@ -52,6 +52,12 @@ class AddExpenseRenderer(
             viewRoot.tvTypeExpense.setTextColor(mResource.getColorUnSelected())
         }
 
+        if(model.isLast){
+            viewRoot.viewBottom.invisible()
+        }else{
+            viewRoot.viewBottom.visible()
+        }
+
         viewRoot.clItemLayoutAddExpense.setOnClickListener {
             EventFireUtil.fireEvent(onClickTypeExpense, model)
         }

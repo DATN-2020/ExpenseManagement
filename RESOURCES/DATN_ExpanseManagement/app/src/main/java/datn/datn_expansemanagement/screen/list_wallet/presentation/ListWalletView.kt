@@ -23,8 +23,7 @@ import kotlinx.android.synthetic.main.toolbar_category.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 
 class ListWalletView(
-    mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator,
-    private val walletId: Int? = null
+    mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator
 ) : AndroidMvpView(mvpActivity, viewCreator), ListWalletContract.View {
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
@@ -66,8 +65,8 @@ class ListWalletView(
         view.tvToolbar.text = mResource.getTextTitleScreen()
         view.imgBack.setOnClickListener {
             listData.forEach {
-                if(it is ListWalletItemViewModel){
-                    if(it.isChoose){
+                if (it is ListWalletItemViewModel) {
+                    if (it.isChoose) {
                         val intent = Intent()
                         intent.putExtra(ListWalletItemViewModel::class.java.simpleName, it)
                         mvpActivity.setResult(Activity.RESULT_OK, intent)
@@ -91,12 +90,7 @@ class ListWalletView(
 
     override fun initData() {
         super.initData()
-        if (walletId == null){
-            mPresenter.getData()
-        }else{
-            mPresenter.getData(walletId)
-        }
-
+        mPresenter.getData(AddExpenseFragment.model.wallet?.id.getValueOrDefaultIsZero())
     }
 
     override fun startMvpView() {

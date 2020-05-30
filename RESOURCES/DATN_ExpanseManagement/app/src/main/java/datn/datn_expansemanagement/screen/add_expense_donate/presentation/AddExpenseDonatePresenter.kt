@@ -23,4 +23,8 @@ class AddExpenseDonatePresenter(private val screenNavigator: AndroidScreenNaviga
     override fun gotoChooseFriend() {
         screenNavigator.gotoChooseFriendActivity()
     }
+
+    override fun gotoLocationActivity() {
+        screenNavigator.gotoLocationActivity()
+    }
 }

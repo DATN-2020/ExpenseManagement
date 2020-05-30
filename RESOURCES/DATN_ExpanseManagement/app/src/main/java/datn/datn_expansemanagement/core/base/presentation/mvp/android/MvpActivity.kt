@@ -44,7 +44,7 @@ abstract class MvpActivity : AppCompatActivity(),
         initWindow()
         injectIntent()
         initScreenOnEvent()
-        initCreateView()
+        initCreateView(savedInstanceState)
         initMvpView()
     }
 
@@ -122,11 +122,11 @@ abstract class MvpActivity : AppCompatActivity(),
 //        registerReceiver(resultSyncOrderOfflineReceiver, intentFilter)
     }
 
-    abstract fun createAndroidMvpView(): AndroidMvpView
+    abstract fun createAndroidMvpView(savedInstanceState: Bundle?): AndroidMvpView
 
     @CallSuper
-    protected open fun initCreateView() {
-        val androidMvpView = createAndroidMvpView()
+    protected open fun initCreateView(savedInstanceState: Bundle?) {
+        val androidMvpView = createAndroidMvpView(savedInstanceState)
         setupContentView(androidMvpView)
     }
 

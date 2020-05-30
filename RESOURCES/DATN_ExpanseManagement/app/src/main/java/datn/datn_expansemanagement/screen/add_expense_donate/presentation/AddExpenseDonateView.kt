@@ -58,53 +58,6 @@ class AddExpenseDonateView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView
 
     private val eventBusLifeCycle = EventBusLifeCycle(object : OnActionData<EventBusData> {
         override fun onAction(data: EventBusData) {
-            when (data) {
-                is EventBusCategory -> {
-                    listData.forEach {
-                        if (it is AddExpenseCategoryViewModel) {
-                            it.idCategory =
-                                AddExpenseFragment.model.category?.id.getValueOrDefaultIsZero()
-                            it.nameCategory =
-                                AddExpenseFragment.model.category?.name.getValueOrDefaultIsEmpty()
-                        }
-                    }
-                }
-                is EventBusWallet -> {
-                    listData.forEach {
-                        if (it is AddExpenseCategoryViewModel) {
-                            it.idWallet =
-                                AddExpenseFragment.model.wallet?.id.getValueOrDefaultIsZero()
-                            it.nameWallet =
-                                AddExpenseFragment.model.wallet?.name.getValueOrDefaultIsEmpty()
-                        }
-                    }
-                }
-                is EventBusTrip -> {
-                    listData.forEach {
-                        if (it is AddExpenseDonateInfoViewModel) {
-                            it.idTrip = AddExpenseFragment.model.trip?.id.getValueOrDefaultIsZero()
-                            it.tripName =
-                                AddExpenseFragment.model.trip?.name.getValueOrDefaultIsEmpty()
-                        }
-                    }
-                }
-                is EventBusFriend -> {
-//                    listData.forEach {
-//                        if (it is AddExpenseDonateInfoViewModel) {
-//                            val list = mutableListOf<AddExpenseDonateInfoViewModel.ItemFriend>()
-//                            AddExpenseFragment.model.listFriend?.list?.forEach { data ->
-//                                data as AddExpenseViewModel.Info.ListFriend.Friend
-//                                list.add(AddExpenseDonateInfoViewModel.ItemFriend(
-//                                    idFriend = data.id.getValueOrDefaultIsZero(),
-//                                    friendName = data.name.getValueOrDefaultIsEmpty()
-//                                ))
-//                            }
-//                            it.listFriend = list
-//                        }
-//                    }
-                }
-            }
-            listViewMvp?.setItems(listData)
             listViewMvp?.notifyDataChanged()
         }
     })
@@ -140,6 +93,7 @@ class AddExpenseDonateView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView
                 DatePickerDialog.OnDateSetListener { view, year, month, day ->
                     var m = month + 1
                     data.date = "$day/$m/$year"
+                    AddExpenseFragment.model.date = data.date
                     listViewMvp?.notifyDataChanged()
                 },
                 yyyy,
@@ -154,7 +108,12 @@ class AddExpenseDonateView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView
         override fun onAction(data: AddExpenseDonateInfoViewModel) {
             mPresenter.gotoChooseTripActivity()
         }
+    }
 
+    private val onChooseLocation = object : OnActionData<AddExpenseDonateInfoViewModel> {
+        override fun onAction(data: AddExpenseDonateInfoViewModel) {
+            mPresenter.gotoLocationActivity()
+        }
     }
 
     private val onChooseFriend = object : OnActionData<AddExpenseDonateInfoViewModel> {
@@ -176,6 +135,7 @@ class AddExpenseDonateView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView
                     } else {
                         data.time = "$hourOfDay: $minute"
                     }
+                    AddExpenseFragment.model.time = data.time
                     listViewMvp?.notifyDataChanged()
                 },
                 hh,
@@ -242,7 +202,8 @@ class AddExpenseDonateView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView
                 mResource,
                 onClickExpand,
                 onChooseTrip,
-                onChooseFriend
+                onChooseFriend,
+                onChooseLocation
             )
         )
         listViewMvp?.addViewRenderer(AddExpenseDonateTotalMoneyRenderer(mvpActivity, mResource))

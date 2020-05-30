@@ -23,6 +23,7 @@ class ReportView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreat
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
     private val mPresenter = ReportPresenter()
+    private val mResource = ReportResource()
     private val listData = mutableListOf<ViewModel>()
     private var listViewMvp : ListViewMvp? = null
 
@@ -40,7 +41,7 @@ class ReportView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreat
     }
 
     private fun initView(){
-        view.tvToolbar.text = "Báo cáo"
+        view.tvToolbar.text = mResource.getTextTitle()
         view.imgAdd.gone()
     }
 
