@@ -11,7 +11,10 @@
         android:id="@+id/clTop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/spacing_20dp"
+        android:paddingStart="@dimen/spacing_28dp"
+        android:paddingBottom="@dimen/spacing_20dp"
+        android:paddingTop="@dimen/spacing_20dp"
+        android:paddingEnd="@dimen/spacing_20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

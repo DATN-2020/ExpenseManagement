@@ -52,4 +52,6 @@
     <string name="text_report_loan">Theo dõi vay nợ</string>
     <string name="text_report_trip">Chuyến đi/Sự kiện</string>
     <string name="text_title_report">Báo cáo</string>
+    <string name="text_history">Lịch sử ghi</string>
+    <string name="text_search_history">Tìm kiếm ghi chép</string>
 </resources>

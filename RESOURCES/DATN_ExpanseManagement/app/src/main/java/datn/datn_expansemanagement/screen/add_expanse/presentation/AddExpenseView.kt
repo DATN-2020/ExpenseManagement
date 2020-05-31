@@ -55,6 +55,7 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
                                    view.tvToolbar.text = mResource.getTextDonate()
                                }
                            }
+                           view.clBackground.gone()
                            it.isChoose = true
                        }
                     }else{
@@ -122,13 +123,19 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
         view.imgChooseType.setOnClickListener {
             isOpen = if(!isOpen){
                 view.cvType.visible()
+                view.clBackground.visible()
                 true
             }else{
                 view.cvType.gone()
+                view.clBackground.gone()
                 false
             }
         }
         view.imgAdd.setOnClickListener {
+        }
+        view.clBackground.setOnClickListener {
+            view.clBackground.gone()
+            view.cvType.gone()
         }
     }
 

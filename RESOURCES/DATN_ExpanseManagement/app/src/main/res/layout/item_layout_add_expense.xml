@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/clItemLayoutAddExpense"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
-    android:paddingTop="@dimen/spacing_8dp"
     android:paddingStart="@dimen/spacing_14dp"
     android:paddingEnd="@dimen/spacing_14dp">
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/glDonateLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.1" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glDonateRight"
@@ -24,37 +17,42 @@
         app:layout_constraintGuide_percent="0.9" />
 
     <androidx.appcompat.widget.AppCompatImageView
+        app:layout_constraintEnd_toStartOf="@id/tvTypeExpense"
+        android:layout_marginStart="@dimen/spacing_20dp"
         android:id="@+id/imgTypeExpense"
-        android:layout_width="@dimen/spacing_30dp"
-        android:layout_height="@dimen/spacing_30dp"
+        android:layout_width="@dimen/spacing_24dp"
+        android:layout_height="@dimen/spacing_24dp"
         app:layout_constraintBottom_toBottomOf="@id/tvTypeExpense"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/tvTypeExpense"
         app:srcCompat="@drawable/ic_subtract" />
 
     <TextView
+        android:textAlignment="viewStart"
+        android:gravity="center"
         android:id="@+id/tvTypeExpense"
-        style="@style/StyleTextView.Large.Black"
+        style="@style/StyleTextView.Medium.Black"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:paddingStart="@dimen/spacing_20dp"
         android:text="@string/text_donate"
         app:layout_constraintBottom_toBottomOf="@id/viewBottom"
         app:layout_constraintEnd_toStartOf="@id/glDonateRight"
-        app:layout_constraintStart_toEndOf="@id/glDonateLeft"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/imgTypeExpense"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlCompat" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgSelected"
         android:layout_width="@dimen/spacing_14dp"
         android:layout_height="@dimen/spacing_14dp"
         app:layout_constraintBottom_toBottomOf="@id/tvTypeExpense"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/glDonateRight"
         app:layout_constraintTop_toTopOf="@id/tvTypeExpense"
         app:srcCompat="@drawable/ic_checked" />
     <View
         android:layout_marginTop="@dimen/spacing_20dp"
-        android:background="@color/color_828282"
+        android:background="@color/black"
         android:id="@+id/viewBottom"
         app:layout_constraintTop_toBottomOf="@id/tvTypeExpense"
         app:layout_constraintEnd_toEndOf="parent"

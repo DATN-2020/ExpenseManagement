@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/layoutToolbar"
+        layout="@layout/toolbar_history" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clFilter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutToolbar">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <TextView
+            android:id="@+id/tvTitleDateFrom"
+            style="@style/StyleTextView.Medium.Blue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:text="Từ ngày:"
+            app:layout_constraintEnd_toStartOf="@id/glCenter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clDateFrom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_20dp"
+            android:layout_marginTop="@dimen/spacing_10dp"
+            android:layout_marginEnd="@dimen/spacing_20dp"
+            app:layout_constraintEnd_toStartOf="@id/glCenter"
+            app:layout_constraintStart_toStartOf="@id/tvTitleDateFrom"
+            app:layout_constraintTop_toBottomOf="@id/tvTitleDateFrom">
+
+            <TextView
+                android:id="@+id/dateFrom"
+                style="@style/StyleTextView.Medium.Black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="19/03/1998"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_date_range_blue"
+                app:layout_constraintBottom_toBottomOf="@id/dateFrom"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/dateFrom"
+                app:layout_constraintTop_toTopOf="@id/dateFrom" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tvTitleDateTo"
+            style="@style/StyleTextView.Medium.Blue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:paddingStart="@dimen/spacing_20dp"
+            android:text="Đến ngày:"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/glCenter"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clDateTo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_40dp"
+            android:layout_marginTop="@dimen/spacing_10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/glCenter"
+            app:layout_constraintTop_toBottomOf="@id/tvTitleDateTo">
+
+            <TextView
+                android:id="@+id/dateTo"
+                style="@style/StyleTextView.Medium.Black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="19/03/1998"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_date_range_blue"
+                app:layout_constraintBottom_toBottomOf="@id/dateTo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/dateTo"
+                app:layout_constraintTop_toTopOf="@id/dateTo" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/viewBottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spacing_10dp"
+        android:background="#F5F5F5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clFilter" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvHistory"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewBottom" />
+</androidx.constraintlayout.widget.ConstraintLayout>
