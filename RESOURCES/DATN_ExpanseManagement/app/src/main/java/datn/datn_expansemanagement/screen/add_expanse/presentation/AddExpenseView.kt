@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.R
+import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
@@ -29,7 +30,7 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
         AndroidMvpView.LayoutViewCreator(R.layout.layout_add_expanse, context, viewGroup)
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
-    private val mPresenter = AddExpensePresenter()
+    private val mPresenter = AddExpensePresenter(screenNavigator = AndroidScreenNavigator(mvpActivity))
     private val mResource = AddExpenseResource()
     private val listData = mutableListOf<ViewModel>()
     private var listViewMvp: ListViewMvp? = null
@@ -136,6 +137,10 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
         view.clBackground.setOnClickListener {
             view.clBackground.gone()
             view.cvType.gone()
+        }
+
+        view.imgHistory.setOnClickListener {
+            mPresenter.gotoHistoryActivity()
         }
     }
 

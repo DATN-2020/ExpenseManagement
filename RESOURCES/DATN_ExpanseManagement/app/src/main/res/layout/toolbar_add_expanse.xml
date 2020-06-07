@@ -5,6 +5,7 @@
     android:background="@color/color_219dfd"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgHistory"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:layout_marginStart="@dimen/spacing_10dp"
         android:padding="@dimen/spacing_10dp"

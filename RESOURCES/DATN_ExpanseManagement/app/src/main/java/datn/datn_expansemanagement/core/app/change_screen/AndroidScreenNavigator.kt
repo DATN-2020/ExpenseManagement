@@ -8,6 +8,7 @@ import datn.datn_expansemanagement.screen.add_category.data.TypeCategoryDataInte
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.model.AddExpenseCategoryViewModel
 import datn.datn_expansemanagement.screen.category.CategoryActivity
 import datn.datn_expansemanagement.screen.contacts.ContactsActivity
+import datn.datn_expansemanagement.screen.history.HistoryActivity
 import datn.datn_expansemanagement.screen.list_type_category.ListTypeCategoryActivity
 import datn.datn_expansemanagement.screen.list_wallet.ListWalletActivity
 import datn.datn_expansemanagement.screen.location.LocationActivity
@@ -49,5 +50,10 @@ class AndroidScreenNavigator constructor(private val mvpActivity: MvpActivity) :
     override fun gotoLocationActivity() {
         val intent = Intent(mvpActivity, MapsActivity::class.java)
         mvpActivity.startActivityForResult(intent, Request.REQUEST_CODE_LOCATION)
+    }
+
+    override fun gotoHistoryActivity() {
+        val intent = Intent(mvpActivity, HistoryActivity::class.java)
+        mvpActivity.startActivity(intent)
     }
 }
