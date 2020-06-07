@@ -14,7 +14,7 @@
         android:layout_height="0dp"/>
     <TextView
         android:layout_marginStart="@dimen/spacing_10dp"
-        style="@style/StyleTextView.Large.Black"
+        style="@style/StyleTextView.Huge.Black"
         android:fontFamily="@font/roboto_bold"
         android:text="30"
         app:layout_constraintBottom_toBottomOf="@id/tvMonth"

@@ -19,6 +19,7 @@
     <dimen name="spacing_44dp">44dp</dimen>
     <dimen name="spacing_48dp">48dp</dimen>
     <dimen name="spacing_56dp">56dp</dimen>
+    <dimen name="spacing_60dp">60dp</dimen>
     <dimen name="spacing_64dp">64dp</dimen>
     <dimen name="spacing_72dp">72dp</dimen>
     <!-- Text. Độ lớn tăng dần. -->

@@ -315,6 +315,9 @@
     <style name="StyleTextView.Huge.219DFD">
         <item name="android:textColor">@color/color_219dfd</item>
     </style>
+    <style name="StyleTextView.Huge.Red">
+        <item name="android:textColor">@color/color_ee403f</item>
+    </style>
 
     <style name="StyleTextView.Medium.828282">
         <item name="android:textColor">@color/color_828282</item>

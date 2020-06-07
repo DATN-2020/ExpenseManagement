@@ -8,6 +8,9 @@ import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
+import datn.datn_expansemanagement.screen.history.presentation.renderer.HistoryDateItemViewRenderer
+import datn.datn_expansemanagement.screen.history.presentation.renderer.HistoryItemViewRenderer
+import datn.datn_expansemanagement.screen.history.presentation.renderer.HistoryTotalItemViewRenderer
 import kotlinx.android.synthetic.main.layout_history.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 
@@ -26,6 +29,7 @@ class HistoryView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCrea
     private val renderConfig = LinearRenderConfigFactory(renderInput).create()
 
     private val mPresenter = HistoryPresenter()
+    private val mResource = HistoryResource()
 
     override fun initCreateView() {
         mvpActivity.setFullScreen()
@@ -66,6 +70,9 @@ class HistoryView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCrea
 
     private fun initRecycleView(){
         listViewMvp = ListViewMvp(mvpActivity, view.rvHistory, renderConfig)
+        listViewMvp?.addViewRenderer(HistoryTotalItemViewRenderer(mvpActivity))
+        listViewMvp?.addViewRenderer(HistoryDateItemViewRenderer(mvpActivity))
+        listViewMvp?.addViewRenderer(HistoryItemViewRenderer(mvpActivity, mResource))
         listViewMvp?.createView()
     }
 }

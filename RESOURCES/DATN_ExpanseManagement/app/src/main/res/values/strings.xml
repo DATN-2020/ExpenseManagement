@@ -54,4 +54,6 @@
     <string name="text_title_report">Báo cáo</string>
     <string name="text_history">Lịch sử ghi</string>
     <string name="text_search_history">Tìm kiếm ghi chép</string>
+    <string name="text_total_out_come">Tổng chi</string>
+    <string name="text_total_in_come">Tổng thu</string>
 </resources>
