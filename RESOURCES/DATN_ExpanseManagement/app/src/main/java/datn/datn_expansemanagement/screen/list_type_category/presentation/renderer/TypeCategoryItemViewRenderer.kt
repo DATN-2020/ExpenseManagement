@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.domain.excecutor.EventFireUtil
+import datn.datn_expansemanagement.core.app.util.image.GlideImageHelper
 import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.model.ViewRenderer
 import datn.datn_expansemanagement.kotlinex.view.gone
@@ -20,6 +21,7 @@ class TypeCategoryItemViewRenderer (context: Context): ViewRenderer<TypeCategory
     override fun getModelClass(): Class<TypeCategoryItemViewModel> = TypeCategoryItemViewModel::class.java
 
     override fun bindView(model: TypeCategoryItemViewModel, viewRoot: View) {
+        GlideImageHelper(context).loadThumbnail(viewRoot.imgCategory, model.imageUrl, R.drawable.ic_add_category_icon)
         if(model.isChoose){
             viewRoot.imgChecked.visible()
         }else{

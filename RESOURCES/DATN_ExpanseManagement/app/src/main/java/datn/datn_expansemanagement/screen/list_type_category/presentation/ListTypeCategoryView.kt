@@ -27,7 +27,7 @@ private val type: TypeCategoryDataIntent? = null): AndroidMvpView(mvpActivity, v
         AndroidMvpView.LayoutViewCreator(R.layout.layout_list_type_category, context, viewGroup)
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
-    private val mPresenter = ListTypeCategoryPresenter()
+    private val mPresenter = ListTypeCategoryPresenter(mvpActivity)
     private val mResource = ListTypeCategoryResource()
     private val listData = mutableListOf<ViewModel>()
     private var listViewMvp: ListViewMvp? = null
