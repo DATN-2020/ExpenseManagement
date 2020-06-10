@@ -50,6 +50,9 @@ private val type: TypeCategoryDataIntent? = null): AndroidMvpView(mvpActivity, v
     override fun initCreateView() {
         view.tvToolbar.text = mResource.getTitleTypeCategory()
         view.imgAdd.gone()
+        view.imgBack.setOnClickListener {
+            mvpActivity.onBackPressed()
+        }
         mvpActivity.setFullScreen()
         initRecycleView()
         view.imgBack.setOnClickListener {

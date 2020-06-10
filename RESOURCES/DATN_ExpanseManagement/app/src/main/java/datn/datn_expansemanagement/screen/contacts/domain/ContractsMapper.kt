@@ -15,6 +15,7 @@ class ContractsMapper(private val mvpActivity: MvpActivity) : Mapper<String, Mut
             ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null,
             null, null
         )
+        var idContact = 1
         val mobileNoSet = HashSet<String>()
         while (phones!!.moveToNext()) {
             val name = phones
@@ -28,15 +29,13 @@ class ContractsMapper(private val mvpActivity: MvpActivity) : Mapper<String, Mut
                         .getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
                 )
             if (!mobileNoSet.contains(phoneNumber)) {
-                val user = ContactsViewModel(id = phoneNumber.toInt(), name = name)
+                val user = ContactsViewModel(id = idContact, name = name, nameChar = name.substring(0, 2))
                 list.add(user)
+                idContact++
             }
         }
         phones.close()
-
-        for(i in 1..2){
-            list.add(ContactsViewModel(id = i, name = "Bạn mới", isNew = true))
-        }
+        list.add(ContactsViewModel(id = 0, name = "Bạn mới", isNew = true, isLast = true, nameChar = "BM"))
         return list
     }
 

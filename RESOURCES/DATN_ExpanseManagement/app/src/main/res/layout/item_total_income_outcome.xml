@@ -14,6 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="8dp"/>
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:paddingStart="@dimen/spacing_20dp"
+        android:paddingEnd="@dimen/spacing_20dp"
         android:id="@+id/clInfo"
         android:paddingBottom="@dimen/spacing_10dp"
         android:paddingTop="@dimen/spacing_10dp"
@@ -37,7 +39,7 @@
             android:layout_width="1dp"
             android:layout_height="0dp"/>
         <TextView
-            style="@style/StyleTextView.Large.Black"
+            style="@style/StyleTextView.Medium.Black"
             android:fontFamily="@font/roboto_medium"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toStartOf="@id/glCenter"
@@ -47,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
-            style="@style/StyleTextView.Large.219DFD"
+            style="@style/StyleTextView.Large.389B54"
             android:layout_marginTop="@dimen/spacing_6dp"
             android:gravity="center"
             android:text="5.000.000 đ"
@@ -58,7 +60,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
         <TextView
-            style="@style/StyleTextView.Large.Black"
+            style="@style/StyleTextView.Medium.Black"
             android:fontFamily="@font/roboto_medium"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

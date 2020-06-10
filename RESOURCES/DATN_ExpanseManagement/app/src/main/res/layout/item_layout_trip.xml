@@ -17,6 +17,7 @@
         android:layout_width="@dimen/spacing_40dp"
         android:layout_height="@dimen/spacing_40dp"/>
     <TextView
+        android:textAllCaps="true"
         android:id="@+id/tvNameImg"
         style="@style/StyleTextView.Medium.White"
         android:text="HP"

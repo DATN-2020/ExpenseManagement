@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,6 +10,7 @@
         layout="@layout/toolbar_history" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/white"
         android:id="@+id/clFilter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,30 +50,33 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clDateFrom"
+            android:paddingEnd="@dimen/spacing_10dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/spacing_20dp"
             android:layout_marginTop="@dimen/spacing_10dp"
-            android:layout_marginEnd="@dimen/spacing_20dp"
             app:layout_constraintEnd_toStartOf="@id/glCenter"
             app:layout_constraintStart_toStartOf="@id/tvTitleDateFrom"
             app:layout_constraintTop_toBottomOf="@id/tvTitleDateFrom">
 
             <TextView
+                android:gravity="center"
                 android:id="@+id/dateFrom"
                 style="@style/StyleTextView.Medium.Black"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
                 android:fontFamily="@font/roboto_medium"
-                android:gravity="center"
+                android:textAlignment="textEnd"
                 android:maxLines="1"
                 android:text="19/03/1998"
+                app:layout_constraintEnd_toStartOf="@id/imgFromDate"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="RtlCompat" />
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgFromDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_date_range_blue"
@@ -99,34 +104,37 @@
             android:id="@+id/clDateTo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/spacing_40dp"
             android:layout_marginTop="@dimen/spacing_10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/glCenter"
             app:layout_constraintTop_toBottomOf="@id/tvTitleDateTo">
 
             <TextView
-                android:id="@+id/dateTo"
+                android:textAlignment="textEnd"
+                android:id="@+id/tvDateTo"
                 style="@style/StyleTextView.Medium.Black"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center"
                 android:maxLines="1"
                 android:text="19/03/1998"
+                app:layout_constraintEnd_toStartOf="@id/imgToDate"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="RtlCompat" />
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgToDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_date_range_blue"
-                app:layout_constraintBottom_toBottomOf="@id/dateTo"
+                app:layout_constraintBottom_toBottomOf="@id/tvDateTo"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/dateTo"
-                app:layout_constraintTop_toTopOf="@id/dateTo" />
+                app:layout_constraintStart_toEndOf="@id/tvDateTo"
+                app:layout_constraintTop_toTopOf="@id/tvDateTo" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

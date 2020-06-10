@@ -64,7 +64,9 @@ class ContactsView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCre
             if(!view.edtAddContact.text.isNullOrEmpty()){
                 this.listNewContacts.add(ContactsViewModel(
                     id = this.listNewContacts.size + 1,
-                    name = view.edtAddContact.text.toString()
+                    name = view.edtAddContact.text.toString(),
+                    nameChar = view.edtAddContact.text.toString().substring(0, 2),
+                    isLast = true
                 ))
                 view.edtAddContact.setText("")
                 view.edtAddContact.setHintTextColor(mResource.getColorBlack())

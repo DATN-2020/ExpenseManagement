@@ -5,5 +5,7 @@ import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 class ContactsViewModel(
     var id: Int,
     var name: String,
-    var isNew: Boolean = false
+    var nameChar: String,
+    var isNew: Boolean = false,
+    var isLast: Boolean = false
 ) : ViewModel

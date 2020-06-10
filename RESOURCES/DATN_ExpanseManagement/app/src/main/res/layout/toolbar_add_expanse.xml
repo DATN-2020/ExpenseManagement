@@ -16,6 +16,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:visibility="gone"
+        android:id="@+id/imgNotify"
+        android:src="@color/color_ee403f"
+        app:layout_constraintEnd_toEndOf="@id/imgHistory"
+        app:layout_constraintTop_toTopOf="@id/imgHistory"
+        android:layout_width="16dp"
+        android:layout_height="16dp"/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:padding="@dimen/spacing_6dp"
         android:layout_marginTop="@dimen/spacing_10dp"

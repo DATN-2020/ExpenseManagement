@@ -18,6 +18,7 @@ import datn.datn_expansemanagement.kotlinex.collection.getValueOrDefault
 import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
+import datn.datn_expansemanagement.screen.add_expanse.data.AddDonateDataBus
 import datn.datn_expansemanagement.screen.add_expanse.presentation.model.AddExpenseViewModel
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.model.AddExpenseCategoryViewModel
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.model.AddExpenseDonateInfoViewModel
@@ -59,6 +60,11 @@ class AddExpenseDonateView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView
     private val eventBusLifeCycle = EventBusLifeCycle(object : OnActionData<EventBusData> {
         override fun onAction(data: EventBusData) {
             listViewMvp?.notifyDataChanged()
+            when(data){
+                is AddDonateDataBus->{
+
+                }
+            }
         }
     })
 

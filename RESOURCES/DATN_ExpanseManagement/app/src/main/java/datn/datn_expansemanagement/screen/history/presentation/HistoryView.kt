@@ -12,6 +12,7 @@ import datn.datn_expansemanagement.screen.history.presentation.renderer.HistoryD
 import datn.datn_expansemanagement.screen.history.presentation.renderer.HistoryItemViewRenderer
 import datn.datn_expansemanagement.screen.history.presentation.renderer.HistoryTotalItemViewRenderer
 import kotlinx.android.synthetic.main.layout_history.view.*
+import kotlinx.android.synthetic.main.toolbar_history.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 
 class HistoryView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator): AndroidMvpView(mvpActivity, viewCreator), HistoryContract.View{
@@ -34,6 +35,9 @@ class HistoryView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCrea
     override fun initCreateView() {
         mvpActivity.setFullScreen()
         initRecycleView()
+        view.imgBack.setOnClickListener {
+            mvpActivity.onBackPressed()
+        }
     }
 
     override fun showLoading() {

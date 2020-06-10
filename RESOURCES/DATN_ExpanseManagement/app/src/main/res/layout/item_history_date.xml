@@ -47,7 +47,7 @@
     <TextView
         android:paddingTop="@dimen/spacing_10dp"
         android:fontFamily="@font/roboto_medium"
-        style="@style/StyleTextView.Medium.Blue"
+        style="@style/StyleTextView.Medium.Green"
         android:layout_marginEnd="@dimen/spacing_20dp"
         android:text="5.000.000 đ"
         android:id="@+id/tvTotalMoneyIncome"
@@ -74,7 +74,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/tvMonth"
         app:layout_constraintTop_toBottomOf="@id/viewLeft"
-        android:background="@color/black"
+        android:background="#D6D4D4"
         android:layout_width="0dp"
         android:layout_height="0.5dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,13 @@
 package datn.datn_expansemanagement.screen.add_expanse.presentation
 
+import android.app.AlertDialog
 import android.content.Context
+import android.graphics.Color
+import android.os.Build
+import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
@@ -12,13 +18,17 @@ import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
+import datn.datn_expansemanagement.core.event.EventBusData
+import datn.datn_expansemanagement.core.event.EventBusLifeCycle
 import datn.datn_expansemanagement.kotlinex.view.gone
 import datn.datn_expansemanagement.kotlinex.view.visible
 import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
+import datn.datn_expansemanagement.screen.add_expanse.data.AddDonateDataBus
 import datn.datn_expansemanagement.screen.add_expanse.presentation.model.AddExpenseViewModel
 import datn.datn_expansemanagement.screen.add_expanse.presentation.renderer.AddExpenseRenderer
 import datn.datn_expansemanagement.screen.add_expense_donate.AddExpenseDonateFragment
 import datn.datn_expansemanagement.screen.add_expense_receive.AddExpenseReceiveFragment
+import kotlinx.android.synthetic.main.custom_dialog_cancel_contact.*
 import kotlinx.android.synthetic.main.layout_add_expanse.view.*
 import kotlinx.android.synthetic.main.toolbar_add_expanse.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
@@ -39,6 +49,12 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
         context = mvpActivity,
         orientation = LinearRenderConfigFactory.Orientation.VERTICAL
     )
+
+    private val eventBusLifeCycle = EventBusLifeCycle(object : OnActionData<EventBusData> {
+        override fun onAction(data: EventBusData) {
+        }
+    })
+
     private val renderConfig = LinearRenderConfigFactory(renderInput).create()
     private val onClickTypeExpense = object : OnActionData<AddExpenseViewModel>{
         override fun onAction(data: AddExpenseViewModel) {
@@ -74,6 +90,7 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
     }
 
     override fun initCreateView() {
+        addLifeCycle(eventBusLifeCycle)
         initView()
         initRecycleView()
         replaceFragment(AddExpenseDonateFragment())
@@ -112,6 +129,29 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
         listViewMvp?.notifyDataChanged()
     }
 
+    private fun setDialogFullScreen(dialog: AlertDialog) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            dialog.window?.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            dialog.window?.statusBarColor = mResource.getColorStatusBar()
+            dialog.window?.navigationBarColor = Color.TRANSPARENT
+            dialog.window?.decorView?.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        }
+    }
+
+    private fun handleAfterRegister() {
+        val layoutView = LayoutInflater.from(mvpActivity)
+            .inflate(R.layout.custom_dialog_cancel_contact, null, false)
+        val dialogRegister =
+            AlertDialog.Builder(mvpActivity, R.style.DialogNotify).setView(layoutView).create()
+        setDialogFullScreen(dialogRegister)
+        dialogRegister.show()
+        dialogRegister.btnCancel.setOnClickListener {
+            dialogRegister.dismiss()
+        }
+        view.imgNotify.visible()
+    }
+
     private fun replaceFragment(frm: Fragment) {
         mvpActivity.supportFragmentManager.beginTransaction()
             .replace(R.id.flChange, frm)
@@ -133,6 +173,7 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
             }
         }
         view.imgAdd.setOnClickListener {
+            handleAfterRegister()
         }
         view.clBackground.setOnClickListener {
             view.clBackground.gone()
@@ -140,6 +181,7 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
         }
 
         view.imgHistory.setOnClickListener {
+            view.imgNotify.gone()
             mPresenter.gotoHistoryActivity()
         }
     }

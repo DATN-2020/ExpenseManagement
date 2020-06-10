@@ -9,8 +9,8 @@ class AddExpenseViewModel(
     var info: Info? = null
 ) : ViewModel {
 
-    enum class Type(id: Int) {
-        DONATE(1), RECEIVE(2)
+    enum class Type {
+        DONATE, RECEIVE, LOAN, INVEST
     }
 
     class Info(

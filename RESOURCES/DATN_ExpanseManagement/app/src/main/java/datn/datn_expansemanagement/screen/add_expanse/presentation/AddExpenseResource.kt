@@ -5,6 +5,11 @@ import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.base.domain.provider.AndroidResourceProvider
 
 class AddExpenseResource : AndroidResourceProvider(){
+
+    fun getColorStatusBar(): Int {
+        return resourceManager.getColor(R.color.color_status_bar_opacity)
+    }
+
     fun getIconReceive(): Drawable?{
         return resourceManager.getDrawable(R.drawable.ic_receive)
     }
