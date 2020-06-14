@@ -5,6 +5,7 @@
     android:padding="@dimen/spacing_6dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:padding="@dimen/spacing_4dp"
         android:background="@drawable/bg_corner_silver"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -18,11 +19,11 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:id="@+id/imgTrip"
-            android:layout_width="@dimen/spacing_40dp"
-            android:layout_height="@dimen/spacing_40dp"/>
+            android:layout_width="@dimen/spacing_24dp"
+            android:layout_height="@dimen/spacing_24dp"/>
         <TextView
             android:id="@+id/tvNameImg"
-            style="@style/StyleTextView.Medium.White"
+            style="@style/StyleTextView.Small.White"
             android:text="HP"
             app:layout_constraintBottom_toBottomOf="@id/imgTrip"
             app:layout_constraintTop_toTopOf="@id/imgTrip"
@@ -37,6 +38,7 @@
             android:text="Hoang Phuc"
             android:maxLength="20"
             android:maxLines="1"
+            style="@style/StyleTextView.Normal.Black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/imgTrip"
@@ -50,7 +52,7 @@
             app:layout_constraintStart_toEndOf="@id/tvName"
             app:layout_constraintBottom_toBottomOf="@id/tvName"
             app:layout_constraintTop_toTopOf="@id/tvName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_width="@dimen/spacing_16dp"
+            android:layout_height="@dimen/spacing_16dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

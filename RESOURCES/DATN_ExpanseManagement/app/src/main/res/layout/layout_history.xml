@@ -52,6 +52,7 @@
             android:id="@+id/clDateFrom"
             android:paddingEnd="@dimen/spacing_10dp"
             android:layout_width="0dp"
+            android:background="?attr/selectableItemBackground"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_10dp"
             app:layout_constraintEnd_toStartOf="@id/glCenter"
@@ -60,7 +61,7 @@
 
             <TextView
                 android:gravity="center"
-                android:id="@+id/dateFrom"
+                android:id="@+id/tvDateFrom"
                 style="@style/StyleTextView.Medium.Black"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -80,10 +81,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_date_range_blue"
-                app:layout_constraintBottom_toBottomOf="@id/dateFrom"
+                app:layout_constraintBottom_toBottomOf="@id/tvDateFrom"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/dateFrom"
-                app:layout_constraintTop_toTopOf="@id/dateFrom" />
+                app:layout_constraintStart_toEndOf="@id/tvDateFrom"
+                app:layout_constraintTop_toTopOf="@id/tvDateFrom" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
@@ -103,6 +104,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clDateTo"
             android:layout_width="0dp"
+            android:background="?attr/selectableItemBackground"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_10dp"
             app:layout_constraintEnd_toEndOf="parent"

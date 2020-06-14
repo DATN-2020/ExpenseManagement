@@ -27,7 +27,7 @@ import datn.datn_expansemanagement.screen.add_expanse.data.AddDonateDataBus
 import datn.datn_expansemanagement.screen.add_expanse.presentation.model.AddExpenseViewModel
 import datn.datn_expansemanagement.screen.add_expanse.presentation.renderer.AddExpenseRenderer
 import datn.datn_expansemanagement.screen.add_expense_donate.AddExpenseDonateFragment
-import datn.datn_expansemanagement.screen.add_expense_receive.AddExpenseReceiveFragment
+import datn.datn_expansemanagement.screen.add_expense_loan.AddExpenseLoanFragment
 import kotlinx.android.synthetic.main.custom_dialog_cancel_contact.*
 import kotlinx.android.synthetic.main.layout_add_expanse.view.*
 import kotlinx.android.synthetic.main.toolbar_add_expanse.view.*
@@ -64,15 +64,18 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
                        if(!it.isChoose){
                            when(data.type){
                                AddExpenseViewModel.Type.RECEIVE ->{
-                                   replaceFragment(AddExpenseReceiveFragment())
+                                   replaceFragment(AddExpenseDonateFragment(false))
                                    view.tvToolbar.text = mResource.getTextReceive()
                                }
                                AddExpenseViewModel.Type.DONATE->{
-                                   replaceFragment(AddExpenseDonateFragment())
+                                   replaceFragment(AddExpenseDonateFragment(true))
                                    view.tvToolbar.text = mResource.getTextDonate()
                                }
+                               AddExpenseViewModel.Type.LOAN->{
+                                   replaceFragment(AddExpenseLoanFragment())
+                                   view.tvToolbar.text = mResource.getTextLoan()
+                               }
                            }
-                           view.clBackground.gone()
                            it.isChoose = true
                        }
                     }else{
@@ -81,6 +84,7 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
                 }
             }
 
+            view.clBackground.gone()
             view.cvType.gone()
             isOpen = false
             listViewMvp?.setItems(listData)
@@ -93,7 +97,7 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
         addLifeCycle(eventBusLifeCycle)
         initView()
         initRecycleView()
-        replaceFragment(AddExpenseDonateFragment())
+        replaceFragment(AddExpenseDonateFragment(true))
     }
 
     override fun showLoading() {

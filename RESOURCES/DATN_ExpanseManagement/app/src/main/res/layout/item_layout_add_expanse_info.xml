@@ -77,7 +77,7 @@
             android:id="@+id/edtFriend"
             style="@style/StyleTextView.Medium.Black"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_20dp"
             android:background="?attr/selectableItemBackground"
             android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"

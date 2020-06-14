@@ -4,77 +4,93 @@
     android:background="@color/white"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <View
-        android:id="@+id/viewLeft"
-        android:background="@color/color_219dfd"
+        android:id="@+id/viewTop"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/tvMonth"
-        android:layout_width="8dp"
-        android:layout_height="0dp"/>
-    <TextView
-        android:layout_marginStart="@dimen/spacing_10dp"
-        style="@style/StyleTextView.Huge.Black"
-        android:fontFamily="@font/roboto_bold"
-        android:text="30"
-        app:layout_constraintBottom_toBottomOf="@id/tvMonth"
-        app:layout_constraintTop_toTopOf="@id/tvDay"
-        app:layout_constraintStart_toEndOf="@id/viewLeft"
-        android:id="@+id/tvNumberDay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:paddingTop="@dimen/spacing_10dp"
-        android:layout_marginStart="@dimen/spacing_20dp"
-        style="@style/StyleTextView.Normal.Black"
-        android:fontFamily="@font/roboto_regular"
-        android:text="Hôm qua"
-        app:layout_constraintStart_toEndOf="@id/tvNumberDay"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/tvDay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:layout_marginTop="@dimen/spacing_4dp"
-        android:paddingBottom="@dimen/spacing_10dp"
-        android:fontFamily="@font/roboto_regular"
-        android:text="05/2020"
-        app:layout_constraintTop_toBottomOf="@id/tvDay"
-        app:layout_constraintStart_toStartOf="@id/tvDay"
-        android:id="@+id/tvMonth"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:paddingTop="@dimen/spacing_10dp"
-        android:fontFamily="@font/roboto_medium"
-        style="@style/StyleTextView.Medium.Green"
-        android:layout_marginEnd="@dimen/spacing_20dp"
-        android:text="5.000.000 đ"
-        android:id="@+id/tvTotalMoneyIncome"
+        android:background="#F5F5F5"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/tvDay"
-        app:layout_constraintTop_toTopOf="@id/tvDay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:layout_marginTop="@dimen/spacing_10dp"
-        android:fontFamily="@font/roboto_medium"
-        style="@style/StyleTextView.Medium.Red"
-        android:layout_marginEnd="@dimen/spacing_20dp"
-        android:text="419.000 đ"
-        android:id="@+id/tvTotalMoneyOutcome"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/tvMonth"
-        app:layout_constraintTop_toTopOf="@id/tvMonth"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <View
-        android:id="@+id/viewBottom"
-        android:layout_marginTop="@dimen/spacing_10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tvMonth"
-        app:layout_constraintTop_toBottomOf="@id/viewLeft"
-        android:background="#D6D4D4"
-        android:layout_width="0dp"
-        android:layout_height="0.5dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:id="@+id/viewLeft"
+            android:background="@color/color_219dfd"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/tvMonth"
+            android:layout_width="8dp"
+            android:layout_height="0dp"/>
+        <TextView
+            android:layout_marginStart="@dimen/spacing_10dp"
+            style="@style/StyleTextView.Huge.Black"
+            android:fontFamily="@font/roboto_bold"
+            android:text="30"
+            app:layout_constraintBottom_toBottomOf="@id/tvMonth"
+            app:layout_constraintTop_toTopOf="@id/tvDay"
+            app:layout_constraintStart_toEndOf="@id/viewLeft"
+            android:id="@+id/tvNumberDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:paddingTop="@dimen/spacing_10dp"
+            android:layout_marginStart="@dimen/spacing_20dp"
+            style="@style/StyleTextView.Normal.Black"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Hôm qua"
+            app:layout_constraintStart_toEndOf="@id/tvNumberDay"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/tvDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_marginTop="@dimen/spacing_4dp"
+            android:paddingBottom="@dimen/spacing_10dp"
+            android:fontFamily="@font/roboto_regular"
+            android:text="05/2020"
+            app:layout_constraintTop_toBottomOf="@id/tvDay"
+            app:layout_constraintStart_toStartOf="@id/tvDay"
+            android:id="@+id/tvMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:paddingTop="@dimen/spacing_10dp"
+            android:fontFamily="@font/roboto_medium"
+            style="@style/StyleTextView.Medium.Green"
+            android:layout_marginEnd="@dimen/spacing_20dp"
+            android:text="5.000.000 đ"
+            android:id="@+id/tvTotalMoneyIncome"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/tvDay"
+            app:layout_constraintTop_toTopOf="@id/tvDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_marginTop="@dimen/spacing_10dp"
+            android:fontFamily="@font/roboto_medium"
+            style="@style/StyleTextView.Medium.Red"
+            android:layout_marginEnd="@dimen/spacing_20dp"
+            android:text="419.000 đ"
+            android:id="@+id/tvTotalMoneyOutcome"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/tvMonth"
+            app:layout_constraintTop_toTopOf="@id/tvMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <View
+            android:id="@+id/viewBottom"
+            android:layout_marginTop="@dimen/spacing_10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tvNumberDay"
+            app:layout_constraintTop_toBottomOf="@id/viewLeft"
+            android:background="#D6D4D4"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

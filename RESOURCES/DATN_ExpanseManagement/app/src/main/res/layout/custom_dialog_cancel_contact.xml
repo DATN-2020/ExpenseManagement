@@ -22,11 +22,11 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvTitle"
-            style="@style/StyleTextView.MediumLarge.6D30AB"
+            style="@style/StyleTextViewMedium.Medium.Black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_56dp"
-            android:fontFamily="@font/roboto_bold"
+            android:fontFamily="@font/roboto_medium"
             android:gravity="center"
             android:text="Bạn đã thêm 1 muc thành công"
             app:layout_constraintEnd_toEndOf="parent"

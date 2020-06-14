@@ -17,6 +17,9 @@ class AddExpenseResource : AndroidResourceProvider(){
     fun getIconSubtract(): Drawable?{
         return resourceManager.getDrawable(R.drawable.ic_subtract)
     }
+    fun getIconLoan(): Drawable?{
+        return resourceManager.getDrawable(R.drawable.ic_loan)
+    }
 
     fun getTextReceive(): String{
         return resourceManager.getString(R.string.text_receive)
@@ -25,6 +28,12 @@ class AddExpenseResource : AndroidResourceProvider(){
     fun getTextDonate(): String{
         return resourceManager.getString(R.string.text_donate)
     }
+
+    fun getTextLoan(): String{
+        return resourceManager.getString(R.string.text_loan)
+    }
+
+
 
     fun getColorSelected(): Int{
         return resourceManager.getColor(R.color.color_219dfd)

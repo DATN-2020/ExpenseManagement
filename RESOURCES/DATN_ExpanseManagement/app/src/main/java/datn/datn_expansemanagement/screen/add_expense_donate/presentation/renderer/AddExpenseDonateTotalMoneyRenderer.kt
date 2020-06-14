@@ -28,7 +28,12 @@ class AddExpenseDonateTotalMoneyRenderer(
         AddExpenseDonateTotalMoneyViewModel::class.java
 
     override fun bindView(model: AddExpenseDonateTotalMoneyViewModel, viewRoot: View) {
-        viewRoot.edtMoney.setHintTextColor(mResource.getColorTotalMoney())
+        if(model.isDonate){
+            viewRoot.edtMoney.setHintTextColor(mResource.getColorTotalMoney())
+        }else{
+            viewRoot.edtMoney.setHintTextColor(mResource.getColorTotalMoneyReceive())
+        }
+
         viewRoot.edtMoney.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 viewRoot.edtMoney.removeTextChangedListener(this)

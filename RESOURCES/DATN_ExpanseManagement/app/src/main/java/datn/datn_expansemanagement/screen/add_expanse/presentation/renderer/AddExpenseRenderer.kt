@@ -42,14 +42,14 @@ class AddExpenseRenderer(
                 )
                 viewRoot.tvTypeExpense.text = mResource.getTextDonate()
             }
-//            AddExpenseViewModel.Type.LOAN -> {
-//                GlideImageHelper(context).loadThumbnail(
-//                    viewRoot.imgTypeExpense,
-//                    mResource.getIconSubtract(),
-//                    R.drawable.ic_subtract
-//                )
-//                viewRoot.tvTypeExpense.text = mResource.getTextDonate()
-//            }
+            AddExpenseViewModel.Type.LOAN -> {
+                GlideImageHelper(context).loadThumbnail(
+                    viewRoot.imgTypeExpense,
+                    mResource.getIconLoan(),
+                    R.drawable.ic_loan
+                )
+                viewRoot.tvTypeExpense.text = mResource.getTextLoan()
+            }
 //            AddExpenseViewModel.Type.INVEST -> {
 //                GlideImageHelper(context).loadThumbnail(
 //                    viewRoot.imgTypeExpense,

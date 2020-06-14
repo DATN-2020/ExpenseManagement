@@ -14,26 +14,19 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivit
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
 import datn.datn_expansemanagement.core.event.EventBusData
 import datn.datn_expansemanagement.core.event.EventBusLifeCycle
-import datn.datn_expansemanagement.kotlinex.collection.getValueOrDefault
-import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
-import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
 import datn.datn_expansemanagement.screen.add_expanse.data.AddDonateDataBus
-import datn.datn_expansemanagement.screen.add_expanse.presentation.model.AddExpenseViewModel
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.model.AddExpenseCategoryViewModel
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.model.AddExpenseDonateInfoViewModel
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.renderer.AddExpenseCategoryRenderer
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.renderer.AddExpenseDonateInfoRenderer
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.renderer.AddExpenseDonateTotalMoneyRenderer
-import datn.datn_expansemanagement.screen.main.data.EventBusCategory
-import datn.datn_expansemanagement.screen.main.data.EventBusFriend
-import datn.datn_expansemanagement.screen.main.data.EventBusTrip
-import datn.datn_expansemanagement.screen.main.data.EventBusWallet
 import kotlinx.android.synthetic.main.layout_add_expense_donate.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 import java.util.*
 
-class AddExpenseDonateView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator) :
+class AddExpenseDonateView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator,
+private val isDonate: Boolean = false) :
     AndroidMvpView(mvpActivity, viewCreator), AddExpenseDonateContract.View {
 
     class ViewCreator(context: Context, viewGroup: ViewGroup?) :
@@ -97,7 +90,7 @@ class AddExpenseDonateView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView
             val datePickerDialog = DatePickerDialog(
                 mvpActivity,
                 DatePickerDialog.OnDateSetListener { view, year, month, day ->
-                    var m = month + 1
+                    val m = month + 1
                     data.date = "$day/$m/$year"
                     AddExpenseFragment.model.date = data.date
                     listViewMvp?.notifyDataChanged()
@@ -167,7 +160,7 @@ class AddExpenseDonateView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView
 
     override fun initData() {
         super.initData()
-        mPresenter.getData()
+        mPresenter.getData(isDonate)
     }
 
     override fun startMvpView() {
@@ -191,7 +184,7 @@ class AddExpenseDonateView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView
     }
 
     private fun initRecycleView() {
-        listViewMvp = ListViewMvp(mvpActivity, view.rvAddExpanseDonate, renderConfig)
+        listViewMvp = ListViewMvp(mvpActivity, view.rvAddExpanse, renderConfig)
         listViewMvp?.addViewRenderer(
             AddExpenseCategoryRenderer(
                 mvpActivity,
