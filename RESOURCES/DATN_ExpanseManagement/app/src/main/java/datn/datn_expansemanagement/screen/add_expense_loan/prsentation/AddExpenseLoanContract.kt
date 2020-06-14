@@ -12,6 +12,6 @@ interface AddExpenseLoanContract{
     }
 
     abstract class Presenter : MvpPresenter<View>() {
-        abstract fun getData()
+        abstract fun getData(isDonate: Boolean = false)
     }
 }

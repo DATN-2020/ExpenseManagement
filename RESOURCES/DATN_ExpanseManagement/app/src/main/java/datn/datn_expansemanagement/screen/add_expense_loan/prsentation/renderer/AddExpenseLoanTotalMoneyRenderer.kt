@@ -1,4 +1,4 @@
-package datn.datn_expansemanagement.screen.add_expense_donate.presentation.renderer
+package datn.datn_expansemanagement.screen.add_expense_loan.prsentation.renderer
 
 import android.content.Context
 import android.text.Editable
@@ -10,24 +10,25 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.model.View
 import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.AddExpenseDonateResource
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.model.AddExpenseDonateTotalMoneyViewModel
+import datn.datn_expansemanagement.screen.add_expense_loan.prsentation.model.AddExpenseLoanTotalMoneyViewModel
 import kotlinx.android.synthetic.main.item_layout_add_expanse_total_money.view.*
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
 
-class AddExpenseDonateTotalMoneyRenderer(
+class AddExpenseLoanTotalMoneyRenderer(
     context: Context,
     private val mResource: AddExpenseDonateResource
 ) :
-    ViewRenderer<AddExpenseDonateTotalMoneyViewModel>(context) {
+    ViewRenderer<AddExpenseLoanTotalMoneyViewModel>(context) {
     override fun getLayoutId(): Int {
         return R.layout.item_layout_add_expanse_total_money
     }
 
-    override fun getModelClass(): Class<AddExpenseDonateTotalMoneyViewModel> =
-        AddExpenseDonateTotalMoneyViewModel::class.java
+    override fun getModelClass(): Class<AddExpenseLoanTotalMoneyViewModel> =
+        AddExpenseLoanTotalMoneyViewModel::class.java
 
-    override fun bindView(model: AddExpenseDonateTotalMoneyViewModel, viewRoot: View) {
+    override fun bindView(model: AddExpenseLoanTotalMoneyViewModel, viewRoot: View) {
         if(model.isDonate){
             viewRoot.edtMoney.setHintTextColor(mResource.getColorTotalMoney())
         }else{
@@ -37,7 +38,7 @@ class AddExpenseDonateTotalMoneyRenderer(
         viewRoot.edtMoney.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 viewRoot.edtMoney.removeTextChangedListener(this)
-                if(!viewRoot.edtMoney.text.isNullOrEmpty()){
+                if(viewRoot.edtMoney.text.toString().isNotEmpty()){
                     viewRoot.edtMoney.setText(Utils.customFormatMoney(s.toString()))
                     viewRoot.edtMoney.setSelection(viewRoot.edtMoney.text.toString().length)
                     val result = viewRoot.edtMoney.text.toString().replace(",","")
