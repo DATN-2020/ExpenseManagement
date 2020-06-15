@@ -11,4 +11,5 @@ interface ScreenNavigator {
     fun gotoChooseFriendActivity()
     fun gotoLocationActivity()
     fun gotoHistoryActivity()
+    fun gotoExchangeRateActivity()
 }

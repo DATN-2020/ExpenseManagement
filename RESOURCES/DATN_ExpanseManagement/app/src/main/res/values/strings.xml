@@ -59,4 +59,6 @@
     <string name="text_loan_title">Cho vay</string>
     <string name="text_loaner">Người vay</string>
     <string name="text_borrow">Đi vay</string>
+    <string name="text_exchange_rate">Tra cứu tỉ giá</string>
+    <string name="text_rate">Tra cứu</string>
 </resources>

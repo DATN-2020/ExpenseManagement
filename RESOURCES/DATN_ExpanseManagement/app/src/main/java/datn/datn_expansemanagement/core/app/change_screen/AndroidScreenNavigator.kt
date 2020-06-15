@@ -8,6 +8,7 @@ import datn.datn_expansemanagement.screen.add_category.data.TypeCategoryDataInte
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.model.AddExpenseCategoryViewModel
 import datn.datn_expansemanagement.screen.category.CategoryActivity
 import datn.datn_expansemanagement.screen.contacts.ContactsActivity
+import datn.datn_expansemanagement.screen.exchange_rate.ExchangeRateActivity
 import datn.datn_expansemanagement.screen.history.HistoryActivity
 import datn.datn_expansemanagement.screen.list_type_category.ListTypeCategoryActivity
 import datn.datn_expansemanagement.screen.list_wallet.ListWalletActivity
@@ -54,6 +55,11 @@ class AndroidScreenNavigator constructor(private val mvpActivity: MvpActivity) :
 
     override fun gotoHistoryActivity() {
         val intent = Intent(mvpActivity, HistoryActivity::class.java)
+        mvpActivity.startActivity(intent)
+    }
+
+    override fun gotoExchangeRateActivity() {
+        val intent = Intent(mvpActivity, ExchangeRateActivity::class.java)
         mvpActivity.startActivity(intent)
     }
 }

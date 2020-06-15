@@ -1,19 +1,16 @@
 package datn.datn_expansemanagement.screen.overview.presentation
 
 import android.content.Context
-import android.os.Build
-import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.R
+import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
+import datn.datn_expansemanagement.core.base.domain.listener.OnActionNotify
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
-import datn.datn_expansemanagement.screen.overview.presentation.renderer.ExchangeReteViewRenderer
-import datn.datn_expansemanagement.screen.overview.presentation.renderer.TestCharRenderer
-import datn.datn_expansemanagement.screen.account.item_account.presentation.renderer.WalletViewRenderer
+import datn.datn_expansemanagement.screen.overview.presentation.renderer.OverviewExchangeRateViewRenderer
 import kotlinx.android.synthetic.main.layout_overview.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 
@@ -23,7 +20,7 @@ class OverviewView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCr
     AndroidMvpView.LayoutViewCreator(R.layout.layout_overview, context, viewGroup)
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
-    private val mPresenter = OverviewPresenter()
+    private val mPresenter = OverviewPresenter(AndroidScreenNavigator(mvpActivity))
     private val mResource = OverviewResource()
     private val listExchangeRate = mutableListOf<ViewModel>()
     private var rvExchangeRate : ListViewMvp? = null
@@ -38,10 +35,18 @@ class OverviewView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCr
         initRecycleView()
     }
 
+    private val onActionNotify = object : OnActionNotify{
+        override fun onActionNotify() {
+            mPresenter.gotoExchangeRateActivity()
+        }
+
+    }
+
     private fun initRecycleView(){
         rvExchangeRate = ListViewMvp(mvpActivity, view.rvOverview, renderConfig)
-        rvExchangeRate?.addViewRenderer(ExchangeReteViewRenderer(mvpActivity))
-        rvExchangeRate?.addViewRenderer(TestCharRenderer(mvpActivity))
+//        rvExchangeRate?.addViewRenderer(ExchangeRateViewRenderer(mvpActivity))
+//        rvExchangeRate?.addViewRenderer(TestCharRenderer(mvpActivity))
+        rvExchangeRate?.addViewRenderer(OverviewExchangeRateViewRenderer(mvpActivity, onActionNotify))
         rvExchangeRate?.createView()
     }
 

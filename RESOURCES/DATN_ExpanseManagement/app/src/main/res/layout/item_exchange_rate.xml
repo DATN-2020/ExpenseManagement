@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clItem"
+        android:padding="@dimen/spacing_14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:fontFamily="@font/roboto_regular"
+            app:layout_constraintBottom_toBottomOf="@id/tvExchange"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvExchange"
+            style="@style/StyleTextView.Normal.Black"
+            android:text="VGO"
+            android:id="@+id/tvExchangeRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:fontFamily="@font/roboto_regular"
+            android:gravity="center"
+            app:layout_constraintEnd_toStartOf="@id/imgFlag"
+            app:layout_constraintStart_toEndOf="@id/tvExchangeRate"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="@dimen/spacing_10dp"
+            style="@style/StyleTextView.Normal.696969"
+            android:text="1 VGO ~ 482000d"
+            android:id="@+id/tvExchange"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_marginEnd="@dimen/spacing_10dp"
+            android:id="@+id/imgFlag"
+            android:layout_width="@dimen/spacing_30dp"
+            android:layout_height="@dimen/spacing_30dp"
+            app:layout_constraintBottom_toBottomOf="@id/tvExchange"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvExchange"
+            app:srcCompat="@drawable/ic_france" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:background="@color/color_f5f5f5"
+        app:layout_constraintTop_toBottomOf="@id/clItem"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="1dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
