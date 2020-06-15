@@ -72,8 +72,12 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
                                    view.tvToolbar.text = mResource.getTextDonate()
                                }
                                AddExpenseViewModel.Type.LOAN->{
-                                   replaceFragment(AddExpenseLoanFragment())
+                                   replaceFragment(AddExpenseLoanFragment(true))
                                    view.tvToolbar.text = mResource.getTextLoan()
+                               }
+                               AddExpenseViewModel.Type.BORROW->{
+                                   replaceFragment(AddExpenseLoanFragment(false))
+                                   view.tvToolbar.text = mResource.getTextBorrow()
                                }
                            }
                            it.isChoose = true

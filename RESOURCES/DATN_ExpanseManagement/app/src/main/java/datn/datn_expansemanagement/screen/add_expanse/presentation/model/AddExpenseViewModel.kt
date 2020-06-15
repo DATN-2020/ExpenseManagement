@@ -10,7 +10,7 @@ class AddExpenseViewModel(
 ) : ViewModel {
 
     enum class Type {
-        DONATE, RECEIVE, LOAN, INVEST
+        DONATE, RECEIVE, LOAN, BORROW, INVEST
     }
 
     class Info(
@@ -22,7 +22,8 @@ class AddExpenseViewModel(
         var wallet: Wallet? = null,
         var trip: Trip? = null,
         var listFriend: ListFriend? = null,
-        var location: Location? = null
+        var location: Location? = null,
+        var loaner: Loaner? = null
 
     ) : ViewModel {
         class Category(
@@ -50,6 +51,11 @@ class AddExpenseViewModel(
                 var name: String? = null
             ) : ViewModel
         }
+
+        class Loaner(
+            var id: Int? = null,
+            var name: String? = null
+        ): ViewModel
 
         class Location(
             var id: Int? = null,

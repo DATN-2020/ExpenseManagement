@@ -4,8 +4,12 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvp
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpFragment
 import datn.datn_expansemanagement.screen.add_expense_loan.prsentation.AddExpenseLoanView
 
-class AddExpenseLoanFragment: MvpFragment(){
+class AddExpenseLoanFragment(private val isLoan: Boolean = false) : MvpFragment() {
     override fun createAndroidMvpView(): AndroidMvpView {
-        return AddExpenseLoanView(getMvpActivity(), AddExpenseLoanView.ViewCreator(getMvpActivity(), null))
+        return AddExpenseLoanView(
+            getMvpActivity(),
+            AddExpenseLoanView.ViewCreator(getMvpActivity(), null),
+            isLoan
+        )
     }
 }

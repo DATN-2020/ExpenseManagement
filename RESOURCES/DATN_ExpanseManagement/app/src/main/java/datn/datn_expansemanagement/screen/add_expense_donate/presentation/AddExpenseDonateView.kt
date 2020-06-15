@@ -53,11 +53,6 @@ private val isDonate: Boolean = false) :
     private val eventBusLifeCycle = EventBusLifeCycle(object : OnActionData<EventBusData> {
         override fun onAction(data: EventBusData) {
             listViewMvp?.notifyDataChanged()
-            when(data){
-                is AddDonateDataBus->{
-
-                }
-            }
         }
     })
 

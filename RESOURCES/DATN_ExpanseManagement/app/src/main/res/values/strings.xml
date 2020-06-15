@@ -56,4 +56,7 @@
     <string name="text_search_history">Tìm kiếm ghi chép</string>
     <string name="text_total_out_come">Tổng chi</string>
     <string name="text_total_in_come">Tổng thu</string>
+    <string name="text_loan_title">Cho vay</string>
+    <string name="text_loaner">Người vay</string>
+    <string name="text_borrow">Đi vay</string>
 </resources>

@@ -20,6 +20,9 @@ class AddExpenseResource : AndroidResourceProvider(){
     fun getIconLoan(): Drawable?{
         return resourceManager.getDrawable(R.drawable.ic_loan)
     }
+    fun getIconBorrow(): Drawable?{
+        return resourceManager.getDrawable(R.drawable.ic_borrow)
+    }
 
     fun getTextReceive(): String{
         return resourceManager.getString(R.string.text_receive)
@@ -29,8 +32,12 @@ class AddExpenseResource : AndroidResourceProvider(){
         return resourceManager.getString(R.string.text_donate)
     }
 
+    fun getTextBorrow(): String{
+        return resourceManager.getString(R.string.text_borrow)
+    }
+
     fun getTextLoan(): String{
-        return resourceManager.getString(R.string.text_loan)
+        return resourceManager.getString(R.string.text_loan_title)
     }
 
 

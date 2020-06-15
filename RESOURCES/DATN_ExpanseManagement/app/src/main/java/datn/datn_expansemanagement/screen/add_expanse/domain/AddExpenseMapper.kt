@@ -15,7 +15,10 @@ class AddExpenseMapper : Mapper<String, MutableList<ViewModel>>{
             type = AddExpenseViewModel.Type.RECEIVE
         ))
         listReturn.add(AddExpenseViewModel(
-            type = AddExpenseViewModel.Type.LOAN,
+            type = AddExpenseViewModel.Type.LOAN
+        ))
+        listReturn.add(AddExpenseViewModel(
+            type = AddExpenseViewModel.Type.BORROW,
             isLast = true
         ))
 //        listReturn.add(AddExpenseViewModel(

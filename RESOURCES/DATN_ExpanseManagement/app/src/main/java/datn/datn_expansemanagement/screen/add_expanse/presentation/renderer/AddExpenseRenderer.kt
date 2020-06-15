@@ -50,14 +50,14 @@ class AddExpenseRenderer(
                 )
                 viewRoot.tvTypeExpense.text = mResource.getTextLoan()
             }
-//            AddExpenseViewModel.Type.INVEST -> {
-//                GlideImageHelper(context).loadThumbnail(
-//                    viewRoot.imgTypeExpense,
-//                    mResource.getIconSubtract(),
-//                    R.drawable.ic_subtract
-//                )
-//                viewRoot.tvTypeExpense.text = mResource.getTextDonate()
-//            }
+            AddExpenseViewModel.Type.BORROW -> {
+                GlideImageHelper(context).loadThumbnail(
+                    viewRoot.imgTypeExpense,
+                    mResource.getIconBorrow(),
+                    R.drawable.ic_borrow
+                )
+                viewRoot.tvTypeExpense.text = mResource.getTextBorrow()
+            }
         }
 
         if (model.isChoose) {
