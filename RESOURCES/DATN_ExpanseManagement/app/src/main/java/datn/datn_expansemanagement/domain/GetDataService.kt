@@ -1,5 +1,6 @@
 package datn.datn_expansemanagement.domain
 
+import datn.datn_expansemanagement.domain.response.ExchangeRateResponse
 import datn.datn_expansemanagement.domain.response.TypeCategoryResponse
 import retrofit2.Call
 import retrofit2.http.GET
@@ -8,4 +9,7 @@ import retrofit2.http.GET
 interface GetDataService {
     @GET("TypeCategories")
     fun getTypeCategory(): Call<List<TypeCategoryResponse>>
+
+    @GET("exchange/export")
+    fun getListExchangeRate(): Call<ExchangeRateResponse>
 }

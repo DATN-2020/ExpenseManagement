@@ -1,11 +1,11 @@
-package datn.datn_expansemanagement.screen.overview.presentation.model
+package datn.datn_expansemanagement.screen.exchange_rate.presentation.model
 
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 
 class ExchangeRateViewModel (
-    var id: Int,
-    var name : String,
-    var exchange: String,
+    var id: String,
+    var moneyBuy : String,
+    var moneySell : String,
     var imageurl: String,
     var isChoose: Boolean? = false
 ): ViewModel

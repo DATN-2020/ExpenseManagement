@@ -1,10 +1,10 @@
-package datn.datn_expansemanagement.screen.overview.presentation.renderer
+package datn.datn_expansemanagement.screen.exchange_rate.presentation.renderer
 
 import android.content.Context
 import android.view.View
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.model.ViewRenderer
-import datn.datn_expansemanagement.screen.overview.presentation.model.ExchangeRateViewModel
+import datn.datn_expansemanagement.screen.exchange_rate.presentation.model.ExchangeRateViewModel
 
 class ExchangeRateViewRenderer (context: Context): ViewRenderer<ExchangeRateViewModel>(context){
     override fun getLayoutId(): Int {

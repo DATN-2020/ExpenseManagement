@@ -61,4 +61,5 @@
     <string name="text_borrow">Đi vay</string>
     <string name="text_exchange_rate">Tra cứu tỉ giá</string>
     <string name="text_rate">Tra cứu</string>
+    <string name="text_hint_search_rate">Tìm theo tên ký tự</string>
 </resources>
