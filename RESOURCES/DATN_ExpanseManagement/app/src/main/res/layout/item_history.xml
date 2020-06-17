@@ -55,25 +55,43 @@
             android:id="@+id/imgCategory"
             android:layout_width="@dimen/spacing_40dp"
             android:layout_height="@dimen/spacing_40dp"/>
-        <TextView
-            android:id="@+id/tvTitle"
+        <LinearLayout
             app:layout_constraintEnd_toStartOf="@id/glCenter"
-            android:paddingStart="@dimen/spacing_20dp"
-            style="@style/StyleTextView.Medium.Black"
-            android:fontFamily="@font/roboto_medium"
-            android:text="Tiền lãi"
             app:layout_constraintStart_toEndOf="@id/imgCategory"
             app:layout_constraintBottom_toBottomOf="@id/imgCategory"
             app:layout_constraintTop_toTopOf="@id/imgCategory"
+            android:orientation="vertical"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tvTitle"
+                app:layout_constraintEnd_toStartOf="@id/glCenter"
+                android:paddingStart="@dimen/spacing_20dp"
+                style="@style/StyleTextView.Medium.Black"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Tiền lãi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:singleLine="true"
+                android:layout_marginTop="@dimen/spacing_4dp"
+                android:id="@+id/tvNote"
+                app:layout_constraintEnd_toStartOf="@id/glCenter"
+                android:paddingStart="@dimen/spacing_20dp"
+                style="@style/StyleTextView.Medium.Black"
+                android:fontFamily="@font/roboto_light_italic"
+                android:text="Điều chỉnh số dư tài khoản"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
 
         <androidx.constraintlayout.widget.Guideline
+            app:layout_constraintGuide_percent="0.65"
             android:id="@+id/glCenter"
-            app:layout_constraintGuide_percent="0.5"
-            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
         <TextView
             android:gravity="end"
             android:paddingEnd="@dimen/spacing_20dp"

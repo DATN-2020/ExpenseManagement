@@ -60,6 +60,34 @@ class ItemCategoryView(
 
     }
 
+    private val listTemp = mutableListOf<ViewModel>()
+
+    private val onShowChild = object : OnActionData<ItemCategoryViewModel>{
+        override fun onAction(data: ItemCategoryViewModel) {
+            val index = listData.indexOf(data)
+            if(data.isShowChill == true){
+                for(i in index + 1 until listData.size){
+                    val item = listData[i] as ItemCategoryViewModel
+                    if(item.isShowChill == null){
+                        item.isShow = false
+                    }
+                }
+                data.isShowChill = false
+            }else{
+                for(i in index + 1 until listData.size){
+                    val item = listData[i] as ItemCategoryViewModel
+                    if(item.isShowChill == null){
+                        item.isShow = true
+                    }
+                }
+                data.isShowChill = true
+            }
+            listViewMvp?.notifyDataChanged()
+
+        }
+
+    }
+
     override fun initCreateView() {
         initRecycleView()
         initSearchView()
@@ -85,7 +113,7 @@ class ItemCategoryView(
 
     private fun initRecycleView() {
         listViewMvp = ListViewMvp(mvpActivity, view.rvCategory, renderConfig)
-        listViewMvp?.addViewRenderer(ItemCategoryViewRenderer(mvpActivity))
+        listViewMvp?.addViewRenderer(ItemCategoryViewRenderer(mvpActivity, onShowChild))
         listViewMvp?.setOnItemRvClickedListener(onItemRvClickedListener)
         listViewMvp?.createView()
     }

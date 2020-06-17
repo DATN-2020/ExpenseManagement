@@ -11,4 +11,8 @@ class OverviewPresenter(private val screenNavigator: AndroidScreenNavigator) : O
     override fun gotoExchangeRateActivity() {
         screenNavigator.gotoExchangeRateActivity()
     }
+
+    override fun gotoHistoryActivity() {
+        screenNavigator.gotoHistoryActivity()
+    }
 }

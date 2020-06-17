@@ -2,12 +2,18 @@ package datn.datn_expansemanagement.screen.overview.domain
 
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.core.base.domain.mapper.Mapper
+import datn.datn_expansemanagement.screen.overview.presentation.model.EmptyLineViewModel
 import datn.datn_expansemanagement.screen.overview.presentation.model.OverviewExchangeRateViewModel
+import datn.datn_expansemanagement.screen.overview.presentation.model.OverviewHistoryCurrentlyViewModel
+import datn.datn_expansemanagement.screen.overview.presentation.model.OverviewTotalMoneyViewModel
 
 class OverviewMapper : Mapper<String, MutableList<ViewModel>> {
     override fun map(input: String): MutableList<ViewModel> {
         val listReturn = mutableListOf<ViewModel>()
+        listReturn.add(OverviewTotalMoneyViewModel(total = 3000000000.0))
         listReturn.add(OverviewExchangeRateViewModel())
+        listReturn.add(EmptyLineViewModel())
+        listReturn.add(OverviewHistoryCurrentlyViewModel())
 
 //        val listBarEntry = mutableListOf<BarEntry>()
 //        listBarEntry.add(BarEntry(945f, 0f))

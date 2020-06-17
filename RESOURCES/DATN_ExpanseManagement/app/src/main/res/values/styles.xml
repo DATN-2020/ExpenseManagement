@@ -135,6 +135,10 @@
         <item name="android:textColor">@color/color_e8e8e8</item>
     </style>
 
+    <style name="StyleTextView.MidHuge.Blue">
+        <item name="android:textColor">@color/color_219dfd</item>
+    </style>
+
     <style name="StyleTextView.SupperSmallX.White">
         <item name="android:textColor">@color/white</item>
     </style>

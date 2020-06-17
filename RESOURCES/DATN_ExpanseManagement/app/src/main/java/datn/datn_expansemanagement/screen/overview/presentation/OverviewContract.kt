@@ -14,5 +14,6 @@ interface OverviewContract {
     abstract class Presenter : MvpPresenter<View>(){
         abstract fun getData()
         abstract fun gotoExchangeRateActivity()
+        abstract fun gotoHistoryActivity()
     }
 }

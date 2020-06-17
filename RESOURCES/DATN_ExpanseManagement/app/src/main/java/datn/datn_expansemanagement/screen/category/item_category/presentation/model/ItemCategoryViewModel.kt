@@ -8,5 +8,7 @@ import kotlinx.android.parcel.Parcelize
 class ItemCategoryViewModel(
     var id: Int,
     var name: String,
-    var isChoose: Boolean = false
+    var isChoose: Boolean = false,
+    var isShowChill: Boolean? = null,
+    var isShow: Boolean = false
 ) : ViewModel, Parcelable

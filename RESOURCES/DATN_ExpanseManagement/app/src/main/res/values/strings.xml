@@ -62,4 +62,6 @@
     <string name="text_exchange_rate">Tra cứu tỉ giá</string>
     <string name="text_rate">Tra cứu</string>
     <string name="text_hint_search_rate">Tìm theo tên ký tự</string>
+    <string name="text_history_currently">Ghi chép gần đây</string>
+    <string name="text_read_history">Xem ghi chép</string>
 </resources>

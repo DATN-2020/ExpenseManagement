@@ -10,7 +10,10 @@ import datn.datn_expansemanagement.core.base.domain.listener.OnActionNotify
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
+import datn.datn_expansemanagement.screen.overview.presentation.renderer.EmptyLineViewRenderer
 import datn.datn_expansemanagement.screen.overview.presentation.renderer.OverviewExchangeRateViewRenderer
+import datn.datn_expansemanagement.screen.overview.presentation.renderer.OverviewHistoryCurrentlyViewRenderer
+import datn.datn_expansemanagement.screen.overview.presentation.renderer.OverviewTotalMoneyViewRenderer
 import kotlinx.android.synthetic.main.layout_overview.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 
@@ -22,8 +25,8 @@ class OverviewView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCr
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
     private val mPresenter = OverviewPresenter(AndroidScreenNavigator(mvpActivity))
     private val mResource = OverviewResource()
-    private val listExchangeRate = mutableListOf<ViewModel>()
-    private var rvExchangeRate : ListViewMvp? = null
+    private val listData = mutableListOf<ViewModel>()
+    private var listViewMvp : ListViewMvp? = null
 
     private val renderInputProject = LinearRenderConfigFactory.Input(
         context = mvpActivity,
@@ -42,12 +45,25 @@ class OverviewView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCr
 
     }
 
+    private val onGotoReportTotalMoney = object : OnActionNotify{
+        override fun onActionNotify() {
+
+        }
+    }
+    private val onGotoHistory = object : OnActionNotify{
+        override fun onActionNotify() {
+            mPresenter.gotoHistoryActivity()
+        }
+    }
+
+
     private fun initRecycleView(){
-        rvExchangeRate = ListViewMvp(mvpActivity, view.rvOverview, renderConfig)
-//        rvExchangeRate?.addViewRenderer(ExchangeRateViewRenderer(mvpActivity))
-//        rvExchangeRate?.addViewRenderer(TestCharRenderer(mvpActivity))
-        rvExchangeRate?.addViewRenderer(OverviewExchangeRateViewRenderer(mvpActivity, onActionNotify))
-        rvExchangeRate?.createView()
+        listViewMvp = ListViewMvp(mvpActivity, view.rvOverview, renderConfig)
+        listViewMvp?.addViewRenderer(OverviewTotalMoneyViewRenderer(mvpActivity, onGotoReportTotalMoney))
+        listViewMvp?.addViewRenderer(OverviewHistoryCurrentlyViewRenderer(mvpActivity, onGotoHistory))
+        listViewMvp?.addViewRenderer(OverviewExchangeRateViewRenderer(mvpActivity, onActionNotify))
+        listViewMvp?.addViewRenderer(EmptyLineViewRenderer(mvpActivity))
+        listViewMvp?.createView()
     }
 
     override fun showLoading() {
@@ -74,11 +90,11 @@ class OverviewView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCr
     }
 
     override fun showData(list: MutableList<ViewModel>) {
-        this.listExchangeRate.clear()
+        this.listData.clear()
         if(list.isNotEmpty()){
-            this.listExchangeRate.addAll(list)
+            this.listData.addAll(list)
         }
-        rvExchangeRate?.setItems(this.listExchangeRate)
-        rvExchangeRate?.notifyDataChanged()
+        listViewMvp?.setItems(this.listData)
+        listViewMvp?.notifyDataChanged()
     }
 }
