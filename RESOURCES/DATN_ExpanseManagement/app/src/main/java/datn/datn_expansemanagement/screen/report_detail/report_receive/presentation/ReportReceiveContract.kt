@@ -1,11 +1,10 @@
-package datn.datn_expansemanagement.screen.report.presentation
+package datn.datn_expansemanagement.screen.report_detail.report_receive.presentation
 
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.core.base.presentation.mvp.base.MvpPresenter
 import datn.datn_expansemanagement.core.base.presentation.mvp.base.MvpView
-import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewModel
 
-interface ReportContract {
+interface ReportReceiveContract {
     interface View: MvpView {
         fun showLoading()
         fun hideLoading()
@@ -14,6 +13,5 @@ interface ReportContract {
 
     abstract class Presenter : MvpPresenter<View>(){
         abstract fun getData()
-        abstract fun gotoReportDetailActivity(data: ReportViewModel)
     }
 }

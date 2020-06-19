@@ -1,15 +1,19 @@
 package datn.datn_expansemanagement.screen.report.presentation
 
 import android.content.Context
+import android.view.View
 import android.view.ViewGroup
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.R
+import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.GridRenderConfigFactory
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
+import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.OnItemRvClickedListener
 import datn.datn_expansemanagement.kotlinex.view.gone
+import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewModel
 import datn.datn_expansemanagement.screen.report.presentation.renderer.ReportViewRenderer
 import kotlinx.android.synthetic.main.layout_report.view.*
 import kotlinx.android.synthetic.main.toolbar_account.view.*
@@ -22,7 +26,7 @@ class ReportView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreat
         AndroidMvpView.LayoutViewCreator(R.layout.layout_report, context, viewGroup)
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
-    private val mPresenter = ReportPresenter()
+    private val mPresenter = ReportPresenter(AndroidScreenNavigator(mvpActivity))
     private val mResource = ReportResource()
     private val listData = mutableListOf<ViewModel>()
     private var listViewMvp : ListViewMvp? = null
@@ -34,6 +38,13 @@ class ReportView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreat
     )
 
     private val renderConfig = GridRenderConfigFactory(renderInput).create()
+    private val onItemClick = object : OnItemRvClickedListener<ViewModel>{
+        override fun onItemClicked(view: View, position: Int, dataItem: ViewModel) {
+            dataItem as ReportViewModel
+            mPresenter.gotoReportDetailActivity(dataItem)
+        }
+
+    }
 
     override fun initCreateView() {
         initRecycleView()
@@ -49,6 +60,7 @@ class ReportView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreat
     private fun initRecycleView(){
         listViewMvp = ListViewMvp(mvpActivity, view.rvReport, renderConfig)
         listViewMvp?.addViewRenderer(ReportViewRenderer(mvpActivity))
+        listViewMvp?.setOnItemRvClickedListener(onItemClick)
         listViewMvp?.createView()
     }
 

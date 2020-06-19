@@ -1,6 +1,7 @@
 package datn.datn_expansemanagement.core.app.change_screen
 
 import datn.datn_expansemanagement.screen.add_category.data.TypeCategoryDataIntent
+import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewModel
 
 interface ScreenNavigator {
     fun gotoCategoryActivity(categoryId: Int? = null)
@@ -12,4 +13,5 @@ interface ScreenNavigator {
     fun gotoLocationActivity()
     fun gotoHistoryActivity()
     fun gotoExchangeRateActivity()
+    fun gotoReportDetailActivity(data: ReportViewModel)
 }

@@ -13,6 +13,8 @@ import datn.datn_expansemanagement.screen.history.HistoryActivity
 import datn.datn_expansemanagement.screen.list_type_category.ListTypeCategoryActivity
 import datn.datn_expansemanagement.screen.list_wallet.ListWalletActivity
 import datn.datn_expansemanagement.screen.location.LocationActivity
+import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewModel
+import datn.datn_expansemanagement.screen.report_detail.main.ReportDetailActivity
 import datn.datn_expansemanagement.screen.trip.TripActivity
 
 class AndroidScreenNavigator constructor(private val mvpActivity: MvpActivity) : ScreenNavigator{
@@ -60,6 +62,12 @@ class AndroidScreenNavigator constructor(private val mvpActivity: MvpActivity) :
 
     override fun gotoExchangeRateActivity() {
         val intent = Intent(mvpActivity, ExchangeRateActivity::class.java)
+        mvpActivity.startActivity(intent)
+    }
+
+    override fun gotoReportDetailActivity(data: ReportViewModel) {
+        val intent = Intent(mvpActivity, ReportDetailActivity::class.java)
+        intent.putExtra(ReportViewModel::class.java.simpleName, data)
         mvpActivity.startActivity(intent)
     }
 }
