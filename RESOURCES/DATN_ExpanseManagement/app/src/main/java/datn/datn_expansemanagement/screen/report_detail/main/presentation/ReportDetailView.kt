@@ -8,9 +8,12 @@ import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
+import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
+import datn.datn_expansemanagement.kotlinex.view.gone
 import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewModel
 import datn.datn_expansemanagement.screen.report_detail.report_receive.ReportReceiveFragment
 import kotlinx.android.synthetic.main.layout_add_expanse.view.*
+import kotlinx.android.synthetic.main.toolbar_category.view.*
 
 class ReportDetailView (mvpActivity: MvpActivity, viewCreator: LayoutViewCreator,
 private val data : ReportViewModel): AndroidMvpView(mvpActivity, viewCreator), ReportDetailContract.View{
@@ -22,7 +25,13 @@ private val data : ReportViewModel): AndroidMvpView(mvpActivity, viewCreator), R
     private val mPresenter = ReportDetailPresenter()
 
     override fun initCreateView() {
+        mvpActivity.setFullScreen()
+        view.imgAdd.gone()
+        view.tvToolbar.text = data.name.getValueOrDefaultIsEmpty()
         replaceFragment(ReportReceiveFragment.newInstance(data))
+        view.imgBack.setOnClickListener {
+            mvpActivity.onBackPressed()
+        }
     }
 
     override fun showLoading() {
