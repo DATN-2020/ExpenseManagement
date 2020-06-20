@@ -64,4 +64,16 @@
     <string name="text_hint_search_rate">Tìm theo tên ký tự</string>
     <string name="text_history_currently">Ghi chép gần đây</string>
     <string name="text_read_history">Xem ghi chép</string>
+    <string name="text_splash_1">Trải nghiệm niềm vui quản lý tài chính bằng việc đăng ký lần đầu sử dụng</string>
+    <string name="text_splash_2">Kiểm soát thu chi, nhắm thẳng mục tiêu về tài chính</string>
+    <string name="text_splash_3">Hưởng thụ cuộc sống thoải mái, tự do tài chính với người thân, bạn bè</string>
+    <string name="text_register_new">Đăng ký tài khoản mới</string>
+    <string name="text_login">Đăng nhập</string>
+    <string name="text_hint_enter_phone">Nhập số diện thoại</string>
+    <string name="text_hint_enter_password">Nhập mật khẩu</string>
+    <string name="text_or">Hoặc</string>
+    <string name="text_login_with_facebook">Đăng nhập bằng Facebook</string>
+    <string name="text_hint_enter_name">Nhập họ tên</string>
+    <string name="text_register_with_facebook">Đăng ký bằng Facebook</string>
+    <string name="text_register">Đăng ký</string>
 </resources>

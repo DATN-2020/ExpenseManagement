@@ -13,5 +13,6 @@ interface ScreenNavigator {
     fun gotoLocationActivity()
     fun gotoHistoryActivity()
     fun gotoExchangeRateActivity()
+    fun gotoLoginActivity(isLogin: Boolean)
     fun gotoReportDetailActivity(data: ReportViewModel)
 }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glCenter"
+        app:layout_constraintGuide_percent="0.5"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:paddingStart="@dimen/spacing_30dp"
+        android:paddingEnd="@dimen/spacing_30dp"
+        android:id="@+id/imgSplash"
+        app:srcCompat="@drawable/splash_1"
+        app:layout_constraintBottom_toTopOf="@id/glCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"/>
+    <TextView
+        android:paddingEnd="@dimen/spacing_30dp"
+        android:paddingStart="@dimen/spacing_30dp"
+        android:text="@string/text_splash_1"
+        android:fontFamily="@font/roboto_regular"
+        style="@style/StyleTextView.Medium.Black"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/glCenter"
+        android:id="@+id/tvSplash"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
