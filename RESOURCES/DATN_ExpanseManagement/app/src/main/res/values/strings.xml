@@ -76,4 +76,5 @@
     <string name="text_hint_enter_name">Nhập họ tên</string>
     <string name="text_register_with_facebook">Đăng ký bằng Facebook</string>
     <string name="text_register">Đăng ký</string>
+    <string name="text_warning_phone">Invalid phone number</string>
 </resources>

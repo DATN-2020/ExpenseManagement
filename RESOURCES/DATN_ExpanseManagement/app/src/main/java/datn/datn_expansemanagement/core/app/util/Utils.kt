@@ -3,12 +3,14 @@
 package datn.datn_expansemanagement.core.app.util
 
 import android.text.SpannableString
+import android.text.TextUtils
 import android.text.style.UnderlineSpan
 import android.widget.TextView
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.text.NumberFormat
 import java.util.*
+import java.util.regex.Pattern
 
 class Utils {
     companion object {
@@ -42,6 +44,16 @@ class Utils {
                 NumberFormat.getInstance(Locale.US) as DecimalFormat
             formatter.applyPattern("#,###,###,###")
             return formatter.format(longVar)
+        }
+
+        @JvmStatic
+        fun checkValidPhoneNumber(phone: String): Boolean {
+            return if (TextUtils.isEmpty(phone)) {
+                false
+            } else {
+                Pattern.matches("0+[0-9]{9}", phone)
+            }
+
         }
     }
 

@@ -7,4 +7,7 @@ class LoginResource : AndroidResourceProvider(){
     fun getTextErrorEmpty(): String {
         return resourceManager.getString(R.string.text_warning_add_category_title)
     }
+    fun getWarningPhone(): String {
+        return resourceManager.getString(R.string.text_warning_phone)
+    }
 }
