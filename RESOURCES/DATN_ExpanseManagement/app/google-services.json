@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "620665561577",
+    "firebase_url": "https://expensemanagement-15ee7.firebaseio.com",
+    "project_id": "expensemanagement-15ee7",
+    "storage_bucket": "expensemanagement-15ee7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:620665561577:android:b587ede7f8e5f4b61a2b78",
+        "android_client_info": {
+          "package_name": "datn.datn_expansemanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "620665561577-qghu5ih0cd49182597d4jff3flun5e3o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKNPQYKjPpJFxbrD3bQfuhMf0fgV3nVHg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "620665561577-qghu5ih0cd49182597d4jff3flun5e3o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
