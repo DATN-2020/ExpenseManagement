@@ -1,107 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:padding="@dimen/spacing_20dp"
-    android:background="@color/white"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@color/white"
+    android:padding="@dimen/spacing_20dp">
+
     <androidx.appcompat.widget.AppCompatImageView
-        android:layout_marginTop="@dimen/spacing_40dp"
         android:id="@+id/imgLogo"
-        app:srcCompat="@drawable/splash_1"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_marginTop="@dimen/spacing_40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/splash_1" />
 
     <androidx.appcompat.widget.AppCompatEditText
+        android:inputType="phone"
+        android:id="@+id/edtUser"
         style="@style/StyleTextView.Normal.Black"
-        android:padding="@dimen/spacing_6dp"
-        android:paddingStart="@dimen/spacing_20dp"
-        android:hint="@string/text_hint_enter_phone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spacing_44dp"
         android:layout_marginTop="@dimen/spacing_40dp"
         android:background="@drawable/bg_corner_e8e8e8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgLogo"
-        android:id="@+id/edtUser"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/spacing_44dp"/>
-    <androidx.appcompat.widget.AppCompatEditText
-        android:inputType="textPassword"
-        style="@style/StyleTextView.Normal.Black"
+        android:hint="@string/text_hint_enter_phone"
         android:padding="@dimen/spacing_6dp"
         android:paddingStart="@dimen/spacing_20dp"
-        android:hint="@string/text_hint_enter_password"
-        android:layout_marginTop="@dimen/spacing_10dp"
-        android:background="@drawable/bg_corner_e8e8e8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edtUser"
+        app:layout_constraintTop_toBottomOf="@id/imgLogo" />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tvErrorUser"
+        style="@style/StyleTextView.Small.DB5A5A"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_4dp"
+        android:paddingStart="@dimen/spacing_20dp"
+        android:paddingEnd="@dimen/spacing_20dp"
+        android:text="@string/text_error_empty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edtUser" />
+
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/edtPassword"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/spacing_44dp"/>
-    <androidx.appcompat.widget.AppCompatEditText
         style="@style/StyleTextView.Normal.Black"
-        android:padding="@dimen/spacing_6dp"
-        android:paddingStart="@dimen/spacing_20dp"
-        android:hint="@string/text_hint_enter_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spacing_44dp"
         android:layout_marginTop="@dimen/spacing_10dp"
         android:background="@drawable/bg_corner_e8e8e8"
+        android:hint="@string/text_hint_enter_password"
+        android:inputType="textPassword"
+        android:padding="@dimen/spacing_6dp"
+        android:paddingStart="@dimen/spacing_20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edtPassword"
-        android:id="@+id/edtName"
+        app:layout_constraintTop_toBottomOf="@id/tvErrorUser" />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tvErrorPassword"
+        style="@style/StyleTextView.Small.DB5A5A"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/spacing_44dp"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_4dp"
+        android:paddingStart="@dimen/spacing_20dp"
+        android:paddingEnd="@dimen/spacing_20dp"
+        android:text="@string/text_error_empty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edtPassword" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edtName"
+        style="@style/StyleTextView.Normal.Black"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spacing_44dp"
+        android:layout_marginTop="@dimen/spacing_10dp"
+        android:background="@drawable/bg_corner_e8e8e8"
+        android:hint="@string/text_hint_enter_name"
+        android:padding="@dimen/spacing_6dp"
+        android:paddingStart="@dimen/spacing_20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvErrorPassword" />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tvErrorName"
+        style="@style/StyleTextView.Small.DB5A5A"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_4dp"
+        android:paddingStart="@dimen/spacing_20dp"
+        android:paddingEnd="@dimen/spacing_20dp"
+        android:text="@string/text_error_empty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edtName" />
+
     <LinearLayout
         android:id="@+id/llLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_40dp"
         android:background="@drawable/bg_corner_blue_6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edtName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        app:layout_constraintTop_toBottomOf="@id/tvErrorName">
+
         <Button
-            android:background="?attr/selectableItemBackground"
-            style="@style/StyleTextView.Medium.White"
-            android:text="@string/text_register"
             android:id="@+id/btnRegister"
+            style="@style/StyleTextView.Medium.White"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:text="@string/text_register" />
     </LinearLayout>
+
     <TextView
         android:id="@+id/textOr"
-        android:fontFamily="@font/roboto_regular"
         style="@style/StyleTextView.Normal.SilverLight"
-        android:text="@string/text_or"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_20dp"
-        app:layout_constraintTop_toBottomOf="@id/llLogin"
+        android:fontFamily="@font/roboto_regular"
+        android:text="@string/text_or"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        app:layout_constraintTop_toBottomOf="@id/llLogin" />
+
     <LinearLayout
         android:id="@+id/llLoginFacebook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_10dp"
         android:background="@drawable/bg_corner_blue_facebook"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textOr"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        app:layout_constraintTop_toBottomOf="@id/textOr">
+
         <Button
-            android:paddingEnd="@dimen/spacing_40dp"
-            android:paddingStart="@dimen/spacing_20dp"
-            android:textAllCaps="false"
-            android:drawableLeft="@drawable/ic_facebook"
-            android:background="?attr/selectableItemBackground"
-            style="@style/StyleTextView.Medium.White"
-            android:text="@string/text_register_with_facebook"
             android:id="@+id/btnLoginFacebook"
+            style="@style/StyleTextView.Medium.White"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:drawableLeft="@drawable/ic_facebook"
+            android:paddingStart="@dimen/spacing_20dp"
+            android:paddingEnd="@dimen/spacing_40dp"
+            android:text="@string/text_register_with_facebook"
+            android:textAllCaps="false" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,5 +10,7 @@ interface LoginContract {
         fun hideLoading()
     }
 
-    abstract class Presenter : MvpPresenter<View>()
+    abstract class Presenter : MvpPresenter<View>(){
+        abstract fun gotoMainActivity()
+    }
 }

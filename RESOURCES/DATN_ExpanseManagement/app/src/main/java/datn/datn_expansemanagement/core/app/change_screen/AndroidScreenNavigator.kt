@@ -14,6 +14,7 @@ import datn.datn_expansemanagement.screen.list_type_category.ListTypeCategoryAct
 import datn.datn_expansemanagement.screen.list_wallet.ListWalletActivity
 import datn.datn_expansemanagement.screen.location.LocationActivity
 import datn.datn_expansemanagement.screen.login.LoginActivity
+import datn.datn_expansemanagement.screen.main.MainActivity
 import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewModel
 import datn.datn_expansemanagement.screen.report_detail.main.ReportDetailActivity
 import datn.datn_expansemanagement.screen.trip.TripActivity
@@ -75,6 +76,11 @@ class AndroidScreenNavigator constructor(private val mvpActivity: MvpActivity) :
     override fun gotoLoginActivity(isLogin: Boolean) {
         val intent = Intent(mvpActivity, LoginActivity::class.java)
         intent.putExtra("isLogin", isLogin)
+        mvpActivity.startActivity(intent)
+    }
+
+    override fun gotoMainActivity() {
+        val intent = Intent(mvpActivity, MainActivity::class.java)
         mvpActivity.startActivity(intent)
     }
 }

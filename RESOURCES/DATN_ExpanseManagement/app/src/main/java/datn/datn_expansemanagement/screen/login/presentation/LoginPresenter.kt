@@ -1,3 +1,9 @@
 package datn.datn_expansemanagement.screen.login.presentation
 
-class LoginPresenter : LoginContract.Presenter()
+import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
+
+class LoginPresenter(private val screenNavigator: AndroidScreenNavigator) : LoginContract.Presenter() {
+    override fun gotoMainActivity() {
+        screenNavigator.gotoMainActivity()
+    }
+}

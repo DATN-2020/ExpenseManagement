@@ -77,4 +77,9 @@
     <string name="text_register_with_facebook">Đăng ký bằng Facebook</string>
     <string name="text_register">Đăng ký</string>
     <string name="text_warning_phone">Invalid phone number</string>
+    <string name="text_error_empty">Vui lòng nhập thông tin</string>
+    <string name="facebook_app_id">660893037829174</string> <string name="fb_login_protocol_scheme">fb660893037829174</string>
+    <string name="text_title_create_wallet">Hãy tạo cho mình một chiếc ví</string>
+    <string name="text_title_total_price">Bạn đang có bao nhiêu tiền trong ví ?</string>
+    <string name="text_start_app">Bắt đầu sử dụng</string>
 </resources>

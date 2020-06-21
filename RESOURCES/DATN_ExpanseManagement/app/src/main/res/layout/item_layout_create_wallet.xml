@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_marginTop="@dimen/spacing_20dp"
+        android:id="@+id/imgTop"
+        app:srcCompat="@drawable/price_input"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"/>
+
+    <TextView
+        android:layout_marginTop="@dimen/spacing_40dp"
+        android:id="@+id/tvTitle"
+        style="@style/StyleTextView.Huge.Black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:text="@string/text_title_create_wallet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgTop" />
+
+    <TextView
+        android:id="@+id/tvTitleMoney"
+        style="@style/StyleTextView.Medium.Black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_10dp"
+        android:gravity="center"
+        android:text="@string/text_title_total_price"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edtPrice"
+        style="@style/StyleTextView.Large.Blue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_30dp"
+        android:hint="0"
+        android:inputType="number"
+        android:maxLength="24"
+        android:paddingStart="@dimen/spacing_10dp"
+        android:paddingTop="@dimen/spacing_10dp"
+        android:paddingBottom="@dimen/spacing_10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitleMoney" />
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="đ"
+        app:layout_constraintBottom_toBottomOf="@id/edtPrice"
+        app:layout_constraintStart_toEndOf="@id/edtPrice"
+        app:layout_constraintTop_toTopOf="@id/edtPrice" />
+
+    <LinearLayout
+        android:id="@+id/llStart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_20dp"
+        android:layout_marginTop="@dimen/spacing_20dp"
+        android:layout_marginEnd="@dimen/spacing_20dp"
+        android:background="@drawable/bg_corner_blue_6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edtPrice">
+
+        <Button
+            android:id="@+id/btnStart"
+            style="@style/StyleTextView.Medium.White"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:text="@string/text_start_app" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

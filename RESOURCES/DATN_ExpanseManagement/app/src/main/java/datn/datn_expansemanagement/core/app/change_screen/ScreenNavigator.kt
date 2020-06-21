@@ -15,4 +15,5 @@ interface ScreenNavigator {
     fun gotoExchangeRateActivity()
     fun gotoLoginActivity(isLogin: Boolean)
     fun gotoReportDetailActivity(data: ReportViewModel)
+    fun gotoMainActivity()
 }
