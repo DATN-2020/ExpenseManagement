@@ -7,16 +7,20 @@ import android.view.View
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.util.Utils
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.model.ViewRenderer
+import datn.datn_expansemanagement.screen.add_wallet.presentation.AddWalletResource
 import datn.datn_expansemanagement.screen.add_wallet.presentation.model.AddWalletHeaderItemViewModel
 import kotlinx.android.synthetic.main.item_layout_add_expanse_total_money.view.*
 
-class AddWalletHeaderItemViewRenderer(context: Context) : ViewRenderer<AddWalletHeaderItemViewModel>(context) {
+class AddWalletHeaderItemViewRenderer(context: Context,
+private val mResource : AddWalletResource
+) : ViewRenderer<AddWalletHeaderItemViewModel>(context) {
     override fun getLayoutId(): Int {
         return R.layout.item_layout_add_expanse_total_money
     }
 
     override fun getModelClass(): Class<AddWalletHeaderItemViewModel> = AddWalletHeaderItemViewModel::class.java
     override fun bindView(model: AddWalletHeaderItemViewModel, viewRoot: View) {
+        viewRoot.tvTitleTotalMoney.text = mResource.getTitleStartPrice()
         viewRoot.edtMoney.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 viewRoot.edtMoney.removeTextChangedListener(this)

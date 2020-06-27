@@ -2,42 +2,54 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/white"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
         android:paddingStart="@dimen/spacing_20dp"
         android:paddingTop="@dimen/spacing_16dp"
         android:paddingEnd="@dimen/spacing_20dp"
-        android:background="?attr/selectableItemBackground"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imgTypeWallet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@id/edtName"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/edtName"
-            app:srcCompat="@drawable/ic_type_wallet" />
-
         <TextView
-            android:fontFamily="@font/roboto_medium"
             android:id="@+id/edtName"
             style="@style/StyleTextView.Medium.Black"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
-            android:enabled="false"
-            android:hint="@string/text_enter_type_wallet"
+            android:fontFamily="@font/roboto_medium"
+            android:hint="@string/text_interest_rate"
             android:paddingStart="@dimen/spacing_20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/imgTypeWallet"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            style="@style/StyleTextView.Medium.Black"
+            android:fontFamily="@font/roboto_medium"
+            android:id="@+id/edtRate"
+            android:paddingEnd="@dimen/spacing_4dp"
+            android:hint="0"
+            android:textAlignment="textEnd"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/edtName"
+            app:layout_constraintTop_toTopOf="@id/edtName"
+            app:layout_constraintEnd_toStartOf="@id/tvUnit"
+            app:layout_constraintStart_toEndOf="@id/edtName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tvUnit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_unit_rate"
+            app:layout_constraintBottom_toBottomOf="@id/edtName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edtName" />
 
         <View
             android:id="@+id/viewBottom"

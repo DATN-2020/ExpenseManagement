@@ -88,4 +88,10 @@
     <string name="text_enter_name_wallet">Tên tài khoản</string>
     <string name="text_enter_type_wallet">Loại tài khoản</string>
     <string name="text_save">lưu</string>
+    <string name="text_start_price">Số dư ban đầu</string>
+    <string name="text_bank">Ngân hàng</string>
+    <string name="text_start_date_sent">Ngày gửi</string>
+    <string name="text_period">Kỳ hạn</string>
+    <string name="text_interest_rate">Lãi suất</string>
+    <string name="text_unit_rate">%/năm</string>
 </resources>

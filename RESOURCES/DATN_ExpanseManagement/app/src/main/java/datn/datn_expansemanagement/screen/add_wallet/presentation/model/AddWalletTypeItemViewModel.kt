@@ -4,5 +4,10 @@ import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 
 class AddWalletTypeItemViewModel(
     var id: Int? = null,
-    var name : String? = null
-) : ViewModel
+    var name : String? = null,
+    var type: Type? = Type.DEFAULT
+) : ViewModel{
+    enum class Type{
+        DEFAULT, SAVING, START_DATE, PERIOD
+    }
+}

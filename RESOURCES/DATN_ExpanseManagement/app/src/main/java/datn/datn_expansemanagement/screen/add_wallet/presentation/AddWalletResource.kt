@@ -13,4 +13,24 @@ class AddWalletResource : AndroidResourceProvider(){
     fun getTitleAddWalletAccumulation(): String{
         return resourceManager.getString(R.string.text_add_wallet_accumulation)
     }
+
+    fun getTitleStartPrice(): String{
+        return resourceManager.getString(R.string.text_start_price)
+    }
+
+    fun getHintTypeWallet(): String{
+        return resourceManager.getString(R.string.text_enter_type_wallet)
+    }
+
+    fun getHintBank(): String{
+        return resourceManager.getString(R.string.text_bank)
+    }
+
+    fun getStartDateSent(): String{
+        return resourceManager.getString(R.string.text_start_date_sent)
+    }
+
+    fun getPeriod(): String{
+        return resourceManager.getString(R.string.text_period)
+    }
 }

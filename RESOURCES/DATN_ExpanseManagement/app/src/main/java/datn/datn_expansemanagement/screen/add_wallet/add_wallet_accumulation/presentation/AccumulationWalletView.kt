@@ -8,6 +8,7 @@ import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
+import datn.datn_expansemanagement.screen.add_wallet.presentation.AddWalletResource
 import datn.datn_expansemanagement.screen.add_wallet.presentation.renderer.AddWalletHeaderItemViewRenderer
 import kotlinx.android.synthetic.main.item_layout_wallet.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
@@ -22,6 +23,7 @@ class AccumulationWalletView(mvpActivity: MvpActivity, viewCreator: AndroidMvpVi
 
     private val listData = mutableListOf<ViewModel>()
     private val mPresenter = AccumulationWalletPresenter()
+    private val mResource = AddWalletResource()
     private var listViewMvp: ListViewMvp? = null
     private val renderInput = LinearRenderConfigFactory.Input(
         context = mvpActivity,
@@ -67,7 +69,7 @@ class AccumulationWalletView(mvpActivity: MvpActivity, viewCreator: AndroidMvpVi
 
     private fun initRecycleView(){
         listViewMvp = ListViewMvp(mvpActivity, view.rvItemAddWallet, renderConfig)
-        listViewMvp?.addViewRenderer(AddWalletHeaderItemViewRenderer(mvpActivity))
+        listViewMvp?.addViewRenderer(AddWalletHeaderItemViewRenderer(mvpActivity, mResource))
         listViewMvp?.createView()
     }
 }

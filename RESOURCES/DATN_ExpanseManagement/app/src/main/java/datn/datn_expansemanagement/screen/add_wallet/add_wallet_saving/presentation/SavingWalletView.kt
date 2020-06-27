@@ -8,7 +8,12 @@ import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
+import datn.datn_expansemanagement.screen.add_wallet.presentation.AddWalletResource
+import datn.datn_expansemanagement.screen.add_wallet.presentation.renderer.AddWalletBottomItemViewRenderer
 import datn.datn_expansemanagement.screen.add_wallet.presentation.renderer.AddWalletHeaderItemViewRenderer
+import datn.datn_expansemanagement.screen.add_wallet.presentation.renderer.AddWalletNameItemViewRenderer
+import datn.datn_expansemanagement.screen.add_wallet.presentation.renderer.AddWalletTypeItemViewRenderer
+import datn.datn_expansemanagement.screen.overview.presentation.renderer.EmptyLineViewRenderer
 import kotlinx.android.synthetic.main.item_layout_wallet.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 
@@ -20,6 +25,7 @@ class SavingWalletView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.Vi
         AndroidMvpView.LayoutViewCreator(R.layout.item_layout_wallet, context, viewGroup)
     private val mPresenter = SavingWalletPresenter()
     private val listData = mutableListOf<ViewModel>()
+    private val mResource = AddWalletResource()
     private var listViewMvp: ListViewMvp? = null
     private val renderInput = LinearRenderConfigFactory.Input(
         context = mvpActivity,
@@ -65,7 +71,11 @@ class SavingWalletView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.Vi
 
     private fun initRecycleView(){
         listViewMvp = ListViewMvp(mvpActivity, view.rvItemAddWallet, renderConfig)
-        listViewMvp?.addViewRenderer(AddWalletHeaderItemViewRenderer(mvpActivity))
+        listViewMvp?.addViewRenderer(AddWalletHeaderItemViewRenderer(mvpActivity, mResource))
+        listViewMvp?.addViewRenderer(AddWalletNameItemViewRenderer(mvpActivity))
+        listViewMvp?.addViewRenderer(AddWalletBottomItemViewRenderer(mvpActivity))
+        listViewMvp?.addViewRenderer(EmptyLineViewRenderer(mvpActivity))
+        listViewMvp?.addViewRenderer(AddWalletTypeItemViewRenderer(mvpActivity, mResource))
         listViewMvp?.createView()
     }
 }

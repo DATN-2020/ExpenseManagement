@@ -9,7 +9,7 @@ class DefaultWalletMapper : Mapper<String, MutableList<ViewModel>>{
         val list = mutableListOf<ViewModel>()
         list.add(AddWalletHeaderItemViewModel())
         list.add(AddWalletNameItemViewModel())
-        list.add(AddWalletTypeItemViewModel())
+        list.add(AddWalletTypeItemViewModel(type = AddWalletTypeItemViewModel.Type.DEFAULT))
         list.add(AddWalletNoteItemViewModel())
         list.add(AddWalletBottomItemViewModel())
         return list

@@ -11,13 +11,14 @@
         android:layout_marginStart="@dimen/spacing_20dp"
         android:layout_marginTop="@dimen/spacing_20dp"
         android:layout_marginEnd="@dimen/spacing_20dp"
+        android:layout_marginBottom="@dimen/spacing_20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:background="@drawable/bg_corner_blue_6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-
             android:id="@+id/btnStart"
             style="@style/StyleTextView.Medium.White"
             android:layout_width="match_parent"
