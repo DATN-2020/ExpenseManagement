@@ -6,6 +6,7 @@ import datn.datn_expansemanagement.screen.MapsActivity
 import datn.datn_expansemanagement.screen.add_category.AddCategoryActivity
 import datn.datn_expansemanagement.screen.add_category.data.TypeCategoryDataIntent
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.model.AddExpenseCategoryViewModel
+import datn.datn_expansemanagement.screen.add_wallet.AddWalletActivity
 import datn.datn_expansemanagement.screen.category.CategoryActivity
 import datn.datn_expansemanagement.screen.contacts.ContactsActivity
 import datn.datn_expansemanagement.screen.exchange_rate.ExchangeRateActivity
@@ -81,6 +82,12 @@ class AndroidScreenNavigator constructor(private val mvpActivity: MvpActivity) :
 
     override fun gotoMainActivity() {
         val intent = Intent(mvpActivity, MainActivity::class.java)
+        mvpActivity.startActivity(intent)
+    }
+
+    override fun gotoAddWalletActivity(type: Int) {
+        val intent = Intent(mvpActivity, AddWalletActivity::class.java)
+        intent.putExtra("typeWallet", type)
         mvpActivity.startActivity(intent)
     }
 }

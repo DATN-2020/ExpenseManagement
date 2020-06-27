@@ -403,6 +403,10 @@
         <item name="android:textColor">@color/color_219dfd</item>
     </style>
 
+    <style name="StyleTextView.Huge.Green">
+        <item name="android:textColor">@color/color_399b54</item>
+    </style>
+
     <style name="StyleTextView.Huge.333333">
         <item name="android:textColor">@color/color_333333</item>
     </style>

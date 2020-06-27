@@ -16,4 +16,5 @@ interface ScreenNavigator {
     fun gotoLoginActivity(isLogin: Boolean)
     fun gotoReportDetailActivity(data: ReportViewModel)
     fun gotoMainActivity()
+    fun gotoAddWalletActivity(type: Int)
 }

@@ -1,10 +1,10 @@
-package datn.datn_expansemanagement.screen.account.presentation
+package datn.datn_expansemanagement.screen.add_wallet.add_wallet_saving.presentation
 
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.core.base.presentation.mvp.base.MvpPresenter
 import datn.datn_expansemanagement.core.base.presentation.mvp.base.MvpView
 
-interface AccountContract{
+interface SavingWalletContact {
     interface View: MvpView {
         fun showLoading()
         fun hideLoading()
@@ -13,6 +13,5 @@ interface AccountContract{
 
     abstract class Presenter : MvpPresenter<View>(){
         abstract fun getData()
-        abstract fun gotoAddWalletActivity(type: Int = 1)
     }
 }

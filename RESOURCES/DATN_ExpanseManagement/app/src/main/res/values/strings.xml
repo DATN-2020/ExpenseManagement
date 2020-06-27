@@ -82,4 +82,10 @@
     <string name="text_title_create_wallet">Hãy tạo cho mình một chiếc ví</string>
     <string name="text_title_total_price">Bạn đang có bao nhiêu tiền trong ví ?</string>
     <string name="text_start_app">Bắt đầu sử dụng</string>
+    <string name="text_add_wallet_default">Thêm tài khoản</string>
+    <string name="text_add_wallet_saving">Thêm sổ tiết kiệm</string>
+    <string name="text_add_wallet_accumulation">Thêm tích lũy</string>
+    <string name="text_enter_name_wallet">Tên tài khoản</string>
+    <string name="text_enter_type_wallet">Loại tài khoản</string>
+    <string name="text_save">lưu</string>
 </resources>

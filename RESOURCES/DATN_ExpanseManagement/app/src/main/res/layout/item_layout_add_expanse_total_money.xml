@@ -25,15 +25,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            style="@style/StyleTextView.Normal.219DFD"
-            android:id="@+id/tvChooseExample"
-            android:fontFamily="@font/roboto_medium"
-            android:text="@string/text_choose_example"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/glVertical"
             app:layout_constraintGuide_percent="0.95"
@@ -44,14 +35,14 @@
             android:maxLength="17"
             android:inputType="number"
             android:background="@color/white"
-            style="@style/StyleTextView.Huge.E94C4C"
+            style="@style/StyleTextView.Huge.Green"
             android:id="@+id/edtMoney"
             app:layout_constraintEnd_toStartOf="@id/glVertical"
             app:layout_constraintTop_toBottomOf="@id/tvTitleTotalMoney"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:textAlignment="textEnd"
-            android:textColorHint="@color/color_e94c4c"
+            android:textColorHint="@color/color_51c471"
             android:hint="@string/text_hint_0"
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
@@ -62,7 +53,7 @@
             android:layout_width="0dp"
             android:layout_height="0.5dp"
             android:layout_marginStart="@dimen/spacing_20dp"
-            android:background="@color/color_bdbec1"
+            android:background="@color/color_f1f2f6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/edtMoney"
             app:layout_constraintTop_toBottomOf="@id/edtMoney" />

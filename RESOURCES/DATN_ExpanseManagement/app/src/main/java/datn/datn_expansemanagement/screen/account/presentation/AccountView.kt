@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.R
+import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
@@ -15,6 +16,7 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.Linea
 import datn.datn_expansemanagement.screen.account.item_account.ItemAccountFragment
 import datn.datn_expansemanagement.screen.account.presentation.model.TabItemViewModel
 import kotlinx.android.synthetic.main.layout_account.view.*
+import kotlinx.android.synthetic.main.toolbar_account.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 
 class AccountView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator) :
@@ -24,13 +26,16 @@ class AccountView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCrea
     class ViewCreator(context: Context, viewGroup: ViewGroup?) :
         AndroidMvpView.LayoutViewCreator(R.layout.layout_account, context, viewGroup)
 
-    private val mPresenter = AccountPresenter()
+    private val mPresenter = AccountPresenter(AndroidScreenNavigator(mvpActivity))
     private val adapter = ViewPagerAdapter(mvpActivity.supportFragmentManager)
 
     companion object{
         val listTab = mutableListOf<ViewModel>()
     }
     override fun initCreateView() {
+        view.imgAdd.setOnClickListener {
+            mPresenter.gotoAddWalletActivity(view.tlAccount.selectedTabPosition)
+        }
     }
 
     override fun showLoading() {
