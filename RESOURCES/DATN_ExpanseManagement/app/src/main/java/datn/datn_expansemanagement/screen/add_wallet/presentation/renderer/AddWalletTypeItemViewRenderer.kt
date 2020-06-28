@@ -19,6 +19,7 @@ class AddWalletTypeItemViewRenderer(context: Context, private val mResource : Ad
         AddWalletTypeItemViewModel::class.java
 
     override fun bindView(model: AddWalletTypeItemViewModel, viewRoot: View) {
+        viewRoot.edtName.hint = model.hint
         when (model.type) {
             AddWalletTypeItemViewModel.Type.DEFAULT -> {
                 GlideImageHelper(context).loadThumbnail(
@@ -26,7 +27,6 @@ class AddWalletTypeItemViewRenderer(context: Context, private val mResource : Ad
                     "",
                     R.drawable.ic_type_wallet
                 )
-                viewRoot.edtName.hint = mResource.getHintTypeWallet()
             }
             AddWalletTypeItemViewModel.Type.SAVING -> {
                 GlideImageHelper(context).loadThumbnail(
@@ -34,7 +34,6 @@ class AddWalletTypeItemViewRenderer(context: Context, private val mResource : Ad
                     "",
                     R.drawable.ic_account_balance_black_24dp
                 )
-                viewRoot.edtName.hint = mResource.getHintBank()
             }
             AddWalletTypeItemViewModel.Type.START_DATE->{
                 GlideImageHelper(context).loadThumbnail(
@@ -42,7 +41,6 @@ class AddWalletTypeItemViewRenderer(context: Context, private val mResource : Ad
                     "",
                     R.drawable.ic_date_range_black_24dp
                 )
-                viewRoot.edtName.hint = mResource.getStartDateSent()
             }
             AddWalletTypeItemViewModel.Type.PERIOD->{
                 GlideImageHelper(context).loadThumbnail(
@@ -50,7 +48,6 @@ class AddWalletTypeItemViewRenderer(context: Context, private val mResource : Ad
                     "",
                     R.drawable.ic_date_range_black_24dp
                 )
-                viewRoot.edtName.hint = mResource.getPeriod()
             }
         }
     }

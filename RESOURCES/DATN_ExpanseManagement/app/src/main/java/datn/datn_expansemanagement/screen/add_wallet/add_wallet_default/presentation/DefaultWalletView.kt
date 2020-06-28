@@ -70,7 +70,7 @@ class DefaultWalletView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.V
     private fun initRecycleView(){
         listViewMvp = ListViewMvp(mvpActivity, view.rvItemAddWallet, renderConfig)
         listViewMvp?.addViewRenderer(AddWalletHeaderItemViewRenderer(mvpActivity, mResource))
-        listViewMvp?.addViewRenderer(AddWalletNameItemViewRenderer(mvpActivity))
+        listViewMvp?.addViewRenderer(AddWalletNameItemViewRenderer(mvpActivity, mResource))
         listViewMvp?.addViewRenderer(AddWalletTypeItemViewRenderer(mvpActivity, mResource))
         listViewMvp?.addViewRenderer(AddWalletNoteItemViewRenderer(mvpActivity))
         listViewMvp?.addViewRenderer(AddWalletBottomItemViewRenderer(mvpActivity))

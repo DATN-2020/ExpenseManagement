@@ -91,7 +91,13 @@
     <string name="text_start_price">Số dư ban đầu</string>
     <string name="text_bank">Ngân hàng</string>
     <string name="text_start_date_sent">Ngày gửi</string>
+    <string name="text_start_date">Ngày bắt đầu</string>
     <string name="text_period">Kỳ hạn</string>
     <string name="text_interest_rate">Lãi suất</string>
     <string name="text_unit_rate">%/năm</string>
+    <string name="text_non_interest_rate">Lãi suất không kỳ hạn</string>
+    <string name="text_number_date_rate">Số ngày tính lãi/ năm</string>
+    <string name="text_day">Ngày</string>
+    <string name="text_pay_to">Chi trả cho việc gì?</string>
+    <string name="text_pay_time">Trong bao lâu</string>
 </resources>

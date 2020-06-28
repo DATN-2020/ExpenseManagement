@@ -33,4 +33,40 @@ class AddWalletResource : AndroidResourceProvider(){
     fun getPeriod(): String{
         return resourceManager.getString(R.string.text_period)
     }
+
+    fun getTextInterestRate(): String{
+        return resourceManager.getString(R.string.text_interest_rate)
+    }
+
+    fun getTextUnitRate(): String{
+        return resourceManager.getString(R.string.text_unit_rate)
+    }
+
+    fun getTextNonInterestRate(): String{
+        return resourceManager.getString(R.string.text_non_interest_rate)
+    }
+
+    fun getTextDateRate(): String{
+        return resourceManager.getString(R.string.text_number_date_rate)
+    }
+
+    fun getTextDay(): String{
+        return resourceManager.getString(R.string.text_day)
+    }
+
+    fun getTextEnterName(): String{
+        return resourceManager.getString(R.string.text_enter_name_wallet)
+    }
+
+    fun getTextPayTo(): String{
+        return resourceManager.getString(R.string.text_pay_to)
+    }
+
+    fun getTextStartDate(): String{
+        return resourceManager.getString(R.string.text_start_date)
+    }
+
+    fun getTextPayTime(): String{
+        return resourceManager.getString(R.string.text_pay_time)
+    }
 }

@@ -9,10 +9,7 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvp
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
 import datn.datn_expansemanagement.screen.add_wallet.presentation.AddWalletResource
-import datn.datn_expansemanagement.screen.add_wallet.presentation.renderer.AddWalletBottomItemViewRenderer
-import datn.datn_expansemanagement.screen.add_wallet.presentation.renderer.AddWalletHeaderItemViewRenderer
-import datn.datn_expansemanagement.screen.add_wallet.presentation.renderer.AddWalletNameItemViewRenderer
-import datn.datn_expansemanagement.screen.add_wallet.presentation.renderer.AddWalletTypeItemViewRenderer
+import datn.datn_expansemanagement.screen.add_wallet.presentation.renderer.*
 import datn.datn_expansemanagement.screen.overview.presentation.renderer.EmptyLineViewRenderer
 import kotlinx.android.synthetic.main.item_layout_wallet.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
@@ -72,9 +69,10 @@ class SavingWalletView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.Vi
     private fun initRecycleView(){
         listViewMvp = ListViewMvp(mvpActivity, view.rvItemAddWallet, renderConfig)
         listViewMvp?.addViewRenderer(AddWalletHeaderItemViewRenderer(mvpActivity, mResource))
-        listViewMvp?.addViewRenderer(AddWalletNameItemViewRenderer(mvpActivity))
+        listViewMvp?.addViewRenderer(AddWalletNameItemViewRenderer(mvpActivity, mResource))
         listViewMvp?.addViewRenderer(AddWalletBottomItemViewRenderer(mvpActivity))
         listViewMvp?.addViewRenderer(EmptyLineViewRenderer(mvpActivity))
+        listViewMvp?.addViewRenderer(AddWalletRateItemViewRenderer(mvpActivity))
         listViewMvp?.addViewRenderer(AddWalletTypeItemViewRenderer(mvpActivity, mResource))
         listViewMvp?.createView()
     }

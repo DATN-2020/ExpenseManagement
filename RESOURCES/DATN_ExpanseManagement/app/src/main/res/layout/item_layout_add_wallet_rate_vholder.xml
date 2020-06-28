@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/edtName"
+            android:id="@+id/tvTitle"
             style="@style/StyleTextView.Medium.Black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,17 +28,17 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatEditText
+            android:background="@color/transparent"
             style="@style/StyleTextView.Medium.Black"
             android:fontFamily="@font/roboto_medium"
             android:id="@+id/edtRate"
             android:paddingEnd="@dimen/spacing_4dp"
             android:hint="0"
             android:textAlignment="textEnd"
-            android:background="@color/white"
-            app:layout_constraintBottom_toBottomOf="@id/edtName"
-            app:layout_constraintTop_toTopOf="@id/edtName"
+            app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+            app:layout_constraintTop_toTopOf="@id/tvTitle"
             app:layout_constraintEnd_toStartOf="@id/tvUnit"
-            app:layout_constraintStart_toEndOf="@id/edtName"
+            app:layout_constraintStart_toEndOf="@id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
 
@@ -47,9 +47,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_unit_rate"
-            app:layout_constraintBottom_toBottomOf="@id/edtName"
+            app:layout_constraintBottom_toBottomOf="@id/tvTitle"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/edtName" />
+            app:layout_constraintTop_toTopOf="@id/tvTitle" />
 
         <View
             android:id="@+id/viewBottom"
@@ -58,8 +58,8 @@
             android:layout_marginTop="@dimen/spacing_14dp"
             android:background="@color/color_f1f2f6"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/edtName"
-            app:layout_constraintTop_toBottomOf="@id/edtName" />
+            app:layout_constraintStart_toStartOf="@id/tvTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
