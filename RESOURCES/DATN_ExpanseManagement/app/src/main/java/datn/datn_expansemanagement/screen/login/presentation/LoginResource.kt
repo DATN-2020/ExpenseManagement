@@ -19,4 +19,8 @@ class LoginResource : AndroidResourceProvider(){
     fun getEditDefault(): Drawable?{
         return resourceManager.getDrawable(R.drawable.bg_corner_e8e8e8)
     }
+
+    fun getColorStatusBar(): Int {
+        return resourceManager.getColor(R.color.color_status_bar_opacity)
+    }
 }

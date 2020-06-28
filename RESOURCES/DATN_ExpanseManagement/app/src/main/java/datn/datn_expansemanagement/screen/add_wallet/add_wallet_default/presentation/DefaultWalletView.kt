@@ -67,6 +67,10 @@ class DefaultWalletView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.V
         listViewMvp?.notifyDataChanged()
     }
 
+    private fun showDialog(){
+
+    }
+
     private fun initRecycleView(){
         listViewMvp = ListViewMvp(mvpActivity, view.rvItemAddWallet, renderConfig)
         listViewMvp?.addViewRenderer(AddWalletHeaderItemViewRenderer(mvpActivity, mResource))

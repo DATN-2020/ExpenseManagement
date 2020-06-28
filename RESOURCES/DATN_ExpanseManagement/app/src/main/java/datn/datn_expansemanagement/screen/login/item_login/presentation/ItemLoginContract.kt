@@ -8,6 +8,8 @@ interface ItemLoginContract {
     interface View: MvpView {
         fun showLoading()
         fun hideLoading()
+        fun handleAfterLogin()
+        fun handleLoginFail(message: String)
     }
 
     abstract class Presenter : MvpPresenter<View>(){
