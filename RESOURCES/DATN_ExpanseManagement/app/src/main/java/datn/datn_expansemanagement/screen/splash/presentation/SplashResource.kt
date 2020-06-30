@@ -15,4 +15,8 @@ class SplashResource : AndroidResourceProvider(){
     fun getTitleSplash3(): String{
         return resourceManager.getString(R.string.text_splash_3)
     }
+
+    fun getColorStatusBar(): Int {
+        return resourceManager.getColor(R.color.color_status_bar_opacity)
+    }
 }

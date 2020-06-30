@@ -1,10 +1,8 @@
 package datn.datn_expansemanagement.domain
 
 import datn.datn_expansemanagement.domain.request.PassportRequest
-import datn.datn_expansemanagement.domain.response.ExchangeRateResponse
-import datn.datn_expansemanagement.domain.response.PassportResponse
-import datn.datn_expansemanagement.domain.response.TypeCategoryResponse
-import datn.datn_expansemanagement.domain.response.WalletResponse
+import datn.datn_expansemanagement.domain.request.WalletRequest
+import datn.datn_expansemanagement.domain.response.*
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -23,4 +21,7 @@ interface GetDataService {
 
     @POST("logins")
     fun login(@Body passportRequest: PassportRequest): Call<PassportResponse>
+
+    @POST("CreateWallets")
+    fun createWallet(@Body walletRequest: WalletRequest): Call<BaseResponse>
 }

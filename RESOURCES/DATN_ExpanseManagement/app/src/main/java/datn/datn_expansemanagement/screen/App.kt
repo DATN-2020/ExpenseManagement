@@ -8,6 +8,7 @@ import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import datn.datn_expansemanagement.BuildConfig
 import datn.datn_expansemanagement.core.app.common.AppConfigs
+import io.paperdb.Paper
 
 class App : Application(){
 
@@ -15,6 +16,7 @@ class App : Application(){
         super.onCreate()
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         app = this
+        Paper.init(this)
         setupApplication()
         initLogger()
         initLogActivity()

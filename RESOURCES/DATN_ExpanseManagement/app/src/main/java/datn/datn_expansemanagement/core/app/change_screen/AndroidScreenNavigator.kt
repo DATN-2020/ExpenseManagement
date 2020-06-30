@@ -2,6 +2,7 @@ package datn.datn_expansemanagement.core.app.change_screen
 
 import android.content.Intent
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
+import datn.datn_expansemanagement.domain.response.PassportResponse
 import datn.datn_expansemanagement.screen.MapsActivity
 import datn.datn_expansemanagement.screen.add_category.AddCategoryActivity
 import datn.datn_expansemanagement.screen.add_category.data.TypeCategoryDataIntent
@@ -18,6 +19,7 @@ import datn.datn_expansemanagement.screen.login.LoginActivity
 import datn.datn_expansemanagement.screen.main.MainActivity
 import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewModel
 import datn.datn_expansemanagement.screen.report_detail.main.ReportDetailActivity
+import datn.datn_expansemanagement.screen.splash.data.PassportDataIntent
 import datn.datn_expansemanagement.screen.trip.TripActivity
 
 class AndroidScreenNavigator constructor(private val mvpActivity: MvpActivity) : ScreenNavigator{
@@ -74,9 +76,10 @@ class AndroidScreenNavigator constructor(private val mvpActivity: MvpActivity) :
         mvpActivity.startActivity(intent)
     }
 
-    override fun gotoLoginActivity(isLogin: Boolean) {
+    override fun gotoLoginActivity(isLogin: Boolean, user: PassportDataIntent?) {
         val intent = Intent(mvpActivity, LoginActivity::class.java)
         intent.putExtra("isLogin", isLogin)
+        intent.putExtra(PassportDataIntent::class.java.simpleName, user)
         mvpActivity.startActivity(intent)
     }
 

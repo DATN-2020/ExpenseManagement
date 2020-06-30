@@ -1,5 +1,6 @@
 package datn.datn_expansemanagement.screen.login.item_login.presentation
 
+import datn.datn_expansemanagement.core.app.config.ConfigUtil
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.domain.GetDataService
 import datn.datn_expansemanagement.domain.RetrofitClientInstance
@@ -27,6 +28,7 @@ class ItemLoginPresenter(private val mvpActivity: MvpActivity) : ItemLoginContra
                 call: Call<PassportResponse>,
                 response: Response<PassportResponse>
             ) {
+                ConfigUtil.savePassport(response.body())
                 view?.handleAfterLogin()
                 view?.hideLoading()
             }

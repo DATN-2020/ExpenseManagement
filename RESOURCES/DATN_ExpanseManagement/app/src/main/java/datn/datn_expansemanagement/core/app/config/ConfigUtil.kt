@@ -6,7 +6,7 @@ import datn.datn_expansemanagement.domain.request.PassportRequest
 import datn.datn_expansemanagement.domain.response.PassportResponse
 
 class ConfigUtil {
-    companion object{
+    companion object {
         @JvmStatic
         val passport: PassportResponse?
             get() {
@@ -19,5 +19,11 @@ class ConfigUtil {
                 val configSaver = PaperConfigSaverImpl(ConfigSaver.CONFIG_PAGER)
                 return configSaver.get(ConfigSaver.CONFIG_SETTING_KEY_LOGIN)
             }
+
+        @JvmStatic
+        fun savePassport(passportResponse: PassportResponse?) {
+            val configSaver = PaperConfigSaverImpl(ConfigSaver.CONFIG_PAGER)
+            configSaver.save(ConfigSaver.CONFIG_SETTING_PASSPORT, passportResponse)
+        }
     }
 }
