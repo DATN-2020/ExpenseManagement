@@ -16,6 +16,7 @@ import datn.datn_expansemanagement.core.event.EventBusLifeCycle
 import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.screen.login.data.FinishLoginData
+import datn.datn_expansemanagement.screen.login.data.FinishRegisterData
 import datn.datn_expansemanagement.screen.login.data.NextStepData
 import datn.datn_expansemanagement.screen.login.item_create_wallet.ItemCreateWalletFragment
 import datn.datn_expansemanagement.screen.login.item_login.ItemLoginFragment
@@ -39,6 +40,10 @@ class LoginView(
             when(data){
                 is FinishLoginData->{
                     mPresenter.gotoMainActivity()
+                }
+
+                is FinishRegisterData->{
+                    replaceFragment(ItemLoginFragment(data.user))
                 }
 
                 is NextStepData->{

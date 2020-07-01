@@ -49,14 +49,19 @@ class SplashView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreat
     override fun initCreateView() {
         val data = ConfigUtil.passport
         if (data != null) {
-            mPresenter.gotoLoginActivity(
-                true,
-                PassportDataIntent(
-                    id = data.data.userId.getValueOrDefaultIsZero(),
-                    phone = data.data.userName.getValueOrDefaultIsEmpty(),
-                    name = data.data.fullName.getValueOrDefaultIsEmpty()
+            if(data.data.checkWallet){
+                mPresenter.gotoMainActivity()
+            }else{
+                mPresenter.gotoLoginActivity(
+                    true,
+                    PassportDataIntent(
+                        id = data.data.userId.getValueOrDefaultIsZero(),
+                        phone = data.data.userName.getValueOrDefaultIsEmpty(),
+                        name = data.data.fullName.getValueOrDefaultIsEmpty()
+                    )
                 )
-            )
+            }
+
         }
         mvpActivity.setFullScreen()
         view.btnRegister.setOnClickListener(onActionClick)

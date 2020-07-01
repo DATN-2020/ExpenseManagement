@@ -11,10 +11,12 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvp
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.event.EventBusData
 import datn.datn_expansemanagement.core.event.EventBusLifeCycle
+import datn.datn_expansemanagement.domain.request.RegisterRequest
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.kotlinex.view.gone
 import datn.datn_expansemanagement.kotlinex.view.visible
 import datn.datn_expansemanagement.screen.ValidateItemViewModel
+import datn.datn_expansemanagement.screen.login.data.FinishRegisterData
 import datn.datn_expansemanagement.screen.login.data.NextStepData
 import datn.datn_expansemanagement.screen.login.presentation.LoginResource
 import kotlinx.android.synthetic.main.item_layout_register.view.*
@@ -82,7 +84,12 @@ class ItemRegisterView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.Vie
         }
 
         if(isSuccess){
-            eventBusLifeCycle.sendData(NextStepData())
+            val request = RegisterRequest(
+                userName = view.edtUser.text.toString().getValueOrDefaultIsEmpty(),
+                password = view.edtPassword.text.toString().getValueOrDefaultIsEmpty(),
+                fullName = view.edtName.text.toString().getValueOrDefaultIsEmpty()
+            )
+            mPresenter.register(request)
         }
     }
 
@@ -102,6 +109,13 @@ class ItemRegisterView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.Vie
 
     override fun hideLoading() {
         loadingView.hide()
+    }
+
+    override fun handleAfterRegister(userName: String) {
+        eventBusLifeCycle.sendData(FinishRegisterData(userName))
+    }
+
+    override fun handleRegisterFail(ms: String) {
     }
 
     override fun startMvpView() {

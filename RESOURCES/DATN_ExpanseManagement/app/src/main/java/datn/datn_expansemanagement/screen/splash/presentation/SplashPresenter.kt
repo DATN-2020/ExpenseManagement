@@ -15,4 +15,8 @@ class SplashPresenter(private val screenNavigator: AndroidScreenNavigator) :
     override fun gotoLoginActivity(isLogin: Boolean, user: PassportDataIntent?) {
         screenNavigator.gotoLoginActivity(isLogin, user)
     }
+
+    override fun gotoMainActivity() {
+        screenNavigator.gotoMainActivity()
+    }
 }

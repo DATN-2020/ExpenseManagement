@@ -16,5 +16,6 @@ interface SplashContract {
     abstract class Presenter : MvpPresenter<View>(){
         abstract fun getData()
         abstract fun gotoLoginActivity(isLogin: Boolean, user: PassportDataIntent? = null)
+        abstract fun gotoMainActivity()
     }
 }

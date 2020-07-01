@@ -30,13 +30,16 @@ import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.kotlinex.view.gone
 import datn.datn_expansemanagement.kotlinex.view.visible
 import datn.datn_expansemanagement.screen.ValidateItemViewModel
+import datn.datn_expansemanagement.screen.login.data.FinishLoginData
 import datn.datn_expansemanagement.screen.login.data.NextStepData
 import datn.datn_expansemanagement.screen.login.presentation.LoginResource
 import kotlinx.android.synthetic.main.custom_dialog_cancel_contact.*
 import kotlinx.android.synthetic.main.item_layout_login.view.*
-import kotlinx.android.synthetic.main.toolbar_add_expanse.view.*
 
-class ItemLoginView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator) :
+class ItemLoginView(
+    mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator,
+    private val userName: String? = null
+) :
     AndroidMvpView(mvpActivity, viewCreator), ItemLoginContract.View {
 
     class ViewCreator(context: Context, viewGroup: ViewGroup?) :
@@ -129,6 +132,9 @@ class ItemLoginView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCr
     }
 
     override fun initCreateView() {
+        if (!userName.isNullOrEmpty()) {
+            view.edtUser.setText(userName.getValueOrDefaultIsEmpty())
+        }
         addLifeCycle(eventBusLifeCycle)
         view.btnLogin.setOnClickListener(onActionClick)
         view.btnLoginFacebook.setOnClickListener(onActionClick)
@@ -142,8 +148,12 @@ class ItemLoginView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCr
         loadingView.hide()
     }
 
-    override fun handleAfterLogin() {
-        eventBusLifeCycle.sendData(NextStepData())
+    override fun handleAfterLogin(exitsWallet: Boolean?) {
+        if (exitsWallet == true) {
+            eventBusLifeCycle.sendData(FinishLoginData())
+        } else {
+            eventBusLifeCycle.sendData(NextStepData())
+        }
     }
 
     override fun handleLoginFail(message: String) {

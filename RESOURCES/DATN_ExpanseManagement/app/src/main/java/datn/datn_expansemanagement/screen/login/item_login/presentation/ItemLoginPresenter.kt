@@ -29,7 +29,7 @@ class ItemLoginPresenter(private val mvpActivity: MvpActivity) : ItemLoginContra
                 response: Response<PassportResponse>
             ) {
                 ConfigUtil.savePassport(response.body())
-                view?.handleAfterLogin()
+                view?.handleAfterLogin(response.body()?.data?.checkWallet)
                 view?.hideLoading()
             }
         })

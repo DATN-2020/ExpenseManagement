@@ -8,7 +8,7 @@ interface ItemLoginContract {
     interface View: MvpView {
         fun showLoading()
         fun hideLoading()
-        fun handleAfterLogin()
+        fun handleAfterLogin(exitsWallet: Boolean?)
         fun handleLoginFail(message: String)
     }
 

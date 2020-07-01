@@ -1,6 +1,7 @@
 package datn.datn_expansemanagement.domain
 
 import datn.datn_expansemanagement.domain.request.PassportRequest
+import datn.datn_expansemanagement.domain.request.RegisterRequest
 import datn.datn_expansemanagement.domain.request.WalletRequest
 import datn.datn_expansemanagement.domain.response.*
 import retrofit2.Call
@@ -24,4 +25,8 @@ interface GetDataService {
 
     @POST("CreateWallets")
     fun createWallet(@Body walletRequest: WalletRequest): Call<BaseResponse>
+
+    @POST("Users")
+    fun createAccount(@Body request: RegisterRequest): Call<RegisterResponse>
+
 }

@@ -4,9 +4,9 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvp
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpFragment
 import datn.datn_expansemanagement.screen.login.item_login.presentation.ItemLoginView
 
-class ItemLoginFragment : MvpFragment(){
+class ItemLoginFragment(private val userName: String? = null) : MvpFragment(){
     override fun createAndroidMvpView(): AndroidMvpView {
-        return ItemLoginView(getMvpActivity(), ItemLoginView.ViewCreator(getMvpActivity(), null))
+        return ItemLoginView(getMvpActivity(), ItemLoginView.ViewCreator(getMvpActivity(), null), userName)
     }
 
 }
