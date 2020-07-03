@@ -7,6 +7,8 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.formatter.IAxisValueFormatter
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.R
@@ -15,6 +17,7 @@ import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewModel
+import datn.datn_expansemanagement.screen.report_detail.main.presentation.ReportDetailResource
 import kotlinx.android.synthetic.main.layout_report_receive.view.*
 
 class ReportReceiveView (mvpActivity: MvpActivity, viewCreator: LayoutViewCreator,
@@ -25,6 +28,7 @@ private val extra: ReportViewModel?): AndroidMvpView(mvpActivity, viewCreator), 
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
     private val mPresenter = ReportReceivePresenter()
+    private val mResource = ReportDetailResource()
 
     override fun initCreateView() {
         initChart()
@@ -41,37 +45,69 @@ private val extra: ReportViewModel?): AndroidMvpView(mvpActivity, viewCreator), 
     private fun initChart(){
 
         // set data
-        val dataSet = BarDataSet(getListEntry(), "")
-        dataSet.setDrawIcons(false)
+        val dataSet = BarDataSet(getListEntry(), "Tổng chi tiêu")
+        dataSet.color = mResource.getColorChart()
+        dataSet.valueTextColor = mResource.getTextChartColor()
+        dataSet.valueTextSize = 12f
+        view.chart.animateY(800)
+//        dataSet.setDrawIcons(false)
+
         val barData = BarData(dataSet)
         barData.barWidth = 0.9f
-        barData.setValueTextSize(10f)
         view.chart.description.text = ""
         view.chart.data = barData
-        val color = ContextCompat.getColor(mvpActivity, android.R.color.holo_blue_light)
+        view.chart.invalidate()
 
-        view.chart.setPinchZoom(true) // slide chart x ,y
+        view.chart.setBackgroundColor(mResource.getBackgroundChart()) // màu nền chart
+        view.chart.setNoDataText("Không có dữ liệu")
         view.chart.setDrawGridBackground(false) // line background
+        view.chart.setDrawBorders(false) // duong vien xung quanh
+        view.chart.setPinchZoom(false)
+        view.chart.setDrawValueAboveBar(true)
         view.chart.setDrawBarShadow(false) // bar background empty
-
-        val xAxisFormatter = DateValueFormatter() // set label for x axis
-
-        val xAxis = view.chart.xAxis
-        xAxis.position = XAxis.XAxisPosition.BOTTOM
-        xAxis.setDrawGridLines(false)
-        xAxis.granularity = 2f // spacing
-        xAxis.valueFormatter = xAxisFormatter
+        view.chart.setFitBars(true)
 //
-//        val listLabel = ArrayList<Int>()
-//        for(i in 1..12){
-//            listLabel.add(i)
-//        }
+//        val xAxisFormatter = DateValueFormatter() // set label for x axis
+        val xAxis = view.chart.xAxis
+        xAxis.valueFormatter = IndexAxisValueFormatter(listLabel())
+        xAxis.position = XAxis.XAxisPosition.BOTTOM
+        xAxis.granularity = 1f // spacing
+        xAxis.labelCount = listLabel().size
+        xAxis.setCenterAxisLabels(true)
+        xAxis.setDrawGridLines(false)
+        xAxis.removeAllLimitLines()
+
+        val rightAxis = view.chart.axisRight
+        rightAxis.isEnabled = false
+
+        val leftAxis = view.chart.axisLeft
+        leftAxis.granularity = 1f
+        leftAxis.labelCount = 5
+        leftAxis.spaceTop = 30f
+
+        val legend = view.chart.legend
+        legend.formSize = 8f
+        legend.xEntrySpace = 4f
+
+
+//        xAxis.setDrawGridLines(false)
+//        xAxis.valueFormatter = xAxisFormatter
+    }
+
+    private fun listLabel(): ArrayList<String>{
+        val list = ArrayList<String>()
+        for(i in 0..12){
+            list.add(i.toString())
+        }
+        list.add("Tháng")
+        return list
     }
 
     private fun getListEntry(): ArrayList<BarEntry>{
         val list = ArrayList<BarEntry>()
-        list.add(BarEntry(4f, 4f))
-        list.add(BarEntry(8f, 5f))
+        for(i in 1..12){
+            list.add(BarEntry(i.toFloat(), Math.random().toFloat() * 1000000))
+        }
         return list
     }
 

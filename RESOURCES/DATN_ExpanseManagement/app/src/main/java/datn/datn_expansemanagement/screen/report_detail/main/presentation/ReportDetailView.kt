@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.layout_add_expanse.view.*
 import kotlinx.android.synthetic.main.toolbar_category.view.*
 
 class ReportDetailView (mvpActivity: MvpActivity, viewCreator: LayoutViewCreator,
-private val data : ReportViewModel): AndroidMvpView(mvpActivity, viewCreator), ReportDetailContract.View{
+private val data : ReportViewModel? = null): AndroidMvpView(mvpActivity, viewCreator), ReportDetailContract.View{
 
     class ViewCreator(context: Context, viewGroup: ViewGroup?) :
         AndroidMvpView.LayoutViewCreator(R.layout.layout_report_detail, context, viewGroup)
@@ -27,8 +27,8 @@ private val data : ReportViewModel): AndroidMvpView(mvpActivity, viewCreator), R
     override fun initCreateView() {
         mvpActivity.setFullScreen()
         view.imgAdd.gone()
-        view.tvToolbar.text = data.name.getValueOrDefaultIsEmpty()
-        replaceFragment(ReportReceiveFragment.newInstance(data))
+//        view.tvToolbar.text = data.name.getValueOrDefaultIsEmpty()
+        replaceFragment(ReportReceiveFragment()/*.newInstance(data)*/)
         view.imgBack.setOnClickListener {
             mvpActivity.onBackPressed()
         }
