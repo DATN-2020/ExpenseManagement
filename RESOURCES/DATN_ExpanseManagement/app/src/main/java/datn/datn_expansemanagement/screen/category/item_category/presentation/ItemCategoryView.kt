@@ -2,8 +2,6 @@ package datn.datn_expansemanagement.screen.category.item_category.presentation
 
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
@@ -12,6 +10,7 @@ import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.util.TrimSign
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
+import datn.datn_expansemanagement.core.base.domain.listener.OnActionNotify
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
@@ -20,14 +19,15 @@ import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
 import datn.datn_expansemanagement.screen.add_expanse.presentation.model.AddExpenseViewModel
-import datn.datn_expansemanagement.screen.category.item_category.presentation.model.ItemCategoryViewModel
-import datn.datn_expansemanagement.screen.category.item_category.presentation.renderer.ItemCategoryViewRenderer
+import datn.datn_expansemanagement.screen.category.item_category.presentation.model.CategoryItemViewModel
+import datn.datn_expansemanagement.screen.category.item_category.presentation.model.ItemTypeCategoryViewModel
+import datn.datn_expansemanagement.screen.category.item_category.presentation.renderer.TypeCategoryItemViewRenderer
 import kotlinx.android.synthetic.main.layout_item_category.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 
 class ItemCategoryView(
     mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator,
-    private val tabId: Int?
+    private val tabName: String?
 ) : AndroidMvpView(mvpActivity, viewCreator), ItemCategoryContract.View {
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
@@ -48,44 +48,23 @@ class ItemCategoryView(
 
     private val onItemRvClickedListener = object : OnItemRvClickedListener<ViewModel>{
         override fun onItemClicked(view: View, position: Int, dataItem: ViewModel) {
-            dataItem as ItemCategoryViewModel
+            dataItem as ItemTypeCategoryViewModel
+            dataItem.isShowChill = !dataItem.isShowChill
+            listViewMvp?.notifyDataChanged()
+        }
+    }
+
+    private val onChooseChild = object : OnActionData<ViewModel>{
+        override fun onAction(data: ViewModel) {
+            data as CategoryItemViewModel
             val model = AddExpenseViewModel.Info.Category(
-                id = dataItem.id.getValueOrDefaultIsZero(),
-                name = dataItem.name.getValueOrDefaultIsEmpty()
+                id = data.id.getValueOrDefaultIsZero(),
+                name = data.name.getValueOrDefaultIsEmpty()
             )
             AddExpenseFragment.model.category = model
             mvpActivity.setResult(Activity.RESULT_OK)
             mvpActivity.finish()
         }
-
-    }
-
-    private val listTemp = mutableListOf<ViewModel>()
-
-    private val onShowChild = object : OnActionData<ItemCategoryViewModel>{
-        override fun onAction(data: ItemCategoryViewModel) {
-            val index = listData.indexOf(data)
-            if(data.isShowChill == true){
-                for(i in index + 1 until listData.size){
-                    val item = listData[i] as ItemCategoryViewModel
-                    if(item.isShowChill == null){
-                        item.isShow = false
-                    }
-                }
-                data.isShowChill = false
-            }else{
-                for(i in index + 1 until listData.size){
-                    val item = listData[i] as ItemCategoryViewModel
-                    if(item.isShowChill == null){
-                        item.isShow = true
-                    }
-                }
-                data.isShowChill = true
-            }
-            listViewMvp?.notifyDataChanged()
-
-        }
-
     }
 
     override fun initCreateView() {
@@ -101,6 +80,8 @@ class ItemCategoryView(
         loadingView.hide()
     }
 
+
+
     override fun showData(list: MutableList<ViewModel>) {
         this.listData.clear()
         if(list.isNotEmpty()){
@@ -113,14 +94,14 @@ class ItemCategoryView(
 
     private fun initRecycleView() {
         listViewMvp = ListViewMvp(mvpActivity, view.rvCategory, renderConfig)
-        listViewMvp?.addViewRenderer(ItemCategoryViewRenderer(mvpActivity, onShowChild))
+        listViewMvp?.addViewRenderer(TypeCategoryItemViewRenderer(mvpActivity, onChooseChild))
         listViewMvp?.setOnItemRvClickedListener(onItemRvClickedListener)
         listViewMvp?.createView()
     }
 
     override fun initData() {
         super.initData()
-        mPresenter.getData(tabId.getValueOrDefaultIsZero(), AddExpenseFragment.model.category?.id.getValueOrDefaultIsZero())
+        mPresenter.getData(tabName.getValueOrDefaultIsEmpty(), AddExpenseFragment.model.category?.id.getValueOrDefaultIsZero())
     }
 
     override fun startMvpView() {
@@ -169,7 +150,7 @@ class ItemCategoryView(
             ""
         }
         return listData.filter {
-            if (it is ItemCategoryViewModel) {
+            if (it is ItemTypeCategoryViewModel) {
                 if (trimSearch.isNotEmpty()) {
                     TrimSign.getInstances(mvpActivity).unicodeTrimSign(it.name)
                         .contains(trimSearch, true)

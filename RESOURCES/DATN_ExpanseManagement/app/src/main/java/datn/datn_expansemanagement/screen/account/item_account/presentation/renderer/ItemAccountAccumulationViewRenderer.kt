@@ -12,26 +12,29 @@ import datn.datn_expansemanagement.kotlinex.view.visible
 import datn.datn_expansemanagement.screen.account.item_account.presentation.model.ItemAccountAccumulationViewModel
 import kotlinx.android.synthetic.main.item_layout_account_accumulation.view.*
 
-class ItemAccountAccumulationViewRenderer (context: Context,
-                                           private val onActionClickMore: OnActionData<ItemAccountAccumulationViewModel>): ViewRenderer<ItemAccountAccumulationViewModel>(context){
+class ItemAccountAccumulationViewRenderer(
+    context: Context,
+    private val onActionClickMore: OnActionData<ItemAccountAccumulationViewModel>
+) : ViewRenderer<ItemAccountAccumulationViewModel>(context) {
     override fun getLayoutId(): Int {
         return R.layout.item_layout_account_accumulation
     }
 
-    override fun getModelClass(): Class<ItemAccountAccumulationViewModel>  = ItemAccountAccumulationViewModel::class.java
+    override fun getModelClass(): Class<ItemAccountAccumulationViewModel> =
+        ItemAccountAccumulationViewModel::class.java
 
     override fun bindView(model: ItemAccountAccumulationViewModel, viewRoot: View) {
         viewRoot.tvWallet.text = model.name
         var money = Utils.formatMoneyVND(model.moneyAccum)
         viewRoot.tvAccumulation.text = money
-        money =  Utils.formatMoneyVND(model.moneyCurrent)
+        money = Utils.formatMoneyVND(model.moneyCurrent)
         viewRoot.tvCurrent.text = money
-        money =  Utils.formatMoneyVND(model.moneyRest)
+        money = Utils.formatMoneyVND(model.moneyRest)
         viewRoot.tvRest.text = money
 
-        if(model.isLast){
+        if (model.isLast) {
             viewRoot.viewBottom.gone()
-        }else{
+        } else {
             viewRoot.viewBottom.visible()
         }
 

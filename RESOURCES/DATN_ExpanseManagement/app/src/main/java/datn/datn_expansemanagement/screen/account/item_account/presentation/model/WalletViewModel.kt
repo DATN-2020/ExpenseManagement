@@ -7,5 +7,5 @@ class WalletViewModel(
     var tabId: Int,
     var name: String,
     var money: Double,
-    var isLast: Boolean
+    var isLast: Boolean = false
 ): ViewModel

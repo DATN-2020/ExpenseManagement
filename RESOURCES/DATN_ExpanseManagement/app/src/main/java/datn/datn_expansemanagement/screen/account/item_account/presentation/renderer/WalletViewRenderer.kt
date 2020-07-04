@@ -12,8 +12,10 @@ import datn.datn_expansemanagement.kotlinex.view.visible
 import datn.datn_expansemanagement.screen.account.item_account.presentation.model.WalletViewModel
 import kotlinx.android.synthetic.main.item_wallet.view.*
 
-class WalletViewRenderer (context: Context,
-                          private val onActionClickMore: OnActionData<WalletViewModel>): ViewRenderer<WalletViewModel>(context){
+class WalletViewRenderer(
+    context: Context,
+    private val onActionClickMore: OnActionData<WalletViewModel>
+) : ViewRenderer<WalletViewModel>(context) {
     override fun getLayoutId(): Int {
         return R.layout.item_wallet
     }
@@ -24,14 +26,14 @@ class WalletViewRenderer (context: Context,
         val money = Utils.formatMoneyVND(model.money)
         viewRoot.tvMoney.text = money
 
-        if(model.tabId == 1){
+        if (model.tabId == 1) {
             viewRoot.llPercent.gone()
-        }else{
+        } else {
             viewRoot.llPercent.visible()
         }
-        if(model.isLast){
+        if (model.isLast) {
             viewRoot.viewBottom.gone()
-        }else{
+        } else {
             viewRoot.viewBottom.visible()
         }
 

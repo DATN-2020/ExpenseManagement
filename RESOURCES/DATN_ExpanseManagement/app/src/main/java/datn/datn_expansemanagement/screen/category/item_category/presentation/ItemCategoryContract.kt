@@ -13,6 +13,6 @@ interface ItemCategoryContract {
     }
 
     abstract class Presenter : MvpPresenter<View>() {
-        abstract fun getData(tabId: Int, categoryId: Int? = null)
+        abstract fun getData(tabName: String, categoryId: Int? = null)
     }
 }

@@ -7,6 +7,11 @@ class AddWalletResource : AndroidResourceProvider(){
     fun getTitleAddWalletDefault(): String{
         return resourceManager.getString(R.string.text_add_wallet_default)
     }
+
+    fun getColorStatusBar(): Int{
+        return resourceManager.getColor(R.color.transparent)
+    }
+
     fun getTitleAddWalletSaving(): String{
         return resourceManager.getString(R.string.text_add_wallet_saving)
     }

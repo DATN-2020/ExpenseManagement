@@ -22,13 +22,6 @@ class AccountMapper(private val mResource: AccountResource) :
                 name = mResource.getTabTwo()
             )
         )
-
-        listReturn.add(
-            TabItemViewModel(
-                id = 3,
-                name = mResource.getTabThree()
-            )
-        )
         return listReturn
     }
 

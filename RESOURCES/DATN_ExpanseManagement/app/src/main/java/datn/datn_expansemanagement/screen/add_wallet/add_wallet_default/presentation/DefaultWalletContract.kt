@@ -9,9 +9,11 @@ interface DefaultWalletContract {
         fun showLoading()
         fun hideLoading()
         fun showData(list: MutableList<ViewModel>)
+        fun showListTypeWallet(list: MutableList<ViewModel>)
     }
 
     abstract class Presenter : MvpPresenter<View>(){
         abstract fun getData()
+        abstract fun getListTypeWallet()
     }
 }

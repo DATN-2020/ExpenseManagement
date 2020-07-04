@@ -12,16 +12,11 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivit
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.lifecycle.ViewResult
 import datn.datn_expansemanagement.core.event.EventBusData
 import datn.datn_expansemanagement.core.event.EventBusLifeCycle
-import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
-import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.screen.account.AccountFragment
 import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
-import datn.datn_expansemanagement.screen.category.item_category.presentation.model.ItemCategoryViewModel
-import datn.datn_expansemanagement.screen.list_wallet.presentation.model.ListWalletItemViewModel
 import datn.datn_expansemanagement.screen.main.data.*
 import datn.datn_expansemanagement.screen.overview.OverviewFragment
 import datn.datn_expansemanagement.screen.report.ReportFragment
-import datn.datn_expansemanagement.screen.trip.item_trip.presentation.model.ItemTripViewModel
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :

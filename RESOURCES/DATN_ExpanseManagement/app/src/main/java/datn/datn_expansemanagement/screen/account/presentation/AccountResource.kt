@@ -11,8 +11,4 @@ class AccountResource:AndroidResourceProvider(){
     fun getTabTwo(): String{
         return resourceManager.getString(R.string.text_card)
     }
-
-    fun getTabThree(): String{
-        return resourceManager.getString(R.string.text_accumulation)
-    }
 }

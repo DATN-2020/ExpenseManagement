@@ -9,7 +9,6 @@ import datn.datn_expansemanagement.core.app.util.image.GlideImageHelper
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
-import datn.datn_expansemanagement.screen.add_wallet.add_wallet_accumulation.AccumulationWalletFragment
 import datn.datn_expansemanagement.screen.add_wallet.add_wallet_default.DefaultWalletFragment
 import datn.datn_expansemanagement.screen.add_wallet.add_wallet_saving.SavingWalletFragment
 import kotlinx.android.synthetic.main.toolbar_category.view.*
@@ -33,18 +32,18 @@ class AddWalletView(
                 view.tvToolbar.text = mResource.getTitleAddWalletDefault()
                 replaceFragment(DefaultWalletFragment())
             }
-            1 -> {
+            else -> {
                 view.tvToolbar.text = mResource.getTitleAddWalletSaving()
                 replaceFragment(SavingWalletFragment())
-            }
-            else -> {
-                view.tvToolbar.text = mResource.getTitleAddWalletAccumulation()
-                replaceFragment(AccumulationWalletFragment())
             }
         }
 
         view.imgBack.setOnClickListener {
             mvpActivity.onBackPressed()
+        }
+
+        view.imgAdd.setOnClickListener {
+
         }
 
         GlideImageHelper(mvpActivity).loadThumbnail(view.imgAdd, "", R.drawable.ic_check_black_24dp)

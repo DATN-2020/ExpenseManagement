@@ -1,5 +1,6 @@
 package datn.datn_expansemanagement.domain
 
+import datn.datn_expansemanagement.domain.request.InOutComeRequest
 import datn.datn_expansemanagement.domain.request.PassportRequest
 import datn.datn_expansemanagement.domain.request.RegisterRequest
 import datn.datn_expansemanagement.domain.request.WalletRequest
@@ -11,11 +12,14 @@ import retrofit2.http.POST
 
 
 interface GetDataService {
-    @GET("typeCategories")
+    @GET("typecategories")
     fun getTypeCategory(): Call<List<TypeCategoryResponse>>
 
     @GET("wallets")
     fun getWallet(): Call<List<WalletResponse>>
+
+    @GET("TypeWallets")
+    fun getListTypeWallet(): Call<List<TypeWalletResponse>>
 
     @GET("exchange/export")
     fun getListExchangeRate(): Call<ExchangeRateResponse>
@@ -28,5 +32,8 @@ interface GetDataService {
 
     @POST("Users")
     fun createAccount(@Body request: RegisterRequest): Call<RegisterResponse>
+
+    @POST("Income_Outcome")
+    fun createInOutCome(@Body request: InOutComeRequest): Call<BaseResponse>
 
 }

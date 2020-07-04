@@ -18,18 +18,18 @@ class ListTypeCategoryMapper(private val typeId: Int? = null) :
                 if (i == input.size - 1) {
                     list.add(
                         TypeCategoryItemViewModel(
-                            id = it.idType.getValueOrDefaultIsZero(),
-                            name = it.name.getValueOrDefaultIsEmpty(),
-                            imageUrl = it.image.getValueOrDefaultIsEmpty(),
+                            id = it.id.getValueOrDefaultIsZero(),
+                            name = it.nameType.getValueOrDefaultIsEmpty(),
+                            imageUrl = it.imageType.getValueOrDefaultIsEmpty(),
                             isLast = true
                         )
                     )
                 } else {
                     list.add(
                         TypeCategoryItemViewModel(
-                            id = it.idType.getValueOrDefaultIsZero(),
-                            name = it.name.getValueOrDefaultIsEmpty(),
-                            imageUrl = it.image.getValueOrDefaultIsEmpty(),
+                            id = it.id.getValueOrDefaultIsZero(),
+                            name = it.nameType.getValueOrDefaultIsEmpty(),
+                            imageUrl = it.imageType.getValueOrDefaultIsEmpty(),
                             isChoose = false
                         )
                     )

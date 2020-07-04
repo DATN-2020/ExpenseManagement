@@ -2,27 +2,54 @@ package datn.datn_expansemanagement.screen.category.item_category.domain
 
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.core.base.domain.mapper.Mapper
-import datn.datn_expansemanagement.screen.category.item_category.presentation.model.ItemCategoryViewModel
+import datn.datn_expansemanagement.domain.response.TypeCategoryResponse
+import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
+import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
+import datn.datn_expansemanagement.screen.category.item_category.presentation.model.CategoryItemViewModel
+import datn.datn_expansemanagement.screen.category.item_category.presentation.model.ItemTypeCategoryViewModel
 
-class ItemCategoryMapper(val tabId: Int, private val categoryId: Int? = null) :
-    Mapper<String, MutableList<ViewModel>> {
-    override fun map(input: String): MutableList<ViewModel> {
+class ItemCategoryMapper(private val typeExpense: String, private val categoryId: Int? = null) :
+    Mapper<List<TypeCategoryResponse>, MutableList<ViewModel>> {
+    override fun map(input: List<TypeCategoryResponse>): MutableList<ViewModel> {
         val list = mutableListOf<ViewModel>()
-        list.add(ItemCategoryViewModel(id = 1, name = "Ăn uống", isShowChill = false, isShow = true))
-        list.add(ItemCategoryViewModel(id = 2, name = "Ăn uống"))
-        list.add(ItemCategoryViewModel(id = 3, name = "Ăn uống"))
-        list.add(ItemCategoryViewModel(id = 4, name = "Dịch vụ sinh hoạt", isShowChill = false, isShow = true))
+        if (!input.isNullOrEmpty()) {
+            input.forEach {
+                val listItem = mutableListOf<ViewModel>()
+                if (!it.categories.isNullOrEmpty()) {
+                    it.categories.forEach { item ->
+                        if (item.idCate == categoryId) {
+                            listItem.add(
+                                CategoryItemViewModel(
+                                    id = item.idCate.getValueOrDefaultIsZero(),
+                                    name = item.nameCate.getValueOrDefaultIsEmpty(),
+                                    imgUrl = item.imageCate.getValueOrDefaultIsEmpty(),
+                                    isChoose = true
+                                )
+                            )
+                        } else {
+                            listItem.add(
+                                CategoryItemViewModel(
+                                    id = item.idCate.getValueOrDefaultIsZero(),
+                                    name = item.nameCate.getValueOrDefaultIsEmpty(),
+                                    imgUrl = item.imageCate.getValueOrDefaultIsEmpty()
+                                )
+                            )
+                        }
 
-        if (categoryId != null) {
-            list.forEach {
-                if (it is ItemCategoryViewModel) {
-                    if (it.id == categoryId) {
-                        it.isChoose = true
                     }
+                }
+                if (it.typeExpense.trim().toLowerCase() == typeExpense.trim().toLowerCase() && it.id != 1) {
+                    list.add(
+                        ItemTypeCategoryViewModel(
+                            id = it.id.getValueOrDefaultIsZero(),
+                            name = it.nameType.getValueOrDefaultIsEmpty(),
+                            imgUrl = it.imageType.getValueOrDefaultIsEmpty(),
+                            listItem = listItem
+                        )
+                    )
                 }
             }
         }
-
         return list
     }
 

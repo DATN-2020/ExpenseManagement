@@ -1,14 +1,14 @@
 <resources>
     <string name="app_name">DATN_ExpanseManagement</string>
     <string name="check_double_click_exit_app">Please click BACK again to exit</string>
-    <string name="text_overview">Tổng quan</string>
+    <string name="text_overview">Lập kế hoạch</string>
     <string name="text_account">Tài khoản</string>
     <string name="text_report">Báo cáo</string>
     <string name="text_other">Khác</string>
     <string name="text_total_money">Tổng tiền:</string>
-    <string name="text_wallet_money">Ví tiền mặt</string>
+    <string name="text_wallet_money">Ví cơ bản</string>
     <string name="text_accumulation">Tích lũy</string>
-    <string name="text_card">Sổ tiết kiệm</string>
+    <string name="text_card">Ví tiết kiệm</string>
     <string name="text_control">Điều chỉnh số dư</string>
     <string name="text_delete">Xóa</string>
     <string name="text_update">Sửa</string>

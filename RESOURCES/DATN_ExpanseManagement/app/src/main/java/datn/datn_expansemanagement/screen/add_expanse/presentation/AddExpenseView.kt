@@ -20,6 +20,9 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivit
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
 import datn.datn_expansemanagement.core.event.EventBusData
 import datn.datn_expansemanagement.core.event.EventBusLifeCycle
+import datn.datn_expansemanagement.domain.request.InOutComeRequest
+import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
+import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.kotlinex.view.gone
 import datn.datn_expansemanagement.kotlinex.view.visible
 import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
@@ -137,6 +140,10 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
         listViewMvp?.notifyDataChanged()
     }
 
+    override fun handleAfterCreate() {
+        handleAfterRegister()
+    }
+
     private fun setDialogFullScreen(dialog: AlertDialog) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             dialog.window?.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
@@ -181,7 +188,19 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
             }
         }
         view.imgAdd.setOnClickListener {
-            handleAfterRegister()
+            val request = InOutComeRequest(
+                loanIdLoan = AddExpenseFragment.model.loaner?.id.getValueOrDefaultIsZero(),
+                amount = AddExpenseFragment.model.totalMoney.getValueOrDefaultIsZero(),
+                categogyIdCate = AddExpenseFragment.model.category?.id.getValueOrDefaultIsZero(),
+                dateCome =  AddExpenseFragment.model.date.getValueOrDefaultIsEmpty(),
+                descriptionCome =  AddExpenseFragment.model.title.getValueOrDefaultIsEmpty(),
+                isCome = 0,
+                tripIdTrip = AddExpenseFragment.model.trip?.id.getValueOrDefaultIsZero(),
+                walletIdWallet = AddExpenseFragment.model.wallet?.id.getValueOrDefaultIsZero()
+            )
+
+            mPresenter.createExpense(request)
+//            handleAfterRegister()
         }
         view.clBackground.setOnClickListener {
             view.clBackground.gone()

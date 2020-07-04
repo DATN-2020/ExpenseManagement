@@ -16,7 +16,7 @@ class ItemCategoryFragment : MvpFragment(){
             val recipeTabFragment = ItemCategoryFragment()
             val bundle = Bundle()
             if(data is TabItemViewModel){
-                bundle.putInt(KEY_TAB, data.id)
+                bundle.putString(KEY_TAB, data.name)
             }
             recipeTabFragment.arguments = bundle
             return recipeTabFragment
@@ -24,8 +24,8 @@ class ItemCategoryFragment : MvpFragment(){
     }
 
     override fun createAndroidMvpView(): AndroidMvpView {
-        val tabId = arguments?.getInt(KEY_TAB)
-        return ItemCategoryView(getMvpActivity(), ItemCategoryView.ViewCreator(getMvpActivity(), null), tabId)
+        val tabName = arguments?.getString(KEY_TAB)
+        return ItemCategoryView(getMvpActivity(), ItemCategoryView.ViewCreator(getMvpActivity(), null), tabName)
     }
 
 }
