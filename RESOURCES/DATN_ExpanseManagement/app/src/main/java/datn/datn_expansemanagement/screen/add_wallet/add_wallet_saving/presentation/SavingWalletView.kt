@@ -1,14 +1,8 @@
 package datn.datn_expansemanagement.screen.add_wallet.add_wallet_saving.presentation
 
 import android.content.Context
-import android.graphics.Color
-import android.os.Build
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
@@ -18,8 +12,7 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.Linea
 import datn.datn_expansemanagement.screen.add_wallet.presentation.AddWalletResource
 import datn.datn_expansemanagement.screen.add_wallet.presentation.model.AddWalletTypeItemViewModel
 import datn.datn_expansemanagement.screen.add_wallet.presentation.renderer.*
-import datn.datn_expansemanagement.screen.overview.presentation.renderer.EmptyLineViewRenderer
-import kotlinx.android.synthetic.main.custom_bottom_sheet_type_wallet.*
+import datn.datn_expansemanagement.screen.main_plan.presentation.renderer.EmptyLineViewRenderer
 import kotlinx.android.synthetic.main.item_layout_wallet.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 

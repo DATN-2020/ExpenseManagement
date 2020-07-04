@@ -4,7 +4,7 @@ import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.core.base.domain.mapper.Mapper
 import datn.datn_expansemanagement.screen.add_wallet.presentation.AddWalletResource
 import datn.datn_expansemanagement.screen.add_wallet.presentation.model.*
-import datn.datn_expansemanagement.screen.overview.presentation.model.EmptyLineViewModel
+import datn.datn_expansemanagement.screen.main_plan.presentation.model.EmptyLineViewModel
 
 class SavingWalletMapper(private val mResource: AddWalletResource) :
     Mapper<String, MutableList<ViewModel>> {

@@ -1,4 +1,4 @@
-package datn.datn_expansemanagement.screen.overview.presentation
+package datn.datn_expansemanagement.screen.main_plan.presentation
 
 import android.content.Context
 import android.view.ViewGroup
@@ -6,14 +6,14 @@ import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
-import datn.datn_expansemanagement.core.base.domain.listener.OnActionNotify
+import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
-import datn.datn_expansemanagement.screen.overview.presentation.renderer.EmptyLineViewRenderer
-import datn.datn_expansemanagement.screen.overview.presentation.renderer.OverviewExchangeRateViewRenderer
-import datn.datn_expansemanagement.screen.overview.presentation.renderer.OverviewHistoryCurrentlyViewRenderer
-import datn.datn_expansemanagement.screen.overview.presentation.renderer.OverviewTotalMoneyViewRenderer
+import datn.datn_expansemanagement.screen.main_plan.presentation.model.PlanItemViewModel
+import datn.datn_expansemanagement.screen.main_plan.presentation.renderer.EmptyLineViewRenderer
+import datn.datn_expansemanagement.screen.main_plan.presentation.renderer.PlanDesItemViewRenderer
+import datn.datn_expansemanagement.screen.main_plan.presentation.renderer.PlanItemViewRenderer
 import kotlinx.android.synthetic.main.layout_overview.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 
@@ -38,31 +38,17 @@ class OverviewView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCr
         initRecycleView()
     }
 
-    private val onActionNotify = object : OnActionNotify{
-        override fun onActionNotify() {
-            mPresenter.gotoExchangeRateActivity()
-        }
-
-    }
-
-    private val onGotoReportTotalMoney = object : OnActionNotify{
-        override fun onActionNotify() {
-
+    private val onAction = object :OnActionData<PlanItemViewModel>{
+        override fun onAction(data: PlanItemViewModel) {
+            mPresenter.gotoPlanDetailActivity(data)
         }
     }
-    private val onGotoHistory = object : OnActionNotify{
-        override fun onActionNotify() {
-            mPresenter.gotoHistoryActivity()
-        }
-    }
-
 
     private fun initRecycleView(){
         listViewMvp = ListViewMvp(mvpActivity, view.rvOverview, renderConfig)
-        listViewMvp?.addViewRenderer(OverviewTotalMoneyViewRenderer(mvpActivity, onGotoReportTotalMoney))
-        listViewMvp?.addViewRenderer(OverviewHistoryCurrentlyViewRenderer(mvpActivity, onGotoHistory))
-        listViewMvp?.addViewRenderer(OverviewExchangeRateViewRenderer(mvpActivity, onActionNotify))
+        listViewMvp?.addViewRenderer(PlanItemViewRenderer(mvpActivity, onAction))
         listViewMvp?.addViewRenderer(EmptyLineViewRenderer(mvpActivity))
+        listViewMvp?.addViewRenderer(PlanDesItemViewRenderer(mvpActivity))
         listViewMvp?.createView()
     }
 

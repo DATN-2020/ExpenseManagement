@@ -2,6 +2,7 @@ package datn.datn_expansemanagement.core.app.change_screen
 
 import datn.datn_expansemanagement.domain.response.PassportResponse
 import datn.datn_expansemanagement.screen.add_category.data.TypeCategoryDataIntent
+import datn.datn_expansemanagement.screen.main_plan.presentation.model.PlanItemViewModel
 import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewModel
 import datn.datn_expansemanagement.screen.splash.data.PassportDataIntent
 
@@ -18,5 +19,6 @@ interface ScreenNavigator {
     fun gotoLoginActivity(isLogin: Boolean, user: PassportDataIntent? = null)
     fun gotoReportDetailActivity(data: ReportViewModel)
     fun gotoMainActivity()
+    fun gotoPlanDetailActivity(planType: PlanItemViewModel)
     fun gotoAddWalletActivity(type: Int)
 }

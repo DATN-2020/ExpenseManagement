@@ -1,10 +1,10 @@
-package datn.datn_expansemanagement.screen.overview.presentation
+package datn.datn_expansemanagement.screen.plan_detail.buget.presentation
 
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.core.base.presentation.mvp.base.MvpPresenter
 import datn.datn_expansemanagement.core.base.presentation.mvp.base.MvpView
 
-interface OverviewContract {
+interface BudgetContract {
     interface View: MvpView {
         fun showLoading()
         fun hideLoading()
@@ -12,8 +12,6 @@ interface OverviewContract {
     }
 
     abstract class Presenter : MvpPresenter<View>(){
-        abstract fun getData()
-        abstract fun gotoExchangeRateActivity()
-        abstract fun gotoHistoryActivity()
+        abstract fun getData(typePlan: Int)
     }
 }

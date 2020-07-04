@@ -1,7 +1,8 @@
-package datn.datn_expansemanagement.screen.overview.presentation
+package datn.datn_expansemanagement.screen.main_plan.presentation
 
 import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
-import datn.datn_expansemanagement.screen.overview.domain.OverviewMapper
+import datn.datn_expansemanagement.screen.main_plan.domain.OverviewMapper
+import datn.datn_expansemanagement.screen.main_plan.presentation.model.PlanItemViewModel
 
 class OverviewPresenter(private val screenNavigator: AndroidScreenNavigator) : OverviewContract.Presenter(){
     override fun getData() {
@@ -14,5 +15,9 @@ class OverviewPresenter(private val screenNavigator: AndroidScreenNavigator) : O
 
     override fun gotoHistoryActivity() {
         screenNavigator.gotoHistoryActivity()
+    }
+
+    override fun gotoPlanDetailActivity(planType: PlanItemViewModel) {
+        screenNavigator.gotoPlanDetailActivity(planType)
     }
 }

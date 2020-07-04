@@ -15,6 +15,8 @@ import datn.datn_expansemanagement.screen.list_type_category.ListTypeCategoryAct
 import datn.datn_expansemanagement.screen.list_wallet.ListWalletActivity
 import datn.datn_expansemanagement.screen.login.LoginActivity
 import datn.datn_expansemanagement.screen.main.MainActivity
+import datn.datn_expansemanagement.screen.main_plan.presentation.model.PlanItemViewModel
+import datn.datn_expansemanagement.screen.plan_detail.PlanDetailActivity
 import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewModel
 import datn.datn_expansemanagement.screen.report_detail.main.ReportDetailActivity
 import datn.datn_expansemanagement.screen.splash.data.PassportDataIntent
@@ -84,12 +86,19 @@ class AndroidScreenNavigator constructor(private val mvpActivity: MvpActivity) :
 
     override fun gotoMainActivity() {
         val intent = Intent(mvpActivity, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         mvpActivity.startActivity(intent)
     }
 
     override fun gotoAddWalletActivity(type: Int) {
         val intent = Intent(mvpActivity, AddWalletActivity::class.java)
         intent.putExtra("typeWallet", type)
+        mvpActivity.startActivity(intent)
+    }
+
+    override fun gotoPlanDetailActivity(planType: PlanItemViewModel) {
+        val intent = Intent(mvpActivity, PlanDetailActivity::class.java)
+        intent.putExtra(PlanItemViewModel::class.java.simpleName, planType)
         mvpActivity.startActivity(intent)
     }
 }

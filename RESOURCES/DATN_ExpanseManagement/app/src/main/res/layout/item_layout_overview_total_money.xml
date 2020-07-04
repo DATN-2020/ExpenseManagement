@@ -1,57 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/clItemPlan"
+    android:background="?attr/selectableItemBackground"
     android:layout_width="match_parent"
-    android:background="@color/color_219dfd"
     android:layout_height="wrap_content">
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_marginBottom="@dimen/spacing_10dp"
-        android:layout_marginStart="@dimen/spacing_20dp"
-        android:layout_marginEnd="@dimen/spacing_20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_corner_white_border_silver"
+        android:background="@color/white"
+        android:padding="@dimen/spacing_20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:background="?attr/selectableItemBackground"
-            android:id="@+id/llTotalMoney"
-            android:padding="@dimen/spacing_20dp"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgLeft"
+            android:layout_width="@dimen/spacing_30dp"
+            android:layout_height="@dimen/spacing_30dp"
+            app:layout_constraintBottom_toBottomOf="@id/tvChooseCategory"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_gravity="center"
-                android:layout_width="@dimen/spacing_30dp"
-                android:layout_height="@dimen/spacing_30dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/ic_sigma_total_money" />
+            app:layout_constraintTop_toTopOf="@id/tvChooseCategory"
+            app:srcCompat="@drawable/ic_help_black_24dp" />
 
-            <TextView
-                android:id="@+id/tvTotalMoney"
-                android:singleLine="true"
-                android:fontFamily="@font/roboto_bold"
-                style="@style/StyleTextView.Huge.Blue"
-                android:gravity="center"
-                android:text="3.000.000.000d"
-                android:layout_weight="2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_next"
-                android:layout_width="@dimen/spacing_24dp"
-                android:layout_height="@dimen/spacing_24dp"/>
-        </LinearLayout>
-
-
-
+        <TextView
+            android:id="@+id/tvChooseCategory"
+            style="@style/StyleTextView.Large.Black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:paddingStart="@dimen/spacing_20dp"
+            android:text="@string/text_choose_category"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgLeft"
+            app:layout_constraintTop_toTopOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

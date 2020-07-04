@@ -15,7 +15,7 @@ import datn.datn_expansemanagement.core.event.EventBusLifeCycle
 import datn.datn_expansemanagement.screen.account.AccountFragment
 import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
 import datn.datn_expansemanagement.screen.main.data.*
-import datn.datn_expansemanagement.screen.overview.OverviewFragment
+import datn.datn_expansemanagement.screen.main_plan.OverviewFragment
 import datn.datn_expansemanagement.screen.report.ReportFragment
 import kotlinx.android.synthetic.main.activity_main.view.*
 
@@ -46,7 +46,7 @@ class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :
             showFragmentForMenuItem(menuItem.itemId)
             return@setOnNavigationItemSelectedListener true
         }
-        view.bottomNavigation.selectedItemId = R.id.menuOverview
+        view.bottomNavigation.selectedItemId = R.id.menuReport
         mvpActivity.setFullScreen()
     }
 

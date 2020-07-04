@@ -1,4 +1,4 @@
-package datn.datn_expansemanagement.screen.overview.presentation
+package datn.datn_expansemanagement.screen.main_plan.presentation
 
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.base.domain.provider.AndroidResourceProvider
