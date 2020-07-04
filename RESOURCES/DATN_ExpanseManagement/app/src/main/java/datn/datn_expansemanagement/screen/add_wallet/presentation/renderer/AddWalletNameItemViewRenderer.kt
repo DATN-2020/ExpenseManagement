@@ -1,6 +1,8 @@
 package datn.datn_expansemanagement.screen.add_wallet.presentation.renderer
 
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.util.image.GlideImageHelper
@@ -38,6 +40,20 @@ class AddWalletNameItemViewRenderer(context: Context, private val mResource: Add
                 viewRoot.edtName.hint = mResource.getTextPayTo()
             }
         }
+
+        viewRoot.edtName.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+                model.name = s.toString()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+        })
     }
 
 }

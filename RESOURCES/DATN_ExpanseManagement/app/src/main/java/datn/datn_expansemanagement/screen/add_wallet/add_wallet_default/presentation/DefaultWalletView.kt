@@ -10,17 +10,22 @@ import android.view.WindowManager
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import datn.datn_expansemanagement.R
+import datn.datn_expansemanagement.core.app.config.ConfigUtil
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
+import datn.datn_expansemanagement.core.base.domain.listener.OnActionNotify
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.OnItemRvClickedListener
+import datn.datn_expansemanagement.domain.request.WalletRequest
+import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
+import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.screen.add_wallet.presentation.AddWalletResource
-import datn.datn_expansemanagement.screen.add_wallet.presentation.model.AddWalletTypeItemViewModel
-import datn.datn_expansemanagement.screen.add_wallet.presentation.model.TypeWalletItemViewModel
+import datn.datn_expansemanagement.screen.add_wallet.presentation.model.*
 import datn.datn_expansemanagement.screen.add_wallet.presentation.renderer.*
 import kotlinx.android.synthetic.main.custom_bottom_sheet_type_wallet.*
+import kotlinx.android.synthetic.main.custom_dialog_cancel_contact.*
 import kotlinx.android.synthetic.main.item_layout_wallet.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 
@@ -41,6 +46,42 @@ class DefaultWalletView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.Vi
         orientation = LinearRenderConfigFactory.Orientation.VERTICAL
     )
     private val renderConfig = LinearRenderConfigFactory(renderInput).create()
+
+    private val onActionNotify= object : OnActionNotify{
+        override fun onActionNotify() {
+            var amount = 0.0
+            var nameWallet: String? = null
+            var des : String? = null
+            var idType: Int? = null
+
+            listData.forEach {
+                if(it is AddWalletHeaderItemViewModel){
+                    amount = it.price.getValueOrDefaultIsZero()
+                }
+                if(it is AddWalletNameItemViewModel){
+                    nameWallet = it.name.getValueOrDefaultIsEmpty()
+                }
+                if(it is AddWalletNoteItemViewModel){
+                    des = it.note.getValueOrDefaultIsEmpty()
+                }
+                if(it is AddWalletTypeItemViewModel){
+                    idType = it.id.getValueOrDefaultIsZero()
+                }
+            }
+
+            val user = ConfigUtil.passport
+            if(user != null){
+                val request = WalletRequest(
+                    userId = user.data.userId.getValueOrDefaultIsZero(),
+                    nameWallet = nameWallet,
+                    description = des,
+                    idTypeWallet = idType.getValueOrDefaultIsZero(),
+                    amountWallet = amount.getValueOrDefaultIsZero()
+                )
+                mPresenter.createWallet(request)
+            }
+        }
+    }
 
     override fun initCreateView() {
         initRecycleView()
@@ -132,14 +173,23 @@ class DefaultWalletView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.Vi
         listMvp.notifyDataChanged()
     }
 
-    private fun showBottomDialog() {
+    override fun handleCreateWallet() {
+        mvpActivity.onBackPressed()
+    }
+
+    override fun handleCreateWalletFail(message: String) {
+        showBottomDialog(message)
+    }
+
+    private fun showBottomDialog(ms: String) {
         val bottomDialog = BottomSheetDialog(mvpActivity, R.style.BaseBottomSheetDialog)
         val bottomDialogView = LayoutInflater.from(mvpActivity)
-            .inflate(R.layout.custom_bottom_sheet_type_wallet, null, false)
+            .inflate(R.layout.custom_dialog_cancel_contact, null, false)
         bottomDialog.setContentView(bottomDialogView)
         bottomDialog.create()
         setDialogFullScreen(bottomDialog)
         bottomDialog.show()
+        bottomDialog.tvTitle.text = ms
     }
 
     private fun initRecycleView() {
@@ -154,7 +204,7 @@ class DefaultWalletView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.Vi
             )
         )
         listViewMvp?.addViewRenderer(AddWalletNoteItemViewRenderer(mvpActivity))
-        listViewMvp?.addViewRenderer(AddWalletBottomItemViewRenderer(mvpActivity))
+        listViewMvp?.addViewRenderer(AddWalletBottomItemViewRenderer(mvpActivity, onActionNotify))
         listViewMvp?.createView()
     }
 }

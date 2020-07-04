@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="@dimen/spacing_10dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivWallet"
+        android:layout_width="@dimen/spacing_30dp"
+        android:layout_height="@dimen/spacing_30dp"
+        android:src="@drawable/ic_wallet"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvWallet" />
+
+    <TextView
+        android:id="@+id/tvWallet"
+        style="@style/StyleTextView.Medium.Black"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="@dimen/spacing_4dp"
+        android:text="@string/text_wallet_money"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/glVertical"
+        app:layout_constraintStart_toEndOf="@id/ivWallet"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <SeekBar
+        android:id="@+id/sbPercent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/spacing_8dp"
+        android:max="100"
+        android:paddingTop="@dimen/spacing_4dp"
+        android:paddingBottom="@dimen/spacing_4dp"
+        android:progress="60"
+        android:progressDrawable="@drawable/custom_bottom_sheet"
+        android:thumb="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvWallet"
+        app:layout_constraintTop_toBottomOf="@id/tvWallet" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glVertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <TextView
+        android:id="@+id/tvAccumulation"
+        style="@style/StyleTextView.Normal.Black"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/spacing_20dp"
+        android:gravity="right"
+        android:maxLines="1"
+        android:text="1.000.000 $"
+        app:layout_constraintBottom_toBottomOf="@id/tvWallet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/glVertical"
+        app:layout_constraintTop_toTopOf="@id/tvWallet" />
+
+    <TextView
+        android:id="@+id/tvRest"
+        style="@style/StyleTextView.Normal.Black"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/spacing_20dp"
+        android:gravity="right"
+        android:maxLines="1"
+        android:text="1.000.000 $"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/glVertical"
+        app:layout_constraintTop_toBottomOf="@id/sbPercent" />
+
+    <View
+        android:id="@+id/viewBottom"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/spacing_10dp"
+        android:background="@color/color_f5f5f5"
+        android:paddingBottom="@dimen/spacing_2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvRest" />
+</androidx.constraintlayout.widget.ConstraintLayout>

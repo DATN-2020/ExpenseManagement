@@ -77,7 +77,7 @@ class SavingWalletView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.Vi
         listViewMvp = ListViewMvp(mvpActivity, view.rvItemAddWallet, renderConfig)
         listViewMvp?.addViewRenderer(AddWalletHeaderItemViewRenderer(mvpActivity, mResource))
         listViewMvp?.addViewRenderer(AddWalletNameItemViewRenderer(mvpActivity, mResource))
-        listViewMvp?.addViewRenderer(AddWalletBottomItemViewRenderer(mvpActivity))
+//        listViewMvp?.addViewRenderer(AddWalletBottomItemViewRenderer(mvpActivity))
         listViewMvp?.addViewRenderer(EmptyLineViewRenderer(mvpActivity))
         listViewMvp?.addViewRenderer(AddWalletRateItemViewRenderer(mvpActivity))
         listViewMvp?.addViewRenderer(AddWalletTypeItemViewRenderer(mvpActivity, mResource, onActionData))

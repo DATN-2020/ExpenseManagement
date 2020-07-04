@@ -53,14 +53,14 @@ class ItemCreateWalletView(
                 mPresenter.createWallet(
                     WalletRequest(
                         userId = data?.id.getValueOrDefaultIsZero(),
-                        amount = 0.0
+                        amountWallet = 0.0
                     )
                 )
             } else {
                 mPresenter.createWallet(
                     WalletRequest(
                         userId = data?.id.getValueOrDefaultIsZero(),
-                        amount = result.toDouble()
+                        amountWallet = result.toDouble()
                     )
                 )
             }

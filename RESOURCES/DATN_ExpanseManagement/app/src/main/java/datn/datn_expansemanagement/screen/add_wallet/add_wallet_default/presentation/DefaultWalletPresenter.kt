@@ -2,6 +2,8 @@ package datn.datn_expansemanagement.screen.add_wallet.add_wallet_default.present
 
 import datn.datn_expansemanagement.domain.GetDataService
 import datn.datn_expansemanagement.domain.RetrofitClientInstance
+import datn.datn_expansemanagement.domain.request.WalletRequest
+import datn.datn_expansemanagement.domain.response.BaseResponse
 import datn.datn_expansemanagement.domain.response.TypeWalletResponse
 import datn.datn_expansemanagement.screen.add_wallet.add_wallet_default.domain.DefaultWalletMapper
 import datn.datn_expansemanagement.screen.add_wallet.presentation.AddWalletResource
@@ -31,6 +33,22 @@ class DefaultWalletPresenter : DefaultWalletContract.Presenter() {
                 response: Response<List<TypeWalletResponse>>
             ) {
                 view?.showListTypeWallet(TypeWalletMapper().map(response.body()!!))
+                view?.hideLoading()
+            }
+
+        })
+    }
+
+    override fun createWallet(request: WalletRequest) {
+        val call = service?.createWallet(request)
+        view?.showLoading()
+        call?.enqueue(object : Callback<BaseResponse>{
+            override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
+                view?.handleCreateWalletFail(t.message.toString())
+            }
+
+            override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
+                view?.handleCreateWallet()
                 view?.hideLoading()
             }
 

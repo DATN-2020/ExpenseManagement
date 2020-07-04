@@ -28,6 +28,7 @@ private val mResource : AddWalletResource
                     viewRoot.edtMoney.setText(Utils.customFormatMoney(s.toString()))
                     viewRoot.edtMoney.setSelection(viewRoot.edtMoney.text.toString().length)
                 }
+                model.price = convertMoneyToDouble(viewRoot.edtMoney.text.toString()).toDouble()
                 viewRoot.edtMoney.addTextChangedListener(this)
             }
 
@@ -37,5 +38,9 @@ private val mResource : AddWalletResource
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
         })
+    }
+
+    private fun convertMoneyToDouble(money: String): String{
+        return money.replace(",","")
     }
 }
