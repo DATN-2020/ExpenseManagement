@@ -6,9 +6,7 @@ import datn.datn_expansemanagement.domain.request.RegisterRequest
 import datn.datn_expansemanagement.domain.request.WalletRequest
 import datn.datn_expansemanagement.domain.response.*
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 
 interface GetDataService {
@@ -17,6 +15,9 @@ interface GetDataService {
 
     @GET("wallets")
     fun getWallet(): Call<List<WalletResponse>>
+
+    @GET("wallets")
+    fun getItemWallet(@Query("Id_Wallet") walletId: Int): Call<GetItemWalletResponse>
 
     @GET("TypeWallets")
     fun getListTypeWallet(): Call<List<TypeWalletResponse>>
@@ -27,7 +28,7 @@ interface GetDataService {
     @POST("logins")
     fun login(@Body passportRequest: PassportRequest): Call<PassportResponse>
 
-    @POST("CreateWallets")
+    @POST("Wallets")
     fun createWallet(@Body walletRequest: WalletRequest): Call<BaseResponse>
 
     @POST("Users")

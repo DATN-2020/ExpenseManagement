@@ -3,12 +3,14 @@ package datn.datn_expansemanagement.core.app.change_screen
 import android.content.Intent
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.screen.MapsActivity
+import datn.datn_expansemanagement.screen.account.item_account.presentation.model.WalletViewModel
 import datn.datn_expansemanagement.screen.add_category.AddCategoryActivity
 import datn.datn_expansemanagement.screen.add_category.data.TypeCategoryDataIntent
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.model.AddExpenseCategoryViewModel
 import datn.datn_expansemanagement.screen.add_wallet.AddWalletActivity
 import datn.datn_expansemanagement.screen.category.CategoryActivity
 import datn.datn_expansemanagement.screen.contacts.ContactsActivity
+import datn.datn_expansemanagement.screen.control_wallet.ControlWalletActivity
 import datn.datn_expansemanagement.screen.exchange_rate.ExchangeRateActivity
 import datn.datn_expansemanagement.screen.history.HistoryActivity
 import datn.datn_expansemanagement.screen.list_type_category.ListTypeCategoryActivity
@@ -100,5 +102,11 @@ class AndroidScreenNavigator constructor(private val mvpActivity: MvpActivity) :
         val intent = Intent(mvpActivity, PlanDetailActivity::class.java)
         intent.putExtra(PlanItemViewModel::class.java.simpleName, planType)
         mvpActivity.startActivity(intent)
+    }
+
+    override fun gotoControlWalletActivity(data: WalletViewModel) {
+        val intent = Intent(mvpActivity, ControlWalletActivity::class.java)
+        intent.putExtra(WalletViewModel::class.java.simpleName, data)
+        mvpActivity.startActivityForResult(intent,  Request.REQUEST_CODE_CONTROL_WALLET)
     }
 }

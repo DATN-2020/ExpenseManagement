@@ -1,9 +1,8 @@
 package datn.datn_expansemanagement.domain.response
-
 import com.google.gson.annotations.SerializedName
 
 
-class WalletResponse(
+data class GetItemWalletResponse(
     @SerializedName("amount_Wallet")
     val amountWallet: Double,
     @SerializedName("description")
@@ -13,7 +12,7 @@ class WalletResponse(
     @SerializedName("id_Wallet")
     val idWallet: Int,
     @SerializedName("income_Outcomes")
-    val incomeOutcomes: Any? = null,
+    val incomeOutcomes: Any,
     @SerializedName("name_Wallet")
     val nameWallet: String,
     @SerializedName("user_Id")

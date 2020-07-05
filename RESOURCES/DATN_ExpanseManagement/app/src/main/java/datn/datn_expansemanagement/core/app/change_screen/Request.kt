@@ -16,6 +16,8 @@ interface Request {
             get() = 6
         val REQUEST_CODE_LOCATION: Int
             get() = 7
+        val REQUEST_CODE_CONTROL_WALLET: Int
+            get() = 8
     }
 
 }

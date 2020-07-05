@@ -8,9 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import datn.datn_expansemanagement.R
+import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
@@ -22,6 +24,7 @@ import datn.datn_expansemanagement.screen.account.item_account.presentation.mode
 import datn.datn_expansemanagement.screen.account.item_account.presentation.renderer.ItemAccountAccumulationViewRenderer
 import datn.datn_expansemanagement.screen.account.item_account.presentation.renderer.ItemAccountTotalMoneyViewRenderer
 import datn.datn_expansemanagement.screen.account.item_account.presentation.renderer.WalletViewRenderer
+import kotlinx.android.synthetic.main.custom_bottom_sheet_account.*
 import kotlinx.android.synthetic.main.layout_item_account.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 
@@ -34,7 +37,7 @@ class ItemAccountView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.View
     class ViewCreator(context: Context, viewGroup: ViewGroup?) :
         AndroidMvpView.LayoutViewCreator(R.layout.layout_item_account, context, viewGroup)
 
-    private val mPresenter = ItemAccountPresenter()
+    private val mPresenter = ItemAccountPresenter(AndroidScreenNavigator(mvpActivity))
     private val mResource = ItemAccountResource()
     private val renderInputProject = LinearRenderConfigFactory.Input(
         context = mvpActivity,
@@ -51,6 +54,10 @@ class ItemAccountView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.View
         }
     }
 
+    private val onRefreshListener = SwipeRefreshLayout.OnRefreshListener {
+        mPresenter.getData(tabId.getValueOrDefaultIsZero())
+    }
+
     private val onActionClickMore = object : OnActionData<ItemAccountAccumulationViewModel>{
         override fun onAction(data: ItemAccountAccumulationViewModel) {
             showBottomDialogAccumulation(data)
@@ -64,6 +71,18 @@ class ItemAccountView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.View
         bottomDialog.create()
         setDialogFullScreen(bottomDialog)
         bottomDialog.show()
+
+        bottomDialog.tvControl.setOnClickListener {
+            mPresenter.gotoControlWallet(data)
+        }
+
+
+        bottomDialog.tvDelete.setOnClickListener {
+        }
+
+        bottomDialog.tvUpdate.setOnClickListener {
+            mPresenter.gotoControlWallet(data)
+        }
     }
 
     private fun showBottomDialogAccumulation(data: ItemAccountAccumulationViewModel) {
@@ -87,6 +106,7 @@ class ItemAccountView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.View
 
     override fun initCreateView() {
         initRecycleView()
+        view.refresh.setOnRefreshListener(onRefreshListener)
     }
 
     override fun showLoading() {
@@ -95,6 +115,7 @@ class ItemAccountView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.View
 
     override fun hideLoading() {
         loadingView.hide()
+        view.refresh.isRefreshing = false
     }
 
     override fun initData() {

@@ -15,19 +15,7 @@ class RetrofitClientInstance {
         val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
         retrofit = Retrofit.Builder()
 //            .baseUrl("http://192.168.1.103:5000/api/")
-            .baseUrl("http://192.168.0.38:5000/api/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(client)
-            .build()
-        return retrofit
-    }
-
-    fun getClientExchangeRate(): Retrofit? {
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
-        val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
-        retrofit = Retrofit.Builder()
-            .baseUrl("https://www.dongabank.com.vn/")
+            .baseUrl("http://192.168.0.156:5000/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

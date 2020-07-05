@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.item_layout_account_total_money.view.*
 
 class ItemAccountTotalMoneyViewRenderer(
     context: Context,
-    private val mResouce: ItemAccountResource
+    private val mResource: ItemAccountResource
 ) : ViewRenderer<ItemAccountTotalMoneyViewModel>(context) {
     override fun getLayoutId(): Int {
         return R.layout.item_layout_account_total_money
@@ -35,7 +35,7 @@ class ItemAccountTotalMoneyViewRenderer(
         val spannableString = SpannableString(stringDisplay)
         val start = 11
         val end = start + taskName.length
-        spannableString.setSpan(ForegroundColorSpan(mResouce.getColorName()), start, end, 0)
+        spannableString.setSpan(ForegroundColorSpan(mResource.getColorName()), start, end, 0)
         spannableString.setSpan(StyleSpan(Typeface.BOLD), start, end, 0)
         view.text = spannableString
     }

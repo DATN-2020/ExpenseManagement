@@ -1,11 +1,11 @@
-package datn.datn_expansemanagement.screen.account.item_account.presentation
+package datn.datn_expansemanagement.screen.control_wallet.presentation
 
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.core.base.presentation.mvp.base.MvpPresenter
 import datn.datn_expansemanagement.core.base.presentation.mvp.base.MvpView
 import datn.datn_expansemanagement.screen.account.item_account.presentation.model.WalletViewModel
 
-interface ItemAccountContract {
+interface ControlWalletContract {
     interface View: MvpView {
         fun showLoading()
         fun hideLoading()
@@ -13,7 +13,6 @@ interface ItemAccountContract {
     }
 
     abstract class Presenter : MvpPresenter<View>(){
-        abstract fun getData(tabId: Int)
-        abstract fun gotoControlWallet(data: WalletViewModel)
+        abstract fun getData(data: WalletViewModel)
     }
 }
