@@ -18,20 +18,20 @@ class ItemAccountPresenter(private val screenNavigator: AndroidScreenNavigator) 
 
     override fun getData(tabId: Int, userId: Int) {
         view?.showLoading()
-        val request = GetWalletForUserRequest(userId = userId)
-        val call = service?.getWalletForUser(request)
-        call?.enqueue(object : Callback<List<WalletResponse>> {
-            override fun onFailure(call: Call<List<WalletResponse>>, t: Throwable) {
+        val call = service?.getWalletForUser(userId)
+        call?.enqueue(object : Callback<WalletResponse>{
+            override fun onFailure(call: Call<WalletResponse>, t: Throwable) {
 
             }
 
             override fun onResponse(
-                call: Call<List<WalletResponse>>,
-                response: Response<List<WalletResponse>>
+                call: Call<WalletResponse>,
+                response: Response<WalletResponse>
             ) {
                 view?.showData(ItemAccountMapper(tabId).map(response.body()!!))
                 view?.hideLoading()
             }
+
         })
 
     }

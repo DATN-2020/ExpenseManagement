@@ -11,28 +11,28 @@ class ListWalletMapper(private val idWallet: Int? = null) :
     Mapper<List<WalletResponse>, MutableList<ViewModel>> {
     override fun map(input: List<WalletResponse>): MutableList<ViewModel> {
         val listItem = mutableListOf<ViewModel>()
-        if (!input.isNullOrEmpty()) {
-            input.forEach {
-                if (it.idWallet == idWallet) {
-                    listItem.add(ListWalletItemViewModel(
-                        id = it.idWallet.getValueOrDefaultIsZero(),
-                        name = it.nameWallet.getValueOrDefaultIsEmpty(),
-                        totalMoney = it.amountWallet.getValueOrDefaultIsZero().toDouble(),
-                        isChoose = true
-                    ))
-                } else {
-                    listItem.add(
-                        ListWalletItemViewModel(
-                            id = it.idWallet.getValueOrDefaultIsZero(),
-                            name = it.nameWallet.getValueOrDefaultIsEmpty(),
-                            totalMoney = it.amountWallet.getValueOrDefaultIsZero().toDouble()
-                        )
-                    )
-                }
-            }
-        }
-        val dataLast = listItem.last() as ListWalletItemViewModel
-        dataLast.isLast = true
+//        if (!input.isNullOrEmpty()) {
+//            input.forEach {
+//                if (it.idWallet == idWallet) {
+//                    listItem.add(ListWalletItemViewModel(
+//                        id = it.idWallet.getValueOrDefaultIsZero(),
+//                        name = it.nameWallet.getValueOrDefaultIsEmpty(),
+//                        totalMoney = it.amountWallet.getValueOrDefaultIsZero().toDouble(),
+//                        isChoose = true
+//                    ))
+//                } else {
+//                    listItem.add(
+//                        ListWalletItemViewModel(
+//                            id = it.idWallet.getValueOrDefaultIsZero(),
+//                            name = it.nameWallet.getValueOrDefaultIsEmpty(),
+//                            totalMoney = it.amountWallet.getValueOrDefaultIsZero().toDouble()
+//                        )
+//                    )
+//                }
+//            }
+//        }
+//        val dataLast = listItem.last() as ListWalletItemViewModel
+//        dataLast.isLast = true
         return listItem
     }
 

@@ -9,14 +9,14 @@ import datn.datn_expansemanagement.screen.account.item_account.presentation.mode
 import datn.datn_expansemanagement.screen.account.item_account.presentation.model.WalletViewModel
 
 class ItemAccountMapper(private val tapId: Int? = null) :
-    Mapper<List<WalletResponse>, MutableList<ViewModel>> {
-    override fun map(input: List<WalletResponse>): MutableList<ViewModel> {
+    Mapper<WalletResponse, MutableList<ViewModel>> {
+    override fun map(input: WalletResponse): MutableList<ViewModel> {
         val listReturn = mutableListOf<ViewModel>()
         val listItem = mutableListOf<ViewModel>()
         var totalPrice = 0.0
         if (tapId == 1) {
-            if (!input.isNullOrEmpty()) {
-                input.forEach {
+            if (!input.data.isNullOrEmpty()) {
+                input.data.forEach {
                     listItem.add(
                         WalletViewModel(
                             id = it.idWallet.getValueOrDefaultIsZero(),
