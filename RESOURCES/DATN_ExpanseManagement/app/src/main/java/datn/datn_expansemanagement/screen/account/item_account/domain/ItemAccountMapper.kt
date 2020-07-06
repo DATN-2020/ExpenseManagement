@@ -28,8 +28,10 @@ class ItemAccountMapper(private val tapId: Int? = null) :
                     totalPrice += it.amountWallet.toDouble()
                 }
             }
-            val dataLast = listItem.last() as WalletViewModel
-            dataLast.isLast = true
+            if(listItem.isNotEmpty()){
+                val dataLast = listItem.last() as WalletViewModel
+                dataLast.isLast = true
+            }
         }
         listReturn.add(ItemAccountTotalMoneyViewModel(total = totalPrice))
         listReturn.addAll(listItem)

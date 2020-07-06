@@ -13,7 +13,7 @@ interface ItemAccountContract {
     }
 
     abstract class Presenter : MvpPresenter<View>(){
-        abstract fun getData(tabId: Int)
+        abstract fun getData(tabId: Int, userId: Int)
         abstract fun gotoControlWallet(data: WalletViewModel)
     }
 }

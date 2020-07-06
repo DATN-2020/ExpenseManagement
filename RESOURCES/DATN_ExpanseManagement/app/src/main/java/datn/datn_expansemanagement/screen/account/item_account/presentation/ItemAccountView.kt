@@ -55,7 +55,7 @@ class ItemAccountView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.View
     }
 
     private val onRefreshListener = SwipeRefreshLayout.OnRefreshListener {
-        mPresenter.getData(tabId.getValueOrDefaultIsZero())
+        mPresenter.getData(tabId.getValueOrDefaultIsZero(), 1)
     }
 
     private val onActionClickMore = object : OnActionData<ItemAccountAccumulationViewModel>{
@@ -120,7 +120,7 @@ class ItemAccountView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.View
 
     override fun initData() {
         super.initData()
-        mPresenter.getData(tabId.getValueOrDefaultIsZero())
+        mPresenter.getData(tabId.getValueOrDefaultIsZero(), 1)
     }
 
     override fun startMvpView() {
