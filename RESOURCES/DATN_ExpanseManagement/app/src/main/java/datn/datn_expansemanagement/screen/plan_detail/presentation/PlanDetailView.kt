@@ -2,11 +2,14 @@ package datn.datn_expansemanagement.screen.plan_detail.presentation
 
 import android.content.Context
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.screen.main_plan.presentation.model.PlanItemViewModel
+import datn.datn_expansemanagement.screen.plan_detail.buget.BudgetFragment
+import kotlinx.android.synthetic.main.layout_plan_detail.view.*
 
 class PlanDetailView(
     mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator,
@@ -20,7 +23,14 @@ class PlanDetailView(
     private val mPresenter = PlanDetailPresenter()
 
     override fun initCreateView() {
+        replaceFragment(BudgetFragment())
+        mvpActivity.setFullScreen()
+    }
 
+    private fun replaceFragment(frm: Fragment) {
+        mvpActivity.supportFragmentManager.beginTransaction()
+            .replace(view.flChange.id, frm)
+            .commit()
     }
 
     override fun showLoading() {

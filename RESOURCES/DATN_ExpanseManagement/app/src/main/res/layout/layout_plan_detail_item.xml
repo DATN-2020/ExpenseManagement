@@ -1,17 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_f5f5f5"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <include layout="@layout/toolbar_category"
-        android:id="@+id/layoutToolbar"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvPlanDetail"
-        app:layout_constraintBottom_toBottomOf="parent"
+    android:background="@color/color_f5f5f5">
+
+    <include
+        android:id="@+id/layoutToolbar"
+        layout="@layout/toolbar_category" />
+
+    <com.google.android.material.tabs.TabLayout
+        app:tabTextAppearance="@style/MyCustomTextAppearance"
+        app:tabTextColor="@color/color_ebebeb"
+        app:tabInlineLabel="true"
+        app:tabIndicatorColor="@color/white"
+        style="@style/StyleTextView.Large"
+        app:tabSelectedTextColor="@color/white"
+        android:id="@+id/tlControlDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_219dfd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layoutToolbar"
+        app:layout_constraintTop_toBottomOf="@id/layoutToolbar" />
+
+    <androidx.viewpager.widget.ViewPager
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/vpControlDetail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tlControlDetail"
         android:layout_width="match_parent"
         android:layout_height="0dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

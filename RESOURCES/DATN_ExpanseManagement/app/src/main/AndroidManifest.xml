@@ -84,6 +84,11 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
+            android:name=".screen.add_plan.AddPlanActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
             android:name=".screen.control_wallet.ControlWalletActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
