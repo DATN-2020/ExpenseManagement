@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/spacing_20dp"
+    android:paddingEnd="@dimen/spacing_20dp"
+    android:paddingTop="@dimen/spacing_10dp"
+    android:paddingBottom="@dimen/spacing_10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.appcompat.widget.AppCompatImageView
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvName"
+        app:layout_constraintBottom_toBottomOf="@id/tvName"
+        android:id="@+id/imgItem"
+        android:src="@drawable/ic_default"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_marginStart="@dimen/spacing_10dp"
+        style="@style/StyleTextView.Medium.Black"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Du lịch"
+        android:id="@+id/tvName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tvPrice"
+        app:layout_constraintStart_toEndOf="@id/imgItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:fontFamily="@font/roboto_medium"
+        style="@style/StyleTextView.Medium.Green"
+        android:text="1.000.000 đ"
+        android:id="@+id/tvPrice"
+        android:gravity="end"
+        app:layout_constraintBottom_toBottomOf="@id/tvName"
+        app:layout_constraintTop_toTopOf="@id/tvName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
