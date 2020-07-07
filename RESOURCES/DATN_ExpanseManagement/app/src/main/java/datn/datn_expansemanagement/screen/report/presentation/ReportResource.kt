@@ -34,6 +34,10 @@ class ReportResource(val mvpActivity: MvpActivity) : AndroidResourceProvider(){
         return resourceManager.getColor(R.color.color_219dfd)
     }
 
+    fun getColorDonate(): Int{
+        return resourceManager.getColor(R.color.color_ee403f)
+    }
+
     fun getTextChartColor(): Int{
         return resourceManager.getColor(R.color.color_399b54)
     }

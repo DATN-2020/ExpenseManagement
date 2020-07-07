@@ -23,6 +23,7 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.OnIte
 import datn.datn_expansemanagement.kotlinex.view.gone
 import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewModel
 import datn.datn_expansemanagement.screen.report.presentation.renderer.ReportBarChartViewRenderer
+import datn.datn_expansemanagement.screen.report.presentation.renderer.ReportPieChartViewRenderer
 import datn.datn_expansemanagement.screen.report.presentation.renderer.ReportViewRenderer
 import datn.datn_expansemanagement.view.custom_charts.CustomBarChart
 import kotlinx.android.synthetic.main.layout_report.view.*
@@ -71,6 +72,7 @@ class ReportView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreat
         listViewMvp = ListViewMvp(mvpActivity, view.rvReport, renderConfig)
 //        listViewMvp?.addViewRenderer(ReportViewRenderer(mvpActivity))
         listViewMvp?.addViewRenderer(ReportBarChartViewRenderer(mvpActivity, mResource))
+        listViewMvp?.addViewRenderer(ReportPieChartViewRenderer(mvpActivity, mResource))
 //        listViewMvp?.setOnItemRvClickedListener(onItemClick)
         listViewMvp?.createView()
     }

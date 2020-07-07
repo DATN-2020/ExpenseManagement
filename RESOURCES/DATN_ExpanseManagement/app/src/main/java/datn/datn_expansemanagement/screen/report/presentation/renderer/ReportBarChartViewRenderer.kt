@@ -41,6 +41,7 @@ class ReportBarChartViewRenderer (context: Context, private val mResource : Repo
         chart.fitScreen()
         chart.enableScroll()
         chart.setVisibleXRangeMaximum(6f)
+        chart.animateY(1000)
 
 
         setLabelBottomChart(chart)
@@ -48,15 +49,6 @@ class ReportBarChartViewRenderer (context: Context, private val mResource : Repo
         setLegend(chart)
         setData(chart, model.list)
     }
-
-//    private fun getListEntry(): ArrayList<BarEntry> {
-//        val list = ArrayList<BarEntry>()
-//        for (i in 1..12) {
-//            val random = Random.nextInt(-10, 10)
-//            list.add(BarEntry(i.toFloat(), random.toFloat() * 10))
-//        }
-//        return list
-//    }
 
     private fun setLabelLeftRightChart(chart: CustomBarChart){
         val aXisLeft = chart.axisLeft
