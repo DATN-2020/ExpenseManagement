@@ -4,12 +4,14 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import com.github.mikephil.charting.charts.BarLineChartBase;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.highlight.BarHighlighter;
 import com.github.mikephil.charting.interfaces.dataprovider.BarDataProvider;
 
 public class CustomBarChart extends BarLineChartBase<BarData> implements BarDataProvider{
 
+    private boolean mFitBars = false;
     private boolean mDrawBarShadow = false;
     private boolean mDrawValueAboveBar = true;
     protected boolean mHighlightFullBarEnabled = false;
@@ -36,7 +38,17 @@ public class CustomBarChart extends BarLineChartBase<BarData> implements BarData
         getXAxis().setSpaceMax(0.5f);
     }
 
+    @Override
+    protected void calcMinMax() {
+        super.calcMinMax();
+        if(mFitBars){
+            mXAxis.calculate(mData.getXMin() - mData.getBarWidth() / 2f, mData.getXMax() + mData.getBarWidth() / 2f);
+        }else {
+            mXAxis.calculate(mData.getXMin(), mData.getXMax());
+        }
 
+        mAxisLeft.calculate(mData.getYMin(YAxis.AxisDependency.LEFT), mData.getYMax(YAxis.AxisDependency.LEFT));
+    }
 
     @Override
     public BarData getBarData() {

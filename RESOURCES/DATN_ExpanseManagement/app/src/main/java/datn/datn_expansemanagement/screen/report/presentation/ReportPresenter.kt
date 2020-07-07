@@ -5,9 +5,8 @@ import datn.datn_expansemanagement.screen.report.domain.ReportMapper
 import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewModel
 
 class ReportPresenter(private val screenNavigator: AndroidScreenNavigator): ReportContract.Presenter(){
-    private val mResource = ReportResource()
     override fun getData() {
-        view?.showData(ReportMapper(mResource).map(""))
+        view?.showData(ReportMapper().map(""))
     }
 
     override fun gotoReportDetailActivity(data: ReportViewModel) {

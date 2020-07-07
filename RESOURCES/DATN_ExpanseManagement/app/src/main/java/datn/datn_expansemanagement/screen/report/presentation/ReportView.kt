@@ -1,11 +1,19 @@
 package datn.datn_expansemanagement.screen.report.presentation
 
 import android.content.Context
+import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
+import com.github.mikephil.charting.components.AxisBase
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
+import datn.datn_expansemanagement.core.app.util.Utils
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
@@ -14,8 +22,11 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.Linea
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.OnItemRvClickedListener
 import datn.datn_expansemanagement.kotlinex.view.gone
 import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewModel
+import datn.datn_expansemanagement.screen.report.presentation.renderer.ReportBarChartViewRenderer
 import datn.datn_expansemanagement.screen.report.presentation.renderer.ReportViewRenderer
+import datn.datn_expansemanagement.view.custom_charts.CustomBarChart
 import kotlinx.android.synthetic.main.layout_report.view.*
+import kotlinx.android.synthetic.main.layout_report_receive.view.*
 import kotlinx.android.synthetic.main.toolbar_account.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 
@@ -27,17 +38,16 @@ class ReportView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreat
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
     private val mPresenter = ReportPresenter(AndroidScreenNavigator(mvpActivity))
-    private val mResource = ReportResource()
+    private val mResource = ReportResource(mvpActivity)
     private val listData = mutableListOf<ViewModel>()
     private var listViewMvp : ListViewMvp? = null
 
-    private val renderInput = GridRenderConfigFactory.Input(
+    private val renderInput = LinearRenderConfigFactory.Input(
         context = mvpActivity,
-        orientation = GridRenderConfigFactory.Orientation.VERTICAL,
-        spanCount = 2
+        orientation = LinearRenderConfigFactory.Orientation.VERTICAL
     )
 
-    private val renderConfig = GridRenderConfigFactory(renderInput).create()
+    private val renderConfig = LinearRenderConfigFactory(renderInput).create()
     private val onItemClick = object : OnItemRvClickedListener<ViewModel>{
         override fun onItemClicked(view: View, position: Int, dataItem: ViewModel) {
             dataItem as ReportViewModel
@@ -59,8 +69,9 @@ class ReportView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreat
 
     private fun initRecycleView(){
         listViewMvp = ListViewMvp(mvpActivity, view.rvReport, renderConfig)
-        listViewMvp?.addViewRenderer(ReportViewRenderer(mvpActivity))
-        listViewMvp?.setOnItemRvClickedListener(onItemClick)
+//        listViewMvp?.addViewRenderer(ReportViewRenderer(mvpActivity))
+        listViewMvp?.addViewRenderer(ReportBarChartViewRenderer(mvpActivity, mResource))
+//        listViewMvp?.setOnItemRvClickedListener(onItemClick)
         listViewMvp?.createView()
     }
 

@@ -1,9 +1,12 @@
 package datn.datn_expansemanagement.screen.report.presentation
 
+import android.graphics.Typeface
+import androidx.core.content.res.ResourcesCompat
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.base.domain.provider.AndroidResourceProvider
+import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 
-class ReportResource : AndroidResourceProvider(){
+class ReportResource(val mvpActivity: MvpActivity) : AndroidResourceProvider(){
     fun getTextReportFinance(): String{
         return resourceManager.getString(R.string.text_report_finance)
     }
@@ -25,5 +28,21 @@ class ReportResource : AndroidResourceProvider(){
 
     fun getTextTitle(): String{
         return resourceManager.getString(R.string.text_title_report)
+    }
+
+    fun getColorChart(): Int{
+        return resourceManager.getColor(R.color.color_219dfd)
+    }
+
+    fun getTextChartColor(): Int{
+        return resourceManager.getColor(R.color.color_399b54)
+    }
+
+    fun getBackgroundChart(): Int{
+        return resourceManager.getColor(R.color.white)
+    }
+
+    fun getTypeFaceMedium() : Typeface?{
+        return ResourcesCompat.getFont(mvpActivity,R.font.roboto_medium)
     }
 }
