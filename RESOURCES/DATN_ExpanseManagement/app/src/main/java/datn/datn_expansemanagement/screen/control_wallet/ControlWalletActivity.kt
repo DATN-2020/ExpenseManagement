@@ -9,7 +9,8 @@ import datn.datn_expansemanagement.screen.control_wallet.presentation.ControlWal
 class ControlWalletActivity : MvpActivity() {
     override fun createAndroidMvpView(savedInstanceState: Bundle?): AndroidMvpView {
         val data = intent?.getParcelableExtra<WalletViewModel>(WalletViewModel::class.java.simpleName)
-        return ControlWalletView(this, ControlWalletView.ViewCreator(this, null), data)
+        val isOtherWallet : Boolean? = intent?.getBooleanExtra("isOtherWallet", false)
+        return ControlWalletView(this, ControlWalletView.ViewCreator(this, null), data, isOtherWallet)
     }
 
 }

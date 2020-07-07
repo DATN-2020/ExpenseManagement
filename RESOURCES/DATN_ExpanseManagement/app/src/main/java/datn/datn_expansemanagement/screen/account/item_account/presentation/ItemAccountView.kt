@@ -1,6 +1,5 @@
 package datn.datn_expansemanagement.screen.account.item_account.presentation
 
-import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
 import android.os.Build
@@ -13,6 +12,7 @@ import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
+import datn.datn_expansemanagement.core.app.config.ConfigUtil
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
@@ -47,6 +47,7 @@ class ItemAccountView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.View
     private val listData = mutableListOf<ViewModel>()
     private var listViewMvp: ListViewMvp? = null
     private lateinit var bottomDialogView : View
+    private val user = ConfigUtil.passport
 
     private val onActionClick = object : OnActionData<WalletViewModel>{
         override fun onAction(data: WalletViewModel) {
@@ -55,7 +56,7 @@ class ItemAccountView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.View
     }
 
     private val onRefreshListener = SwipeRefreshLayout.OnRefreshListener {
-        mPresenter.getData(tabId.getValueOrDefaultIsZero(), 1)
+        mPresenter.getData(tabId.getValueOrDefaultIsZero(), user?.data?.userId.getValueOrDefaultIsZero())
     }
 
     private val onActionClickMore = object : OnActionData<ItemAccountAccumulationViewModel>{
@@ -64,8 +65,9 @@ class ItemAccountView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.View
         }
     }
 
+    private val bottomDialog = BottomSheetDialog(mvpActivity, R.style.BaseBottomSheetDialog)
     private fun showBottomDialog(data: WalletViewModel) {
-        val bottomDialog = BottomSheetDialog(mvpActivity, R.style.BaseBottomSheetDialog)
+
         bottomDialogView = LayoutInflater.from(mvpActivity).inflate(R.layout.custom_bottom_sheet_account, null, false)
         bottomDialog.setContentView(bottomDialogView)
         bottomDialog.create()
@@ -73,15 +75,16 @@ class ItemAccountView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.View
         bottomDialog.show()
 
         bottomDialog.tvControl.setOnClickListener {
-            mPresenter.gotoControlWallet(data)
+            mPresenter.gotoControlWallet(data, true)
         }
 
 
         bottomDialog.tvDelete.setOnClickListener {
+            mPresenter.deleteWallet(data.id)
         }
 
         bottomDialog.tvUpdate.setOnClickListener {
-            mPresenter.gotoControlWallet(data)
+            mPresenter.gotoControlWallet(data, false)
         }
     }
 
@@ -120,7 +123,7 @@ class ItemAccountView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.View
 
     override fun initData() {
         super.initData()
-        mPresenter.getData(tabId.getValueOrDefaultIsZero(), 1)
+        mPresenter.getData(tabId.getValueOrDefaultIsZero(), user?.data?.userId.getValueOrDefaultIsZero())
     }
 
     override fun startMvpView() {
@@ -141,6 +144,11 @@ class ItemAccountView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.View
 
         listViewMvp?.setItems(this.listData)
         listViewMvp?.notifyDataChanged()
+    }
+
+    override fun handleAfterDeleteWallet() {
+        bottomDialog.dismiss()
+        mPresenter.getData(tabId.getValueOrDefaultIsZero(), user?.data?.userId.getValueOrDefaultIsZero())
     }
 
     private fun initRecycleView(){

@@ -10,10 +10,12 @@ interface ItemAccountContract {
         fun showLoading()
         fun hideLoading()
         fun showData(list: MutableList<ViewModel>)
+        fun handleAfterDeleteWallet()
     }
 
     abstract class Presenter : MvpPresenter<View>(){
         abstract fun getData(tabId: Int, userId: Int)
-        abstract fun gotoControlWallet(data: WalletViewModel)
+        abstract fun gotoControlWallet(data: WalletViewModel, isOtherWallet: Boolean)
+        abstract fun deleteWallet(walletId: Int)
     }
 }

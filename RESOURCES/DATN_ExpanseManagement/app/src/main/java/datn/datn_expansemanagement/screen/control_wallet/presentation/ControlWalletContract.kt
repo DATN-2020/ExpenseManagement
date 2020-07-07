@@ -10,9 +10,11 @@ interface ControlWalletContract {
         fun showLoading()
         fun hideLoading()
         fun showData(list: MutableList<ViewModel>)
+        fun handleAfterUpdate()
     }
 
     abstract class Presenter : MvpPresenter<View>(){
-        abstract fun getData(data: WalletViewModel)
+        abstract fun getData(data: WalletViewModel, isOtherWallet: Boolean?)
+        abstract fun updateWallet(idWallet: Int)
     }
 }

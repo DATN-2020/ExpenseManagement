@@ -16,6 +16,12 @@ interface GetDataService {
     @GET("wallets")
     fun getItemWallet(@Query("Id_Wallet") walletId: Int): Call<GetItemWalletResponse>
 
+    @PUT("wallets/{id}")
+    fun updateWallet(@Path("id") walletId: Int): Call<BaseResponse>
+
+    @DELETE("wallets/5")
+    fun deleteWallet(@Query("id") walletId: Int): Call<BaseResponse>
+
     @GET("TypeWallets")
     fun getListTypeWallet(): Call<List<TypeWalletResponse>>
 

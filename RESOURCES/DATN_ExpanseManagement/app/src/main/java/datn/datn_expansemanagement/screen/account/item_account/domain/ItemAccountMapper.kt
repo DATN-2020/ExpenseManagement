@@ -21,8 +21,9 @@ class ItemAccountMapper(private val tapId: Int? = null) :
                         WalletViewModel(
                             id = it.idWallet.getValueOrDefaultIsZero(),
                             name = it.nameWallet.getValueOrDefaultIsEmpty(),
-                            money = it.amountWallet.getValueOrDefaultIsZero().toDouble(),
-                            tabId = 1
+                            money = it.amountWallet.getValueOrDefaultIsZero(),
+                            tabId = 1,
+                            des = it.description.getValueOrDefaultIsEmpty()
                         )
                     )
                     totalPrice += it.amountWallet.toDouble()

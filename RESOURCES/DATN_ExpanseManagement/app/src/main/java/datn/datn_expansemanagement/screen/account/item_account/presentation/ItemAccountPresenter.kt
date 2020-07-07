@@ -4,6 +4,7 @@ import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
 import datn.datn_expansemanagement.domain.GetDataService
 import datn.datn_expansemanagement.domain.RetrofitClientInstance
 import datn.datn_expansemanagement.domain.request.GetWalletForUserRequest
+import datn.datn_expansemanagement.domain.response.BaseResponse
 import datn.datn_expansemanagement.domain.response.WalletResponse
 import datn.datn_expansemanagement.screen.account.item_account.domain.ItemAccountMapper
 import datn.datn_expansemanagement.screen.account.item_account.presentation.model.WalletViewModel
@@ -36,8 +37,23 @@ class ItemAccountPresenter(private val screenNavigator: AndroidScreenNavigator) 
 
     }
 
-    override fun gotoControlWallet(data: WalletViewModel) {
-        screenNavigator.gotoControlWalletActivity(data)
+    override fun gotoControlWallet(data: WalletViewModel, isOtherWallet: Boolean) {
+        screenNavigator.gotoControlWalletActivity(data, isOtherWallet)
     }
 
+    override fun deleteWallet(walletId: Int) {
+        view?.showLoading()
+        val call = service?.deleteWallet(walletId)
+        call?.enqueue(object : Callback<BaseResponse>{
+            override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
+                view?.hideLoading()
+            }
+
+            override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
+                view?.handleAfterDeleteWallet()
+                view?.hideLoading()
+            }
+
+        })
+    }
 }

@@ -106,9 +106,10 @@ class AndroidScreenNavigator constructor(private val mvpActivity: MvpActivity) :
         mvpActivity.startActivity(intent)
     }
 
-    override fun gotoControlWalletActivity(data: WalletViewModel) {
+    override fun gotoControlWalletActivity(data: WalletViewModel, isOtherWallet: Boolean) {
         val intent = Intent(mvpActivity, ControlWalletActivity::class.java)
         intent.putExtra(WalletViewModel::class.java.simpleName, data)
+        intent.putExtra("isOtherWallet", isOtherWallet)
         mvpActivity.startActivityForResult(intent,  Request.REQUEST_CODE_CONTROL_WALLET)
     }
 

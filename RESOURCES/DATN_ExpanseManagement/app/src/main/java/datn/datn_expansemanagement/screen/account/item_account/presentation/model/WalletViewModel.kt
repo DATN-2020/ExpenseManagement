@@ -10,5 +10,6 @@ class WalletViewModel(
     var tabId: Int,
     var name: String,
     var money: Double,
+    var des: String,
     var isLast: Boolean = false
 ): ViewModel, Parcelable
