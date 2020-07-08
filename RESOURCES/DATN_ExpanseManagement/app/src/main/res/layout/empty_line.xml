@@ -7,7 +7,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/color_f5f5f5"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="@dimen/spacing_14dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
