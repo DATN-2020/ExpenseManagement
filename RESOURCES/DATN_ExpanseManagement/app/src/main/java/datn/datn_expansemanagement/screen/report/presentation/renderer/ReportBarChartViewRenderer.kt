@@ -32,7 +32,7 @@ class ReportBarChartViewRenderer (context: Context, private val mResource : Repo
     private fun initCustomChart(view: View, model: ReportBarChartViewModel) {
         val chart = view.customChart
         chart.clear()
-        chart.extraTopOffset = -30f
+        chart.extraTopOffset = -10f
         chart.extraBottomOffset = 10f
         chart.description.isEnabled = false
         chart.setBackgroundColor(mResource.getBackgroundChart())
@@ -64,11 +64,11 @@ class ReportBarChartViewRenderer (context: Context, private val mResource : Repo
             }
         }
         aXisLeft.setDrawLabels(true)
-        aXisLeft.spaceTop = 25f
+        aXisLeft.spaceTop = 14f
         aXisLeft.spaceBottom = 25f
-        aXisLeft.textColor = Color.BLACK
-        aXisLeft.textSize = 14f
-        aXisLeft.typeface = mResource.getTypeFaceMedium()
+        aXisLeft.textSize = 12f
+        aXisLeft.textColor = mResource.getTextLabelChart()
+        aXisLeft.typeface = mResource.getTypeFaceRegular()
         aXisLeft.setDrawAxisLine(false)
         aXisLeft.setDrawGridLines(true)
         aXisLeft.setDrawZeroLine(true) // draw a zero line

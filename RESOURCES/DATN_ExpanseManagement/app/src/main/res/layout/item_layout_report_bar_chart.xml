@@ -2,14 +2,34 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="@dimen/spacing_20dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:text="(Triệu đồng)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/tvLabelLeftChart"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:text="Tháng"
+        app:layout_constraintTop_toBottomOf="@id/customChart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/tvLabelBottomChart"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" />
 
     <datn.datn_expansemanagement.view.custom_charts.CustomBarChart
         android:id="@+id/customChart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/tvLabelLeftChart"
+        android:layout_width="0dp"
         android:layout_height="300dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

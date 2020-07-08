@@ -42,11 +42,20 @@ class ReportResource(val mvpActivity: MvpActivity) : AndroidResourceProvider(){
         return resourceManager.getColor(R.color.color_399b54)
     }
 
+    fun getTextLabelChart(): Int{
+        return resourceManager.getColor(R.color.black)
+    }
+
+
     fun getBackgroundChart(): Int{
         return resourceManager.getColor(R.color.white)
     }
 
     fun getTypeFaceMedium() : Typeface?{
         return ResourcesCompat.getFont(mvpActivity,R.font.roboto_medium)
+    }
+
+    fun getTypeFaceRegular() : Typeface?{
+        return ResourcesCompat.getFont(mvpActivity,R.font.roboto_regular)
     }
 }

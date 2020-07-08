@@ -10,10 +10,12 @@ interface ReportContract {
         fun showLoading()
         fun hideLoading()
         fun showData(list: MutableList<ViewModel>)
+        fun handleAfterGetWallet(list: MutableList<ViewModel>)
     }
 
     abstract class Presenter : MvpPresenter<View>(){
         abstract fun getData()
         abstract fun gotoReportDetailActivity(data: ReportViewModel)
+        abstract fun getWalletForUser(idWallet: Int? = null)
     }
 }
