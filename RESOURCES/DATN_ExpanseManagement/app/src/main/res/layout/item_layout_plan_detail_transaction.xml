@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/spacing_20dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgTypeExpense"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_default"
+        app:layout_constraintEnd_toStartOf="@id/tvTitleTypeExpense"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:singleLine="true"
+        android:id="@+id/tvTitleTypeExpense"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:text="Mua sắm"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/tvMoneyTypeExpense"
+        app:layout_constraintStart_toEndOf="@+id/imgTypeExpense"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:gravity="end"
+        android:id="@+id/tvMoneyTypeExpense"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="1,000,000"
+        style="@style/StyleTextView.Medium.Red"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTitleTypeExpense"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvTitleTypeExpense"
+        app:layout_constraintTop_toTopOf="@id/tvTitleTypeExpense" />
+
+    <TextView
+        android:id="@+id/tvContentTypeExpense"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Lần xuất hiện tiếp theo: Thứ Năm, 06/08/2020"
+        app:layout_constraintStart_toStartOf="@+id/tvTitleTypeExpense"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleTypeExpense" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
