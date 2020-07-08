@@ -1,6 +1,7 @@
 package datn.datn_expansemanagement.screen.add_plan.presentation
 
 import datn.datn_expansemanagement.screen.add_plan.domain.AddPlanMapper
+import datn.datn_expansemanagement.screen.add_plan.domain.GetTimeMapper
 import datn.datn_expansemanagement.screen.plan_detail.presentation.model.TypeAddViewModel
 
 class AddPlanPresenter : AddPlanContract.Presenter(){
@@ -8,4 +9,7 @@ class AddPlanPresenter : AddPlanContract.Presenter(){
         view?.showData(AddPlanMapper(typeAdd).map(""))
     }
 
+    override fun getTime() {
+        view?.showListTime(GetTimeMapper().map(""))
+    }
 }

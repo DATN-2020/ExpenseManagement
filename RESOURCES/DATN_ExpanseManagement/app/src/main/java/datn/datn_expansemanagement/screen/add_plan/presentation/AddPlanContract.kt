@@ -10,9 +10,11 @@ interface AddPlanContract {
         fun showLoading()
         fun hideLoading()
         fun showData(list: MutableList<ViewModel>)
+        fun showListTime(list: MutableList<ViewModel>)
     }
 
     abstract class Presenter : MvpPresenter<View>(){
         abstract fun getData(typeAdd: TypeAddViewModel)
+        abstract fun getTime()
     }
 }

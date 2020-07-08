@@ -1,23 +1,27 @@
 package datn.datn_expansemanagement.screen.add_plan.presentation
 
 import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
+import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
+import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.OnItemRvClickedListener
 import datn.datn_expansemanagement.screen.add_plan.presentation.model.AddPlanCategoryViewModel
 import datn.datn_expansemanagement.screen.add_plan.presentation.model.AddPlanDateViewModel
 import datn.datn_expansemanagement.screen.add_plan.presentation.model.AddPlanPriceViewModel
 import datn.datn_expansemanagement.screen.add_plan.presentation.model.AddPlanWalletViewModel
-import datn.datn_expansemanagement.screen.add_plan.presentation.renderer.AddPlanCategoryViewRenderer
-import datn.datn_expansemanagement.screen.add_plan.presentation.renderer.AddPlanDateViewRenderer
-import datn.datn_expansemanagement.screen.add_plan.presentation.renderer.AddPlanPriceViewRenderer
-import datn.datn_expansemanagement.screen.add_plan.presentation.renderer.AddPlanWalletViewRenderer
+import datn.datn_expansemanagement.screen.add_plan.presentation.renderer.*
 import datn.datn_expansemanagement.screen.plan_detail.presentation.model.TypeAddViewModel
+import datn.datn_expansemanagement.screen.report.presentation.renderer.GetWalletItemViewRenderer
+import kotlinx.android.synthetic.main.custom_bottomsheet_recycleview.*
 import kotlinx.android.synthetic.main.layout_add_plan.view.*
 import kotlinx.android.synthetic.main.layout_toolbar_add_category.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
@@ -39,6 +43,26 @@ class AddPlanView(
         orientation = LinearRenderConfigFactory.Orientation.VERTICAL
     )
     private val renderConfig = LinearRenderConfigFactory(renderInput).create()
+
+    private val listBottom = mutableListOf<ViewModel>()
+    private var listViewBottom: ListViewMvp? = null
+
+    private val renderBottom = LinearRenderConfigFactory.Input(
+        context = mvpActivity,
+        orientation = LinearRenderConfigFactory.Orientation.VERTICAL
+    )
+    private val renderConfigBottom = LinearRenderConfigFactory(renderBottom).create()
+    private val customView = LayoutInflater.from(mvpActivity)
+        .inflate(R.layout.custom_bottomsheet_recycleview, null, false)
+    private val bottomSheet = BottomSheetDialog(mvpActivity)
+
+    private val onChooseTime = object : OnActionData<AddPlanDateViewModel>{
+        override fun onAction(data: AddPlanDateViewModel) {
+            bottomSheet.show()
+            bottomSheet.tvTitle.text = "Thời gian áp dụng"
+        }
+
+    }
 
     override fun initCreateView() {
         initRecycleView()
@@ -103,6 +127,7 @@ class AddPlanView(
     override fun initData() {
         super.initData()
         typeAdd?.let { mPresenter.getData(it) }
+        mPresenter.getTime()
     }
 
     override fun startMvpView() {
@@ -125,13 +150,37 @@ class AddPlanView(
         listViewMvp?.notifyDataChanged()
     }
 
+    override fun showListTime(list: MutableList<ViewModel>) {
+        this.listBottom.clear()
+        if (list.isNotEmpty()) {
+            this.listBottom.addAll(list)
+        }
+
+        listViewBottom?.setItems(this.listBottom)
+        listViewBottom?.notifyDataChanged()
+    }
+
+    private val onItemClick = object : OnItemRvClickedListener<ViewModel>{
+        override fun onItemClicked(view: View, position: Int, dataItem: ViewModel) {
+
+        }
+
+    }
+
     private fun initRecycleView() {
         listViewMvp = ListViewMvp(mvpActivity, view.rvAddPlan, renderConfig)
         listViewMvp?.addViewRenderer(AddPlanWalletViewRenderer(mvpActivity))
-        listViewMvp?.addViewRenderer(AddPlanDateViewRenderer(mvpActivity))
+        listViewMvp?.addViewRenderer(AddPlanDateViewRenderer(mvpActivity, onChooseTime))
         listViewMvp?.addViewRenderer(AddPlanPriceViewRenderer(mvpActivity))
         listViewMvp?.addViewRenderer(AddPlanCategoryViewRenderer(mvpActivity))
         listViewMvp?.createView()
+
+        bottomSheet.setContentView(customView)
+        bottomSheet.create()
+        listViewBottom = ListViewMvp(mvpActivity, bottomSheet.rvChoose, renderConfigBottom)
+        listViewBottom?.addViewRenderer(TimeItemViewRenderer(mvpActivity))
+        listViewBottom?.setOnItemRvClickedListener(onItemClick)
+        listViewBottom?.createView()
     }
 
 }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/spacing_20dp"
+    android:paddingEnd="@dimen/spacing_20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        style="@style/StyleTextView.Medium"
+        android:fontFamily="@font/roboto_regular"
+        android:layout_marginTop="@dimen/spacing_20dp"
+        android:text="Mỗi ngày"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/tvTitleTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_marginTop="@dimen/spacing_4dp"
+        style="@style/StyleTextView.Medium"
+        android:fontFamily="@font/roboto_regular"
+        android:text="8/9/2020 - 9/9/2020"
+        app:layout_constraintTop_toBottomOf="@id/tvTitleTime"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/tvValueTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgChecked"
+        app:srcCompat="@drawable/ic_checked"
+        app:layout_constraintBottom_toBottomOf="@id/tvValueTime"
+        app:layout_constraintTop_toTopOf="@id/tvTitleTime"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="@dimen/spacing_24dp"
+        android:layout_height="@dimen/spacing_24dp"/>
+
+    <View
+        android:layout_marginTop="@dimen/spacing_10dp"
+        android:id="@+id/viewBottom"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_f5f5f5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvValueTime" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
