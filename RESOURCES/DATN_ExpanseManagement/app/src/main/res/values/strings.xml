@@ -100,4 +100,6 @@
     <string name="text_day">Ngày</string>
     <string name="text_pay_to">Chi trả cho việc gì?</string>
     <string name="text_pay_time">Trong bao lâu</string>
+    <string name="number_picker_format_string">%s</string>
+    <string name="number_picker_formatter" translatable="false">%d</string>
 </resources>

@@ -2,9 +2,11 @@ package datn.datn_expansemanagement.screen.report.presentation
 
 import android.content.Context
 import android.graphics.Color
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
@@ -15,6 +17,7 @@ import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
+import datn.datn_expansemanagement.core.app.common.AppConstants
 import datn.datn_expansemanagement.core.app.util.Utils
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
@@ -27,12 +30,17 @@ import datn.datn_expansemanagement.screen.report.presentation.model.GetWalletIte
 import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewModel
 import datn.datn_expansemanagement.screen.report.presentation.renderer.*
 import datn.datn_expansemanagement.view.custom_charts.CustomBarChart
+import datn.datn_expansemanagement.view.numberpicker.NumberPicker
 import kotlinx.android.synthetic.main.custom_bottomsheet_recycleview.*
+import kotlinx.android.synthetic.main.layout_choose_date_bottom_sheet.*
 import kotlinx.android.synthetic.main.layout_report.view.*
 import kotlinx.android.synthetic.main.layout_report_receive.view.*
 import kotlinx.android.synthetic.main.toolbar_account.view.*
 import kotlinx.android.synthetic.main.toolbar_report.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class ReportView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator) :
     AndroidMvpView(mvpActivity, viewCreator), ReportContract.View {
@@ -70,7 +78,7 @@ class ReportView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreat
             dataItem as GetWalletItemViewModel
 
             listBottom.forEach {
-                if(it is GetWalletItemViewModel){
+                if (it is GetWalletItemViewModel) {
                     it.isChoose = false
                 }
             }
@@ -85,18 +93,119 @@ class ReportView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreat
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun initCreateView() {
         initRecycleView()
         initView()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun initView() {
         view.imgChooseDate.setOnClickListener {
-
+            showBottomChooseDate()
         }
 
         view.imgChooseWallet.setOnClickListener {
             bottomSheet.show()
+        }
+    }
+
+    private fun handleActionMonth(
+        monthPicker: NumberPicker,
+        dayPicker: NumberPicker,
+        yearPicker: NumberPicker
+    ) {
+        monthPicker.setOnValueChangedListener { _, _, newVal ->
+            checkLogicDate(AppConstants.MONTH_IN_YEAR[newVal - 1], dayPicker, yearPicker)
+        }
+    }
+
+    private fun checkLogicDate(
+        monthValue: String,
+        dayPicker: NumberPicker,
+        yearPicker: NumberPicker
+    ) {
+        val valueMax: Int = if (AppConstants.MONTH_31_DAYS.contains(monthValue)) {
+            31
+        } else if (AppConstants.MONTH_30_DAYS.contains(monthValue)) {
+            30
+        } else {
+            if (checkLeapYear(yearPicker.value)) {
+                29
+            } else {
+                28
+            }
+        }
+        if (dayPicker.value > valueMax) {
+            dayPicker.value = valueMax
+        }
+        dayPicker.maxValue = valueMax
+        dayPicker.requestLayout()
+    }
+
+    private fun checkLeapYear(year: Int): Boolean {
+        if (year % 400 == 0) {
+            return true
+        } else if (year % 4 == 0 && year % 100 != 0) {
+            return true
+        }
+        return false
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun showBottomChooseDate() {
+        val customView = LayoutInflater.from(mvpActivity)
+            .inflate(R.layout.layout_choose_date_bottom_sheet, null, false)
+        val dialog = BottomSheetDialog(mvpActivity)
+        dialog.setContentView(customView)
+        dialog.create()
+        dialog.show()
+        dialog.wpMonth.displayedValues = AppConstants.MONTH_IN_YEAR
+        val monthOld: Int? = null
+        val yearOld: Int? = null
+
+//        listData.forEach {
+//            if (it is InfoItemViewModel && it.type == InfoItemViewModel.TypeInfo.BIRTHDAY) {
+//                if (it.valueText.isNotEmpty()) {
+//                    val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH)
+//                    val date = LocalDate.parse(it.valueText, formatter)
+//                    dayOld = date.dayOfMonth
+//                    monthOld = date.monthValue
+//                    yearOld = date.year
+//                }
+//            }
+//        }
+
+        if (monthOld != null && yearOld != null) {
+            dialog.wpMonth.value = monthOld as Int
+            dialog.wpYear.value = yearOld as Int
+        }
+
+        dialog.tvCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.tvSave.setOnClickListener {
+            val month = dialog.wpMonth.value
+            val year = dialog.wpYear.value
+            var result = ""
+
+            result += if (month < 10) {
+                "/0$month"
+            } else {
+                "/$month"
+            }
+            result += "/$year"
+
+//            listData.forEach {
+//                if (it is InfoItemViewModel && it.type == InfoItemViewModel.TypeInfo.BIRTHDAY) {
+//                    it.valueText = result
+//                    isChange = true
+//                }
+//            }
+
+            // call api
+            dialog.dismiss()
         }
     }
 

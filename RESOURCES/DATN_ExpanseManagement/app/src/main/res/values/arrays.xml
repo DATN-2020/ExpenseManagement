@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="colors_shareholder_status">
+        <item name="color_67a0f5">@color/color_67a0f5</item>
+        <item name="color_e9c301">@color/color_e9c301</item>
+        <item name="color_fb9334">@color/color_fb9334</item>
+        <item name="color_63dcd2">@color/color_63dcd2</item>
+        <item name="color_a8c200">@color/color_a8c200</item>
+    </array>
+    <string-array name="list_month_in_year">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+    <string-array name="list_month_31_days">
+        <item>January</item>
+        <item>March</item>
+        <item>May</item>
+        <item>July</item>
+        <item>August</item>
+        <item>October</item>
+        <item>December</item>
+    </string-array>
+    <string-array name="list_month_30_days">
+        <item>April</item>
+        <item>June</item>
+        <item>September</item>
+        <item>November</item>
+    </string-array>
+</resources>
