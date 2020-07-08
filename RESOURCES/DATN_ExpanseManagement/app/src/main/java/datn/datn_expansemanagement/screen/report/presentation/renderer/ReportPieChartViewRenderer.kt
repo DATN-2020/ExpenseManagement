@@ -13,6 +13,7 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.model.View
 import datn.datn_expansemanagement.screen.report.presentation.ReportResource
 import datn.datn_expansemanagement.screen.report.presentation.model.ReportPieChartViewModel
 import datn.datn_expansemanagement.view.custom_charts.CustomBarChart
+import datn.datn_expansemanagement.view.custom_charts.CustomMarkerView
 import kotlinx.android.synthetic.main.item_layout_report_pie_chart.view.*
 
 class ReportPieChartViewRenderer (context: Context, private val mResource : ReportResource): ViewRenderer<ReportPieChartViewModel>(context){
@@ -33,7 +34,17 @@ class ReportPieChartViewRenderer (context: Context, private val mResource : Repo
         chart.dragDecelerationFrictionCoef = 0.9f
         chart.animateY(1000)
         chart.setDrawCenterText(true)
-        chart.highlightValue(null)
+//        chart.setDrawRoundedSlices(true) // làm tròn các đầu của chart
+        chart.isDrawHoleEnabled = true // khoảng trắng ở giữa chart // false sẽ mất
+
+        // center
+        chart.centerText = "Thống kê chi tiêu"
+        chart.setCenterTextColor(mResource.getColorChart())
+        chart.setCenterTextSize(14f)
+
+//        val mv = CustomMarkerView(context, R.layout.custom_marker_view)
+//        mv.chartView = chart
+//        chart.marker = mv
 
         chart.animate()
 
