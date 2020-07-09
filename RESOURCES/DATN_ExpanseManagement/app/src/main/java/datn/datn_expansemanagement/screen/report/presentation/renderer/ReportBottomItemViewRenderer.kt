@@ -3,6 +3,7 @@ package datn.datn_expansemanagement.screen.report.presentation.renderer
 import android.content.Context
 import android.view.View
 import datn.datn_expansemanagement.R
+import datn.datn_expansemanagement.core.app.util.Utils
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.model.ViewRenderer
 import datn.datn_expansemanagement.screen.report.presentation.model.ReportBottomItemViewModel
 import kotlinx.android.synthetic.main.item_layout_report_bottom.view.*
@@ -15,9 +16,9 @@ class ReportBottomItemViewRenderer (context: Context): ViewRenderer<ReportBottom
     override fun getModelClass(): Class<ReportBottomItemViewModel> = ReportBottomItemViewModel::class.java
 
     override fun bindView(model: ReportBottomItemViewModel, viewRoot: View) {
-        viewRoot.tvPriceDue.text = model.priceDue.toString()
-        viewRoot.tvPriceBorrow.text = model.priceBorrow.toString()
-        viewRoot.tvPriceOther.text = model.priceOther.toString()
+        viewRoot.tvPriceDue.text = Utils.formatMoney(model.priceDue)
+        viewRoot.tvPriceBorrow.text = Utils.formatMoney(model.priceBorrow)
+        viewRoot.tvPriceOther.text = Utils.formatMoney(model.priceOther)
     }
 
 }

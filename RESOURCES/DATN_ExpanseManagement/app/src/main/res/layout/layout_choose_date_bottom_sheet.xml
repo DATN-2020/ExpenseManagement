@@ -12,7 +12,7 @@
         android:layout_marginStart="@dimen/spacing_10dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="@dimen/spacing_10dp"
-        android:text="@string/text_cancel"
+        android:text="Huỷ"
         android:textColor="@color/color_a4a4a4"
         app:layout_constraintBottom_toBottomOf="@id/tvTitle"
         app:layout_constraintEnd_toEndOf="parent"

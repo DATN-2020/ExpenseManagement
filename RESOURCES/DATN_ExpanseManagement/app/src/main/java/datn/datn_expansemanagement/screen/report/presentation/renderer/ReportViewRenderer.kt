@@ -16,27 +16,27 @@ class ReportViewRenderer (context: Context): ViewRenderer<ReportViewModel>(conte
     override fun getModelClass(): Class<ReportViewModel> = ReportViewModel::class.java
 
     override fun bindView(model: ReportViewModel, viewRoot: View) {
-        viewRoot.tvReport.text = model.name
-        when(model.type){
-            ReportViewModel.TypeReport.RECEIVE->{
-                GlideImageHelper(context).loadThumbnail(viewRoot.imgReport, R.drawable.ic_report_receive, R.drawable.ic_report_receive)
-            }
-            ReportViewModel.TypeReport.DONATE->{
-                GlideImageHelper(context).loadThumbnail(viewRoot.imgReport, R.drawable.ic_report_donate, R.drawable.ic_report_donate)
-            }
-            ReportViewModel.TypeReport.FINANCE->{
-                GlideImageHelper(context).loadThumbnail(viewRoot.imgReport, R.drawable.ic_report_finance, R.drawable.ic_report_finance)
-            }
-            ReportViewModel.TypeReport.LOAN->{
-                GlideImageHelper(context).loadThumbnail(viewRoot.imgReport, R.drawable.ic_report_loan, R.drawable.ic_report_loan)
-            }
-            ReportViewModel.TypeReport.FRIEND->{
-                GlideImageHelper(context).loadThumbnail(viewRoot.imgReport, R.drawable.ic_report_friends, R.drawable.ic_report_friends)
-            }
-            ReportViewModel.TypeReport.TRIP->{
-                GlideImageHelper(context).loadThumbnail(viewRoot.imgReport, R.drawable.ic_report_trip, R.drawable.ic_report_trip)
-            }
-        }
+//        viewRoot.tvReport.text = model.name
+//        when(model.type){
+//            ReportViewModel.TypeReport.RECEIVE->{
+//                GlideImageHelper(context).loadThumbnail(viewRoot.imgReport, R.drawable.ic_report_receive, R.drawable.ic_report_receive)
+//            }
+//            ReportViewModel.TypeReport.DONATE->{
+//                GlideImageHelper(context).loadThumbnail(viewRoot.imgReport, R.drawable.ic_report_donate, R.drawable.ic_report_donate)
+//            }
+//            ReportViewModel.TypeReport.FINANCE->{
+//                GlideImageHelper(context).loadThumbnail(viewRoot.imgReport, R.drawable.ic_report_finance, R.drawable.ic_report_finance)
+//            }
+//            ReportViewModel.TypeReport.LOAN->{
+//                GlideImageHelper(context).loadThumbnail(viewRoot.imgReport, R.drawable.ic_report_loan, R.drawable.ic_report_loan)
+//            }
+//            ReportViewModel.TypeReport.FRIEND->{
+//                GlideImageHelper(context).loadThumbnail(viewRoot.imgReport, R.drawable.ic_report_friends, R.drawable.ic_report_friends)
+//            }
+//            ReportViewModel.TypeReport.TRIP->{
+//                GlideImageHelper(context).loadThumbnail(viewRoot.imgReport, R.drawable.ic_report_trip, R.drawable.ic_report_trip)
+//            }
+//        }
     }
 
 }

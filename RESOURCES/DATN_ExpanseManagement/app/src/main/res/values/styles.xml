@@ -276,6 +276,10 @@
         <item name="android:textColor">@color/color_e94c4c</item>
     </style>
 
+    <style name="StyleTextView.Normal.Green">
+        <item name="android:textColor">@color/color_389b54</item>
+    </style>
+
     <style name="StyleTextView.Normal.696969">
         <item name="android:textColor">@color/color_696969</item>
     </style>

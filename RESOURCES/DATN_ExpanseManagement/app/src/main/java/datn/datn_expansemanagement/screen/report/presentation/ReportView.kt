@@ -20,6 +20,7 @@ import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
 import datn.datn_expansemanagement.core.app.common.AppConstants
 import datn.datn_expansemanagement.core.app.util.Utils
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
+import datn.datn_expansemanagement.core.base.domain.listener.OnActionNotify
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.GridRenderConfigFactory
@@ -38,6 +39,8 @@ import kotlinx.android.synthetic.main.layout_report_receive.view.*
 import kotlinx.android.synthetic.main.toolbar_account.view.*
 import kotlinx.android.synthetic.main.toolbar_report.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -72,6 +75,8 @@ class ReportView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreat
         .inflate(R.layout.custom_bottomsheet_recycleview, null, false)
     private val bottomSheet = BottomSheetDialog(mvpActivity)
 
+    private var dateChoose : String? = null
+
 
     private val onItemClick = object : OnItemRvClickedListener<ViewModel> {
         override fun onItemClicked(view: View, position: Int, dataItem: ViewModel) {
@@ -93,10 +98,31 @@ class ReportView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreat
 
     }
 
+    private val onActionChart = object : OnActionNotify{
+        override fun onActionNotify() {
+            val data = ReportViewModel(
+                date = dateChoose
+            )
+            mPresenter.gotoReportDetailActivity(data)
+        }
+
+    }
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun initCreateView() {
         initRecycleView()
         initView()
+        view.tvMonth.text = if(dateChoose.isNullOrEmpty()){
+            getCurrentMonth()
+        }else{
+            dateChoose
+        }
+    }
+
+    private fun getCurrentMonth(): String{
+        val dateFormat = SimpleDateFormat("MM/yyyy")
+        val date = Date()
+        return dateFormat.format(date)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -189,14 +215,9 @@ class ReportView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreat
             val month = dialog.wpMonth.value
             val year = dialog.wpYear.value
             var result = ""
-
-            result += if (month < 10) {
-                "/0$month"
-            } else {
-                "/$month"
-            }
-            result += "/$year"
-
+            result += "$month/$year"
+            dateChoose = result
+            view.tvMonth.text = dateChoose
 //            listData.forEach {
 //                if (it is InfoItemViewModel && it.type == InfoItemViewModel.TypeInfo.BIRTHDAY) {
 //                    it.valueText = result
@@ -213,7 +234,7 @@ class ReportView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreat
     private fun initRecycleView() {
         listViewMvp = ListViewMvp(mvpActivity, view.rvReport, renderConfig)
         listViewMvp?.addViewRenderer(ReportBarChartViewRenderer(mvpActivity, mResource))
-        listViewMvp?.addViewRenderer(ReportPieChartViewRenderer(mvpActivity, mResource))
+        listViewMvp?.addViewRenderer(ReportPieChartViewRenderer(mvpActivity, mResource, onActionChart))
         listViewMvp?.addViewRenderer(ReportHeaderItemViewRenderer(mvpActivity))
         listViewMvp?.addViewRenderer(ReportNetIncomeViewRenderer(mvpActivity))
         listViewMvp?.addViewRenderer(ReportBalanceViewRenderer(mvpActivity))

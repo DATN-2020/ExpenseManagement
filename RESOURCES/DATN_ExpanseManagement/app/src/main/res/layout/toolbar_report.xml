@@ -63,4 +63,18 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>
 
+    <TextView
+        android:gravity="end"
+        android:singleLine="true"
+        app:layout_constraintBottom_toBottomOf="@id/imgChooseDate"
+        app:layout_constraintEnd_toStartOf="@id/imgChooseDate"
+        app:layout_constraintTop_toTopOf="@id/imgChooseDate"
+        app:layout_constraintStart_toEndOf="@id/tvToolbar"
+        style="@style/StyleTextView.Normal.White"
+        android:fontFamily="@font/roboto_medium"
+        android:text="6/2020"
+        android:id="@+id/tvMonth"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

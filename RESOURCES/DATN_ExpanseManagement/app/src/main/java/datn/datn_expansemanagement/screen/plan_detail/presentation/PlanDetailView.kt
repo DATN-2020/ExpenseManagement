@@ -23,7 +23,15 @@ class PlanDetailView(
     private val mPresenter = PlanDetailPresenter()
 
     override fun initCreateView() {
-        replaceFragment(BudgetFragment())
+        when(typePlan?.type){
+            PlanItemViewModel.Type.BUDGET->{
+                replaceFragment(BudgetFragment())
+            }
+            PlanItemViewModel.Type.BUDGET->{}
+            else->{
+
+            }
+        }
         mvpActivity.setFullScreen()
     }
 

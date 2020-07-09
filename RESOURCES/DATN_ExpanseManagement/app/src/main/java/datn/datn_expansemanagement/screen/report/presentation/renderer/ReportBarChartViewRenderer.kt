@@ -12,10 +12,14 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.util.Utils
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.model.ViewRenderer
+import datn.datn_expansemanagement.kotlinex.view.gone
+import datn.datn_expansemanagement.kotlinex.view.visible
 import datn.datn_expansemanagement.screen.report.presentation.ReportResource
 import datn.datn_expansemanagement.screen.report.presentation.model.ReportBarChartViewModel
 import datn.datn_expansemanagement.view.custom_charts.CustomBarChart
+import kotlinx.android.synthetic.main.item_layout_report_bar_chart.view.*
 import kotlinx.android.synthetic.main.layout_report_receive.view.*
+import kotlinx.android.synthetic.main.layout_report_receive.view.customChart
 import kotlin.random.Random
 
 class ReportBarChartViewRenderer (context: Context, private val mResource : ReportResource): ViewRenderer<ReportBarChartViewModel>(context){
@@ -43,11 +47,17 @@ class ReportBarChartViewRenderer (context: Context, private val mResource : Repo
         chart.setVisibleXRangeMaximum(6f)
         chart.animateY(1000)
 
-
         setLabelBottomChart(chart)
         setLabelLeftRightChart(chart)
         setLegend(chart)
-        setData(chart, model.list)
+
+        if(model.list.isNullOrEmpty()){
+            view.tvNoData.visible()
+        }else{
+            view.tvNoData.gone()
+            setData(chart, model.list)
+        }
+
     }
 
     private fun setLabelLeftRightChart(chart: CustomBarChart){

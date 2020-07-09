@@ -5,12 +5,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <include layout="@layout/toolbar_category"
         android:id="@+id/layoutToolbar"/>
-    <FrameLayout
+    <androidx.recyclerview.widget.RecyclerView
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutToolbar"
-        android:id="@+id/flChange"
+        android:id="@+id/rvReportDetail"
         android:layout_width="match_parent"
         android:layout_height="0dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

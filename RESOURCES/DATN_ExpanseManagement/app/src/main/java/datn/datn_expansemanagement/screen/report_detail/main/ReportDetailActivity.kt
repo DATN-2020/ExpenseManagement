@@ -8,8 +8,8 @@ import datn.datn_expansemanagement.screen.report_detail.main.presentation.Report
 
 class ReportDetailActivity : MvpActivity(){
     override fun createAndroidMvpView(savedInstanceState: Bundle?): AndroidMvpView {
-//        val data = intent.getParcelableExtra<ReportViewModel>(ReportViewModel::class.java.simpleName)
-        return ReportDetailView(this, ReportDetailView.ViewCreator(this, null))
+        val data = intent.getParcelableExtra<ReportViewModel>(ReportViewModel::class.java.simpleName)
+        return ReportDetailView(this, ReportDetailView.ViewCreator(this, null), data)
     }
 
 }

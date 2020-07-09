@@ -1,37 +1,32 @@
-package datn.datn_expansemanagement.screen.report.presentation.renderer
+package datn.datn_expansemanagement.screen.report_detail.main.presentation.renderer
 
 import android.content.Context
 import android.view.View
-import androidx.core.view.marginStart
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.data.*
-import com.github.mikephil.charting.highlight.Highlight
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
 import datn.datn_expansemanagement.R
-import datn.datn_expansemanagement.core.app.domain.excecutor.EventFireUtil
-import datn.datn_expansemanagement.core.base.domain.listener.OnActionNotify
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.model.ViewRenderer
 import datn.datn_expansemanagement.kotlinex.view.gone
 import datn.datn_expansemanagement.kotlinex.view.visible
 import datn.datn_expansemanagement.screen.report.presentation.ReportResource
-import datn.datn_expansemanagement.screen.report.presentation.model.ReportPieChartViewModel
-import datn.datn_expansemanagement.view.custom_charts.CustomBarChart
-import datn.datn_expansemanagement.view.custom_charts.CustomMarkerView
+import datn.datn_expansemanagement.screen.report_detail.main.presentation.model.ReportDetailPieChartViewModel
 import kotlinx.android.synthetic.main.item_layout_report_pie_chart.view.*
 
-class ReportPieChartViewRenderer(
-    context: Context, private val mResource: ReportResource,
-    private val onActionChart: OnActionNotify
-) : ViewRenderer<ReportPieChartViewModel>(context) {
+class ReportDetailPieChartViewRenderer(
+    context: Context,
+    private val mResource: ReportResource) :
+    ViewRenderer<ReportDetailPieChartViewModel>(context) {
     override fun getLayoutId(): Int {
         return R.layout.item_layout_report_pie_chart
     }
 
-    override fun getModelClass(): Class<ReportPieChartViewModel> =
-        ReportPieChartViewModel::class.java
+    override fun getModelClass(): Class<ReportDetailPieChartViewModel> =
+        ReportDetailPieChartViewModel::class.java
 
-    override fun bindView(model: ReportPieChartViewModel, viewRoot: View) {
+    override fun bindView(model: ReportDetailPieChartViewModel, viewRoot: View) {
         val chart = viewRoot.pieChart
         chart.clear()
         chart.description.isEnabled = false
@@ -46,7 +41,7 @@ class ReportPieChartViewRenderer(
         chart.isDrawHoleEnabled = true // khoảng trắng ở giữa chart // false sẽ mất
 
         // center
-        chart.centerText = "Thống kê chi tiêu"
+        chart.centerText = "Chi tiêu trong tháng"
         chart.setCenterTextColor(mResource.getColorChart())
         chart.setCenterTextSize(14f)
 
@@ -55,18 +50,6 @@ class ReportPieChartViewRenderer(
 //        chart.marker = mv
 
         chart.animate()
-
-        chart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
-            override fun onNothingSelected() {
-
-            }
-
-            override fun onValueSelected(e: Entry?, h: Highlight?) {
-                // next activity
-                EventFireUtil.fireEvent(onActionChart)
-            }
-
-        })
 
         if(model.list.isNullOrEmpty()){
             viewRoot.tvNoData.visible()
@@ -102,11 +85,13 @@ class ReportPieChartViewRenderer(
         val listColor = mutableListOf<Int>()
         listColor.add(mResource.getTextChartColor())
         listColor.add(mResource.getColorDonate())
+        listColor.add(mResource.getColorChart())
+        listColor.add(mResource.getColorChart4())
+        listColor.add(mResource.getColorChart5())
         dataSet.colors = listColor
 
         val data = PieData(dataSet)
         chart.data = data
         chart.invalidate()
     }
-
 }
