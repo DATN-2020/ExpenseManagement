@@ -106,10 +106,7 @@ class BudgetView(
             mvpActivity.onBackPressed()
         }
         view.imgAdd.setOnClickListener {
-            val data = TypeAddViewModel(
-                isBudget = true
-            )
-            mPresenter.gotoAddPlanActivity(data)
+            type?.let { mPresenter.gotoAddPlanActivity(type) }
         }
 
         view.imgChooseWallet.setOnClickListener {

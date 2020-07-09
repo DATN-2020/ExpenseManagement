@@ -35,7 +35,7 @@ class BudgetPresenter(private val screenNavigator: AndroidScreenNavigator) : Bud
         view?.showData(list)
     }
 
-    override fun gotoAddPlanActivity(typeAdd: TypeAddViewModel) {
+    override fun gotoAddPlanActivity(typeAdd: PlanItemViewModel) {
         screenNavigator.gotoAddPlanActivity(typeAdd)
     }
 

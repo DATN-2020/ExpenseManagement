@@ -19,6 +19,7 @@ import datn.datn_expansemanagement.screen.add_plan.presentation.model.AddPlanDat
 import datn.datn_expansemanagement.screen.add_plan.presentation.model.AddPlanPriceViewModel
 import datn.datn_expansemanagement.screen.add_plan.presentation.model.AddPlanWalletViewModel
 import datn.datn_expansemanagement.screen.add_plan.presentation.renderer.*
+import datn.datn_expansemanagement.screen.main_plan.presentation.model.PlanItemViewModel
 import datn.datn_expansemanagement.screen.plan_detail.presentation.model.TypeAddViewModel
 import datn.datn_expansemanagement.screen.report.presentation.renderer.GetWalletItemViewRenderer
 import kotlinx.android.synthetic.main.custom_bottomsheet_recycleview.*
@@ -28,7 +29,7 @@ import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 
 class AddPlanView(
     mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator,
-    private val typeAdd: TypeAddViewModel?
+    private val typeAdd: PlanItemViewModel?
 ) : AndroidMvpView(mvpActivity, viewCreator), AddPlanContract.View {
 
     class ViewCreator(context: Context, viewGroup: ViewGroup?) :
@@ -56,7 +57,7 @@ class AddPlanView(
         .inflate(R.layout.custom_bottomsheet_recycleview, null, false)
     private val bottomSheet = BottomSheetDialog(mvpActivity)
 
-    private val onChooseTime = object : OnActionData<AddPlanDateViewModel>{
+    private val onChooseTime = object : OnActionData<AddPlanDateViewModel> {
         override fun onAction(data: AddPlanDateViewModel) {
             bottomSheet.show()
             bottomSheet.tvTitle.text = "Thời gian áp dụng"
@@ -67,37 +68,48 @@ class AddPlanView(
     override fun initCreateView() {
         initRecycleView()
         mvpActivity.setFullScreen()
-        view.tvToolbar.text = "Thêm ngân sách"
+        when (typeAdd?.type) {
+            PlanItemViewModel.Type.BUDGET -> {
+                view.tvToolbar.text = "Thêm ngân sách"
+            }
+            PlanItemViewModel.Type.TRANSACTION -> {
+                view.tvToolbar.text = "Thêm giao dịch định kì"
+            }
+            else -> {
+                view.tvToolbar.text = "Thêm hoá đơn"
+            }
+        }
+
         view.imgBack.setOnClickListener {
             mvpActivity.onBackPressed()
         }
         view.imgSave.setOnClickListener {
-            var isSuccess =  true
+            var isSuccess = true
             listData.forEach {
-                when(it){
-                    is AddPlanCategoryViewModel->{
-                        if(it.id == null){
+                when (it) {
+                    is AddPlanCategoryViewModel -> {
+                        if (it.id == null) {
                             showError("Bạn chưa chọn loại áp dụng")
                             isSuccess = false
                             return@forEach
                         }
                     }
-                    is AddPlanDateViewModel ->{
-                        if(it.id == null){
+                    is AddPlanDateViewModel -> {
+                        if (it.id == null) {
                             showError("Bạn chưa chọn thời gian áp dụng")
                             isSuccess = false
                             return@forEach
                         }
                     }
-                    is AddPlanPriceViewModel ->{
-                        if(it.price == null && it.price == 0.0){
+                    is AddPlanPriceViewModel -> {
+                        if (it.price == null && it.price == 0.0) {
                             showError("Bạn chưa nhập mục tiêu áp dụng")
                             isSuccess = false
                             return@forEach
                         }
                     }
-                    is AddPlanWalletViewModel ->{
-                        if(it.id == null){
+                    is AddPlanWalletViewModel -> {
+                        if (it.id == null) {
                             showError("Bạn chưa chọn ví áp dụng")
                             isSuccess = false
                             return@forEach
@@ -106,13 +118,13 @@ class AddPlanView(
                 }
             }
 
-            if(isSuccess){
+            if (isSuccess) {
                 mvpActivity.onBackPressed()
             }
         }
     }
 
-    private fun showError(message: String){
+    private fun showError(message: String) {
         Toast.makeText(mvpActivity, message, Toast.LENGTH_LONG).show()
     }
 
@@ -160,7 +172,7 @@ class AddPlanView(
         listViewBottom?.notifyDataChanged()
     }
 
-    private val onItemClick = object : OnItemRvClickedListener<ViewModel>{
+    private val onItemClick = object : OnItemRvClickedListener<ViewModel> {
         override fun onItemClicked(view: View, position: Int, dataItem: ViewModel) {
 
         }

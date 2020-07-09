@@ -16,7 +16,7 @@ interface BudgetContract {
 
     abstract class Presenter : MvpPresenter<View>(){
         abstract fun getData(typePlan : PlanItemViewModel)
-        abstract fun gotoAddPlanActivity(typeAdd: TypeAddViewModel)
+        abstract fun gotoAddPlanActivity(typeAdd: PlanItemViewModel)
         abstract fun getWalletForUser(idWallet: Int? = null)
     }
 }

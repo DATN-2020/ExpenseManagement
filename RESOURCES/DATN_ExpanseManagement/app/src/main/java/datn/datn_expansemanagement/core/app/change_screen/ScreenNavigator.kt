@@ -24,5 +24,5 @@ interface ScreenNavigator {
     fun gotoPlanDetailActivity(planType: PlanItemViewModel)
     fun gotoAddWalletActivity(type: Int)
     fun gotoControlWalletActivity(data : WalletViewModel, isOtherWallet: Boolean)
-    fun gotoAddPlanActivity(typeAdd: TypeAddViewModel)
+    fun gotoAddPlanActivity(typeAdd: PlanItemViewModel)
 }

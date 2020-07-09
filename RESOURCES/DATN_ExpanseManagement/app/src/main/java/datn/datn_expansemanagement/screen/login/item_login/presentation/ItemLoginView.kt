@@ -32,6 +32,7 @@ import datn.datn_expansemanagement.kotlinex.view.visible
 import datn.datn_expansemanagement.screen.ValidateItemViewModel
 import datn.datn_expansemanagement.screen.login.data.FinishLoginData
 import datn.datn_expansemanagement.screen.login.data.NextStepData
+import datn.datn_expansemanagement.screen.login.data.OnLoginFacebook
 import datn.datn_expansemanagement.screen.login.presentation.LoginResource
 import kotlinx.android.synthetic.main.custom_dialog_cancel_contact.*
 import kotlinx.android.synthetic.main.item_layout_login.view.*
@@ -65,39 +66,10 @@ class ItemLoginView(
         }
     }
 
-    private val callBackManager = CallbackManager.Factory.create()
+
 
     private fun loginFacebook() {
-        FacebookSdk.sdkInitialize(getApplicationContext())
-        AppEventsLogger.activateApp(mvpActivity)
-//        view.btnLoginFacebook.setFragment(this)
-        view.btnLoginFacebook.setReadPermissions(listOf("email", "public_profile"))
-        view.btnLoginFacebook.registerCallback(
-            callBackManager,
-            object : FacebookCallback<LoginResult> {
-                override fun onSuccess(result: LoginResult?) {
-                    Toast.makeText(mvpActivity, "OK", Toast.LENGTH_LONG).show()
-                }
-
-                override fun onCancel() {
-                    Toast.makeText(mvpActivity, "cancel", Toast.LENGTH_LONG).show()
-                }
-
-                override fun onError(error: FacebookException?) {
-                    Toast.makeText(mvpActivity, "fail", Toast.LENGTH_LONG).show()
-                }
-
-            })
-
-    }
-
-    override fun onViewResult(viewResult: ViewResult) {
-        callBackManager.onActivityResult(
-            viewResult.requestCode,
-            viewResult.resultCode,
-            viewResult.data
-        )
-        super.onViewResult(viewResult)
+        eventBusLifeCycle.sendData(OnLoginFacebook())
     }
 
     private fun checkLogin() {

@@ -6,17 +6,16 @@ import datn.datn_expansemanagement.screen.add_plan.presentation.model.AddPlanCat
 import datn.datn_expansemanagement.screen.add_plan.presentation.model.AddPlanDateViewModel
 import datn.datn_expansemanagement.screen.add_plan.presentation.model.AddPlanPriceViewModel
 import datn.datn_expansemanagement.screen.add_plan.presentation.model.AddPlanWalletViewModel
+import datn.datn_expansemanagement.screen.main_plan.presentation.model.PlanItemViewModel
 import datn.datn_expansemanagement.screen.plan_detail.presentation.model.TypeAddViewModel
 
-class AddPlanMapper(private val typeAdd: TypeAddViewModel) : Mapper<String, MutableList<ViewModel>>{
+class AddPlanMapper : Mapper<String, MutableList<ViewModel>> {
     override fun map(input: String): MutableList<ViewModel> {
         val list = mutableListOf<ViewModel>()
-        if(typeAdd.isBudget){
-            list.add(AddPlanPriceViewModel())
-            list.add(AddPlanCategoryViewModel())
-            list.add(AddPlanDateViewModel())
-            list.add(AddPlanWalletViewModel())
-        }
+        list.add(AddPlanPriceViewModel())
+        list.add(AddPlanCategoryViewModel())
+        list.add(AddPlanDateViewModel())
+        list.add(AddPlanWalletViewModel())
         return list
     }
 

@@ -113,9 +113,9 @@ class AndroidScreenNavigator constructor(private val mvpActivity: MvpActivity) :
         mvpActivity.startActivityForResult(intent,  Request.REQUEST_CODE_CONTROL_WALLET)
     }
 
-    override fun gotoAddPlanActivity(typeAdd: TypeAddViewModel) {
+    override fun gotoAddPlanActivity(typeAdd: PlanItemViewModel) {
         val intent = Intent(mvpActivity, AddPlanActivity::class.java)
-        intent.putExtra(TypeAddViewModel::class.java.simpleName, typeAdd)
+        intent.putExtra(PlanItemViewModel::class.java.simpleName, typeAdd)
         mvpActivity.startActivity(intent)
     }
 }

@@ -1,0 +1,3 @@
+package datn.datn_expansemanagement.screen.information
+
+class InformationFragment
