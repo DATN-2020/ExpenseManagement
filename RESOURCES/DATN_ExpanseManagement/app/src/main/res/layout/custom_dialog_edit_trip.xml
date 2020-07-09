@@ -12,7 +12,7 @@
         android:gravity="center"
         style="@style/StyleTextView.Large.Black"
         android:text="@string/text_edit_trip"
-        android:id="@+id/tvTitle"
+        android:id="@+id/tvTitleChooseDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -27,7 +27,7 @@
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvTitleChooseDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <View

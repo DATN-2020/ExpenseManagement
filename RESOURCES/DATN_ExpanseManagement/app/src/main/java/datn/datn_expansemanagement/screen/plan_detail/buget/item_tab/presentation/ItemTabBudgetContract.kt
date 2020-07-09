@@ -3,6 +3,7 @@ package datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentati
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.core.base.presentation.mvp.base.MvpPresenter
 import datn.datn_expansemanagement.core.base.presentation.mvp.base.MvpView
+import datn.datn_expansemanagement.screen.account.presentation.model.TabItemViewModel
 
 interface ItemTabBudgetContract {
     interface View: MvpView {
@@ -12,6 +13,6 @@ interface ItemTabBudgetContract {
     }
 
     abstract class Presenter : MvpPresenter<View>(){
-        abstract fun getData()
+        abstract fun getData(tab: TabItemViewModel)
     }
 }

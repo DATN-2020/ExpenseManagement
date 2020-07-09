@@ -6,9 +6,9 @@ import datn.datn_expansemanagement.domain.GetDataService
 import datn.datn_expansemanagement.domain.RetrofitClientInstance
 import datn.datn_expansemanagement.domain.response.WalletResponse
 import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
-import datn.datn_expansemanagement.screen.account.item_account.domain.ItemAccountMapper
 import datn.datn_expansemanagement.screen.report.domain.GetWalletMapper
-import datn.datn_expansemanagement.screen.report.domain.ReportMapper
+import datn.datn_expansemanagement.screen.report.domain.ReportCreditCardMapper
+import datn.datn_expansemanagement.screen.report.domain.ReportDefaultMapper
 import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,8 +18,13 @@ class ReportPresenter(private val screenNavigator: AndroidScreenNavigator): Repo
 
     private val service = RetrofitClientInstance().getClient()?.create(GetDataService::class.java)
 
-    override fun getData() {
-        view?.showData(ReportMapper().map(""))
+    override fun getData(isCreditCard: Boolean) {
+        if(isCreditCard){
+            view?.showData(ReportCreditCardMapper().map(""))
+        }else{
+            view?.showData(ReportDefaultMapper().map(""))
+        }
+
     }
 
     override fun gotoReportDetailActivity(data: ReportViewModel) {

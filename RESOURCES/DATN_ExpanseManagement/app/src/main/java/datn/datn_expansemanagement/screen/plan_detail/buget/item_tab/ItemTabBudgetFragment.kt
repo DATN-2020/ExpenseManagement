@@ -16,7 +16,7 @@ class ItemTabBudgetFragment : MvpFragment() {
             val recipeTabFragment = ItemTabBudgetFragment()
             val bundle = Bundle()
             if(data is TabItemViewModel){
-                bundle.putInt(KEY_TAB, data.id)
+                bundle.putParcelable(KEY_TAB, data)
             }
             recipeTabFragment.arguments = bundle
             return recipeTabFragment
@@ -24,11 +24,11 @@ class ItemTabBudgetFragment : MvpFragment() {
     }
 
     override fun createAndroidMvpView(): AndroidMvpView {
-        val tabId = arguments?.getInt(KEY_TAB)
+        val dataType = arguments?.getParcelable<TabItemViewModel>(KEY_TAB)
         return ItemTabBudgetView(
             getMvpActivity(),
             ItemTabBudgetView.ViewCreator(getMvpActivity(), null),
-            tabId
+            dataType
         )
     }
 

@@ -6,5 +6,6 @@ class BudgetItemViewModel (
     var id: Int,
     var name: String,
     var totalPrice: Double,
-    var currentPrice: Double
+    var currentPrice: Double,
+    var isFinish: Boolean = false
 ): ViewModel

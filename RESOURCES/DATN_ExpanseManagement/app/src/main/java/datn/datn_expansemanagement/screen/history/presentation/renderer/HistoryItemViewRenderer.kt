@@ -24,7 +24,7 @@ class HistoryItemViewRenderer(context: Context, private val mResource: HistoryRe
             model.categoryUrl,
             R.drawable.ic_add_category_icon
         )
-        viewRoot.tvTitle.text = model.title
+        viewRoot.tvTitleChooseDate.text = model.title
         viewRoot.tvMoney.text = Utils.formatMoneyVND(model.money)
         viewRoot.tvWallet.text = model.wallet
 

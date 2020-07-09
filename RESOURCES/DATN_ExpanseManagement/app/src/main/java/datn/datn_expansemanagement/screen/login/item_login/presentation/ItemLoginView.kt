@@ -163,7 +163,7 @@ class ItemLoginView(
             AlertDialog.Builder(mvpActivity, R.style.DialogNotify).setView(layoutView).create()
         setDialogFullScreen(dialogRegister)
         dialogRegister.show()
-        dialogRegister.tvTitle.text = message
+        dialogRegister.tvTitleChooseDate.text = message
         dialogRegister.btnCancel.setOnClickListener {
             dialogRegister.dismiss()
         }

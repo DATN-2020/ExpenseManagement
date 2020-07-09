@@ -8,7 +8,7 @@
     <TextView
         style="@style/StyleTextViewMedium.Medium.Black"
         android:text="@string/text_history_currently"
-        android:id="@+id/tvTitle"
+        android:id="@+id/tvTitleChooseDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,7 +20,7 @@
         android:layout_marginTop="@dimen/spacing_10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvTitleChooseDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

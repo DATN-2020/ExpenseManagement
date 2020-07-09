@@ -189,7 +189,7 @@ class DefaultWalletView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.Vi
         bottomDialog.create()
         setDialogFullScreen(bottomDialog)
         bottomDialog.show()
-        bottomDialog.tvTitle.text = ms
+        bottomDialog.tvTitleChooseDate.text = ms
     }
 
     private fun initRecycleView() {

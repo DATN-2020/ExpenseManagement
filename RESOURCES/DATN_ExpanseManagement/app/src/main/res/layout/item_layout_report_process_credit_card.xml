@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingStart="@dimen/spacing_20dp"
+    android:paddingTop="@dimen/spacing_20dp"
+    android:paddingEnd="@dimen/spacing_20dp">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <TextView
+        android:id="@+id/tvBalance"
+        style="@style/StyleTextView.Medium.Black"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Tiến triển"
+        app:layout_constraintEnd_toStartOf="@id/glCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvBeginBalance"
+        style="@style/StyleTextView.Normal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_4dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Đã tiết kiệm"
+        app:layout_constraintEnd_toStartOf="@id/glCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvBalance" />
+
+    <TextView
+        android:id="@+id/tvPriceBeginBalance"
+        style="@style/StyleTextView.Medium.Black"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_4dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="0"
+        app:layout_constraintEnd_toStartOf="@id/glCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvBeginBalance" />
+
+    <TextView
+        android:gravity="end"
+        android:id="@+id/tvEndBalance"
+        style="@style/StyleTextView.Normal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_4dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Cần thêm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/glCenter"
+        app:layout_constraintTop_toBottomOf="@id/tvBalance" />
+
+    <TextView
+        android:gravity="end"
+        android:id="@+id/tvPriceEndBalance"
+        style="@style/StyleTextView.Medium.Black"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_4dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="3.000.000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/glCenter"
+        app:layout_constraintTop_toBottomOf="@id/tvBeginBalance" />
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:layout_marginTop="@dimen/spacing_10dp"
+        android:id="@+id/sbPercent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:paddingTop="@dimen/spacing_4dp"
+        android:paddingBottom="@dimen/spacing_4dp"
+        android:progress="60"
+        android:progressDrawable="@drawable/custom_bottom_sheet"
+        android:thumb="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPriceEndBalance" />
+
+    <View
+        android:id="@+id/viewBottom"
+        android:layout_marginTop="@dimen/spacing_10dp"
+        app:layout_constraintTop_toBottomOf="@id/sbPercent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/color_f5f5f5"
+        android:layout_width="0dp"
+        android:layout_height="1dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

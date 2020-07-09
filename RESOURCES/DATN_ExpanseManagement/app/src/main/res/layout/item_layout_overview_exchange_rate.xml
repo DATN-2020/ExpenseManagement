@@ -8,7 +8,7 @@
     <TextView
         style="@style/StyleTextViewMedium.Medium.Black"
         android:text="@string/text_exchange_rate"
-        android:id="@+id/tvTitle"
+        android:id="@+id/tvTitleChooseDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -21,7 +21,7 @@
         android:background="@drawable/bg_corner_white_border_silver"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvTitleChooseDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

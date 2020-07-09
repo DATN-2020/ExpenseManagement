@@ -1,18 +1,11 @@
 package datn.datn_expansemanagement.screen.report.presentation
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import com.github.mikephil.charting.components.AxisBase
-import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
-import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import datn.datn_expansemanagement.R
@@ -23,26 +16,20 @@ import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.domain.listener.OnActionNotify
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
-import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.GridRenderConfigFactory
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.OnItemRvClickedListener
-import datn.datn_expansemanagement.kotlinex.view.gone
 import datn.datn_expansemanagement.screen.report.presentation.model.GetWalletItemViewModel
 import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewModel
 import datn.datn_expansemanagement.screen.report.presentation.renderer.*
-import datn.datn_expansemanagement.view.custom_charts.CustomBarChart
+import datn.datn_expansemanagement.screen.report_detail.main.presentation.model.ReportDetailItemViewModel
+import datn.datn_expansemanagement.screen.report_detail.main.presentation.renderer.ReportDetailItemViewRenderer
 import datn.datn_expansemanagement.view.numberpicker.NumberPicker
 import kotlinx.android.synthetic.main.custom_bottomsheet_recycleview.*
 import kotlinx.android.synthetic.main.layout_choose_date_bottom_sheet.*
 import kotlinx.android.synthetic.main.layout_report.view.*
-import kotlinx.android.synthetic.main.layout_report_receive.view.*
-import kotlinx.android.synthetic.main.toolbar_account.view.*
 import kotlinx.android.synthetic.main.toolbar_report.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
-import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class ReportView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator) :
@@ -230,6 +217,41 @@ class ReportView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreat
         }
     }
 
+    private val showTransaction = object : OnActionNotify{
+        override fun onActionNotify() {
+            val customViewTransaction = LayoutInflater.from(mvpActivity)
+                .inflate(R.layout.custom_bottomsheet_recycleview, null, false)
+            val bottomSheet = BottomSheetDialog(mvpActivity)
+            bottomSheet.setContentView(customViewTransaction)
+            bottomSheet.show()
+
+            val list = mutableListOf<ViewModel>()
+            var viewMvp: ListViewMvp? = null
+
+            val input = LinearRenderConfigFactory.Input(
+                context = mvpActivity,
+                orientation = LinearRenderConfigFactory.Orientation.VERTICAL
+            )
+            val config = LinearRenderConfigFactory(input).create()
+            viewMvp = ListViewMvp(mvpActivity, bottomSheet.rvChoose, config)
+            viewMvp.addViewRenderer(ReportDetailItemViewRenderer(mvpActivity))
+            viewMvp.createView()
+
+            for (i in 1..2){
+                list.add(ReportDetailItemViewModel(
+                    name = "Đi lại",
+                    price = 300000.0
+                ))
+            }
+
+            viewMvp.setItems(list)
+            viewMvp.notifyDataChanged()
+
+            bottomSheet.tvTitle.text = "Lịch sử giao dịch"
+        }
+
+    }
+
 
     private fun initRecycleView() {
         listViewMvp = ListViewMvp(mvpActivity, view.rvReport, renderConfig)
@@ -239,6 +261,9 @@ class ReportView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreat
         listViewMvp?.addViewRenderer(ReportNetIncomeViewRenderer(mvpActivity))
         listViewMvp?.addViewRenderer(ReportBalanceViewRenderer(mvpActivity))
         listViewMvp?.addViewRenderer(ReportBottomItemViewRenderer(mvpActivity))
+        listViewMvp?.addViewRenderer(ReportHeaderCardViewRenderer(mvpActivity))
+        listViewMvp?.addViewRenderer(ReportProcessCardViewRenderer(mvpActivity))
+        listViewMvp?.addViewRenderer(ReportBottomCardViewRenderer(mvpActivity, showTransaction))
 
         listViewMvp?.createView()
 
@@ -280,7 +305,7 @@ class ReportView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreat
 
     override fun initData() {
         super.initData()
-        mPresenter.getData()
+        mPresenter.getData(false)
 //        mPresenter.getWalletForUser(null)
     }
 

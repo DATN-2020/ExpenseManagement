@@ -87,12 +87,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
+
             android:fontFamily="@font/roboto_bold"
             android:textAllCaps="false"
             style="@style/StyleTextView.Medium"
             android:textColor="#228B22"
             android:text="Xem báo cáo cho giai đoạn này"
-            android:background="@null"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:id="@+id/btnViewReport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

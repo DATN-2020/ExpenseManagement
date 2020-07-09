@@ -7,7 +7,7 @@ import datn.datn_expansemanagement.core.base.domain.mapper.Mapper
 import datn.datn_expansemanagement.screen.report.presentation.model.*
 import kotlin.random.Random
 
-class ReportMapper : Mapper<String, MutableList<ViewModel>> {
+class ReportDefaultMapper : Mapper<String, MutableList<ViewModel>> {
     override fun map(input: String): MutableList<ViewModel> {
         val listReturn = mutableListOf<ViewModel>()
         val list = ArrayList<BarEntry>()

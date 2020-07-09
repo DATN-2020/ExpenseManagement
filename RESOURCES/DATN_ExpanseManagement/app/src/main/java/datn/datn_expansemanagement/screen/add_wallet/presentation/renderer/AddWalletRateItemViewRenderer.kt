@@ -16,7 +16,7 @@ class AddWalletRateItemViewRenderer (context: Context): ViewRenderer<AddWalletRa
     override fun getModelClass(): Class<AddWalletRateItemViewModel> = AddWalletRateItemViewModel::class.java
 
     override fun bindView(model: AddWalletRateItemViewModel, viewRoot: View) {
-        viewRoot.tvTitle.text = model.title
+        viewRoot.tvTitleChooseDate.text = model.title
         viewRoot.tvUnit.text = model.unit
         viewRoot.edtRate.setText(model.rate.getValueOrDefaultIsZero().toString())
     }

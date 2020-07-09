@@ -1,13 +1,21 @@
 package datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentation.presentation
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.ColorFilter
+import android.graphics.PorterDuff
 import android.view.View
 import datn.datn_expansemanagement.R
+import datn.datn_expansemanagement.core.app.util.Utils
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.model.ViewRenderer
 import datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentation.model.BudgetItemViewModel
+import datn.datn_expansemanagement.screen.plan_detail.presentation.PlanDetailResource
 import kotlinx.android.synthetic.main.item_layout_plan_detail_budget.view.*
 
-class BudgetItemViewRenderer (context: Context): ViewRenderer<BudgetItemViewModel>(context){
+class BudgetItemViewRenderer(
+    context: Context,
+    private val mResource: PlanDetailResource
+) : ViewRenderer<BudgetItemViewModel>(context) {
     override fun getLayoutId(): Int {
         return R.layout.item_layout_plan_detail_budget
     }
@@ -16,8 +24,22 @@ class BudgetItemViewRenderer (context: Context): ViewRenderer<BudgetItemViewMode
 
     override fun bindView(model: BudgetItemViewModel, viewRoot: View) {
         viewRoot.tvWallet.text = model.name
-        viewRoot.tvAccumulation.text = model.totalPrice.toString()
-        viewRoot.tvRest.text = model.currentPrice.toString()
+        viewRoot.tvAccumulation.text = Utils.formatMoney(model.totalPrice)
+        viewRoot.sbPercent.progress = ((model.currentPrice / model.totalPrice) * 100).toInt()
+        viewRoot.tvRest.text = Utils.formatMoney(model.currentPrice)
+
+        when {
+            model.currentPrice > model.totalPrice -> {
+                viewRoot.sbPercent.progressDrawable.setColorFilter(mResource.getColorOutMax(), PorterDuff.Mode.SRC_IN)
+                viewRoot.tvRest.setTextColor(mResource.getColorOutMax())
+            }
+            ((model.currentPrice / model.totalPrice) * 100).toInt() >= 50 -> {
+                viewRoot.tvRest.setTextColor(mResource.getColorNormal())
+            }
+            else -> {
+                viewRoot.tvRest.setTextColor(mResource.getColorLow())
+            }
+        }
     }
 
 }

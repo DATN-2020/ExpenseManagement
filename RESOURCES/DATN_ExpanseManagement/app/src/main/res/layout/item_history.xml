@@ -64,7 +64,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content">
             <TextView
-                android:id="@+id/tvTitle"
+                android:id="@+id/tvTitleChooseDate"
                 app:layout_constraintEnd_toStartOf="@id/glCenter"
                 android:paddingStart="@dimen/spacing_20dp"
                 style="@style/StyleTextView.Medium.Black"

@@ -14,11 +14,11 @@
         android:padding="@dimen/spacing_10dp"
         android:text="Huỷ"
         android:textColor="@color/color_a4a4a4"
-        app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+        app:layout_constraintBottom_toBottomOf="@id/tvTitleChooseDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tvTitle" />
+        app:layout_constraintTop_toTopOf="@id/tvTitleChooseDate" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:fontFamily="@font/roboto_medium"
@@ -31,13 +31,13 @@
         android:textColor="@color/color_6d30ab"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1"
-        app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+        app:layout_constraintBottom_toBottomOf="@id/tvTitleChooseDate"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tvTitle" />
+        app:layout_constraintTop_toTopOf="@id/tvTitleChooseDate" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:fontFamily="@font/roboto_medium"
-        android:id="@+id/tvTitle"
+        android:id="@+id/tvTitleChooseDate"
         style="@style/StyleTextViewMedium.Large.Black"
         android:layout_marginTop="@dimen/spacing_16dp"
         android:text="Chọn tháng"
@@ -53,7 +53,7 @@
         android:background="@color/color_a4a4a4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+        app:layout_constraintTop_toBottomOf="@id/tvTitleChooseDate" />
 
     <LinearLayout
         android:id="@+id/llTitle"

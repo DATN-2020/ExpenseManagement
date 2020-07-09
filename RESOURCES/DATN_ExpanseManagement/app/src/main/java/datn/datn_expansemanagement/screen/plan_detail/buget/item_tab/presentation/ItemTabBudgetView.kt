@@ -7,21 +7,35 @@ import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
+import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
 import datn.datn_expansemanagement.kotlinex.view.gone
 import datn.datn_expansemanagement.kotlinex.view.visible
+import datn.datn_expansemanagement.screen.account.presentation.model.TabItemViewModel
+import datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentation.presentation.BudgetItemViewRenderer
+import datn.datn_expansemanagement.screen.plan_detail.presentation.PlanDetailResource
 import kotlinx.android.synthetic.main.layou_item_tab_control_detail_budget.view.*
+import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 
 class ItemTabBudgetView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator,
-private val tabId: Int?): AndroidMvpView(mvpActivity, viewCreator), ItemTabBudgetContract.View{
+private val tabId: TabItemViewModel?): AndroidMvpView(mvpActivity, viewCreator), ItemTabBudgetContract.View{
 
     class ViewCreator(context: Context, viewGroup: ViewGroup?) :
         AndroidMvpView.LayoutViewCreator(R.layout.layou_item_tab_control_detail_budget, context, viewGroup)
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
     private val mPresenter = ItemTabBudgetPresenter()
+    private val mResource = PlanDetailResource()
+    private val listData = mutableListOf<ViewModel>()
+    private var listViewMvp: ListViewMvp? = null
+
+    private val renderInput = LinearRenderConfigFactory.Input(
+        context = mvpActivity,
+        orientation = LinearRenderConfigFactory.Orientation.VERTICAL
+    )
+    private val renderConfig = LinearRenderConfigFactory(renderInput).create()
 
     override fun initCreateView() {
-
+        initRecycleView()
     }
 
     override fun showLoading() {
@@ -34,7 +48,7 @@ private val tabId: Int?): AndroidMvpView(mvpActivity, viewCreator), ItemTabBudge
 
     override fun initData() {
         super.initData()
-        mPresenter.getData()
+        tabId?.let { mPresenter.getData(it) }
     }
 
     override fun startMvpView() {
@@ -48,11 +62,22 @@ private val tabId: Int?): AndroidMvpView(mvpActivity, viewCreator), ItemTabBudge
     }
 
     override fun showData(list: MutableList<ViewModel>) {
-        if(list.isNotEmpty()){
+        this.listData.clear()
+        if (list.isNotEmpty()) {
+            this.listData.addAll(list)
             view.imgNoData.gone()
         }else{
             view.imgNoData.visible()
         }
+
+        listViewMvp?.setItems(this.listData)
+        listViewMvp?.notifyDataChanged()
+    }
+
+    private fun initRecycleView(){
+        listViewMvp = ListViewMvp(mvpActivity, view.rvControlDetailBudget, renderConfig)
+        listViewMvp?.addViewRenderer(BudgetItemViewRenderer(mvpActivity, mResource))
+        listViewMvp?.createView()
     }
 
 }
