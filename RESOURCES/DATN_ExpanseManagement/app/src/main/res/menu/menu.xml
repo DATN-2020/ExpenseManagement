@@ -12,7 +12,7 @@
     <item android:id="@+id/menuReport"
         android:icon="@drawable/ic_insert_chart_black_24dp"
         android:title="@string/text_report"/>
-    <item android:id="@+id/menuOther"
+    <item android:id="@+id/menuInfo"
         android:icon="@drawable/ic_more_horiz_black_24dp"
-        android:title="@string/text_other"/>
+        android:title="Thông tin cá nhân"/>
 </menu>

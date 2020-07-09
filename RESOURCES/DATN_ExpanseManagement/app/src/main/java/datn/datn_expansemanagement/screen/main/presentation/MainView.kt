@@ -14,6 +14,7 @@ import datn.datn_expansemanagement.core.event.EventBusData
 import datn.datn_expansemanagement.core.event.EventBusLifeCycle
 import datn.datn_expansemanagement.screen.account.AccountFragment
 import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
+import datn.datn_expansemanagement.screen.information.InformationFragment
 import datn.datn_expansemanagement.screen.main.data.*
 import datn.datn_expansemanagement.screen.main_plan.OverviewFragment
 import datn.datn_expansemanagement.screen.report.ReportFragment
@@ -33,6 +34,7 @@ class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :
     private var accountFragment: AccountFragment? = null
     private var reportFragment: ReportFragment? = null
     private var addExpenseFragment: AddExpenseFragment? = null
+    private var infoFragment: InformationFragment? = null
 
     private val eventBusLifeCycle = EventBusLifeCycle(object : OnActionData<EventBusData> {
         override fun onAction(data: EventBusData) {
@@ -86,6 +88,7 @@ class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :
     private var isWallet = false
     private var isTrip = false
     private var isFriend = false
+
     override fun onViewResult(viewResult: ViewResult) {
         super.onViewResult(viewResult)
         when (viewResult.requestCode) {
@@ -135,6 +138,14 @@ class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :
                     addExpenseFragment = AddExpenseFragment()
                     ft.replace(R.id.mainFrameLayout, addExpenseFragment!!, itemId.toString())
                 }
+
+                R.id.menuInfo -> if (infoFragment != null && infoFragment!!.isAdded) {
+                    ft.show(infoFragment!!)
+                }
+                else {
+                    infoFragment = InformationFragment()
+                    ft.replace(R.id.mainFrameLayout, infoFragment!!, itemId.toString())
+                }
             }
             hideOtherFragment(ft, itemId)
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
@@ -159,6 +170,9 @@ class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :
             if (addExpenseFragment == null && f is AddExpenseFragment) {
                 addExpenseFragment = f
             }
+            if (infoFragment == null && f is InformationFragment) {
+                infoFragment = f
+            }
         }
     }
 
@@ -171,5 +185,7 @@ class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :
             ft.hide(reportFragment!!)
         if (addExpenseFragment != null && addExpenseFragment!!.isAdded && itemId != R.id.menuAddExpense)
             ft.hide(addExpenseFragment!!)
+        if (infoFragment != null && infoFragment!!.isAdded && itemId != R.id.menuInfo)
+            ft.hide(infoFragment!!)
     }
 }
