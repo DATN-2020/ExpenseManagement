@@ -4,9 +4,10 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
+import com.onesignal.BuildConfig
+import com.onesignal.OneSignal
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
-import datn.datn_expansemanagement.BuildConfig
 import datn.datn_expansemanagement.core.app.common.AppConfigs
 import io.paperdb.Paper
 
@@ -17,6 +18,7 @@ class App : Application(){
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         app = this
         Paper.init(this)
+        initOneSignal()
         setupApplication()
         initLogger()
         initLogActivity()
@@ -27,6 +29,15 @@ class App : Application(){
                 return BuildConfig.DEBUG
             }
         })
+    }
+
+    private fun initOneSignal(){
+
+        // OneSignal Initialization
+        OneSignal.startInit(this)
+            .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+            .unsubscribeWhenNotificationsAreDisabled(true)
+            .init();
     }
 
     private fun initLogActivity() {
