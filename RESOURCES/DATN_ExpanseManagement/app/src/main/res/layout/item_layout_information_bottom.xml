@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/spacing_10dp"
+    android:layout_marginTop="@dimen/spacing_10dp"
+    android:layout_marginEnd="@dimen/spacing_20dp"
+    android:layout_marginStart="@dimen/spacing_20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:id="@+id/llViewReport"
+        android:background="@drawable/bg_corner_green"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+
+            android:fontFamily="@font/roboto_bold"
+            android:textAllCaps="false"
+            style="@style/StyleTextView.Medium"
+            android:textColor="#228B22"
+            android:text="Đăng xuất"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:id="@+id/btnViewReport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

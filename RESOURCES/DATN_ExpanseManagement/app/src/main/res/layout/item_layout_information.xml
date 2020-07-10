@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/spacing_10dp"
+    android:layout_marginTop="@dimen/spacing_10dp"
+    android:layout_marginEnd="@dimen/spacing_20dp"
+    android:layout_marginStart="@dimen/spacing_20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edtUser"
+        style="@style/StyleTextView.Normal.Black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spacing_44dp"
+        android:background="@drawable/bg_corner_e8e8e8"
+        android:hint="@string/text_hint_enter_phone"
+        android:inputType="phone"
+        android:padding="@dimen/spacing_6dp"
+        android:paddingStart="@dimen/spacing_20dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

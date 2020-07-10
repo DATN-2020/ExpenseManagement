@@ -1,7 +1,6 @@
 package datn.datn_expansemanagement.screen.login.presentation
 
 import android.content.Context
-import android.util.Log
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -9,7 +8,6 @@ import com.facebook.*
 import com.facebook.appevents.AppEventsLogger
 import com.facebook.login.LoginResult
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
-import com.squareup.picasso.Picasso
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
 import datn.datn_expansemanagement.core.app.config.ConfigUtil
@@ -25,10 +23,7 @@ import datn.datn_expansemanagement.domain.response.RegisterResponse
 import datn.datn_expansemanagement.kotlinex.boolean.getValueOrDefault
 import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
-import datn.datn_expansemanagement.screen.login.data.FinishLoginData
-import datn.datn_expansemanagement.screen.login.data.FinishRegisterData
-import datn.datn_expansemanagement.screen.login.data.NextStepData
-import datn.datn_expansemanagement.screen.login.data.OnLoginFacebook
+import datn.datn_expansemanagement.screen.login.data.*
 import datn.datn_expansemanagement.screen.login.item_create_wallet.ItemCreateWalletFragment
 import datn.datn_expansemanagement.screen.login.item_login.ItemLoginFragment
 import datn.datn_expansemanagement.screen.login.item_register.ItemRegisterFragment
@@ -46,12 +41,17 @@ class LoginView(
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
     private val mPresenter = LoginPresenter(AndroidScreenNavigator(mvpActivity))
+    var loggedOut = AccessToken.getCurrentAccessToken() == null
 
     private val eventBusLifeCycle = EventBusLifeCycle(object : OnActionData<EventBusData> {
         override fun onAction(data: EventBusData) {
             when (data) {
                 is FinishLoginData -> {
                     mPresenter.gotoMainActivity()
+                }
+
+                is RegisterData->{
+                    replaceFragment(ItemRegisterFragment())
                 }
 
                 is FinishRegisterData -> {
@@ -74,42 +74,42 @@ class LoginView(
 
                 }
 
-                is OnLoginFacebook -> {
-                    FacebookSdk.sdkInitialize(FacebookSdk.getApplicationContext())
-                    AppEventsLogger.activateApp(mvpActivity)
-                    view.btnLoginFacebook.setReadPermissions(listOf("email", "public_profile"))
-                    view.btnLoginFacebook.registerCallback(
-                        callBackManager,
-                        object : FacebookCallback<LoginResult> {
-                            override fun onSuccess(result: LoginResult?) {
-                                Toast.makeText(mvpActivity, "OK", Toast.LENGTH_LONG).show() // vào sau
-//                                if (!loggedOut) {
-//                                    Picasso.with(this@MainActivity).load(
-//                                        Profile.getCurrentProfile()
-//                                            .getProfilePictureUri(200, 200)
-//                                    ).into(imageView)
-//                                    Log.d(
-//                                        "TAG",
-//                                        "Username is: " + Profile.getCurrentProfile()
-//                                            .name
-//                                    )
+//                is OnLoginFacebook -> {
+//                    FacebookSdk.sdkInitialize(FacebookSdk.getApplicationContext())
+//                    AppEventsLogger.activateApp(mvpActivity)
+//                    view.btnLoginFacebook.setReadPermissions(listOf("email", "public_profile"))
+//                    view.btnLoginFacebook.registerCallback(
+//                        callBackManager,
+//                        object : FacebookCallback<LoginResult> {
+//                            override fun onSuccess(result: LoginResult?) {
+//                                Toast.makeText(mvpActivity, "OK", Toast.LENGTH_LONG).show() // vào sau
+////                                if (!loggedOut) {
+////                                    Picasso.with(this@MainActivity).load(
+////                                        Profile.getCurrentProfile()
+////                                            .getProfilePictureUri(200, 200)
+////                                    ).into(imageView)
+////                                    Log.d(
+////                                        "TAG",
+////                                        "Username is: " + Profile.getCurrentProfile()
+////                                            .name
+////                                    )
+////
+////                                    //Using Graph API
+////                                    getUserProfile(AccessToken.getCurrentAccessToken())
+////                                }
+//                            }
 //
-//                                    //Using Graph API
-//                                    getUserProfile(AccessToken.getCurrentAccessToken())
-//                                }
-                            }
-
-                            override fun onCancel() {
-                                Toast.makeText(mvpActivity, "cancel", Toast.LENGTH_LONG).show()
-                            }
-
-                            override fun onError(error: FacebookException?) {
-                                Toast.makeText(mvpActivity, "fail", Toast.LENGTH_LONG).show()
-                            }
-
-                        })
-
-                }
+//                            override fun onCancel() {
+//                                Toast.makeText(mvpActivity, "cancel", Toast.LENGTH_LONG).show()
+//                            }
+//
+//                            override fun onError(error: FacebookException?) {
+//                                Toast.makeText(mvpActivity, "fail", Toast.LENGTH_LONG).show()
+//                            }
+//
+//                        })
+//
+//                }
             }
         }
     })
@@ -130,11 +130,11 @@ class LoginView(
 
     private val callBackManager = CallbackManager.Factory.create()
     override fun onViewResult(viewResult: ViewResult) {
-        callBackManager.onActivityResult(
-            viewResult.requestCode,
-            viewResult.resultCode,
-            viewResult.data
-        )
+//        callBackManager.onActivityResult(
+//            viewResult.requestCode,
+//            viewResult.resultCode,
+//            viewResult.data
+//        )
         mPresenter.gotoMainActivity()
         super.onViewResult(viewResult)
 

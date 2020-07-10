@@ -110,20 +110,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_10dp"
-        android:padding="@dimen/spacing_10dp"
         android:background="@drawable/bg_corner_blue_facebook"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textOr">
 
-        <com.facebook.login.widget.LoginButton
-            android:id="@+id/btnLoginFacebook"
+        <Button
+            android:padding="@dimen/spacing_10dp"
+            android:id="@+id/btnRegister"
             style="@style/StyleTextView.Medium.White"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
-            android:paddingEnd="@dimen/spacing_40dp"
-            android:text="@string/text_login_with_facebook"
+            android:text="Đăng ký tài khoản"
             android:textAllCaps="false" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,21 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Toast
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
-import com.facebook.FacebookSdk
-import com.facebook.FacebookSdk.getApplicationContext
-import com.facebook.appevents.AppEventsLogger
-import com.facebook.login.LoginResult
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.util.Utils
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
-import datn.datn_expansemanagement.core.base.presentation.mvp.android.lifecycle.ViewResult
 import datn.datn_expansemanagement.core.event.EventBusData
 import datn.datn_expansemanagement.core.event.EventBusLifeCycle
 import datn.datn_expansemanagement.domain.request.PassportRequest
@@ -33,6 +24,7 @@ import datn.datn_expansemanagement.screen.ValidateItemViewModel
 import datn.datn_expansemanagement.screen.login.data.FinishLoginData
 import datn.datn_expansemanagement.screen.login.data.NextStepData
 import datn.datn_expansemanagement.screen.login.data.OnLoginFacebook
+import datn.datn_expansemanagement.screen.login.data.RegisterData
 import datn.datn_expansemanagement.screen.login.presentation.LoginResource
 import kotlinx.android.synthetic.main.custom_dialog_cancel_contact.*
 import kotlinx.android.synthetic.main.item_layout_login.view.*
@@ -60,16 +52,16 @@ class ItemLoginView(
             view.btnLogin.id -> {
                 checkLogin()
             }
-            view.btnLoginFacebook.id -> {
-                loginFacebook()
+            view.btnRegister.id -> {
+                register()
             }
         }
     }
 
 
 
-    private fun loginFacebook() {
-        eventBusLifeCycle.sendData(OnLoginFacebook())
+    private fun register() {
+        eventBusLifeCycle.sendData(RegisterData())
     }
 
     private fun checkLogin() {
@@ -109,7 +101,7 @@ class ItemLoginView(
         }
         addLifeCycle(eventBusLifeCycle)
         view.btnLogin.setOnClickListener(onActionClick)
-        view.btnLoginFacebook.setOnClickListener(onActionClick)
+        view.btnRegister.setOnClickListener(onActionClick)
     }
 
     override fun showLoading() {

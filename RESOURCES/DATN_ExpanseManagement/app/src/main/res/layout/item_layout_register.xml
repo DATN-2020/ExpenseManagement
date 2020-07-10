@@ -144,15 +144,12 @@
         app:layout_constraintTop_toBottomOf="@id/textOr">
 
         <Button
-            android:id="@+id/btnLoginFacebook"
+            android:id="@+id/btnLogin"
             style="@style/StyleTextView.Medium.White"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
-            android:drawableLeft="@drawable/ic_facebook"
-            android:paddingStart="@dimen/spacing_20dp"
-            android:paddingEnd="@dimen/spacing_40dp"
-            android:text="@string/text_register_with_facebook"
+            android:text="Đã có tài khoản ? Đăng nhập ngay"
             android:textAllCaps="false" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

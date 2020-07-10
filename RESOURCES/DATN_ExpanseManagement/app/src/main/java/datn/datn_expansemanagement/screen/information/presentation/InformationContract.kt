@@ -3,6 +3,7 @@ package datn.datn_expansemanagement.screen.information.presentation
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.core.base.presentation.mvp.base.MvpPresenter
 import datn.datn_expansemanagement.core.base.presentation.mvp.base.MvpView
+import datn.datn_expansemanagement.domain.response.PassportResponse
 
 interface InformationContract{
     interface View : MvpView {
@@ -13,6 +14,7 @@ interface InformationContract{
     }
 
     abstract class Presenter : MvpPresenter<View>() {
-        abstract fun getData()
+        abstract fun getData(passportResponse: PassportResponse)
+        abstract fun gotoLoginActivity()
     }
 }

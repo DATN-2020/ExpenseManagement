@@ -17,7 +17,6 @@ import datn.datn_expansemanagement.kotlinex.view.gone
 import datn.datn_expansemanagement.kotlinex.view.visible
 import datn.datn_expansemanagement.screen.ValidateItemViewModel
 import datn.datn_expansemanagement.screen.login.data.FinishRegisterData
-import datn.datn_expansemanagement.screen.login.data.NextStepData
 import datn.datn_expansemanagement.screen.login.presentation.LoginResource
 import kotlinx.android.synthetic.main.item_layout_register.view.*
 
@@ -42,8 +41,8 @@ class ItemRegisterView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.Vie
             view.btnRegister.id -> {
                 checkRegister()
             }
-            view.btnLoginFacebook.id->{
-                loginFacebook()
+            view.btnLogin.id->{
+                gotoLogin()
             }
         }
     }
@@ -93,14 +92,14 @@ class ItemRegisterView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.Vie
         }
     }
 
-    private fun loginFacebook(){
-
+    private fun gotoLogin(){
+        eventBusLifeCycle.sendData(FinishRegisterData())
     }
 
     override fun initCreateView() {
         addLifeCycle(eventBusLifeCycle)
         view.btnRegister.setOnClickListener(onActionClick)
-        view.btnLoginFacebook.setOnClickListener(onActionClick)
+        view.btnLogin.setOnClickListener(onActionClick)
     }
 
     override fun showLoading() {
