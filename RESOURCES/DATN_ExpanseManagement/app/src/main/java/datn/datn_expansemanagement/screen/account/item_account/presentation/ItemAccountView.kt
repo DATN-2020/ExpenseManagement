@@ -74,12 +74,12 @@ class ItemAccountView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.View
         setDialogFullScreen(bottomDialog)
         bottomDialog.show()
 
-        bottomDialog.tvControl.setOnClickListener {
+        bottomDialog.llControl.setOnClickListener {
             mPresenter.gotoControlWallet(data, true)
         }
 
 
-        bottomDialog.tvDelete.setOnClickListener {
+        bottomDialog.llDelete.setOnClickListener {
             mPresenter.deleteWallet(data.id)
         }
 
