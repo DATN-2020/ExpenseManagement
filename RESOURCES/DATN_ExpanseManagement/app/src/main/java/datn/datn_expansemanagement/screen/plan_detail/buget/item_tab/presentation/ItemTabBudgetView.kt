@@ -11,7 +11,7 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.Linea
 import datn.datn_expansemanagement.kotlinex.view.gone
 import datn.datn_expansemanagement.kotlinex.view.visible
 import datn.datn_expansemanagement.screen.account.presentation.model.TabItemViewModel
-import datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentation.presentation.BudgetItemViewRenderer
+import datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentation.renderer.BudgetItemViewRenderer
 import datn.datn_expansemanagement.screen.plan_detail.presentation.PlanDetailResource
 import kotlinx.android.synthetic.main.layou_item_tab_control_detail_budget.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp

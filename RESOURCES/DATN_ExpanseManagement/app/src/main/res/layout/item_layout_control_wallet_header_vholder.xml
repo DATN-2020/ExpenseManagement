@@ -14,9 +14,9 @@
         app:layout_constraintBottom_toBottomOf="@id/tvName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/tvName"
-        app:srcCompat="@drawable/ic_wallet" />
+        app:srcCompat="@drawable/ic_type_wallet" />
 
-    <TextView
+    <EditText
         android:id="@+id/tvName"
         style="@style/StyleTextView.Medium.Black"
         android:layout_width="0dp"

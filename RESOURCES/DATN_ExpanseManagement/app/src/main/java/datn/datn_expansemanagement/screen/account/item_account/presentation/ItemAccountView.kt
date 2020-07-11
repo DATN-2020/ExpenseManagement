@@ -75,16 +75,15 @@ class ItemAccountView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.View
         bottomDialog.show()
 
         bottomDialog.llControl.setOnClickListener {
-            mPresenter.gotoControlWallet(data, true)
+            mPresenter.gotoControlWallet(data, false)
         }
-
 
         bottomDialog.llDelete.setOnClickListener {
             mPresenter.deleteWallet(data.id)
         }
 
         bottomDialog.tvUpdate.setOnClickListener {
-            mPresenter.gotoControlWallet(data, false)
+            mPresenter.gotoControlWallet(data, true)
         }
     }
 

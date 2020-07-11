@@ -34,12 +34,19 @@ class Utils {
         }
 
         fun customFormatMoney(value: String): String {
-            var originalString = value.toString()
-            val longVar: Long
+            var originalString = value
+            var longVar: Long? = 0
+
+            if (originalString.contains(".")) {
+                originalString = originalString.replace(".".toRegex(), "")
+            }
+
             if (originalString.contains(",")) {
                 originalString = originalString.replace(",".toRegex(), "")
             }
-            longVar = originalString.toLong()
+            if(!originalString.isNullOrEmpty()){
+                longVar = originalString.toLong()
+            }
             val formatter: DecimalFormat =
                 NumberFormat.getInstance(Locale.US) as DecimalFormat
             formatter.applyPattern("#,###,###,###")

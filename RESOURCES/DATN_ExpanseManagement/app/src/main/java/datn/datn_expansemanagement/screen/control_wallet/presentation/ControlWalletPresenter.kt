@@ -2,6 +2,7 @@ package datn.datn_expansemanagement.screen.control_wallet.presentation
 
 import datn.datn_expansemanagement.domain.GetDataService
 import datn.datn_expansemanagement.domain.RetrofitClientInstance
+import datn.datn_expansemanagement.domain.request.UpdateWalletRequest
 import datn.datn_expansemanagement.domain.response.BaseResponse
 import datn.datn_expansemanagement.screen.account.item_account.presentation.model.WalletViewModel
 import datn.datn_expansemanagement.screen.control_wallet.domain.ControlWalletMapper
@@ -18,10 +19,10 @@ class ControlWalletPresenter :
         view?.showData(ControlWalletMapper(isOtherWallet).map(data))
     }
 
-    override fun updateWallet(idWallet: Int) {
+    override fun updateWallet(idWallet: Int, request: UpdateWalletRequest) {
         view?.showLoading()
-        val call = service?.updateWallet(idWallet)
-        call?.enqueue(object : Callback<BaseResponse>{
+        val call = service?.updateWallet(idWallet, request)
+        call?.enqueue(object : Callback<BaseResponse> {
             override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
                 view?.hideLoading()
             }

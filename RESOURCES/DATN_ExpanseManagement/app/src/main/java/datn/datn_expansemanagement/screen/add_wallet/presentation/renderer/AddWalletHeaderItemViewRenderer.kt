@@ -25,10 +25,10 @@ private val mResource : AddWalletResource
             override fun afterTextChanged(s: Editable?) {
                 viewRoot.edtMoney.removeTextChangedListener(this)
                 if(!viewRoot.edtMoney.text.isNullOrEmpty()){
-                    viewRoot.edtMoney.setText(Utils.customFormatMoney(s.toString()))
+                    viewRoot.edtMoney.setText(Utils.formatMoney( convertMoneyToDouble(s.toString()).toDouble()))
                     viewRoot.edtMoney.setSelection(viewRoot.edtMoney.text.toString().length)
+                    model.price = convertMoneyToDouble(viewRoot.edtMoney.text.toString()).toDouble()
                 }
-                model.price = convertMoneyToDouble(viewRoot.edtMoney.text.toString()).toDouble()
                 viewRoot.edtMoney.addTextChangedListener(this)
             }
 

@@ -1,8 +1,6 @@
-package datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentation.presentation
+package datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentation.renderer
 
 import android.content.Context
-import android.graphics.Color
-import android.graphics.ColorFilter
 import android.graphics.PorterDuff
 import android.view.View
 import datn.datn_expansemanagement.R

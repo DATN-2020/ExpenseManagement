@@ -18,13 +18,15 @@ class ControlWalletHeaderViewRenderer (context: Context): ViewRenderer<ControlWa
     override fun getModelClass(): Class<ControlWalletHeaderViewModel> = ControlWalletHeaderViewModel::class.java
 
     override fun bindView(model: ControlWalletHeaderViewModel, viewRoot: View) {
-        viewRoot.tvName.text = model.nameWallet
+        viewRoot.tvName.setText(model.nameWallet)
+        viewRoot.tvTitleChooseDate.text = model.title
         viewRoot.edtMoney.setText(Utils.formatMoney(model.price))
         viewRoot.edtMoney.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 viewRoot.edtMoney.removeTextChangedListener(this)
                 if(!viewRoot.edtMoney.text.isNullOrEmpty()){
                     viewRoot.edtMoney.setText(Utils.customFormatMoney(s.toString()))
+                    model.price = convertMoneyToDouble(s.toString()).toDouble()
                     viewRoot.edtMoney.setSelection(viewRoot.edtMoney.text.toString().length)
                 }
                 viewRoot.edtMoney.addTextChangedListener(this)
@@ -36,6 +38,10 @@ class ControlWalletHeaderViewRenderer (context: Context): ViewRenderer<ControlWa
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
         })
+    }
+
+    private fun convertMoneyToDouble(money: String): String{
+        return money.replace(",","").replace(".", "")
     }
 
 }
