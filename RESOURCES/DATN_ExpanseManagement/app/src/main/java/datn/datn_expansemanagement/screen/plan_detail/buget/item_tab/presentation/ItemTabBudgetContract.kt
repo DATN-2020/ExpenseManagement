@@ -13,6 +13,6 @@ interface ItemTabBudgetContract {
     }
 
     abstract class Presenter : MvpPresenter<View>(){
-        abstract fun getData(tab: TabItemViewModel)
+        abstract fun getData(tab: TabItemViewModel, idWallet: Int)
     }
 }

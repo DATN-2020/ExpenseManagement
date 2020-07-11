@@ -26,11 +26,6 @@ class WalletViewRenderer(
         val money = Utils.formatMoneyVND(model.money)
         viewRoot.tvMoney.text = money
 
-        if (model.tabId == 1) {
-            viewRoot.llPercent.gone()
-        } else {
-            viewRoot.llPercent.visible()
-        }
         if (model.isLast) {
             viewRoot.viewBottom.gone()
         } else {

@@ -25,6 +25,9 @@ interface GetDataService {
     @DELETE("wallets/5")
     fun deleteWallet(@Query("id") walletId: Int): Call<BaseResponse>
 
+    @GET("getBudgets/5")
+    fun getBudgets(@Query("id") walletId: Int): Call<GetBudgetResponse>
+
     @GET("TypeWallets")
     fun getListTypeWallet(): Call<List<TypeWalletResponse>>
 

@@ -22,7 +22,6 @@ class GetWalletItemViewRenderer (context: Context): ViewRenderer<GetWalletItemVi
         viewRoot.tvWallet.text = model.name
         val money = Utils.formatMoneyVND(model.money)
         viewRoot.tvMoney.text = money
-        viewRoot.llPercent.gone()
         if(model.isChoose){
             viewRoot.imgMore.visible()
             GlideImageHelper(context).loadThumbnail(viewRoot.imgMore, "", R.drawable.ic_checked)
