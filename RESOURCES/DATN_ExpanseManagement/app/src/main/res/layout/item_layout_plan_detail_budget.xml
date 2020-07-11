@@ -9,8 +9,8 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivWallet"
-        android:layout_width="@dimen/spacing_30dp"
-        android:layout_height="@dimen/spacing_30dp"
+        android:layout_width="@dimen/spacing_24dp"
+        android:layout_height="@dimen/spacing_24dp"
         android:src="@drawable/ic_wallet"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/tvWallet" />

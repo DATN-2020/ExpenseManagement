@@ -3,7 +3,7 @@ package datn.datn_expansemanagement.domain.response
 import com.google.gson.annotations.SerializedName
 
 
-data class GetBudgetResponse(
+data class BillResponse(
     @SerializedName("data")
     val data: List<Data>,
     @SerializedName("message")
@@ -13,24 +13,22 @@ data class GetBudgetResponse(
 ) {
     data class Data(
         @SerializedName("amount")
-        val amount: Int,
-        @SerializedName("idBudget")
-        val idBudget: Int,
+        val amount: Double,
+        @SerializedName("date_e")
+        val dateE: String,
+        @SerializedName("date_s")
+        val dateS: String,
+        @SerializedName("idBill")
+        val idBill: Int,
         @SerializedName("idwallet")
         val idwallet: Int,
         @SerializedName("image")
         val image: String,
-        @SerializedName("isFinnish")
-        val isFinnish: Boolean,
+        @SerializedName("isDeadline")
+        val isDeadline: Boolean,
+        @SerializedName("isPay")
+        val isPay: Boolean,
         @SerializedName("name")
-        val name: String,
-        @SerializedName("remain")
-        val remain: Int,
-        @SerializedName("time_e")
-        val timeE: String,
-        @SerializedName("time_remain")
-        val timeRemain: String,
-        @SerializedName("time_s")
-        val timeS: String
+        val name: String
     )
 }

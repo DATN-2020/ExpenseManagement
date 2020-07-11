@@ -11,13 +11,16 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.Linea
 import datn.datn_expansemanagement.kotlinex.view.gone
 import datn.datn_expansemanagement.kotlinex.view.visible
 import datn.datn_expansemanagement.screen.account.presentation.model.TabItemViewModel
+import datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentation.renderer.BillItemViewRenderer
 import datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentation.renderer.BudgetItemViewRenderer
+import datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentation.renderer.NoDataViewRenderer
+import datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentation.renderer.TransactionItemViewRenderer
 import datn.datn_expansemanagement.screen.plan_detail.presentation.PlanDetailResource
 import kotlinx.android.synthetic.main.layou_item_tab_control_detail_budget.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 
 class ItemTabBudgetView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator,
-private val tabId: TabItemViewModel?): AndroidMvpView(mvpActivity, viewCreator), ItemTabBudgetContract.View{
+private val tabId: TabItemViewModel?, private val idWallet: Int): AndroidMvpView(mvpActivity, viewCreator), ItemTabBudgetContract.View{
 
     class ViewCreator(context: Context, viewGroup: ViewGroup?) :
         AndroidMvpView.LayoutViewCreator(R.layout.layou_item_tab_control_detail_budget, context, viewGroup)
@@ -48,7 +51,7 @@ private val tabId: TabItemViewModel?): AndroidMvpView(mvpActivity, viewCreator),
 
     override fun initData() {
         super.initData()
-        tabId?.let { mPresenter.getData(it) }
+        tabId?.let { mPresenter.getData(it, idWallet) }
     }
 
     override fun startMvpView() {
@@ -65,9 +68,6 @@ private val tabId: TabItemViewModel?): AndroidMvpView(mvpActivity, viewCreator),
         this.listData.clear()
         if (list.isNotEmpty()) {
             this.listData.addAll(list)
-            view.imgNoData.gone()
-        }else{
-            view.imgNoData.visible()
         }
 
         listViewMvp?.setItems(this.listData)
@@ -77,6 +77,9 @@ private val tabId: TabItemViewModel?): AndroidMvpView(mvpActivity, viewCreator),
     private fun initRecycleView(){
         listViewMvp = ListViewMvp(mvpActivity, view.rvControlDetailBudget, renderConfig)
         listViewMvp?.addViewRenderer(BudgetItemViewRenderer(mvpActivity, mResource))
+        listViewMvp?.addViewRenderer(TransactionItemViewRenderer(mvpActivity))
+        listViewMvp?.addViewRenderer(NoDataViewRenderer(mvpActivity))
+        listViewMvp?.addViewRenderer(BillItemViewRenderer(mvpActivity))
         listViewMvp?.createView()
     }
 

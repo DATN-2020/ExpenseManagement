@@ -28,6 +28,12 @@ interface GetDataService {
     @GET("getBudgets/5")
     fun getBudgets(@Query("id") walletId: Int): Call<GetBudgetResponse>
 
+    @GET("getPeriodics/5")
+    fun getTransactions(@Query("id") walletId: Int): Call<TransactionResponse>
+
+    @GET("getBills/5")
+    fun getBills(@Query("id") walletId: Int): Call<BillResponse>
+
     @GET("TypeWallets")
     fun getListTypeWallet(): Call<List<TypeWalletResponse>>
 

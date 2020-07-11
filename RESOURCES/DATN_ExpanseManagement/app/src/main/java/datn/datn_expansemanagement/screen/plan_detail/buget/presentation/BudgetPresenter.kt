@@ -9,8 +9,7 @@ import datn.datn_expansemanagement.domain.response.WalletResponse
 import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
 import datn.datn_expansemanagement.screen.account.presentation.model.TabItemViewModel
 import datn.datn_expansemanagement.screen.main_plan.presentation.model.PlanItemViewModel
-import datn.datn_expansemanagement.screen.plan_detail.presentation.model.TypeAddViewModel
-import datn.datn_expansemanagement.screen.report.domain.GetWalletMapper
+import datn.datn_expansemanagement.screen.plan_detail.buget.domain.PlanDetailWalletMapper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -52,7 +51,7 @@ class BudgetPresenter(private val screenNavigator: AndroidScreenNavigator) : Bud
                 call: Call<WalletResponse>,
                 response: Response<WalletResponse>
             ) {
-                view?.showData(GetWalletMapper(idWallet).map(response.body()!!))
+                view?.handleAfterGetWallet(PlanDetailWalletMapper(idWallet).map(response.body()!!))
                 view?.hideLoading()
             }
 

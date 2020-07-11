@@ -9,6 +9,7 @@ import android.widget.TextView
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
 
@@ -61,6 +62,21 @@ class Utils {
                 Pattern.matches("0+[0-9]{9}", phone)
             }
 
+        }
+
+        @JvmStatic
+        fun convertDateFormat(
+            inputDate: String,
+            fromFormat: SimpleDateFormat,
+            toFormat : SimpleDateFormat
+        ): String {
+            if (inputDate.isEmpty()) return ""
+            return try {
+                val toDate = fromFormat.parse(inputDate)
+                toFormat.format(toDate)
+            } catch (ex: java.lang.Exception) {
+                ""
+            }
         }
     }
 

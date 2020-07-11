@@ -21,16 +21,12 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.OnIte
 import datn.datn_expansemanagement.screen.account.presentation.model.TabItemViewModel
 import datn.datn_expansemanagement.screen.main_plan.presentation.model.PlanItemViewModel
 import datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.ItemTabBudgetFragment
-import datn.datn_expansemanagement.screen.plan_detail.presentation.model.TypeAddViewModel
+import datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentation.model.BudgetItemViewModel
 import datn.datn_expansemanagement.screen.report.presentation.model.GetWalletItemViewModel
 import datn.datn_expansemanagement.screen.report.presentation.renderer.GetWalletItemViewRenderer
 import kotlinx.android.synthetic.main.custom_bottomsheet_recycleview.*
 import kotlinx.android.synthetic.main.layout_plan_detail_item.view.*
-import kotlinx.android.synthetic.main.toolbar_category.view.imgAdd
-import kotlinx.android.synthetic.main.toolbar_category.view.imgBack
-import kotlinx.android.synthetic.main.toolbar_category.view.tvToolbar
 import kotlinx.android.synthetic.main.toolbar_plan_detail.view.*
-import kotlinx.android.synthetic.main.toolbar_plan_detail.view.imgChooseWallet
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 
 class BudgetView(
@@ -44,7 +40,6 @@ class BudgetView(
     private val mPresenter = BudgetPresenter(AndroidScreenNavigator(mvpActivity))
     private val adapter = ViewPagerAdapter(mvpActivity.supportFragmentManager)
 
-    private val listBottom = mutableListOf<ViewModel>()
     private var listViewBottom: ListViewMvp? = null
 
     private val renderBottom = LinearRenderConfigFactory.Input(
@@ -58,10 +53,20 @@ class BudgetView(
 
     companion object {
         var listTab = mutableListOf<ViewModel>()
+        var listBottom = mutableListOf<ViewModel>()
+
+        fun getIdWallet(): Int?{
+            listBottom.forEach {
+                if(it is GetWalletItemViewModel && it.isChoose){
+                    return it.id
+                }
+            }
+            return null
+        }
     }
 
     private val onItemClick = object : OnItemRvClickedListener<ViewModel> {
-        override fun onItemClicked(view: View, position: Int, dataItem: ViewModel) {
+        override fun onItemClicked(v: View, position: Int, dataItem: ViewModel) {
             dataItem as GetWalletItemViewModel
 
             listBottom.forEach {
@@ -73,7 +78,8 @@ class BudgetView(
 
             view.tvWalletName.text = dataItem.name
             view.tvPriceWallet.text = Utils.formatMoney(dataItem.money)
-            // gọi api đổ lại list report
+            // gọi api đổ lại list
+            mPresenter.getData(type!!)
             listViewBottom?.notifyDataChanged()
             bottomSheet.dismiss()
         }
@@ -90,14 +96,14 @@ class BudgetView(
     }
 
     override fun initCreateView() {
-        when(type?.type){
-            PlanItemViewModel.Type.BUDGET->{
+        when (type?.type) {
+            PlanItemViewModel.Type.BUDGET -> {
                 view.tvToolbar.text = "Ngân sách"
             }
-            PlanItemViewModel.Type.TRANSACTION->{
+            PlanItemViewModel.Type.TRANSACTION -> {
                 view.tvToolbar.text = "Định kỳ"
             }
-            else->{
+            else -> {
                 view.tvToolbar.text = "Hoá đơn"
             }
         }
@@ -117,13 +123,19 @@ class BudgetView(
     }
 
     override fun handleAfterGetWallet(list: MutableList<ViewModel>) {
-        this.listBottom.clear()
+        listBottom.clear()
         if (list.isNotEmpty()) {
-            this.listBottom.addAll(list)
+            listBottom.addAll(list)
+            val data  = listBottom[0] as GetWalletItemViewModel
+            view.tvWalletName.text = data.name
+            view.tvPriceWallet.text = Utils.formatMoney(data.money)
+            data.isChoose = true
         }
 
-        listViewBottom?.setItems(this.listBottom)
+        listViewBottom?.setItems(listBottom)
         listViewBottom?.notifyDataChanged()
+
+        type?.let { mPresenter.getData(it) }
     }
 
     override fun showLoading() {
@@ -136,8 +148,7 @@ class BudgetView(
 
     override fun initData() {
         super.initData()
-        type?.let { mPresenter.getData(it) }
-        //        mPresenter.getWalletForUser(null)
+        mPresenter.getWalletForUser(null)
     }
 
     override fun startMvpView() {
@@ -176,7 +187,7 @@ class BudgetView(
         private val mFragmentList: SparseArray<Fragment> = SparseArray()
 
         override fun getItem(position: Int): Fragment {
-            return ItemTabBudgetFragment.newInstance(listTab[position])
+            return ItemTabBudgetFragment.newInstance(listTab[position],getIdWallet()!!)
         }
 
         override fun getCount(): Int {

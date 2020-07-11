@@ -67,10 +67,11 @@ class ControlWalletView(
         }
 
         view.imgSave.setOnClickListener {
+            val user = ConfigUtil.passport
             if (isOtherWallet == true) {
 
             } else {
-                val user = ConfigUtil.passport
+
                 if (user != null) {
                     var nameWallet : String? = null
                     var price : Double? = null

@@ -48,6 +48,7 @@ class ItemAccountView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.View
     private var listViewMvp: ListViewMvp? = null
     private lateinit var bottomDialogView : View
     private val user = ConfigUtil.passport
+    private var isBack : Boolean = false
 
     private val onActionClick = object : OnActionData<WalletViewModel>{
         override fun onAction(data: WalletViewModel) {
@@ -75,6 +76,7 @@ class ItemAccountView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.View
         bottomDialog.show()
 
         bottomDialog.llControl.setOnClickListener {
+            isBack = true
             mPresenter.gotoControlWallet(data, false)
         }
 
@@ -83,6 +85,7 @@ class ItemAccountView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.View
         }
 
         bottomDialog.tvUpdate.setOnClickListener {
+            isBack = true
             mPresenter.gotoControlWallet(data, true)
         }
     }
@@ -126,6 +129,10 @@ class ItemAccountView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.View
     }
 
     override fun startMvpView() {
+        if(isBack){
+            bottomDialog.dismiss()
+            mPresenter.getData(tabId.getValueOrDefaultIsZero(), user?.data?.userId.getValueOrDefaultIsZero())
+        }
         mPresenter.attachView(this)
         super.startMvpView()
     }

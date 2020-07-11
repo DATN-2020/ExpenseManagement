@@ -2,11 +2,12 @@ package datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentati
 
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 
-class BudgetItemViewModel (
+class TransactionItemViewModel (
     var id: Int,
     var name: String,
     var imgUrl: String,
-    var totalPrice: Double,
-    var currentPrice: Double,
-    var isFinish: Boolean = false
+    var price: Double,
+    var startDate: String,
+    var endDate: String,
+    var isComeback: Boolean
 ): ViewModel

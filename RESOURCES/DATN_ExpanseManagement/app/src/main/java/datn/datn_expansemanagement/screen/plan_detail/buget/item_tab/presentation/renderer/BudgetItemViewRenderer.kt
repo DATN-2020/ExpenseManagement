@@ -5,6 +5,7 @@ import android.graphics.PorterDuff
 import android.view.View
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.util.Utils
+import datn.datn_expansemanagement.core.app.util.image.GlideImageHelper
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.model.ViewRenderer
 import datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentation.model.BudgetItemViewModel
 import datn.datn_expansemanagement.screen.plan_detail.presentation.PlanDetailResource
@@ -25,6 +26,7 @@ class BudgetItemViewRenderer(
         viewRoot.tvAccumulation.text = Utils.formatMoney(model.totalPrice)
         viewRoot.sbPercent.progress = ((model.currentPrice / model.totalPrice) * 100).toInt()
         viewRoot.tvRest.text = Utils.formatMoney(model.currentPrice)
+        GlideImageHelper(context).loadThumbnail(viewRoot.ivWallet, model.imgUrl, R.drawable.ic_default)
 
         when {
             model.currentPrice > model.totalPrice -> {
