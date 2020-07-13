@@ -61,7 +61,7 @@ class LoginView(
                 is NextStepData -> {
                     val userData = ConfigUtil.passport
                     var dataIntent: PassportDataIntent? = null
-                    if (userData != null) {
+                    if (userData?.data != null) {
                         dataIntent = PassportDataIntent(
                             id = userData.data.userId.getValueOrDefaultIsZero(),
                             name = userData.data.fullName.getValueOrDefaultIsEmpty(),
