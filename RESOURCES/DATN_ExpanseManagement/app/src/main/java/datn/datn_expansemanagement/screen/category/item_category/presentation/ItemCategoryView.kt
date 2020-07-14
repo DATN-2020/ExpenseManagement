@@ -2,6 +2,7 @@ package datn.datn_expansemanagement.screen.category.item_category.presentation
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
@@ -27,7 +28,9 @@ import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 
 class ItemCategoryView(
     mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator,
-    private val tabName: String?
+    private val tabName: String?,
+    private val idCategory: Int? = null,
+    private val isPlan: Boolean? = false
 ) : AndroidMvpView(mvpActivity, viewCreator), ItemCategoryContract.View {
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
@@ -46,7 +49,7 @@ class ItemCategoryView(
     private val renderConfig = LinearRenderConfigFactory(renderInput).create()
     private var keyQuery: String? = null
 
-    private val onItemRvClickedListener = object : OnItemRvClickedListener<ViewModel>{
+    private val onItemRvClickedListener = object : OnItemRvClickedListener<ViewModel> {
         override fun onItemClicked(view: View, position: Int, dataItem: ViewModel) {
             dataItem as ItemTypeCategoryViewModel
             dataItem.isShowChill = !dataItem.isShowChill
@@ -54,16 +57,24 @@ class ItemCategoryView(
         }
     }
 
-    private val onChooseChild = object : OnActionData<ViewModel>{
+    private val onChooseChild = object : OnActionData<ViewModel> {
         override fun onAction(data: ViewModel) {
             data as CategoryItemViewModel
-            val model = AddExpenseViewModel.Info.Category(
-                id = data.id.getValueOrDefaultIsZero(),
-                name = data.name.getValueOrDefaultIsEmpty()
-            )
-            AddExpenseFragment.model.category = model
-            mvpActivity.setResult(Activity.RESULT_OK)
-            mvpActivity.finish()
+            if(isPlan == true){
+                val intent = Intent()
+                intent.putExtra(CategoryItemViewModel::class.java.simpleName, data)
+                mvpActivity.setResult(Activity.RESULT_OK, intent)
+                mvpActivity.finish()
+            }else{
+                val model = AddExpenseViewModel.Info.Category(
+                    id = data.id.getValueOrDefaultIsZero(),
+                    name = data.name.getValueOrDefaultIsEmpty()
+                )
+                AddExpenseFragment.model.category = model
+                mvpActivity.setResult(Activity.RESULT_OK)
+                mvpActivity.finish()
+            }
+
         }
     }
 
@@ -81,10 +92,9 @@ class ItemCategoryView(
     }
 
 
-
     override fun showData(list: MutableList<ViewModel>) {
         this.listData.clear()
-        if(list.isNotEmpty()){
+        if (list.isNotEmpty()) {
             this.listData.addAll(list)
         }
 
@@ -101,7 +111,17 @@ class ItemCategoryView(
 
     override fun initData() {
         super.initData()
-        mPresenter.getData(tabName.getValueOrDefaultIsEmpty(), AddExpenseFragment.model.category?.id.getValueOrDefaultIsZero())
+        if(isPlan == true){
+            mPresenter.getData(
+                tabName.getValueOrDefaultIsEmpty(),
+                idCategory
+            )
+        }else{
+            mPresenter.getData(
+                tabName.getValueOrDefaultIsEmpty(),
+                AddExpenseFragment.model.category?.id.getValueOrDefaultIsZero()
+            )
+        }
     }
 
     override fun startMvpView() {

@@ -8,23 +8,36 @@ import android.widget.Toast
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import datn.datn_expansemanagement.R
+import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
+import datn.datn_expansemanagement.core.app.change_screen.Request
+import datn.datn_expansemanagement.core.app.util.Utils
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
+import datn.datn_expansemanagement.core.base.domain.listener.OnActionNotify
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
+import datn.datn_expansemanagement.core.base.presentation.mvp.android.lifecycle.ViewResult
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.OnItemRvClickedListener
+import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
+import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.screen.add_plan.presentation.model.AddPlanCategoryViewModel
 import datn.datn_expansemanagement.screen.add_plan.presentation.model.AddPlanDateViewModel
 import datn.datn_expansemanagement.screen.add_plan.presentation.model.AddPlanPriceViewModel
 import datn.datn_expansemanagement.screen.add_plan.presentation.model.AddPlanWalletViewModel
 import datn.datn_expansemanagement.screen.add_plan.presentation.renderer.*
+import datn.datn_expansemanagement.screen.category.item_category.presentation.model.CategoryItemViewModel
 import datn.datn_expansemanagement.screen.main_plan.presentation.model.PlanItemViewModel
+import datn.datn_expansemanagement.screen.plan_detail.buget.presentation.BudgetView
 import datn.datn_expansemanagement.screen.plan_detail.presentation.model.TypeAddViewModel
+import datn.datn_expansemanagement.screen.report.presentation.model.GetWalletItemViewModel
 import datn.datn_expansemanagement.screen.report.presentation.renderer.GetWalletItemViewRenderer
 import kotlinx.android.synthetic.main.custom_bottomsheet_recycleview.*
 import kotlinx.android.synthetic.main.layout_add_plan.view.*
 import kotlinx.android.synthetic.main.layout_toolbar_add_category.view.*
+import kotlinx.android.synthetic.main.layout_toolbar_add_category.view.imgBack
+import kotlinx.android.synthetic.main.layout_toolbar_add_category.view.tvToolbar
+import kotlinx.android.synthetic.main.toolbar_plan_detail.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 
 class AddPlanView(
@@ -36,7 +49,7 @@ class AddPlanView(
         AndroidMvpView.LayoutViewCreator(R.layout.layout_add_plan, context, viewGroup)
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
-    private val mPresenter = AddPlanPresenter()
+    private val mPresenter = AddPlanPresenter(AndroidScreenNavigator(mvpActivity))
     private val listData = mutableListOf<ViewModel>()
     private var listViewMvp: ListViewMvp? = null
     private val renderInput = LinearRenderConfigFactory.Input(
@@ -138,7 +151,8 @@ class AddPlanView(
 
     override fun initData() {
         super.initData()
-        typeAdd?.let { mPresenter.getData(it) }
+//        typeAdd?.let { mPresenter.getData(it) }
+        mPresenter.getData(typeAdd)
         mPresenter.getTime()
     }
 
@@ -179,12 +193,55 @@ class AddPlanView(
 
     }
 
+    private val onChooseCategory = object : OnActionData<AddPlanCategoryViewModel>{
+        override fun onAction(data: AddPlanCategoryViewModel) {
+            mPresenter.gotoCategoryActivity(data.id)
+        }
+
+    }
+
+    private val onChooseWallet = object : OnActionData<AddPlanWalletViewModel>{
+        override fun onAction(data: AddPlanWalletViewModel) {
+            mPresenter.getWalletForUser(data.id.getValueOrDefaultIsZero())
+        }
+
+    }
+
+    override fun handleAfterGetWallet(list: MutableList<ViewModel>) {
+        listBottom.clear()
+        if (list.isNotEmpty()) {
+            listBottom.addAll(list)
+        }
+        listViewBottom?.setItems(listBottom)
+        listViewBottom?.notifyDataChanged()
+        bottomSheet.show()
+    }
+
+    override fun onViewResult(viewResult: ViewResult) {
+        super.onViewResult(viewResult)
+        when(viewResult.requestCode){
+            Request.REQUEST_CODE_CATEGORY -> {
+                val data = viewResult.data?.getParcelableExtra<CategoryItemViewModel>(CategoryItemViewModel::class.java.simpleName)
+                if(data != null){
+                    listData.forEach {
+                        if(it is AddPlanCategoryViewModel){
+                            it.id = data.id.getValueOrDefaultIsZero()
+                            it.name = data.name.getValueOrDefaultIsEmpty()
+                            listViewMvp?.notifyItemChanged(listData.indexOf(it))
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     private fun initRecycleView() {
         listViewMvp = ListViewMvp(mvpActivity, view.rvAddPlan, renderConfig)
-        listViewMvp?.addViewRenderer(AddPlanWalletViewRenderer(mvpActivity))
+        listViewMvp?.addViewRenderer(AddPlanWalletViewRenderer(mvpActivity, onChooseWallet))
         listViewMvp?.addViewRenderer(AddPlanDateViewRenderer(mvpActivity, onChooseTime))
         listViewMvp?.addViewRenderer(AddPlanPriceViewRenderer(mvpActivity))
-        listViewMvp?.addViewRenderer(AddPlanCategoryViewRenderer(mvpActivity))
+        listViewMvp?.addViewRenderer(AddPlanCategoryViewRenderer(mvpActivity, onChooseCategory))
+        listViewMvp?.addViewRenderer(AddPlanDesViewRenderer(mvpActivity))
         listViewMvp?.createView()
 
         bottomSheet.setContentView(customView)

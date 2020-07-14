@@ -9,7 +9,7 @@ import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewMo
 import datn.datn_expansemanagement.screen.splash.data.PassportDataIntent
 
 interface ScreenNavigator {
-    fun gotoCategoryActivity(categoryId: Int? = null)
+    fun gotoCategoryActivity(categoryId: Int? = null, isPlan: Boolean = false)
     fun gotoListTypeCategory(data: TypeCategoryDataIntent? = null)
     fun gotoAddCategoryActivity()
     fun gotoChooseWalletActivity(walletId: Int? = null)

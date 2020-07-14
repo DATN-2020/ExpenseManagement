@@ -12,13 +12,16 @@ import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
+import datn.datn_expansemanagement.kotlinex.view.gone
 import datn.datn_expansemanagement.screen.account.presentation.model.TabItemViewModel
 import datn.datn_expansemanagement.screen.category.item_category.ItemCategoryFragment
 import kotlinx.android.synthetic.main.layout_category.view.*
 import kotlinx.android.synthetic.main.toolbar_category.view.*
 
 class CategoryView(
-    mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator
+    mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator,
+    private val idCategory: Int? = null,
+    private val isPlan: Boolean? = false
 ) : AndroidMvpView(mvpActivity, viewCreator), CategoryContract.View {
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
@@ -34,17 +37,20 @@ class CategoryView(
 
     companion object {
         val listTab = mutableListOf<ViewModel>()
+        var idCate: Int? = null
+        var isPlanLast: Boolean? = false
     }
 
     override fun initCreateView() {
+        idCate = idCategory
+        isPlanLast = isPlan
+
         mvpActivity.setFullScreen()
         view.imgBack.setOnClickListener {
             mvpActivity.onBackPressed()
         }
 
-        view.imgAdd.setOnClickListener {
-            mPresenter.gotoAddCategoryActivity()
-        }
+        view.imgAdd.gone()
         view.tvToolbar.text = mResource.getTitleCategory()
     }
 
@@ -97,7 +103,7 @@ class CategoryView(
         private val mFragmentList: SparseArray<Fragment> = SparseArray()
 
         override fun getItem(position: Int): Fragment {
-            return ItemCategoryFragment.newInstance(listTab[position])
+            return ItemCategoryFragment.newInstance(listTab[position], idCate, isPlanLast)
         }
 
         override fun getCount(): Int {

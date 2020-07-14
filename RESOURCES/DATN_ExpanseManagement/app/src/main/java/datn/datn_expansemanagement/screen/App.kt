@@ -37,7 +37,7 @@ class App : Application(){
         OneSignal.startInit(this)
             .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
             .unsubscribeWhenNotificationsAreDisabled(true)
-            .init();
+            .init()
     }
 
     private fun initLogActivity() {

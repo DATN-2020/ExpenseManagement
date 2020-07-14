@@ -12,10 +12,13 @@ interface AddPlanContract {
         fun hideLoading()
         fun showData(list: MutableList<ViewModel>)
         fun showListTime(list: MutableList<ViewModel>)
+        fun handleAfterGetWallet(list: MutableList<ViewModel>)
     }
 
     abstract class Presenter : MvpPresenter<View>(){
-        abstract fun getData(typeAdd: PlanItemViewModel)
+        abstract fun getData(typeAdd: PlanItemViewModel?)
         abstract fun getTime()
+        abstract fun getWalletForUser(idWallet: Int? = null)
+        abstract fun gotoCategoryActivity(id: Int? = null)
     }
 }

@@ -1,5 +1,6 @@
 package datn.datn_expansemanagement.screen.account.item_account.presentation
 
+import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
 import android.os.Build
@@ -25,6 +26,10 @@ import datn.datn_expansemanagement.screen.account.item_account.presentation.rend
 import datn.datn_expansemanagement.screen.account.item_account.presentation.renderer.ItemAccountTotalMoneyViewRenderer
 import datn.datn_expansemanagement.screen.account.item_account.presentation.renderer.WalletViewRenderer
 import kotlinx.android.synthetic.main.custom_bottom_sheet_account.*
+import kotlinx.android.synthetic.main.custom_dialog_cancel_contact.*
+import kotlinx.android.synthetic.main.custom_dialog_cancel_contact.btnCancel
+import kotlinx.android.synthetic.main.custom_dialog_cancel_contact.tvTitleChooseDate
+import kotlinx.android.synthetic.main.custom_dialog_notify.*
 import kotlinx.android.synthetic.main.layout_item_account.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 
@@ -81,12 +86,42 @@ class ItemAccountView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.View
         }
 
         bottomDialog.llDelete.setOnClickListener {
-            mPresenter.deleteWallet(data.id)
+            showDialogNotify(title = "Bạn có chắc chắn muốn xoá ví này ??", data = data)
         }
 
         bottomDialog.tvUpdate.setOnClickListener {
             isBack = true
             mPresenter.gotoControlWallet(data, true)
+        }
+    }
+
+    private fun setAlertDialogFullScreen(dialog: AlertDialog) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            dialog.window?.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            dialog.window?.statusBarColor = mResource.getColorStatusBar()
+            dialog.window?.navigationBarColor = Color.TRANSPARENT
+            dialog.window?.decorView?.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        }
+    }
+
+    private fun showDialogNotify(title: String? = null, data: WalletViewModel) {
+        val layoutView = LayoutInflater.from(mvpActivity)
+            .inflate(R.layout.custom_dialog_notify, null, false)
+        val dialogRegister =
+            AlertDialog.Builder(mvpActivity, R.style.DialogNotify).setView(layoutView).create()
+        setAlertDialogFullScreen(dialogRegister)
+        dialogRegister.show()
+        dialogRegister.btnCancel.setOnClickListener {
+            dialogRegister.dismiss()
+        }
+
+        dialogRegister.btnOk.setOnClickListener {
+            mPresenter.deleteWallet(data.id.getValueOrDefaultIsZero())
+        }
+
+        if(!title.isNullOrEmpty()){
+            dialogRegister.tvTitleChooseDate.text = title
         }
     }
 

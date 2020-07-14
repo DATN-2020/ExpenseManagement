@@ -8,6 +8,8 @@ import datn.datn_expansemanagement.screen.category.presentation.CategoryView
 
 class CategoryActivity : MvpActivity(){
     override fun createAndroidMvpView(savedInstanceState: Bundle?): AndroidMvpView {
-        return CategoryView(this, CategoryView.ViewCreator(this, null))
+        val idCate = intent?.getIntExtra("idCategory", 0)
+        val isPlan = intent?.getBooleanExtra("isPlan", false)
+        return CategoryView(this, CategoryView.ViewCreator(this, null), idCate, isPlan)
     }
 }
