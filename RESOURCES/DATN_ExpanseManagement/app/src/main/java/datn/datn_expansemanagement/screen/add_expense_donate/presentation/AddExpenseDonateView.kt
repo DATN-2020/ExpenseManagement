@@ -45,7 +45,7 @@ private val isDonate: Boolean = false) :
     private val onClickExpand = object : OnActionData<AddExpenseDonateInfoViewModel> {
         override fun onAction(data: AddExpenseDonateInfoViewModel) {
             data.isExpand = !data.isExpand
-            listViewMvp?.notifyDataChanged()
+            listViewMvp?.notifyItemChanged(listData.indexOf(data))
         }
     }
 

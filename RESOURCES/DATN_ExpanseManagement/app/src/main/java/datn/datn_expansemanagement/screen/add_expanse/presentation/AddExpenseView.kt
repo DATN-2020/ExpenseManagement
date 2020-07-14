@@ -27,14 +27,18 @@ import datn.datn_expansemanagement.kotlinex.view.gone
 import datn.datn_expansemanagement.kotlinex.view.visible
 import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
 import datn.datn_expansemanagement.screen.add_expanse.data.AddDonateDataBus
+import datn.datn_expansemanagement.screen.add_expanse.data.TransactionDataBus
 import datn.datn_expansemanagement.screen.add_expanse.presentation.model.AddExpenseViewModel
 import datn.datn_expansemanagement.screen.add_expanse.presentation.renderer.AddExpenseRenderer
 import datn.datn_expansemanagement.screen.add_expense_donate.AddExpenseDonateFragment
 import datn.datn_expansemanagement.screen.add_expense_loan.AddExpenseLoanFragment
+import kotlinex.view.hideKeyboard
 import kotlinx.android.synthetic.main.custom_dialog_cancel_contact.*
 import kotlinx.android.synthetic.main.layout_add_expanse.view.*
 import kotlinx.android.synthetic.main.toolbar_add_expanse.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator) :
     AndroidMvpView(mvpActivity, viewCreator), AddExpenseContract.View {
@@ -43,11 +47,13 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
         AndroidMvpView.LayoutViewCreator(R.layout.layout_add_expanse, context, viewGroup)
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
-    private val mPresenter = AddExpensePresenter(screenNavigator = AndroidScreenNavigator(mvpActivity))
+    private val mPresenter =
+        AddExpensePresenter(screenNavigator = AndroidScreenNavigator(mvpActivity))
     private val mResource = AddExpenseResource()
     private val listData = mutableListOf<ViewModel>()
     private var listViewMvp: ListViewMvp? = null
     private var isOpen = false
+    private var typeIncome = 1 // 1 donate, 2 receive , 3 loan, 4 borrow
     private val renderInput = LinearRenderConfigFactory.Input(
         context = mvpActivity,
         orientation = LinearRenderConfigFactory.Orientation.VERTICAL
@@ -59,33 +65,37 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
     })
 
     private val renderConfig = LinearRenderConfigFactory(renderInput).create()
-    private val onClickTypeExpense = object : OnActionData<AddExpenseViewModel>{
+    private val onClickTypeExpense = object : OnActionData<AddExpenseViewModel> {
         override fun onAction(data: AddExpenseViewModel) {
             listData.forEach {
-                if(it is AddExpenseViewModel){
-                    if(it.type == data.type){
-                       if(!it.isChoose){
-                           when(data.type){
-                               AddExpenseViewModel.Type.RECEIVE ->{
-                                   replaceFragment(AddExpenseDonateFragment(false))
-                                   view.tvToolbar.text = mResource.getTextReceive()
-                               }
-                               AddExpenseViewModel.Type.DONATE->{
-                                   replaceFragment(AddExpenseDonateFragment(true))
-                                   view.tvToolbar.text = mResource.getTextDonate()
-                               }
-                               AddExpenseViewModel.Type.LOAN->{
-                                   replaceFragment(AddExpenseLoanFragment(true))
-                                   view.tvToolbar.text = mResource.getTextLoan()
-                               }
-                               AddExpenseViewModel.Type.BORROW->{
-                                   replaceFragment(AddExpenseLoanFragment(false))
-                                   view.tvToolbar.text = mResource.getTextBorrow()
-                               }
-                           }
-                           it.isChoose = true
-                       }
-                    }else{
+                if (it is AddExpenseViewModel) {
+                    if (it.type == data.type) {
+                        if (!it.isChoose) {
+                            when (data.type) {
+                                AddExpenseViewModel.Type.RECEIVE -> {
+                                    replaceFragment(AddExpenseDonateFragment(false))
+                                    view.tvToolbar.text = mResource.getTextReceive()
+                                    typeIncome = 2
+                                }
+                                AddExpenseViewModel.Type.DONATE -> {
+                                    replaceFragment(AddExpenseDonateFragment(true))
+                                    view.tvToolbar.text = mResource.getTextDonate()
+                                    typeIncome = 1
+                                }
+                                AddExpenseViewModel.Type.LOAN -> {
+                                    replaceFragment(AddExpenseLoanFragment(true))
+                                    view.tvToolbar.text = mResource.getTextLoan()
+                                    typeIncome = 3
+                                }
+                                AddExpenseViewModel.Type.BORROW -> {
+                                    replaceFragment(AddExpenseLoanFragment(false))
+                                    view.tvToolbar.text = mResource.getTextBorrow()
+                                    typeIncome = 4
+                                }
+                            }
+                            it.isChoose = true
+                        }
+                    } else {
                         it.isChoose = false
                     }
                 }
@@ -105,6 +115,7 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
         initView()
         initRecycleView()
         replaceFragment(AddExpenseDonateFragment(true))
+        typeIncome = 1
     }
 
     override fun showLoading() {
@@ -141,7 +152,8 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
     }
 
     override fun handleAfterCreate() {
-        handleAfterRegister()
+        showDialogNotify()
+        view.imgNotify.visible()
     }
 
     private fun setDialogFullScreen(dialog: AlertDialog) {
@@ -154,7 +166,7 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
         }
     }
 
-    private fun handleAfterRegister() {
+    private fun showDialogNotify(title: String? = null) {
         val layoutView = LayoutInflater.from(mvpActivity)
             .inflate(R.layout.custom_dialog_cancel_contact, null, false)
         val dialogRegister =
@@ -164,7 +176,9 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
         dialogRegister.btnCancel.setOnClickListener {
             dialogRegister.dismiss()
         }
-        view.imgNotify.visible()
+        if(!title.isNullOrEmpty()){
+            dialogRegister.tvTitleChooseDate.text = title
+        }
     }
 
     private fun replaceFragment(frm: Fragment) {
@@ -173,44 +187,100 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
             .commit()
     }
 
-    private fun initView(){
+    private fun initView() {
         view.cvType.gone()
         view.tvToolbar.text = mResource.getTextDonate()
         view.clWallet.setOnClickListener {
-            isOpen = if(!isOpen){
+            isOpen = if (!isOpen) {
                 view.cvType.visible()
                 view.clBackground.visible()
                 true
-            }else{
+            } else {
                 view.cvType.gone()
                 view.clBackground.gone()
                 false
             }
         }
-        view.imgAdd.setOnClickListener {
-            val request = InOutComeRequest(
-                loanIdLoan = AddExpenseFragment.model.loaner?.id.getValueOrDefaultIsZero(),
-                amount = AddExpenseFragment.model.totalMoney.getValueOrDefaultIsZero(),
-                categogyIdCate = AddExpenseFragment.model.category?.id.getValueOrDefaultIsZero(),
-                dateCome =  AddExpenseFragment.model.date.getValueOrDefaultIsEmpty(),
-                descriptionCome =  AddExpenseFragment.model.title.getValueOrDefaultIsEmpty(),
-                isCome = 0,
-                tripIdTrip = AddExpenseFragment.model.trip?.id.getValueOrDefaultIsZero(),
-                walletIdWallet = AddExpenseFragment.model.wallet?.id.getValueOrDefaultIsZero()
-            )
 
-            mPresenter.createExpense(request)
-//            handleAfterRegister()
+        view.imgAdd.setOnClickListener {
+            checkDataRequest()
         }
+
         view.clBackground.setOnClickListener {
             view.clBackground.gone()
             view.cvType.gone()
         }
 
         view.imgHistory.setOnClickListener {
-            view.imgNotify.gone()
-            mPresenter.gotoHistoryActivity()
+            eventBusLifeCycle.sendData(TransactionDataBus())
         }
+    }
+
+    private fun checkDataRequest(){
+        mvpActivity.hideKeyboard()
+        if(AddExpenseFragment.model.totalMoney.getValueOrDefaultIsZero() == 0.0){
+            showDialogNotify(title = "Bạn chưa nhập giá trị tiêu thụ")
+            return
+        }
+
+        if(typeIncome == 1 || typeIncome == 2){
+
+            if(AddExpenseFragment.model.category == null){
+                showDialogNotify(title = "Bạn chưa chọn hạng mục tiêu thụ")
+                return
+            }
+        }
+
+        if(AddExpenseFragment.model.wallet == null){
+            showDialogNotify(title = "Bạn chưa chọn ví tài khoản cho chi tiêu này")
+            return
+        }
+
+        if(typeIncome == 3 || typeIncome == 4){
+            if(AddExpenseFragment.model.loaner == null){
+                showDialogNotify(title = "Vui lòng điền đầy đủ thông tin")
+                return
+            }
+        }
+
+        if(AddExpenseFragment.model.date == null){
+            AddExpenseFragment.model.date = getCurrentDate()
+        }
+
+        if(AddExpenseFragment.model.time == null){
+            AddExpenseFragment.model.time = getCurrentTime()
+        }
+
+        if(AddExpenseFragment.model.title == null){
+            AddExpenseFragment.model.title = "Không có mô tả cho chi tiêu này"
+        }
+
+        val request = InOutComeRequest(
+            loanIdLoan = AddExpenseFragment.model.loaner?.id.getValueOrDefaultIsZero(),
+            amount = AddExpenseFragment.model.totalMoney.getValueOrDefaultIsZero(),
+            categogyIdCate = AddExpenseFragment.model.category?.id.getValueOrDefaultIsZero(),
+            dateCome = AddExpenseFragment.model.date.getValueOrDefaultIsEmpty(),
+            descriptionCome = AddExpenseFragment.model.title.getValueOrDefaultIsEmpty(),
+            isCome = typeIncome.getValueOrDefaultIsZero(),
+            tripIdTrip = AddExpenseFragment.model.trip?.id.getValueOrDefaultIsZero(),
+            walletIdWallet = AddExpenseFragment.model.wallet?.id.getValueOrDefaultIsZero()
+        )
+
+        mPresenter.createExpense(request)
+    }
+
+    private fun getCurrentDate(): String {
+        val format = "dd/MM/yyyy"
+        val sdf = SimpleDateFormat(format, Locale.US)
+        val calendar = Calendar.getInstance()
+        return sdf.format(calendar.time)
+    }
+
+    private fun getCurrentTime(): String {
+        val format = "hh:mm"
+        val sdf = SimpleDateFormat(format, Locale.US)
+        val calendar = Calendar.getInstance()
+        return sdf.format(calendar.time)
     }
 
     private fun initRecycleView() {

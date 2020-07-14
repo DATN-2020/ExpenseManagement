@@ -11,6 +11,7 @@ import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
+import datn.datn_expansemanagement.kotlinex.view.gone
 import datn.datn_expansemanagement.screen.trip.item_trip.ItemTripFragment
 import datn.datn_expansemanagement.screen.trip.presentation.model.TripItemViewModel
 import kotlinx.android.synthetic.main.layout_toolbar_add_category.view.*
@@ -35,10 +36,7 @@ class TripView (mvpActivity: MvpActivity, viewCreator: ViewCreator): AndroidMvpV
         view.imgBack.setOnClickListener {
             mvpActivity.onBackPressed()
         }
-        view.imgSave.setOnClickListener {
-            //todo luu item
-            mvpActivity.finish()
-        }
+        view.imgSave.gone()
     }
 
     override fun showLoading() {

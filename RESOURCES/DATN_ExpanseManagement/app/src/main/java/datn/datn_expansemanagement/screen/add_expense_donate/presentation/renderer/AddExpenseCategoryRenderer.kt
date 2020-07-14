@@ -69,11 +69,11 @@ class AddExpenseCategoryRenderer(
             val dd = c.get(Calendar.DAY_OF_MONTH)
             viewRoot.edtCalendar.text = "$dd/$mm/$yyyy"
         }
-        viewRoot.tvChooseCategory.setOnClickListener {
+        viewRoot.clCategory.setOnClickListener {
             EventFireUtil.fireEvent(onChooseCategory, model)
         }
 
-        viewRoot.tvWallet.setOnClickListener {
+        viewRoot.clWallet.setOnClickListener {
             EventFireUtil.fireEvent(onChooseWallet, model)
         }
 

@@ -99,13 +99,13 @@ class AddExpenseDonateInfoRenderer(
             viewRoot.tvExpand.text = mResource.getTextCollapse()
             GlideImageHelper(context).loadThumbnail(
                 viewRoot.imgExpand,
-                mResource.getIconCollapse(),
+                "",
                 R.drawable.ic_keyboard_arrow_up_blue_24dp
             )
         } else {
             GlideImageHelper(context).loadThumbnail(
                 viewRoot.imgExpand,
-                mResource.getIconExpand(),
+               "",
                 R.drawable.ic_keyboard_arrow_down_blue_24dp
             )
             viewRoot.viewBottom3.gone()
@@ -116,15 +116,15 @@ class AddExpenseDonateInfoRenderer(
             AddExpenseFragment.model.listFriend?.list?.clear()
         }
 
-        viewRoot.tvExpand.setOnClickListener {
+        viewRoot.clExpand.setOnClickListener {
             EventFireUtil.fireEvent(onClickExpand, model)
         }
 
-        viewRoot.edtTrip.setOnClickListener {
+        viewRoot.clTrip.setOnClickListener {
             EventFireUtil.fireEvent(onChooseTrip, model)
         }
 
-        viewRoot.edtFriend.setOnClickListener {
+        viewRoot.clContact.setOnClickListener {
             EventFireUtil.fireEvent(onChooseFriend, model)
         }
 
@@ -132,7 +132,7 @@ class AddExpenseDonateInfoRenderer(
             EventFireUtil.fireEvent(onChooseFriend, model)
         }
 
-        viewRoot.edtLocation.setOnClickListener {
+        viewRoot.clLocation.setOnClickListener {
             EventFireUtil.fireEvent(onChooseLocation, model)
         }
     }

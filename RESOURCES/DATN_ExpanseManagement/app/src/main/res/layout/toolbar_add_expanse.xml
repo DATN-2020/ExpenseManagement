@@ -19,8 +19,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgNotify"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
+        android:layout_width="@dimen/spacing_10dp"
+        android:layout_height="@dimen/spacing_10dp"
         android:src="@color/color_ee403f"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@id/imgHistory"

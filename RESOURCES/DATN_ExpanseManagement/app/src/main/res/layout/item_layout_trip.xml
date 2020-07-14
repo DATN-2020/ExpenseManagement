@@ -55,6 +55,7 @@
             tools:ignore="RtlCompat" />
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:id="@+id/imgEdit"
             android:layout_width="@dimen/spacing_24dp"
             android:layout_height="@dimen/spacing_24dp"

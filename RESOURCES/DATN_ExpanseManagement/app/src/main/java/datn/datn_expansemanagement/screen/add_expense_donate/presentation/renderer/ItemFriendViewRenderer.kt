@@ -20,6 +20,7 @@ private val onActionRemove: OnActionData<AddExpenseViewModel.Info.ListFriend.Fri
 
     override fun bindView(model: AddExpenseViewModel.Info.ListFriend.Friend, viewRoot: View) {
         viewRoot.tvName.text = model.name
+        viewRoot.tvNameImg.text = model.nameUnit
         viewRoot.imgRemove.setOnClickListener {
             EventFireUtil.fireEvent(onActionRemove, model)
         }

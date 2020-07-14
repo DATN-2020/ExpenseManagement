@@ -8,10 +8,8 @@ import datn.datn_expansemanagement.core.app.domain.excecutor.EventFireUtil
 import datn.datn_expansemanagement.core.app.util.image.GlideImageHelper
 import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.model.ViewRenderer
-import datn.datn_expansemanagement.kotlinex.collection.getValueOrDefault
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
-import datn.datn_expansemanagement.screen.add_expanse.presentation.model.AddExpenseViewModel
 import datn.datn_expansemanagement.screen.add_expense_loan.prsentation.AddExpenseLoanResource
 import datn.datn_expansemanagement.screen.add_expense_loan.prsentation.model.AddExpenseLoanRequireViewModel
 import kotlinx.android.synthetic.main.item_layout_loan_require.view.*
@@ -89,11 +87,11 @@ class AddExpenseLoanRequireRenderer(
             )
         }
 
-        viewRoot.tvLoaner.setOnClickListener {
+        viewRoot.clLoaner.setOnClickListener {
             EventFireUtil.fireEvent(onChooseLoaner, model)
         }
 
-        viewRoot.tvWallet.setOnClickListener {
+        viewRoot.clWallet.setOnClickListener {
             EventFireUtil.fireEvent(onChooseWallet, model)
         }
 

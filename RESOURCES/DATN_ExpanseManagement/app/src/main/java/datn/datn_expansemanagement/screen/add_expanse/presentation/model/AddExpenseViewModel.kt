@@ -48,7 +48,8 @@ class AddExpenseViewModel(
         ) : ViewModel {
             class Friend(
                 var id: Int? = null,
-                var name: String? = null
+                var name: String? = null,
+                var nameUnit: String? = null
             ) : ViewModel
         }
 

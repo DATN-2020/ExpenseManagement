@@ -14,6 +14,7 @@ import datn.datn_expansemanagement.core.event.EventBusData
 import datn.datn_expansemanagement.core.event.EventBusLifeCycle
 import datn.datn_expansemanagement.screen.account.AccountFragment
 import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
+import datn.datn_expansemanagement.screen.add_expanse.data.TransactionDataBus
 import datn.datn_expansemanagement.screen.information.InformationFragment
 import datn.datn_expansemanagement.screen.main.data.*
 import datn.datn_expansemanagement.screen.main_plan.OverviewFragment
@@ -38,7 +39,15 @@ class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :
 
     private val eventBusLifeCycle = EventBusLifeCycle(object : OnActionData<EventBusData> {
         override fun onAction(data: EventBusData) {
-
+            when(data){
+                is TransactionDataBus->{
+                    view.bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
+                        showFragmentForMenuItem(menuItem.itemId)
+                        return@setOnNavigationItemSelectedListener true
+                    }
+                    view.bottomNavigation.selectedItemId = R.id.menuReport
+                }
+            }
         }
     })
 

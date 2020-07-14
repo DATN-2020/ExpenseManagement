@@ -33,13 +33,6 @@ class AddCategoryView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.Vie
         AndroidMvpView.LayoutViewCreator(R.layout.layout_add_category, context, viewGroup)
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
-    private var listData = mutableListOf<ViewModel>()
-    private var listViewMvp: ListViewMvp? = null
-    private val renderInput = LinearRenderConfigFactory.Input(
-        context = mvpActivity,
-        orientation = LinearRenderConfigFactory.Orientation.VERTICAL
-    )
-    private val renderConfig = LinearRenderConfigFactory(renderInput).create()
     private val mPresenter = AddCategoryPresenter(screenNavigator = AndroidScreenNavigator(mvpActivity))
     private val mResource = AddCategoryResource()
     private var dataType : TypeCategoryDataIntent? = null
