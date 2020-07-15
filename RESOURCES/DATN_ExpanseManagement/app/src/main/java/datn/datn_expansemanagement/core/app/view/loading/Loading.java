@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import datn.datn_expansemanagement.R;
-import vn.minerva.core.app.view.ContentLoadingProgressBar;
+import datn.datn_expansemanagement.core.app.view.ContentLoadingProgressBar;
 
 public class Loading extends FrameLayout {
     //UI

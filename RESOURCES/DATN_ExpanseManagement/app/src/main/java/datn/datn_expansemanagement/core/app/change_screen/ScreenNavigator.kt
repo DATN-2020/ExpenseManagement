@@ -1,10 +1,8 @@
 package datn.datn_expansemanagement.core.app.change_screen
 
-import datn.datn_expansemanagement.domain.response.PassportResponse
 import datn.datn_expansemanagement.screen.account.item_account.presentation.model.WalletViewModel
 import datn.datn_expansemanagement.screen.add_category.data.TypeCategoryDataIntent
 import datn.datn_expansemanagement.screen.main_plan.presentation.model.PlanItemViewModel
-import datn.datn_expansemanagement.screen.plan_detail.presentation.model.TypeAddViewModel
 import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewModel
 import datn.datn_expansemanagement.screen.splash.data.PassportDataIntent
 

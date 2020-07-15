@@ -1,6 +1,6 @@
 @file:Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 
-package vn.minerva.core.app.view
+package datn.datn_expansemanagement.core.app.view
 
 import android.content.Context
 import android.os.SystemClock
