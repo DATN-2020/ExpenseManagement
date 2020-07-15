@@ -38,7 +38,7 @@ class ItemCategoryView(
     class ViewCreator(context: Context, viewGroup: ViewGroup?) :
         AndroidMvpView.LayoutViewCreator(R.layout.layout_item_category, context, viewGroup)
 
-    private val mPresenter = ItemCategoryPresenter()
+    private val mPresenter = ItemCategoryPresenter(mvpActivity)
     private val mResource = ItemCategoryResource()
     private val listData = mutableListOf<ViewModel>()
     private var listViewMvp: ListViewMvp? = null

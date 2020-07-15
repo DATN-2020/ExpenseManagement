@@ -1,5 +1,7 @@
 package datn.datn_expansemanagement.screen.add_wallet.add_wallet_default.presentation
 
+import android.widget.Toast
+import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.domain.GetDataService
 import datn.datn_expansemanagement.domain.RetrofitClientInstance
 import datn.datn_expansemanagement.domain.request.WalletRequest
@@ -12,7 +14,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DefaultWalletPresenter : DefaultWalletContract.Presenter() {
+class DefaultWalletPresenter(private val mvpActivity: MvpActivity) : DefaultWalletContract.Presenter() {
     private val mResource = AddWalletResource()
     private val service = RetrofitClientInstance().getClient()?.create(GetDataService::class.java)
 
@@ -25,7 +27,8 @@ class DefaultWalletPresenter : DefaultWalletContract.Presenter() {
         val call = service?.getListTypeWallet()
         call?.enqueue(object : Callback<List<TypeWalletResponse>> {
             override fun onFailure(call: Call<List<TypeWalletResponse>>, t: Throwable) {
-
+                Toast.makeText(mvpActivity, t.message, Toast.LENGTH_LONG).show()
+                view?.hideLoading()
             }
 
             override fun onResponse(

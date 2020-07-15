@@ -4,13 +4,14 @@
     android:layout_width="match_parent"
     android:background="@color/white"
     android:layout_height="wrap_content"
-    android:padding="@dimen/spacing_10dp">
+    android:paddingEnd="@dimen/spacing_10dp"
+    android:paddingTop="@dimen/spacing_10dp"
+    android:paddingStart="@dimen/spacing_10dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgTypeBill"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:scaleType="centerCrop"
+        android:layout_width="@dimen/spacing_30dp"
+        android:layout_height="@dimen/spacing_30dp"
         android:src="@drawable/ic_default"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -51,12 +52,13 @@
         app:layout_constraintTop_toBottomOf="@+id/tvContentBill" />
 
     <LinearLayout
+        android:id="@+id/llPayment"
         android:background="@drawable/custom_button_pay_bill"
         android:layout_marginTop="@dimen/spacing_14dp"
         app:layout_constraintStart_toStartOf="@+id/tvTimeLimitBill"
         app:layout_constraintTop_toBottomOf="@+id/tvTimeLimitBill"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/spacing_40dp">
 
         <Button
             android:textAllCaps="false"
@@ -66,7 +68,17 @@
             android:id="@+id/btnPayBill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/spacing_8dp"
+            android:paddingStart="@dimen/spacing_4dp"
+            android:paddingEnd="@dimen/spacing_4dp"
             android:text="Trả 300,000 đ" />
     </LinearLayout>
+
+    <View
+        android:background="@color/color_f5f5f5"
+        android:layout_marginTop="@dimen/spacing_10dp"
+        app:layout_constraintTop_toBottomOf="@id/llPayment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

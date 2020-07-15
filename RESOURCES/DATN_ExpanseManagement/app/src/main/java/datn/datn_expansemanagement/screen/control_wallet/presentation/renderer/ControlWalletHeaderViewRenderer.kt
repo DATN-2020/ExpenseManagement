@@ -21,6 +21,7 @@ class ControlWalletHeaderViewRenderer (context: Context): ViewRenderer<ControlWa
         viewRoot.tvName.setText(model.nameWallet)
         viewRoot.tvTitleChooseDate.text = model.title
         viewRoot.edtMoney.setText(Utils.formatMoney(model.price))
+        viewRoot.tvName.isEnabled = !model.isOtherWallet
         viewRoot.edtMoney.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 viewRoot.edtMoney.removeTextChangedListener(this)

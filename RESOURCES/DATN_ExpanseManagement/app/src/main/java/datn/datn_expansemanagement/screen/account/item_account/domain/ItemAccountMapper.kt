@@ -5,6 +5,7 @@ import datn.datn_expansemanagement.core.base.domain.mapper.Mapper
 import datn.datn_expansemanagement.domain.response.WalletResponse
 import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
+import datn.datn_expansemanagement.screen.account.item_account.presentation.model.ItemAccountAccumulationViewModel
 import datn.datn_expansemanagement.screen.account.item_account.presentation.model.ItemAccountTotalMoneyViewModel
 import datn.datn_expansemanagement.screen.account.item_account.presentation.model.WalletViewModel
 
@@ -26,13 +27,23 @@ class ItemAccountMapper(private val tapId: Int? = null) :
                             des = it.description.getValueOrDefaultIsEmpty()
                         )
                     )
-                    totalPrice += it.amountWallet.toDouble()
+                    totalPrice += it.amountWallet
                 }
             }
             if(listItem.isNotEmpty()){
                 val dataLast = listItem.last() as WalletViewModel
                 dataLast.isLast = true
             }
+        }
+        else{
+            listItem.add(ItemAccountAccumulationViewModel(
+                id = 0,
+                name = "Tài khoản tiết kiệm",
+                moneyAccumulation = 3000000.0,
+                moneyCurrent = 250000.0,
+                isLast = true
+            ))
+//            totalPrice += amountWallet
         }
         listReturn.add(ItemAccountTotalMoneyViewModel(total = totalPrice))
         listReturn.addAll(listItem)

@@ -20,7 +20,7 @@ class ListWalletItemViewRenderer (context: Context): ViewRenderer<ListWalletItem
 
     override fun bindView(model: ListWalletItemViewModel, viewRoot: View) {
         viewRoot.tvWallet.text = model.name
-        val money = Utils.formatMoneyVND(model.totalMoney)
+        val money = Utils.formatMoney(model.totalMoney)
         viewRoot.tvMoney.text = money
         if(model.isLast){
             viewRoot.viewBottom.gone()

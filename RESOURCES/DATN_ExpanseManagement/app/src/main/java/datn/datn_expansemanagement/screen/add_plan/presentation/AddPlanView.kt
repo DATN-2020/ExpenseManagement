@@ -49,7 +49,7 @@ class AddPlanView(
         AndroidMvpView.LayoutViewCreator(R.layout.layout_add_plan, context, viewGroup)
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
-    private val mPresenter = AddPlanPresenter(AndroidScreenNavigator(mvpActivity))
+    private val mPresenter = AddPlanPresenter(AndroidScreenNavigator(mvpActivity), mvpActivity = mvpActivity)
     private val listData = mutableListOf<ViewModel>()
     private var listViewMvp: ListViewMvp? = null
     private val renderInput = LinearRenderConfigFactory.Input(
@@ -72,6 +72,7 @@ class AddPlanView(
 
     private val onChooseTime = object : OnActionData<AddPlanDateViewModel> {
         override fun onAction(data: AddPlanDateViewModel) {
+            mPresenter.getTime()
             bottomSheet.show()
             bottomSheet.tvTitle.text = "Thời gian áp dụng"
         }
@@ -188,7 +189,18 @@ class AddPlanView(
 
     private val onItemClick = object : OnItemRvClickedListener<ViewModel> {
         override fun onItemClicked(view: View, position: Int, dataItem: ViewModel) {
+            if(dataItem is GetWalletItemViewModel){
+                listData.forEach {
+                    if(it is AddPlanWalletViewModel){
+                        it.id = dataItem.id
+                        it.name = dataItem.name
+                        listViewMvp?.notifyItemChanged(listData.indexOf(it))
+                        bottomSheet.dismiss()
+                        return
+                    }
+                }
 
+            }
         }
 
     }
@@ -248,6 +260,7 @@ class AddPlanView(
         bottomSheet.create()
         listViewBottom = ListViewMvp(mvpActivity, bottomSheet.rvChoose, renderConfigBottom)
         listViewBottom?.addViewRenderer(TimeItemViewRenderer(mvpActivity))
+        listViewBottom?.addViewRenderer(GetWalletItemViewRenderer(mvpActivity))
         listViewBottom?.setOnItemRvClickedListener(onItemClick)
         listViewBottom?.createView()
     }

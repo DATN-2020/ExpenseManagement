@@ -14,7 +14,7 @@ interface ReportContract {
     }
 
     abstract class Presenter : MvpPresenter<View>(){
-        abstract fun getData(isCreditCard: Boolean = false)
+        abstract fun getData(idWallet: Int? = null,isCreditCard: Boolean = false)
         abstract fun gotoReportDetailActivity(data: ReportViewModel)
         abstract fun getWalletForUser(idWallet: Int? = null)
     }

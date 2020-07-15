@@ -38,7 +38,12 @@ class ItemCategoryMapper(private val typeExpense: String, private val categoryId
 
                     }
                 }
-                if (it.typeExpense.trim().toLowerCase() == typeExpense.trim().toLowerCase() && it.id != 1) {
+//                when(it.typeExpense.trim().toLowerCase()){
+//                    "Spend money"->{}
+//                    "Collect money"->{}
+//                    "Borrow"->{}
+//                }
+                if (/*it.typeExpense.trim().toLowerCase() == typeExpense.trim().toLowerCase() && */it.id != 1) {
                     list.add(
                         ItemTypeCategoryViewModel(
                             id = it.id.getValueOrDefaultIsZero(),

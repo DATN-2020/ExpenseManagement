@@ -20,8 +20,8 @@ class HistoryDateItemViewRenderer (context: Context): ViewRenderer<HistoryDateIt
         viewRoot.tvNumberDay.text = model.numberDay.toString()
         viewRoot.tvDay.text = model.dayOfWeek
         viewRoot.tvMonth.text = model.month
-        viewRoot.tvTotalMoneyIncome.text = Utils.formatMoneyVND(model.inCome.getValueOrDefaultIsZero())
-        viewRoot.tvTotalMoneyOutcome.text = Utils.formatMoneyVND(model.outCome.getValueOrDefaultIsZero())
+        viewRoot.tvTotalMoneyIncome.text = Utils.formatMoney(model.inCome.getValueOrDefaultIsZero())
+        viewRoot.tvTotalMoneyOutcome.text = Utils.formatMoney(model.outCome.getValueOrDefaultIsZero())
     }
 
 }

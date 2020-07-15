@@ -37,7 +37,7 @@ class BudgetView(
         AndroidMvpView.LayoutViewCreator(R.layout.layout_plan_detail_item, context, viewGroup)
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
-    private val mPresenter = BudgetPresenter(AndroidScreenNavigator(mvpActivity))
+    private val mPresenter = BudgetPresenter(AndroidScreenNavigator(mvpActivity), mvpActivity = mvpActivity)
     private val adapter = ViewPagerAdapter(mvpActivity.supportFragmentManager)
 
     private var listViewBottom: ListViewMvp? = null

@@ -14,7 +14,8 @@ import kotlinx.android.synthetic.main.item_wallet.view.*
 
 class WalletViewRenderer(
     context: Context,
-    private val onActionClickMore: OnActionData<WalletViewModel>
+    private val onActionClickMore: OnActionData<WalletViewModel>,
+    private val onItemClick : OnActionData<WalletViewModel>
 ) : ViewRenderer<WalletViewModel>(context) {
     override fun getLayoutId(): Int {
         return R.layout.item_wallet
@@ -23,7 +24,7 @@ class WalletViewRenderer(
     override fun getModelClass(): Class<WalletViewModel> = WalletViewModel::class.java
     override fun bindView(model: WalletViewModel, viewRoot: View) {
         viewRoot.tvWallet.text = model.name
-        val money = Utils.formatMoneyVND(model.money)
+        val money = Utils.formatMoney(model.money)
         viewRoot.tvMoney.text = money
 
         if (model.isLast) {
@@ -34,6 +35,10 @@ class WalletViewRenderer(
 
         viewRoot.imgMore.setOnClickListener {
             EventFireUtil.fireEvent(onActionClickMore, model)
+        }
+
+        viewRoot.clItem.setOnClickListener {
+            EventFireUtil.fireEvent(onItemClick, model)
         }
     }
 

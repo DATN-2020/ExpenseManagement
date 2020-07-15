@@ -2,72 +2,82 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:id="@+id/clItemWallet"
     android:background="@color/white"
-    android:padding="@dimen/spacing_10dp">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/bgImg"
-        android:layout_width="@dimen/spacing_40dp"
-        android:layout_height="@dimen/spacing_40dp"
-        android:src="@color/color_f5f5f5"
-        app:layout_constraintBottom_toBottomOf="@id/tvMoney"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tvWallet" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivWallet"
-        android:layout_width="@dimen/spacing_24dp"
-        android:layout_height="@dimen/spacing_24dp"
-        android:src="@drawable/ic_wallet"
-        app:layout_constraintBottom_toBottomOf="@id/bgImg"
-        app:layout_constraintEnd_toEndOf="@id/bgImg"
-        app:layout_constraintStart_toStartOf="@id/bgImg"
-        app:layout_constraintTop_toTopOf="@id/bgImg" />
-
-    <TextView
-        android:id="@+id/tvWallet"
-        style="@style/StyleTextView.Medium.Black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/spacing_20dp"
-        android:layout_marginTop="@dimen/spacing_4dp"
-        android:text="@string/text_wallet_money"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/ivWallet"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/tvMoney"
-        style="@style/StyleTextView.Medium.Black"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_8dp"
-        android:text="1.000.000 $"
-        app:layout_constraintStart_toStartOf="@id/tvWallet"
-        app:layout_constraintTop_toBottomOf="@id/tvWallet" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/imgMore"
-        android:layout_width="@dimen/spacing_30dp"
-        android:layout_height="@dimen/spacing_30dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clItem"
         android:background="?attr/selectableItemBackground"
-        android:src="@drawable/ic_more_vert_black_24dp"
-        app:layout_constraintBottom_toBottomOf="@id/tvMoney"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tvWallet" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/bgImg"
+            android:layout_width="@dimen/spacing_40dp"
+            android:layout_height="@dimen/spacing_40dp"
+            android:src="@color/color_f5f5f5"
+            app:layout_constraintBottom_toBottomOf="@id/tvMoney"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvWallet" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivWallet"
+            android:layout_width="@dimen/spacing_24dp"
+            android:layout_height="@dimen/spacing_24dp"
+            android:src="@drawable/ic_wallet"
+            app:layout_constraintBottom_toBottomOf="@id/bgImg"
+            app:layout_constraintEnd_toEndOf="@id/bgImg"
+            app:layout_constraintStart_toStartOf="@id/bgImg"
+            app:layout_constraintTop_toTopOf="@id/bgImg" />
+
+        <TextView
+            android:id="@+id/tvWallet"
+            style="@style/StyleTextView.Medium.Black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_20dp"
+            android:layout_marginTop="@dimen/spacing_4dp"
+            android:text="@string/text_wallet_money"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/ivWallet"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/tvMoney"
+            style="@style/StyleTextView.Medium.Black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_8dp"
+            android:text="1.000.000 $"
+            app:layout_constraintStart_toStartOf="@id/tvWallet"
+            app:layout_constraintTop_toBottomOf="@id/tvWallet" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgMore"
+            android:layout_width="@dimen/spacing_24dp"
+            android:layout_height="@dimen/spacing_24dp"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_more_vert_black_24dp"
+            app:layout_constraintBottom_toBottomOf="@id/tvMoney"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvWallet" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:id="@+id/viewBottom"
         android:layout_width="0dp"
-        android:layout_height="0.5dp"
-        android:layout_marginTop="@dimen/spacing_6dp"
+        android:layout_height="1dp"
         android:background="@color/color_f5f5f5"
-        android:paddingBottom="@dimen/spacing_2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tvWallet"
-        app:layout_constraintTop_toBottomOf="@id/tvMoney" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clItem" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

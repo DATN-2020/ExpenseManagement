@@ -1,8 +1,10 @@
 package datn.datn_expansemanagement.screen.plan_detail.buget.presentation
 
+import android.widget.Toast
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
 import datn.datn_expansemanagement.core.app.config.ConfigUtil
+import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.domain.GetDataService
 import datn.datn_expansemanagement.domain.RetrofitClientInstance
 import datn.datn_expansemanagement.domain.response.WalletResponse
@@ -14,7 +16,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class BudgetPresenter(private val screenNavigator: AndroidScreenNavigator) : BudgetContract.Presenter(){
+class BudgetPresenter(private val screenNavigator: AndroidScreenNavigator, private val mvpActivity: MvpActivity) : BudgetContract.Presenter(){
 
     private val service = RetrofitClientInstance().getClient()?.create(GetDataService::class.java)
 
@@ -44,7 +46,8 @@ class BudgetPresenter(private val screenNavigator: AndroidScreenNavigator) : Bud
         val call = service?.getWalletForUser(userId)
         call?.enqueue(object : Callback<WalletResponse> {
             override fun onFailure(call: Call<WalletResponse>, t: Throwable) {
-
+                Toast.makeText(mvpActivity, t.message, Toast.LENGTH_LONG).show()
+                view?.hideLoading()
             }
 
             override fun onResponse(

@@ -2,6 +2,7 @@ package datn.datn_expansemanagement.screen.main.presentation
 
 import android.content.Context
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.change_screen.Request
@@ -13,6 +14,7 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.lifecycle.
 import datn.datn_expansemanagement.core.event.EventBusData
 import datn.datn_expansemanagement.core.event.EventBusLifeCycle
 import datn.datn_expansemanagement.screen.account.AccountFragment
+import datn.datn_expansemanagement.screen.account.item_account.data.OnReportWalletDataBus
 import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
 import datn.datn_expansemanagement.screen.add_expanse.data.TransactionDataBus
 import datn.datn_expansemanagement.screen.information.InformationFragment
@@ -36,6 +38,8 @@ class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :
     private var reportFragment: ReportFragment? = null
     private var addExpenseFragment: AddExpenseFragment? = null
     private var infoFragment: InformationFragment? = null
+    private var idWallet: Int? = null
+    private var isCard: Boolean = false
 
     private val eventBusLifeCycle = EventBusLifeCycle(object : OnActionData<EventBusData> {
         override fun onAction(data: EventBusData) {
@@ -46,6 +50,14 @@ class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :
                         return@setOnNavigationItemSelectedListener true
                     }
                     view.bottomNavigation.selectedItemId = R.id.menuReport
+                }
+
+                is OnReportWalletDataBus->{
+                    view.bottomNavigation.selectedItemId = R.id.menuReport
+                    idWallet = data.idWallet
+                    isCard = data.isCard
+                    showFragmentForMenuItem(view.bottomNavigation.selectedItemId )
+
                 }
             }
         }
@@ -137,7 +149,7 @@ class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :
                 R.id.menuReport -> if (reportFragment != null && reportFragment!!.isAdded) {
                     ft.show(reportFragment!!)
                 } else {
-                    reportFragment = ReportFragment()
+                    reportFragment = ReportFragment(idWallet, isCard)
                     ft.replace(R.id.mainFrameLayout, reportFragment!!, itemId.toString())
                 }
                 R.id.menuAddExpense -> if (addExpenseFragment != null && addExpenseFragment!!.isAdded) {

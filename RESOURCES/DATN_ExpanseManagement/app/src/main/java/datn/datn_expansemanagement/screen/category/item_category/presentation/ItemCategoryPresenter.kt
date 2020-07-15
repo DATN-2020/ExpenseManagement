@@ -1,5 +1,7 @@
 package datn.datn_expansemanagement.screen.category.item_category.presentation
 
+import android.widget.Toast
+import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.domain.GetDataService
 import datn.datn_expansemanagement.domain.RetrofitClientInstance
 import datn.datn_expansemanagement.domain.response.TypeCategoryResponse
@@ -9,7 +11,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class ItemCategoryPresenter : ItemCategoryContract.Presenter() {
+class ItemCategoryPresenter(private val mvpActivity: MvpActivity) : ItemCategoryContract.Presenter() {
 
     private val service = RetrofitClientInstance().getClient()?.create(GetDataService::class.java)
 
@@ -18,7 +20,8 @@ class ItemCategoryPresenter : ItemCategoryContract.Presenter() {
         val call = service?.getTypeCategory()
         call?.enqueue(object : Callback<List<TypeCategoryResponse>> {
             override fun onFailure(call: Call<List<TypeCategoryResponse>>, t: Throwable) {
-
+                Toast.makeText(mvpActivity, t.message, Toast.LENGTH_LONG).show()
+                view?.hideLoading()
             }
 
             override fun onResponse(

@@ -1,5 +1,7 @@
 package datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentation
 
+import android.widget.Toast
+import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.domain.GetDataService
 import datn.datn_expansemanagement.domain.RetrofitClientInstance
 import datn.datn_expansemanagement.domain.response.BillResponse
@@ -14,7 +16,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ItemTabBudgetPresenter : ItemTabBudgetContract.Presenter() {
+class ItemTabBudgetPresenter(private val mvpActivity: MvpActivity) : ItemTabBudgetContract.Presenter() {
 
     private val service = RetrofitClientInstance().getClient()?.create(GetDataService::class.java)
 
@@ -25,7 +27,8 @@ class ItemTabBudgetPresenter : ItemTabBudgetContract.Presenter() {
                 val call = service?.getBudgets(idWallet)
                 call?.enqueue(object : Callback<GetBudgetResponse> {
                     override fun onFailure(call: Call<GetBudgetResponse>, t: Throwable) {
-
+                        Toast.makeText(mvpActivity, t.message, Toast.LENGTH_LONG).show()
+                        view?.hideLoading()
                     }
 
                     override fun onResponse(
@@ -42,7 +45,8 @@ class ItemTabBudgetPresenter : ItemTabBudgetContract.Presenter() {
                 val call = service?.getTransactions(idWallet)
                 call?.enqueue(object : Callback<TransactionResponse> {
                     override fun onFailure(call: Call<TransactionResponse>, t: Throwable) {
-
+                        Toast.makeText(mvpActivity, t.message, Toast.LENGTH_LONG).show()
+                        view?.hideLoading()
                     }
 
                     override fun onResponse(
@@ -59,7 +63,8 @@ class ItemTabBudgetPresenter : ItemTabBudgetContract.Presenter() {
                 val call = service?.getBills(idWallet)
                 call?.enqueue(object : Callback<BillResponse> {
                     override fun onFailure(call: Call<BillResponse>, t: Throwable) {
-
+                        Toast.makeText(mvpActivity, t.message, Toast.LENGTH_LONG).show()
+                        view?.hideLoading()
                     }
 
                     override fun onResponse(

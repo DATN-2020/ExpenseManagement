@@ -16,8 +16,8 @@ class HistoryTotalItemViewRenderer (context: Context): ViewRenderer<HistoryTotal
     override fun getModelClass(): Class<HistoryTotalItemViewModel> = HistoryTotalItemViewModel::class.java
 
     override fun bindView(model: HistoryTotalItemViewModel, viewRoot: View) {
-        viewRoot.tvMoneyIncome.text = Utils.formatMoneyVND(model.totalIncome)
-        viewRoot.tvMoneyOutcome.text = Utils.formatMoneyVND(model.totalOutCome)
+        viewRoot.tvMoneyIncome.text = Utils.formatMoney(model.totalIncome)
+        viewRoot.tvMoneyOutcome.text = Utils.formatMoney(model.totalOutCome)
     }
 
 }

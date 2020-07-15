@@ -32,14 +32,19 @@ import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ReportView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator) :
+class ReportView(
+    mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator,
+    private val idWallet: Int? = null,
+    private val isCardWallet: Boolean = false
+) :
     AndroidMvpView(mvpActivity, viewCreator), ReportContract.View {
 
     class ViewCreator(context: Context, viewGroup: ViewGroup?) :
         AndroidMvpView.LayoutViewCreator(R.layout.layout_report, context, viewGroup)
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
-    private val mPresenter = ReportPresenter(AndroidScreenNavigator(mvpActivity))
+    private val mPresenter =
+        ReportPresenter(AndroidScreenNavigator(mvpActivity), mvpActivity = mvpActivity)
     private val mResource = ReportResource(mvpActivity)
     private val listData = mutableListOf<ViewModel>()
     private var listViewMvp: ListViewMvp? = null
@@ -62,11 +67,11 @@ class ReportView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreat
         .inflate(R.layout.custom_bottomsheet_recycleview, null, false)
     private val bottomSheet = BottomSheetDialog(mvpActivity)
 
-    private var dateChoose : String? = null
+    private var dateChoose: String? = null
 
 
     private val onItemClick = object : OnItemRvClickedListener<ViewModel> {
-        override fun onItemClicked(view: View, position: Int, dataItem: ViewModel) {
+        override fun onItemClicked(v: View, position: Int, dataItem: ViewModel) {
             dataItem as GetWalletItemViewModel
 
             listBottom.forEach {
@@ -85,7 +90,7 @@ class ReportView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreat
 
     }
 
-    private val onActionChart = object : OnActionNotify{
+    private val onActionChart = object : OnActionNotify {
         override fun onActionNotify() {
             val data = ReportViewModel(
                 date = dateChoose
@@ -99,14 +104,14 @@ class ReportView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreat
     override fun initCreateView() {
         initRecycleView()
         initView()
-        view.tvMonth.text = if(dateChoose.isNullOrEmpty()){
+        view.tvMonth.text = if (dateChoose.isNullOrEmpty()) {
             getCurrentMonth()
-        }else{
+        } else {
             dateChoose
         }
     }
 
-    private fun getCurrentMonth(): String{
+    private fun getCurrentMonth(): String {
         val dateFormat = SimpleDateFormat("MM/yyyy")
         val date = Date()
         return dateFormat.format(date)
@@ -177,18 +182,6 @@ class ReportView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreat
         val monthOld: Int? = null
         val yearOld: Int? = null
 
-//        listData.forEach {
-//            if (it is InfoItemViewModel && it.type == InfoItemViewModel.TypeInfo.BIRTHDAY) {
-//                if (it.valueText.isNotEmpty()) {
-//                    val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH)
-//                    val date = LocalDate.parse(it.valueText, formatter)
-//                    dayOld = date.dayOfMonth
-//                    monthOld = date.monthValue
-//                    yearOld = date.year
-//                }
-//            }
-//        }
-
         if (monthOld != null && yearOld != null) {
             dialog.wpMonth.value = monthOld as Int
             dialog.wpYear.value = yearOld as Int
@@ -205,19 +198,13 @@ class ReportView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreat
             result += "$month/$year"
             dateChoose = result
             view.tvMonth.text = dateChoose
-//            listData.forEach {
-//                if (it is InfoItemViewModel && it.type == InfoItemViewModel.TypeInfo.BIRTHDAY) {
-//                    it.valueText = result
-//                    isChange = true
-//                }
-//            }
 
             // call api
             dialog.dismiss()
         }
     }
 
-    private val showTransaction = object : OnActionNotify{
+    private val showTransaction = object : OnActionNotify {
         override fun onActionNotify() {
             val customViewTransaction = LayoutInflater.from(mvpActivity)
                 .inflate(R.layout.custom_bottomsheet_recycleview, null, false)
@@ -237,11 +224,13 @@ class ReportView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreat
             viewMvp.addViewRenderer(ReportDetailItemViewRenderer(mvpActivity))
             viewMvp.createView()
 
-            for (i in 1..2){
-                list.add(ReportDetailItemViewModel(
-                    name = "Đi lại",
-                    price = 300000.0
-                ))
+            for (i in 1..2) {
+                list.add(
+                    ReportDetailItemViewModel(
+                        name = "Đi lại",
+                        price = 300000.0
+                    )
+                )
             }
 
             viewMvp.setItems(list)
@@ -256,7 +245,13 @@ class ReportView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreat
     private fun initRecycleView() {
         listViewMvp = ListViewMvp(mvpActivity, view.rvReport, renderConfig)
         listViewMvp?.addViewRenderer(ReportBarChartViewRenderer(mvpActivity, mResource))
-        listViewMvp?.addViewRenderer(ReportPieChartViewRenderer(mvpActivity, mResource, onActionChart))
+        listViewMvp?.addViewRenderer(
+            ReportPieChartViewRenderer(
+                mvpActivity,
+                mResource,
+                onActionChart
+            )
+        )
         listViewMvp?.addViewRenderer(ReportHeaderItemViewRenderer(mvpActivity))
         listViewMvp?.addViewRenderer(ReportNetIncomeViewRenderer(mvpActivity))
         listViewMvp?.addViewRenderer(ReportBalanceViewRenderer(mvpActivity))
@@ -305,8 +300,8 @@ class ReportView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreat
 
     override fun initData() {
         super.initData()
-        mPresenter.getData(false)
-//        mPresenter.getWalletForUser(null)
+        mPresenter.getData(idWallet, isCardWallet)
+        mPresenter.getWalletForUser(idWallet)
     }
 
     override fun startMvpView() {

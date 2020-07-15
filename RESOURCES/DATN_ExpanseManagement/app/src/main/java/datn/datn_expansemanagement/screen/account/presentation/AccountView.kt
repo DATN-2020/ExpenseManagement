@@ -66,7 +66,6 @@ class AccountView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCrea
         if(list.isNotEmpty()){
             listTab.addAll(list)
         }
-
         initTabLayout()
     }
 

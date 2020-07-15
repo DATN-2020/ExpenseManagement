@@ -26,7 +26,7 @@ private val tabId: TabItemViewModel?, private val idWallet: Int): AndroidMvpView
         AndroidMvpView.LayoutViewCreator(R.layout.layou_item_tab_control_detail_budget, context, viewGroup)
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
-    private val mPresenter = ItemTabBudgetPresenter()
+    private val mPresenter = ItemTabBudgetPresenter(mvpActivity)
     private val mResource = PlanDetailResource()
     private val listData = mutableListOf<ViewModel>()
     private var listViewMvp: ListViewMvp? = null

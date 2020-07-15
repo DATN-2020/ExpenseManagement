@@ -5,5 +5,6 @@ import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 class ControlWalletHeaderViewModel(
     var nameWallet: String,
     var price : Double,
-    var title: String
+    var title: String,
+    var isOtherWallet: Boolean = false
 ) : ViewModel

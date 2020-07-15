@@ -26,7 +26,7 @@ class ItemAccountTotalMoneyViewRenderer(
         ItemAccountTotalMoneyViewModel::class.java
 
     override fun bindView(model: ItemAccountTotalMoneyViewModel, viewRoot: View) {
-        val money = Utils.formatMoneyVND(model.total)
+        val money = Utils.formatMoney(model.total)
         setTextColor(viewRoot.tvTotalMoney, money)
     }
 

@@ -49,7 +49,13 @@ interface GetDataService {
     @POST("Users")
     fun createAccount(@Body request: RegisterRequest): Call<RegisterResponse>
 
+    @POST("transfers")
+    fun transferWallet(@Body request: TransferRequest): Call<BaseResponse>
+
     @POST("Income_Outcome")
     fun createInOutCome(@Body request: InOutComeRequest): Call<BaseResponse>
+
+    @POST("budgets")
+    fun addBudget(@Body request: AddBudgetRequest): Call<BaseResponse>
 
 }

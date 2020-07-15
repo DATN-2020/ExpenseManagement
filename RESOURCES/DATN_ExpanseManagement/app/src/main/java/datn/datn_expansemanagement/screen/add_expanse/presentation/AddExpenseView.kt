@@ -48,7 +48,7 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
     private val mPresenter =
-        AddExpensePresenter(screenNavigator = AndroidScreenNavigator(mvpActivity))
+        AddExpensePresenter(screenNavigator = AndroidScreenNavigator(mvpActivity), mvpActivity = mvpActivity)
     private val mResource = AddExpenseResource()
     private val listData = mutableListOf<ViewModel>()
     private var listViewMvp: ListViewMvp? = null

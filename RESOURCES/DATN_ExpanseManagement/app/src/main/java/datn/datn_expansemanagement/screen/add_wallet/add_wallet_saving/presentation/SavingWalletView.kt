@@ -6,6 +6,7 @@ import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
+import datn.datn_expansemanagement.core.base.domain.listener.OnActionNotify
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
@@ -64,6 +65,13 @@ class SavingWalletView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.Vi
         }
     }
 
+    private val onActionSave = object : OnActionNotify{
+        override fun onActionNotify() {
+
+        }
+
+    }
+
     override fun showData(list: MutableList<ViewModel>) {
         this.listData.clear()
         if(list.isNotEmpty()){
@@ -77,7 +85,7 @@ class SavingWalletView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.Vi
         listViewMvp = ListViewMvp(mvpActivity, view.rvItemAddWallet, renderConfig)
         listViewMvp?.addViewRenderer(AddWalletHeaderItemViewRenderer(mvpActivity, mResource))
         listViewMvp?.addViewRenderer(AddWalletNameItemViewRenderer(mvpActivity, mResource))
-//        listViewMvp?.addViewRenderer(AddWalletBottomItemViewRenderer(mvpActivity))
+        listViewMvp?.addViewRenderer(AddWalletBottomItemViewRenderer(mvpActivity, onActionSave))
         listViewMvp?.addViewRenderer(EmptyLineViewRenderer(mvpActivity))
         listViewMvp?.addViewRenderer(AddWalletRateItemViewRenderer(mvpActivity))
         listViewMvp?.addViewRenderer(AddWalletTypeItemViewRenderer(mvpActivity, mResource, onActionData))

@@ -20,7 +20,7 @@ class GetWalletItemViewRenderer (context: Context): ViewRenderer<GetWalletItemVi
 
     override fun bindView(model: GetWalletItemViewModel, viewRoot: View) {
         viewRoot.tvWallet.text = model.name
-        val money = Utils.formatMoneyVND(model.money)
+        val money = Utils.formatMoney(model.money)
         viewRoot.tvMoney.text = money
         if(model.isChoose){
             viewRoot.imgMore.visible()
