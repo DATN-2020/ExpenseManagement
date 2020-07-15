@@ -19,10 +19,10 @@
         android:id="@+id/llControl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_10dp"
+        android:layout_marginTop="@dimen/spacing_14dp"
         android:background="?attr/selectableItemBackground"
         android:orientation="horizontal"
-        android:padding="@dimen/spacing_10dp"
+        android:padding="@dimen/spacing_14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/viewTop">
@@ -50,7 +50,7 @@
     <View
         android:id="@+id/viewBottom1"
         android:layout_width="0dp"
-        android:layout_height="0.5dp"
+        android:layout_height="1dp"
         android:background="@color/color_f5f5f5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
-        android:padding="@dimen/spacing_10dp"
+        android:padding="@dimen/spacing_14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/viewBottom1">
@@ -91,7 +91,7 @@
     <View
         android:id="@+id/viewDelete"
         android:layout_width="0dp"
-        android:layout_height="0.5dp"
+        android:layout_height="1dp"
         android:background="@color/color_f5f5f5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +102,7 @@
         android:id="@+id/llUpdate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/spacing_10dp"
+        android:padding="@dimen/spacing_14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/viewDelete">
