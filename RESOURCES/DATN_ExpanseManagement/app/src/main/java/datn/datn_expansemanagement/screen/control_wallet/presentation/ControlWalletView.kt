@@ -107,13 +107,11 @@ class ControlWalletView(
                 val request = TransferRequest(
                     idChuyen = fromId,
                     idNhan = toId.getValueOrDefaultIsZero(),
-                    date = getCurrentDate(),
-                    disciption = des.getValueOrDefaultIsEmpty(),
+                    desciption = des.getValueOrDefaultIsEmpty(),
                     amount = price.getValueOrDefaultIsZero()
                 )
                 mPresenter.transferWallet(request)
             } else {
-
                 if (user != null) {
                     var nameWallet: String? = null
                     var price: Double? = null
@@ -163,6 +161,7 @@ class ControlWalletView(
         dialogRegister.show()
         dialogRegister.btnCancel.setOnClickListener {
             dialogRegister.dismiss()
+            mvpActivity.onBackPressed()
         }
         if(!title.isNullOrEmpty()){
             dialogRegister.tvTitleChooseDate.text = title
@@ -221,10 +220,10 @@ class ControlWalletView(
                 if (it is ControlWalletToViewModel) {
                     it.id = dataItem.id.getValueOrDefaultIsZero()
                     it.name = dataItem.name.getValueOrDefaultIsEmpty()
+                    listViewMvp?.notifyItemChanged(listData.indexOf(it))
                 }
             }
             bottomSheet.dismiss()
-            listViewMvp?.notifyDataChanged()
         }
 
     }

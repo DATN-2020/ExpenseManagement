@@ -21,6 +21,7 @@ class ControlWalletMapper(private val isOtherWallet: Boolean?) :
                 ControlWalletHeaderViewModel(
                     nameWallet = input.name.getValueOrDefaultIsEmpty(),
                     price = 0.0,
+                    maxPrice = input.money.getValueOrDefaultIsZero(),
                     title = "Nhập số tiền cần chuyển",
                     isOtherWallet = true
                 )

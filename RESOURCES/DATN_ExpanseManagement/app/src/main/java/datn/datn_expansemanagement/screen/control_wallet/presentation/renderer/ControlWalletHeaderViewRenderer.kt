@@ -26,8 +26,16 @@ class ControlWalletHeaderViewRenderer (context: Context): ViewRenderer<ControlWa
             override fun afterTextChanged(s: Editable?) {
                 viewRoot.edtMoney.removeTextChangedListener(this)
                 if(!viewRoot.edtMoney.text.isNullOrEmpty()){
-                    viewRoot.edtMoney.setText(Utils.customFormatMoney(s.toString()))
-                    model.price = convertMoneyToDouble(s.toString()).toDouble()
+                    if(model.isOtherWallet){
+                        var result = convertMoneyToDouble(s.toString()).toDouble()
+                        if(result > model.maxPrice){
+                            result = model.maxPrice
+                        }
+                        model.price = result
+                    }else{
+                        model.price = convertMoneyToDouble(s.toString()).toDouble()
+                    }
+                    viewRoot.edtMoney.setText(Utils.formatMoney(model.price))
                     viewRoot.edtMoney.setSelection(viewRoot.edtMoney.text.toString().length)
                 }
                 viewRoot.edtMoney.addTextChangedListener(this)

@@ -43,16 +43,16 @@ class ItemCategoryMapper(private val typeExpense: String, private val categoryId
 //                    "Collect money"->{}
 //                    "Borrow"->{}
 //                }
-                if (/*it.typeExpense.trim().toLowerCase() == typeExpense.trim().toLowerCase() && */it.id != 1) {
-                    list.add(
-                        ItemTypeCategoryViewModel(
-                            id = it.id.getValueOrDefaultIsZero(),
-                            name = it.nameType.getValueOrDefaultIsEmpty(),
-                            imgUrl = it.imageType.getValueOrDefaultIsEmpty(),
-                            listItem = listItem
-                        )
-                    )
-                }
+//                if (/*it.typeExpense.trim().toLowerCase() == typeExpense.trim().toLowerCase()*/) {
+//                    list.add(
+//                        ItemTypeCategoryViewModel(
+//                            id = it.id.getValueOrDefaultIsZero(),
+//                            name = it.nameType.getValueOrDefaultIsEmpty(),
+//                            imgUrl = it.imageType.getValueOrDefaultIsEmpty(),
+//                            listItem = listItem
+//                        )
+//                    )
+//                }
             }
         }
         return list

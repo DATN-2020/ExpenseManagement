@@ -10,7 +10,7 @@ interface GetDataService {
     @GET("typecategories")
     fun getTypeCategory(): Call<List<TypeCategoryResponse>>
 
-    @GET("GetWallets/5")
+    @GET("wallets/5")
     fun getWalletForUser(@Query("id") userId: Int): Call<WalletResponse>
 
     @GET("wallets")
