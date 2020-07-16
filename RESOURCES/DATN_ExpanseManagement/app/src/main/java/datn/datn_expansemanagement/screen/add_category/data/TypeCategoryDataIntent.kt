@@ -6,5 +6,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 class TypeCategoryDataIntent(
-    var id: Int
+    var id: Int,
+    var name: String? = null
 ) : ViewModel, Parcelable

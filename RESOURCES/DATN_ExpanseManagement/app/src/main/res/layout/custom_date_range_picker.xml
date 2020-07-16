@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/spacing_20dp">
+
+    <com.archit.calendardaterangepicker.customviews.DateRangeCalendarView
+        android:id="@+id/datePicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        custom:range_color="@color/text_bottom_color_grey"
+        custom:selected_date_circle_color="@color/text_orange" />
+
+    <View
+        android:id="@+id/vDividerHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider_grey_20p"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/datePicker" />
+
+    <ImageView
+        android:id="@+id/ivCheckInDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_20dp"
+        android:src="@drawable/icon_dayin_line_orange"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vDividerHorizontal" />
+
+    <TextView
+        android:id="@+id/tvCheckInDate"
+        style="@style/StyleTextView.Medium.Black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_6dp"
+        android:layout_marginTop="@dimen/spacing_20dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/vDividerVertical"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@id/ivCheckInDate"
+        app:layout_constraintTop_toBottomOf="@id/vDividerHorizontal"
+        tools:text="Thứ hai, 14/09/2019" />
+
+    <ImageView
+        android:id="@+id/ivCheckOutDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_10dp"
+        android:src="@drawable/icon_dayout_line_orange"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivCheckInDate" />
+
+    <TextView
+        android:id="@+id/tvCheckOutDate"
+        style="@style/StyleTextView.Medium.Black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_6dp"
+        android:layout_marginTop="@dimen/spacing_10dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/vDividerVertical"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@id/ivCheckOutDate"
+        app:layout_constraintTop_toBottomOf="@id/tvCheckInDate"
+        tools:text="Thứ bảy, 19/09/2019" />
+
+    <View
+        android:id="@+id/vDividerVertical"
+        android:layout_width="1dp"
+        android:layout_height="40dp"
+        android:background="@color/divider_grey_20p"
+        app:layout_constraintBottom_toTopOf="@id/frNextStep"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vDividerHorizontal" />
+
+    <FrameLayout
+        android:id="@+id/frNextStep"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_20dp"
+        android:layout_marginTop="@dimen/spacing_20dp"
+        android:layout_marginEnd="@dimen/spacing_20dp"
+        android:background="@drawable/bg_corner_blue_facebook"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCheckOutDate">
+
+        <TextView
+            android:background="?attr/selectableItemBackground"
+            android:id="@+id/btnSave"
+            style="@style/StyleTextView.Medium.White"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/roboto_regular"
+            android:gravity="center"
+            android:paddingTop="@dimen/spacing_10dp"
+            android:paddingBottom="@dimen/spacing_10dp"
+            android:text="Xác nhận" />
+
+    </FrameLayout>
+
+    <TextView
+        style="@style/StyleTextView.Medium"
+        android:id="@+id/tvTotalDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_orange"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/frNextStep"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintStart_toEndOf="@id/vDividerVertical"
+        app:layout_constraintTop_toBottomOf="@id/vDividerHorizontal"
+        tools:text="6 ngay" />
+</androidx.constraintlayout.widget.ConstraintLayout>

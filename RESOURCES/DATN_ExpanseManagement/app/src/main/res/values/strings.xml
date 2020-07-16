@@ -8,6 +8,17 @@
     <string name="text_total_money">Tổng tiền:</string>
     <string name="text_wallet_money">Ví cơ bản</string>
     <string name="text_accumulation">Tích lũy</string>
+    <string name="text_monday">Monday</string>
+    <string name="text_tuesday">Tuesday</string>
+    <string name="text_wednesday">Wednesday</string>
+    <string name="text_thursday">Thursday</string>
+    <string name="text_friday">Friday</string>
+    <string name="text_saturday">Saturday</string>
+    <string name="text_sunday">Sunday</string>
+    <string name="text_total_date">%d days</string>
+    <string name="text_date_checkin">Check In Date</string>
+    <string name="text_date_checkout">Check Out Date</string>
+    <string name="text_date_check_format">%1$s, %2$s</string>
     <string name="text_card">Ví tiết kiệm</string>
     <string name="text_control">Điều chỉnh số dư</string>
     <string name="text_delete">Xóa</string>

@@ -38,21 +38,56 @@ class ItemCategoryMapper(private val typeExpense: String, private val categoryId
 
                     }
                 }
-//                when(it.typeExpense.trim().toLowerCase()){
-//                    "Spend money"->{}
-//                    "Collect money"->{}
-//                    "Borrow"->{}
-//                }
+                when (it.typeExpense.trim().toLowerCase()) {
+                    "donate" -> {
+                        if (typeExpense.trim() == "Chi tiền") {
+                            list.add(
+                                ItemTypeCategoryViewModel(
+                                    id = it.id.getValueOrDefaultIsZero(),
+                                    name = it.nameType.getValueOrDefaultIsEmpty(),
+                                    imgUrl = it.imageType.getValueOrDefaultIsEmpty(),
+                                    listItem = listItem
+                                )
+                            )
+                        }
+                    }
+                    "receive" -> {
+                        if (typeExpense.trim() == "Thu tiền") {
+                            list.add(
+                                ItemTypeCategoryViewModel(
+                                    id = it.id.getValueOrDefaultIsZero(),
+                                    name = it.nameType.getValueOrDefaultIsEmpty(),
+                                    imgUrl = it.imageType.getValueOrDefaultIsEmpty(),
+                                    listItem = listItem
+                                )
+                            )
+                        }
+                    }
+                    "loan" -> {
+                        if (typeExpense.trim() == "Vay nợ") {
+                            list.add(
+                                ItemTypeCategoryViewModel(
+                                    id = it.id.getValueOrDefaultIsZero(),
+                                    name = it.nameType.getValueOrDefaultIsEmpty(),
+                                    imgUrl = it.imageType.getValueOrDefaultIsEmpty(),
+                                    listItem = listItem
+                                )
+                            )
+                        }
+                    }
+                    else -> {
+                        list.add(
+                            ItemTypeCategoryViewModel(
+                                id = it.id.getValueOrDefaultIsZero(),
+                                name = it.nameType.getValueOrDefaultIsEmpty(),
+                                imgUrl = it.imageType.getValueOrDefaultIsEmpty(),
+                                listItem = listItem
+                            )
+                        )
+                    }
+                }
 //                if (/*it.typeExpense.trim().toLowerCase() == typeExpense.trim().toLowerCase()*/) {
-//                    list.add(
-//                        ItemTypeCategoryViewModel(
-//                            id = it.id.getValueOrDefaultIsZero(),
-//                            name = it.nameType.getValueOrDefaultIsEmpty(),
-//                            imgUrl = it.imageType.getValueOrDefaultIsEmpty(),
-//                            listItem = listItem
-//                        )
-//                    )
-//                }
+
             }
         }
         return list

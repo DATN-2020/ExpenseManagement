@@ -19,7 +19,7 @@ private val onChooseTime: OnActionData<AddPlanDateViewModel>) : ViewRenderer<Add
 
     override fun bindView(model: AddPlanDateViewModel, viewRoot: View) {
         viewRoot.edtName.text = model.date
-        viewRoot.edtName.hint = "Chọn thời gian áp dụng"
+        viewRoot.edtName.hint = "Chọn thời gian lặp lại"
         viewRoot.clTypeWallet.setOnClickListener{
             EventFireUtil.fireEvent(onChooseTime, model)
         }

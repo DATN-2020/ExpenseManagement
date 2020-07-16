@@ -5,7 +5,7 @@ import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 class TimeItemViewModel(
     var id: Int,
     var name: String,
-    var value: String,
+    var value: String? = null,
     var isChoose: Boolean = false,
     var isLast: Boolean = false
 ) : ViewModel

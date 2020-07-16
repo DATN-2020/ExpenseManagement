@@ -18,7 +18,8 @@ import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 
 class TypeCategoryItemViewRenderer(
     private val mvpActivity: MvpActivity,
-    private val onActionData: OnActionData<ViewModel>
+    private val onActionData: OnActionData<ViewModel>,
+    private val onActionShow: OnActionData<ItemTypeCategoryViewModel>
 ) : ViewRenderer<ItemTypeCategoryViewModel>(mvpActivity) {
     override fun getLayoutId(): Int {
         return R.layout.item_category
@@ -68,6 +69,10 @@ class TypeCategoryItemViewRenderer(
                 R.drawable.ic_keyboard_arrow_up_blue_24dp
             )
             listViewMvp.notifyDataChanged()
+        }
+
+        viewRoot.imgShowChild.setOnClickListener {
+            EventFireUtil.fireEvent(onActionShow, model)
         }
     }
 

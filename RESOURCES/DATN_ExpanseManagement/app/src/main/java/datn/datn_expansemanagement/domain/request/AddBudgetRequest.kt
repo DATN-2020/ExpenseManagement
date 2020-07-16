@@ -6,9 +6,9 @@ data class AddBudgetRequest(
     @SerializedName("Amount_Budget")
     var amountBudget: Int,
     @SerializedName("Id_Cate")
-    var idCate: Int,
+    var idCate: Int? = null,
     @SerializedName("Id_Type")
-    var idType: Int,
+    var idType: Int? = null,
     @SerializedName("Id_Wallet")
     var idWallet: Int,
     @SerializedName("time_e")

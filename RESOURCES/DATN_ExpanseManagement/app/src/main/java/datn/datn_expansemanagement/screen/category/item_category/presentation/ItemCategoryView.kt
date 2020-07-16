@@ -18,6 +18,7 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.Linea
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.OnItemRvClickedListener
 import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
+import datn.datn_expansemanagement.screen.add_category.data.TypeCategoryDataIntent
 import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
 import datn.datn_expansemanagement.screen.add_expanse.presentation.model.AddExpenseViewModel
 import datn.datn_expansemanagement.screen.category.item_category.presentation.model.CategoryItemViewModel
@@ -52,9 +53,31 @@ class ItemCategoryView(
     private val onItemRvClickedListener = object : OnItemRvClickedListener<ViewModel> {
         override fun onItemClicked(view: View, position: Int, dataItem: ViewModel) {
             dataItem as ItemTypeCategoryViewModel
-            dataItem.isShowChill = !dataItem.isShowChill
+            if(isPlan == true){
+                val intent = Intent()
+                val typeIntent = TypeCategoryDataIntent(id = dataItem.id.getValueOrDefaultIsZero(), name = dataItem.name.getValueOrDefaultIsEmpty())
+                intent.putExtra("isType", true)
+                intent.putExtra(TypeCategoryDataIntent::class.java.simpleName, typeIntent)
+                mvpActivity.setResult(Activity.RESULT_OK, intent)
+                mvpActivity.finish()
+            }else{
+                val model = AddExpenseViewModel.Info.Category(
+                    id = dataItem.id.getValueOrDefaultIsZero(),
+                    name = dataItem.name.getValueOrDefaultIsEmpty()
+                )
+                AddExpenseFragment.model.category = model
+                mvpActivity.setResult(Activity.RESULT_OK)
+                mvpActivity.finish()
+            }
+        }
+    }
+
+    private val onActionShow = object : OnActionData<ItemTypeCategoryViewModel>{
+        override fun onAction(data: ItemTypeCategoryViewModel) {
+            data.isShowChill = !data.isShowChill
             listViewMvp?.notifyDataChanged()
         }
+
     }
 
     private val onChooseChild = object : OnActionData<ViewModel> {
@@ -63,6 +86,7 @@ class ItemCategoryView(
             if(isPlan == true){
                 val intent = Intent()
                 intent.putExtra(CategoryItemViewModel::class.java.simpleName, data)
+                intent.putExtra("isType", false)
                 mvpActivity.setResult(Activity.RESULT_OK, intent)
                 mvpActivity.finish()
             }else{
@@ -104,7 +128,7 @@ class ItemCategoryView(
 
     private fun initRecycleView() {
         listViewMvp = ListViewMvp(mvpActivity, view.rvCategory, renderConfig)
-        listViewMvp?.addViewRenderer(TypeCategoryItemViewRenderer(mvpActivity, onChooseChild))
+        listViewMvp?.addViewRenderer(TypeCategoryItemViewRenderer(mvpActivity, onChooseChild, onActionShow))
         listViewMvp?.setOnItemRvClickedListener(onItemRvClickedListener)
         listViewMvp?.createView()
     }

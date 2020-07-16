@@ -1,19 +1,20 @@
 package datn.datn_expansemanagement.screen.add_plan.presentation
 
+import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.archit.calendardaterangepicker.customviews.DateRangeCalendarView
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
 import datn.datn_expansemanagement.core.app.change_screen.Request
-import datn.datn_expansemanagement.core.app.util.Utils
+import datn.datn_expansemanagement.core.app.util.DateTimeFormat
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
-import datn.datn_expansemanagement.core.base.domain.listener.OnActionNotify
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.lifecycle.ViewResult
@@ -21,24 +22,22 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.Linea
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.OnItemRvClickedListener
 import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
-import datn.datn_expansemanagement.screen.add_plan.presentation.model.AddPlanCategoryViewModel
-import datn.datn_expansemanagement.screen.add_plan.presentation.model.AddPlanDateViewModel
-import datn.datn_expansemanagement.screen.add_plan.presentation.model.AddPlanPriceViewModel
-import datn.datn_expansemanagement.screen.add_plan.presentation.model.AddPlanWalletViewModel
+import datn.datn_expansemanagement.screen.add_category.data.TypeCategoryDataIntent
+import datn.datn_expansemanagement.screen.add_plan.presentation.model.*
 import datn.datn_expansemanagement.screen.add_plan.presentation.renderer.*
 import datn.datn_expansemanagement.screen.category.item_category.presentation.model.CategoryItemViewModel
 import datn.datn_expansemanagement.screen.main_plan.presentation.model.PlanItemViewModel
-import datn.datn_expansemanagement.screen.plan_detail.buget.presentation.BudgetView
-import datn.datn_expansemanagement.screen.plan_detail.presentation.model.TypeAddViewModel
 import datn.datn_expansemanagement.screen.report.presentation.model.GetWalletItemViewModel
 import datn.datn_expansemanagement.screen.report.presentation.renderer.GetWalletItemViewRenderer
 import kotlinx.android.synthetic.main.custom_bottomsheet_recycleview.*
+import kotlinx.android.synthetic.main.custom_date_range_picker.*
+import kotlinx.android.synthetic.main.custom_date_range_picker.view.*
 import kotlinx.android.synthetic.main.layout_add_plan.view.*
 import kotlinx.android.synthetic.main.layout_toolbar_add_category.view.*
-import kotlinx.android.synthetic.main.layout_toolbar_add_category.view.imgBack
-import kotlinx.android.synthetic.main.layout_toolbar_add_category.view.tvToolbar
-import kotlinx.android.synthetic.main.toolbar_plan_detail.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 class AddPlanView(
     mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator,
@@ -49,7 +48,8 @@ class AddPlanView(
         AndroidMvpView.LayoutViewCreator(R.layout.layout_add_plan, context, viewGroup)
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
-    private val mPresenter = AddPlanPresenter(AndroidScreenNavigator(mvpActivity), mvpActivity = mvpActivity)
+    private val mPresenter =
+        AddPlanPresenter(AndroidScreenNavigator(mvpActivity), mvpActivity = mvpActivity)
     private val listData = mutableListOf<ViewModel>()
     private var listViewMvp: ListViewMvp? = null
     private val renderInput = LinearRenderConfigFactory.Input(
@@ -69,17 +69,85 @@ class AddPlanView(
     private val customView = LayoutInflater.from(mvpActivity)
         .inflate(R.layout.custom_bottomsheet_recycleview, null, false)
     private val bottomSheet = BottomSheetDialog(mvpActivity)
+    private val resourceProvider = AddPlanResource()
+
+    private val viewTimePicker = LayoutInflater.from(mvpActivity)
+        .inflate(R.layout.custom_date_range_picker, null, false)
+    private val datePicker =
+        AlertDialog.Builder(mvpActivity).setView(viewTimePicker).create()
 
     private val onChooseTime = object : OnActionData<AddPlanDateViewModel> {
         override fun onAction(data: AddPlanDateViewModel) {
             mPresenter.getTime()
             bottomSheet.show()
-            bottomSheet.tvTitle.text = "Thời gian áp dụng"
+            bottomSheet.tvTitle.text = "Chọn thời gian lặp lại"
         }
 
     }
 
+    private fun initDatePicker() {
+        viewTimePicker.datePicker.setCalendarListener(object : DateRangeCalendarView.CalendarListener {
+            override fun onDateRangeSelected(startDate: Calendar?, endDate: Calendar?) {
+                startDate?.let {
+                    val dayInWeek = startDate.get(Calendar.DAY_OF_WEEK)
+                    val day = resourceProvider.getDay(dayInWeek)
+                    val date =
+                        SimpleDateFormat(DateTimeFormat.DDMMYYYY.format).format(startDate.time)
+                    viewTimePicker.tvCheckInDate.text = resourceProvider.getDateCheckFormat(day, date)
+                }
+
+                endDate?.let {
+                    val dayInWeek = endDate.get(Calendar.DAY_OF_WEEK)
+                    val day = resourceProvider.getDay(dayInWeek)
+                    val date = SimpleDateFormat(DateTimeFormat.DDMMYYYY.format).format(endDate.time)
+                    viewTimePicker.tvCheckOutDate.text = resourceProvider.getDateCheckFormat(day, date)
+                }
+
+                if (startDate != null && endDate != null) {
+                    val msDiff = endDate.timeInMillis - startDate.timeInMillis
+                    val dayDiff = TimeUnit.MILLISECONDS.toDays(msDiff)
+                    viewTimePicker.tvTotalDate.text = resourceProvider.getDateTotal(dayDiff.toInt() + 1)
+                    listData.forEach {
+                        if(it is AddPlanChooseDateViewModel){
+                            it.startDate = getDate(viewTimePicker.tvCheckInDate.text.toString())
+                            it.endDate = getDate(viewTimePicker.tvCheckOutDate.text.toString())
+                        }
+                    }
+                }
+            }
+
+            override fun onFirstDateSelected(startDate: Calendar?) {
+                startDate?.let {
+                    val dayInWeek = startDate.get(Calendar.DAY_OF_WEEK)
+                    val day = resourceProvider.getDay(dayInWeek)
+                    val date =
+                        SimpleDateFormat(DateTimeFormat.DDMMYYYY.format).format(startDate.time)
+                    viewTimePicker.tvCheckInDate.text = resourceProvider.getDateCheckFormat(day, date)
+                }
+
+                viewTimePicker.tvCheckOutDate.text = resourceProvider.getDateCheckOut()
+            }
+        })
+
+        viewTimePicker.btnSave.setOnClickListener {
+            datePicker.dismiss()
+            listViewMvp?.notifyDataChanged()
+        }
+    }
+
+    fun getDate(date: String): String{
+        val result = date.split(',')
+        return result.last().trim()
+    }
+
+    private val onChooseDate = object : OnActionData<AddPlanChooseDateViewModel> {
+        override fun onAction(data: AddPlanChooseDateViewModel) {
+            datePicker.show()
+        }
+    }
+
     override fun initCreateView() {
+        initDatePicker()
         initRecycleView()
         mvpActivity.setFullScreen()
         when (typeAdd?.type) {
@@ -99,6 +167,9 @@ class AddPlanView(
         }
         view.imgSave.setOnClickListener {
             var isSuccess = true
+            var price = 0.0
+            var idCate = 0
+
             listData.forEach {
                 when (it) {
                     is AddPlanCategoryViewModel -> {
@@ -133,6 +204,9 @@ class AddPlanView(
             }
 
             if (isSuccess) {
+//                val request = AddBudgetRequest(
+//                    amountBudget =
+//                )
                 mvpActivity.onBackPressed()
             }
         }
@@ -189,9 +263,9 @@ class AddPlanView(
 
     private val onItemClick = object : OnItemRvClickedListener<ViewModel> {
         override fun onItemClicked(view: View, position: Int, dataItem: ViewModel) {
-            if(dataItem is GetWalletItemViewModel){
+            if (dataItem is GetWalletItemViewModel) {
                 listData.forEach {
-                    if(it is AddPlanWalletViewModel){
+                    if (it is AddPlanWalletViewModel) {
                         it.id = dataItem.id
                         it.name = dataItem.name
                         listViewMvp?.notifyItemChanged(listData.indexOf(it))
@@ -199,20 +273,30 @@ class AddPlanView(
                         return
                     }
                 }
-
+            } else {
+                dataItem as TimeItemViewModel
+                listData.forEach {
+                    if (it is AddPlanDateViewModel) {
+                        it.id = dataItem.id
+                        it.date = dataItem.name
+                        listViewMvp?.notifyItemChanged(listData.indexOf(it))
+                        bottomSheet.dismiss()
+                        return
+                    }
+                }
             }
         }
 
     }
 
-    private val onChooseCategory = object : OnActionData<AddPlanCategoryViewModel>{
+    private val onChooseCategory = object : OnActionData<AddPlanCategoryViewModel> {
         override fun onAction(data: AddPlanCategoryViewModel) {
             mPresenter.gotoCategoryActivity(data.id)
         }
 
     }
 
-    private val onChooseWallet = object : OnActionData<AddPlanWalletViewModel>{
+    private val onChooseWallet = object : OnActionData<AddPlanWalletViewModel> {
         override fun onAction(data: AddPlanWalletViewModel) {
             mPresenter.getWalletForUser(data.id.getValueOrDefaultIsZero())
         }
@@ -231,18 +315,41 @@ class AddPlanView(
 
     override fun onViewResult(viewResult: ViewResult) {
         super.onViewResult(viewResult)
-        when(viewResult.requestCode){
+        when (viewResult.requestCode) {
             Request.REQUEST_CODE_CATEGORY -> {
-                val data = viewResult.data?.getParcelableExtra<CategoryItemViewModel>(CategoryItemViewModel::class.java.simpleName)
-                if(data != null){
-                    listData.forEach {
-                        if(it is AddPlanCategoryViewModel){
-                            it.id = data.id.getValueOrDefaultIsZero()
-                            it.name = data.name.getValueOrDefaultIsEmpty()
-                            listViewMvp?.notifyItemChanged(listData.indexOf(it))
+                val isType = viewResult.data?.getBooleanExtra("isType", false)
+                if (isType == true) {
+                    val data = viewResult.data.getParcelableExtra<TypeCategoryDataIntent>(
+                        TypeCategoryDataIntent::class.java.simpleName
+                    )
+
+                    if (data != null) {
+                        listData.forEach {
+                            if (it is AddPlanCategoryViewModel) {
+                                it.id = data.id.getValueOrDefaultIsZero()
+                                it.name = data.name.getValueOrDefaultIsEmpty()
+                                listViewMvp?.notifyItemChanged(listData.indexOf(it))
+                            }
+                        }
+                    }
+                } else {
+                    val data =
+                        viewResult.data?.getParcelableExtra<CategoryItemViewModel>(
+                            CategoryItemViewModel::class.java.simpleName
+                        )
+
+                    if (data != null) {
+                        listData.forEach {
+                            if (it is AddPlanCategoryViewModel) {
+                                it.id = data.id.getValueOrDefaultIsZero()
+                                it.name = data.name.getValueOrDefaultIsEmpty()
+                                listViewMvp?.notifyItemChanged(listData.indexOf(it))
+                            }
                         }
                     }
                 }
+
+
             }
         }
     }
@@ -252,6 +359,7 @@ class AddPlanView(
         listViewMvp?.addViewRenderer(AddPlanWalletViewRenderer(mvpActivity, onChooseWallet))
         listViewMvp?.addViewRenderer(AddPlanDateViewRenderer(mvpActivity, onChooseTime))
         listViewMvp?.addViewRenderer(AddPlanPriceViewRenderer(mvpActivity))
+        listViewMvp?.addViewRenderer(AddPlanChooseDateViewRenderer(mvpActivity, onChooseDate))
         listViewMvp?.addViewRenderer(AddPlanCategoryViewRenderer(mvpActivity, onChooseCategory))
         listViewMvp?.addViewRenderer(AddPlanDesViewRenderer(mvpActivity))
         listViewMvp?.createView()
