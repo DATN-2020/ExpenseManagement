@@ -10,11 +10,13 @@ import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
+import datn.datn_expansemanagement.kotlinex.view.gone
 import datn.datn_expansemanagement.screen.main_plan.presentation.model.PlanItemViewModel
 import datn.datn_expansemanagement.screen.main_plan.presentation.renderer.EmptyLineViewRenderer
 import datn.datn_expansemanagement.screen.main_plan.presentation.renderer.PlanDesItemViewRenderer
 import datn.datn_expansemanagement.screen.main_plan.presentation.renderer.PlanItemViewRenderer
 import kotlinx.android.synthetic.main.layout_overview.view.*
+import kotlinx.android.synthetic.main.toolbar_category.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 
 class OverviewView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator): AndroidMvpView(mvpActivity, viewCreator), OverviewContract.View{
@@ -36,6 +38,7 @@ class OverviewView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCr
     private val renderConfig = LinearRenderConfigFactory(renderInputProject).create()
     override fun initCreateView() {
         initRecycleView()
+        view.imgAdd.gone()
     }
 
     private val onAction = object :OnActionData<PlanItemViewModel>{

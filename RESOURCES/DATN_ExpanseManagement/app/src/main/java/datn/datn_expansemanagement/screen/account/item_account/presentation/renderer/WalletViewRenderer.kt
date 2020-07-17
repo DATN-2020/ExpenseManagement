@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.item_wallet.view.*
 class WalletViewRenderer(
     context: Context,
     private val onActionClickMore: OnActionData<WalletViewModel>,
-    private val onItemClick : OnActionData<WalletViewModel>
+    private val onItemClick: OnActionData<WalletViewModel>
 ) : ViewRenderer<WalletViewModel>(context) {
     override fun getLayoutId(): Int {
         return R.layout.item_wallet
@@ -25,7 +25,12 @@ class WalletViewRenderer(
     override fun bindView(model: WalletViewModel, viewRoot: View) {
         viewRoot.tvWallet.text = model.name
         val currentPrice = Utils.formatMoney(model.currentPrice)
-        viewRoot.tvCurrentPrice.text = "Còn lại : ".plus(currentPrice)
+        if (model.currentPrice >= 0) {
+            viewRoot.tvCurrentPrice.text = "Còn lại : ".plus(currentPrice)
+        } else {
+            viewRoot.tvCurrentPrice.text = "Nợ : ".plus(currentPrice)
+        }
+
         val money = Utils.formatMoney(model.money)
         viewRoot.tvMoney.text = money
 

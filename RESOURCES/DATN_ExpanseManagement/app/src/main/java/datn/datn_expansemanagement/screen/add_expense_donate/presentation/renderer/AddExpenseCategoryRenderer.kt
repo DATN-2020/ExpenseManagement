@@ -1,6 +1,8 @@
 package datn.datn_expansemanagement.screen.add_expense_donate.presentation.renderer
 
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.domain.excecutor.EventFireUtil
@@ -45,6 +47,19 @@ class AddExpenseCategoryRenderer(
             viewRoot.tvWallet.text = mResource.getTextWalletEmpty()
             viewRoot.tvWallet.setTextColor(mResource.getColorCategory())
         }
+
+        viewRoot.edtComment.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+                AddExpenseFragment.model.title = s.toString()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+        })
 
         if (!model.time.isNullOrEmpty()) {
             viewRoot.tvTime.text = model.time

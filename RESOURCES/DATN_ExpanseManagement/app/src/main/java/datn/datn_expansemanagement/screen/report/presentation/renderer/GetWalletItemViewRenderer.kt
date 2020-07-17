@@ -20,6 +20,7 @@ class GetWalletItemViewRenderer (context: Context): ViewRenderer<GetWalletItemVi
 
     override fun bindView(model: GetWalletItemViewModel, viewRoot: View) {
         viewRoot.tvWallet.text = model.name
+        viewRoot.tvCurrentPrice.text = "Còn lại: ${Utils.formatMoney(model.currentMoney)}"
         val money = Utils.formatMoney(model.money)
         viewRoot.tvMoney.text = money
         if(model.isChoose){

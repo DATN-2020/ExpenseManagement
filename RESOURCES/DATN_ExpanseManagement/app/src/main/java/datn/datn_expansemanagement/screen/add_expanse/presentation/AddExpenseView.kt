@@ -8,11 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
+import datn.datn_expansemanagement.core.app.util.Utils
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
@@ -26,7 +26,6 @@ import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.kotlinex.view.gone
 import datn.datn_expansemanagement.kotlinex.view.visible
 import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
-import datn.datn_expansemanagement.screen.add_expanse.data.AddDonateDataBus
 import datn.datn_expansemanagement.screen.add_expanse.data.TransactionDataBus
 import datn.datn_expansemanagement.screen.add_expanse.presentation.model.AddExpenseViewModel
 import datn.datn_expansemanagement.screen.add_expanse.presentation.renderer.AddExpenseRenderer
@@ -48,7 +47,10 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
     private val mPresenter =
-        AddExpensePresenter(screenNavigator = AndroidScreenNavigator(mvpActivity), mvpActivity = mvpActivity)
+        AddExpensePresenter(
+            screenNavigator = AndroidScreenNavigator(mvpActivity),
+            mvpActivity = mvpActivity
+        )
     private val mResource = AddExpenseResource()
     private val listData = mutableListOf<ViewModel>()
     private var listViewMvp: ListViewMvp? = null
@@ -100,7 +102,6 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
                     }
                 }
             }
-
             view.clBackground.gone()
             view.cvType.gone()
             isOpen = false
@@ -176,7 +177,7 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
         dialogRegister.btnCancel.setOnClickListener {
             dialogRegister.dismiss()
         }
-        if(!title.isNullOrEmpty()){
+        if (!title.isNullOrEmpty()) {
             dialogRegister.tvTitleChooseDate.text = title
         }
     }
@@ -216,57 +217,71 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
         }
     }
 
-    private fun checkDataRequest(){
+    private fun checkDataRequest() {
         mvpActivity.hideKeyboard()
-        if(AddExpenseFragment.model.totalMoney.getValueOrDefaultIsZero() == 0.0){
+        if (AddExpenseFragment.model.totalMoney.getValueOrDefaultIsZero() == 0.0) {
             showDialogNotify(title = "Bạn chưa nhập giá trị tiêu thụ")
             return
         }
 
-        if(typeIncome == 1 || typeIncome == 2){
+        if (typeIncome == 1 || typeIncome == 2) {
 
-            if(AddExpenseFragment.model.category == null){
+            if (AddExpenseFragment.model.category?.id == null) {
                 showDialogNotify(title = "Bạn chưa chọn hạng mục tiêu thụ")
                 return
             }
         }
 
-        if(AddExpenseFragment.model.wallet == null){
+        if (AddExpenseFragment.model.wallet == null) {
             showDialogNotify(title = "Bạn chưa chọn ví tài khoản cho chi tiêu này")
             return
         }
 
-        if(typeIncome == 3 || typeIncome == 4){
-            if(AddExpenseFragment.model.loaner == null){
+        if (typeIncome == 3 || typeIncome == 4) {
+            if (AddExpenseFragment.model.loaner == null) {
                 showDialogNotify(title = "Vui lòng điền đầy đủ thông tin")
                 return
             }
         }
 
-        if(AddExpenseFragment.model.date == null){
+        if (AddExpenseFragment.model.date == null) {
             AddExpenseFragment.model.date = getCurrentDate()
         }
 
-        if(AddExpenseFragment.model.time == null){
+        if (AddExpenseFragment.model.time == null) {
             AddExpenseFragment.model.time = getCurrentTime()
         }
 
-        if(AddExpenseFragment.model.title == null){
+        if (AddExpenseFragment.model.title.isNullOrEmpty()) {
             AddExpenseFragment.model.title = "Không có mô tả cho chi tiêu này"
         }
 
-        val request = InOutComeRequest(
-            loanIdLoan = AddExpenseFragment.model.loaner?.id.getValueOrDefaultIsZero(),
-            amount = AddExpenseFragment.model.totalMoney.getValueOrDefaultIsZero(),
-            categogyIdCate = AddExpenseFragment.model.category?.id.getValueOrDefaultIsZero(),
-            dateCome = AddExpenseFragment.model.date.getValueOrDefaultIsEmpty(),
-            descriptionCome = AddExpenseFragment.model.title.getValueOrDefaultIsEmpty(),
-            isCome = typeIncome.getValueOrDefaultIsZero(),
-            tripIdTrip = AddExpenseFragment.model.trip?.id.getValueOrDefaultIsZero(),
-            walletIdWallet = AddExpenseFragment.model.wallet?.id.getValueOrDefaultIsZero()
-        )
-
-        mPresenter.createExpense(request)
+        if(AddExpenseFragment.model.idBudget == null){
+            val request = InOutComeRequest(
+                loanIdLoan = if(AddExpenseFragment.model.loaner?.id != null) AddExpenseFragment.model.loaner?.id.toString() else null,
+                amount = AddExpenseFragment.model.totalMoney.getValueOrDefaultIsZero(),
+                categoryIdCate = AddExpenseFragment.model.category?.id.getValueOrDefaultIsZero().toString(),
+                dateCome = AddExpenseFragment.model.date.getValueOrDefaultIsEmpty(),
+                descriptionCome = AddExpenseFragment.model.title.getValueOrDefaultIsEmpty(),
+                idType = typeIncome.getValueOrDefaultIsZero().toString(),
+                tripIdTrip = if(AddExpenseFragment.model.trip?.id != null) AddExpenseFragment.model.trip?.id.toString() else null,
+                walletIdWallet = AddExpenseFragment.model.wallet?.id.getValueOrDefaultIsZero().toString()
+            )
+            mPresenter.createExpense(request)
+        }else{
+            val request = InOutComeRequest(
+                loanIdLoan = if(AddExpenseFragment.model.loaner?.id != null) AddExpenseFragment.model.loaner?.id.toString() else null,
+                amount = AddExpenseFragment.model.totalMoney.getValueOrDefaultIsZero(),
+                categoryIdCate = AddExpenseFragment.model.category?.id.getValueOrDefaultIsZero().toString(),
+                dateCome = Utils.convertDateFormat(AddExpenseFragment.model.date.getValueOrDefaultIsEmpty(), SimpleDateFormat("dd/MM/yyyy"), SimpleDateFormat("yyyy-MM-dd")),
+                descriptionCome = AddExpenseFragment.model.title.getValueOrDefaultIsEmpty(),
+                idType = typeIncome.getValueOrDefaultIsZero().toString(),
+                idBudget = AddExpenseFragment.model.idBudget.getValueOrDefaultIsZero().toString(),
+                tripIdTrip = if(AddExpenseFragment.model.trip?.id != null) AddExpenseFragment.model.trip?.id.toString() else null,
+                walletIdWallet = AddExpenseFragment.model.wallet?.id.getValueOrDefaultIsZero().toString()
+            )
+            mPresenter.createExpense(request)
+        }
     }
 
     private fun getCurrentDate(): String {

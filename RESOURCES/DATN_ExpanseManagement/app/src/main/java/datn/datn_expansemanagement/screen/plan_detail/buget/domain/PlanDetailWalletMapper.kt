@@ -18,6 +18,7 @@ class PlanDetailWalletMapper(private val idWallet: Int? = null) : Mapper<WalletR
                             id = it.idWallet.getValueOrDefaultIsZero(),
                             name = it.nameWallet.getValueOrDefaultIsEmpty(),
                             money = it.amountWallet.getValueOrDefaultIsZero(),
+                            currentMoney = it.amountNow.getValueOrDefaultIsZero(),
                             isChoose = true
                         )
                     )
@@ -26,7 +27,8 @@ class PlanDetailWalletMapper(private val idWallet: Int? = null) : Mapper<WalletR
                         GetWalletItemViewModel(
                             id = it.idWallet.getValueOrDefaultIsZero(),
                             name = it.nameWallet.getValueOrDefaultIsEmpty(),
-                            money = it.amountWallet.getValueOrDefaultIsZero()
+                            money = it.amountWallet.getValueOrDefaultIsZero(),
+                            currentMoney = it.amountNow.getValueOrDefaultIsZero()
                         )
                     )
                 }

@@ -5,20 +5,24 @@ import com.google.gson.annotations.SerializedName
 data class InOutComeRequest(
     @SerializedName("Amount")
     val amount: Double,
-    @SerializedName("CategogyId_Cate")
-    val categogyIdCate: Int,
+    @SerializedName("CategoryId_Cate")
+    val categoryIdCate: String? = null,
     @SerializedName("Date_come")
     val dateCome: String,
     @SerializedName("Description_come")
     val descriptionCome: String,
-    @SerializedName("Is_come")
-    val isCome: Int,
+    @SerializedName("Id_Bill")
+    val idBill: String? = null,
+    @SerializedName("Id_Budget")
+    val idBudget: String? = null,
+    @SerializedName("Id_Per")
+    val idPer: String? = null,
+    @SerializedName("Id_type")
+    val idType: String? = null,
     @SerializedName("LoanId_Loan")
-    val loanIdLoan: Int,
-    @SerializedName("TripId_Trip")
-    val tripIdTrip: Int,
-    @SerializedName("TypeCategoryId")
-    val typeCategoryId: Int?= 0,
+    val loanIdLoan: String? = null,
+    @SerializedName("TripId_Trip ")
+    val tripIdTrip: String? = null,
     @SerializedName("WalletId_Wallet")
-    val walletIdWallet: Int
+    val walletIdWallet: String
 )

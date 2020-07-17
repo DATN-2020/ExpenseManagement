@@ -55,6 +55,7 @@ private val tabId: TabItemViewModel?, private val idWallet: Int): AndroidMvpView
     }
 
     override fun startMvpView() {
+        tabId?.let { mPresenter.getData(it, idWallet) }
         mPresenter.attachView(this)
         super.startMvpView()
     }

@@ -266,6 +266,7 @@ class AddExpenseDonateView(
                 if (it is AddExpenseBudgetViewModel) {
                     it.id = dataItem.id
                     it.name = dataItem.name
+                    AddExpenseFragment.model.idBudget = dataItem.id
                     listViewMvp?.notifyItemChanged(listData.indexOf(it))
                     bottomSheet.dismiss()
                 }

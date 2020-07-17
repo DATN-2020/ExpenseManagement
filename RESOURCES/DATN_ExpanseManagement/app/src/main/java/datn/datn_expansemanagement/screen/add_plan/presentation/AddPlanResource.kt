@@ -8,6 +8,10 @@ class AddPlanResource : AndroidResourceProvider(){
         return String.format(resourceManager.getString(R.string.text_date_check_format),firstParams,secondParams)
     }
 
+    fun getColorStatusBar(): Int {
+        return resourceManager.getColor(R.color.color_status_bar_opacity)
+    }
+
     fun getDay(dayInWeek: Int): String{
         return when(dayInWeek){
             1 -> resourceManager.getString(R.string.text_sunday)
