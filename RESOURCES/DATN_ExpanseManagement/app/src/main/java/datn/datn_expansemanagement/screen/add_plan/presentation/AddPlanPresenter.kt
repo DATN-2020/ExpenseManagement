@@ -6,6 +6,8 @@ import datn.datn_expansemanagement.core.app.config.ConfigUtil
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.domain.GetDataService
 import datn.datn_expansemanagement.domain.RetrofitClientInstance
+import datn.datn_expansemanagement.domain.request.AddBudgetRequest
+import datn.datn_expansemanagement.domain.response.BaseResponse
 import datn.datn_expansemanagement.domain.response.TimePeriodicResponse
 import datn.datn_expansemanagement.domain.response.WalletResponse
 import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
@@ -58,6 +60,26 @@ class AddPlanPresenter(
 
         })
 
+    }
+
+    override fun addBudget(request: AddBudgetRequest) {
+        view?.showLoading()
+        val call = service?.addBudget(request)
+        call?.enqueue(object : Callback<BaseResponse> {
+            override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
+                Toast.makeText(mvpActivity, t.message, Toast.LENGTH_LONG).show()
+                view?.hideLoading()
+            }
+
+            override fun onResponse(
+                call: Call<BaseResponse>,
+                response: Response<BaseResponse>
+            ) {
+                view?.handleAfterAddBudget()
+                view?.hideLoading()
+            }
+
+        })
     }
 
     override fun gotoCategoryActivity(id: Int?) {

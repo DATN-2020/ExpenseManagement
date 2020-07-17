@@ -9,6 +9,7 @@ interface AddExpenseDonateContract {
         fun showLoading()
         fun hideLoading()
         fun showData(list: MutableList<ViewModel>)
+        fun showBottomData(list: MutableList<ViewModel>)
     }
 
     abstract class Presenter : MvpPresenter<View>() {
@@ -18,5 +19,6 @@ interface AddExpenseDonateContract {
         abstract fun gotoChooseTripActivity()
         abstract fun gotoChooseFriend()
         abstract fun gotoLocationActivity()
+        abstract fun getListBudget(idWallet: Int)
     }
 }

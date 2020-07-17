@@ -14,6 +14,7 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.Linea
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.OnItemRvClickedListener
 import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
+import datn.datn_expansemanagement.kotlinex.view.gone
 import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
 import datn.datn_expansemanagement.screen.add_expanse.presentation.model.AddExpenseViewModel
 import datn.datn_expansemanagement.screen.list_wallet.presentation.model.ListWalletItemViewModel
@@ -33,7 +34,7 @@ class ListWalletView(
 
 
     private val mResource = ListWalletResource()
-    private val mPresenter = ListWalletPresenter()
+    private val mPresenter = ListWalletPresenter(mvpActivity)
     private val listData = mutableListOf<ViewModel>()
     private var listViewMvp: ListViewMvp? = null
     private val renderInput = LinearRenderConfigFactory.Input(
@@ -75,9 +76,7 @@ class ListWalletView(
             }
             mvpActivity.finish()
         }
-        view.imgAdd.setOnClickListener {
-            mPresenter.gotoCreateWalletActivity()
-        }
+        view.imgAdd.gone()
     }
 
     override fun showLoading() {

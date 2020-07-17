@@ -13,6 +13,7 @@ import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
 import datn.datn_expansemanagement.core.app.change_screen.Request
 import datn.datn_expansemanagement.core.app.util.DateTimeFormat
+import datn.datn_expansemanagement.core.app.util.Utils
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
@@ -20,9 +21,12 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivit
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.lifecycle.ViewResult
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.OnItemRvClickedListener
+import datn.datn_expansemanagement.domain.request.AddBudgetRequest
 import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.screen.add_category.data.TypeCategoryDataIntent
+import datn.datn_expansemanagement.screen.add_expense_donate.presentation.model.AddExpenseBudgetViewModel
+import datn.datn_expansemanagement.screen.add_expense_donate.presentation.renderer.AddExpenseBudgetViewRenderer
 import datn.datn_expansemanagement.screen.add_plan.presentation.model.*
 import datn.datn_expansemanagement.screen.add_plan.presentation.renderer.*
 import datn.datn_expansemanagement.screen.category.item_category.presentation.model.CategoryItemViewModel
@@ -30,7 +34,6 @@ import datn.datn_expansemanagement.screen.main_plan.presentation.model.PlanItemV
 import datn.datn_expansemanagement.screen.report.presentation.model.GetWalletItemViewModel
 import datn.datn_expansemanagement.screen.report.presentation.renderer.GetWalletItemViewRenderer
 import kotlinx.android.synthetic.main.custom_bottomsheet_recycleview.*
-import kotlinx.android.synthetic.main.custom_date_range_picker.*
 import kotlinx.android.synthetic.main.custom_date_range_picker.view.*
 import kotlinx.android.synthetic.main.layout_add_plan.view.*
 import kotlinx.android.synthetic.main.layout_toolbar_add_category.view.*
@@ -86,29 +89,33 @@ class AddPlanView(
     }
 
     private fun initDatePicker() {
-        viewTimePicker.datePicker.setCalendarListener(object : DateRangeCalendarView.CalendarListener {
+        viewTimePicker.datePicker.setCalendarListener(object :
+            DateRangeCalendarView.CalendarListener {
             override fun onDateRangeSelected(startDate: Calendar?, endDate: Calendar?) {
                 startDate?.let {
                     val dayInWeek = startDate.get(Calendar.DAY_OF_WEEK)
                     val day = resourceProvider.getDay(dayInWeek)
                     val date =
                         SimpleDateFormat(DateTimeFormat.DDMMYYYY.format).format(startDate.time)
-                    viewTimePicker.tvCheckInDate.text = resourceProvider.getDateCheckFormat(day, date)
+                    viewTimePicker.tvCheckInDate.text =
+                        resourceProvider.getDateCheckFormat(day, date)
                 }
 
                 endDate?.let {
                     val dayInWeek = endDate.get(Calendar.DAY_OF_WEEK)
                     val day = resourceProvider.getDay(dayInWeek)
                     val date = SimpleDateFormat(DateTimeFormat.DDMMYYYY.format).format(endDate.time)
-                    viewTimePicker.tvCheckOutDate.text = resourceProvider.getDateCheckFormat(day, date)
+                    viewTimePicker.tvCheckOutDate.text =
+                        resourceProvider.getDateCheckFormat(day, date)
                 }
 
                 if (startDate != null && endDate != null) {
                     val msDiff = endDate.timeInMillis - startDate.timeInMillis
                     val dayDiff = TimeUnit.MILLISECONDS.toDays(msDiff)
-                    viewTimePicker.tvTotalDate.text = resourceProvider.getDateTotal(dayDiff.toInt() + 1)
+                    viewTimePicker.tvTotalDate.text =
+                        resourceProvider.getDateTotal(dayDiff.toInt() + 1)
                     listData.forEach {
-                        if(it is AddPlanChooseDateViewModel){
+                        if (it is AddPlanChooseDateViewModel) {
                             it.startDate = getDate(viewTimePicker.tvCheckInDate.text.toString())
                             it.endDate = getDate(viewTimePicker.tvCheckOutDate.text.toString())
                         }
@@ -122,7 +129,8 @@ class AddPlanView(
                     val day = resourceProvider.getDay(dayInWeek)
                     val date =
                         SimpleDateFormat(DateTimeFormat.DDMMYYYY.format).format(startDate.time)
-                    viewTimePicker.tvCheckInDate.text = resourceProvider.getDateCheckFormat(day, date)
+                    viewTimePicker.tvCheckInDate.text =
+                        resourceProvider.getDateCheckFormat(day, date)
                 }
 
                 viewTimePicker.tvCheckOutDate.text = resourceProvider.getDateCheckOut()
@@ -135,7 +143,7 @@ class AddPlanView(
         }
     }
 
-    fun getDate(date: String): String{
+    fun getDate(date: String): String {
         val result = date.split(',')
         return result.last().trim()
     }
@@ -168,7 +176,12 @@ class AddPlanView(
         view.imgSave.setOnClickListener {
             var isSuccess = true
             var price = 0.0
-            var idCate = 0
+            var idTime : String? = null
+            var idWallet : Int? = null
+            var idCate: String? = null
+            var idTypeCate: String? = null
+            var startDate: String? = null
+            var endDate: String? = null
 
             listData.forEach {
                 when (it) {
@@ -177,13 +190,31 @@ class AddPlanView(
                             showError("Bạn chưa chọn loại áp dụng")
                             isSuccess = false
                             return@forEach
+                        } else {
+                            if (it.isType) {
+                                idTypeCate = it.id.toString()
+                            } else {
+                                idCate = it.id.toString()
+                            }
+                        }
+                    }
+                    is AddPlanChooseDateViewModel -> {
+                        if(it.startDate.isNullOrEmpty() && it.endDate.isNullOrEmpty()){
+                            showError("Bạn chưa chọn thời gian áp dụng")
+                            isSuccess = false
+                            return@forEach
+                        }else{
+                            startDate = it.startDate
+                            endDate = it.endDate
                         }
                     }
                     is AddPlanDateViewModel -> {
                         if (it.id == null) {
-                            showError("Bạn chưa chọn thời gian áp dụng")
+                            showError("Bạn chưa chọn thời gian lặp")
                             isSuccess = false
                             return@forEach
+                        }else{
+                            idTime = it.id.toString()
                         }
                     }
                     is AddPlanPriceViewModel -> {
@@ -191,6 +222,8 @@ class AddPlanView(
                             showError("Bạn chưa nhập mục tiêu áp dụng")
                             isSuccess = false
                             return@forEach
+                        }else{
+                            price = it.price.getValueOrDefaultIsZero()
                         }
                     }
                     is AddPlanWalletViewModel -> {
@@ -198,15 +231,28 @@ class AddPlanView(
                             showError("Bạn chưa chọn ví áp dụng")
                             isSuccess = false
                             return@forEach
+                        }else{
+                            idWallet = it.id
                         }
                     }
                 }
             }
 
             if (isSuccess) {
-//                val request = AddBudgetRequest(
-//                    amountBudget =
-//                )
+                when (typeAdd?.type) {
+                    PlanItemViewModel.Type.BUDGET -> {
+                        val request = AddBudgetRequest(
+                            amountBudget = price.getValueOrDefaultIsZero(),
+                            idWallet = idWallet.getValueOrDefaultIsZero().toString(),
+                            idCate = idCate,
+                            idType = idTypeCate,
+                            timeE = Utils.convertDateFormat(endDate.getValueOrDefaultIsEmpty(), SimpleDateFormat("dd/MM/yyyy"),SimpleDateFormat("yyyy-MM-dd")),
+                            timeS = Utils.convertDateFormat(startDate.getValueOrDefaultIsEmpty(), SimpleDateFormat("dd/MM/yyyy"),SimpleDateFormat("yyyy-MM-dd")),
+                            idTime = idTime.getValueOrDefaultIsEmpty()
+                        )
+                        mPresenter.addBudget(request = request)
+                    }
+                }
                 mvpActivity.onBackPressed()
             }
         }
@@ -313,6 +359,10 @@ class AddPlanView(
         bottomSheet.show()
     }
 
+    override fun handleAfterAddBudget() {
+
+    }
+
     override fun onViewResult(viewResult: ViewResult) {
         super.onViewResult(viewResult)
         when (viewResult.requestCode) {
@@ -328,6 +378,7 @@ class AddPlanView(
                             if (it is AddPlanCategoryViewModel) {
                                 it.id = data.id.getValueOrDefaultIsZero()
                                 it.name = data.name.getValueOrDefaultIsEmpty()
+                                it.isType = true
                                 listViewMvp?.notifyItemChanged(listData.indexOf(it))
                             }
                         }
@@ -343,6 +394,7 @@ class AddPlanView(
                             if (it is AddPlanCategoryViewModel) {
                                 it.id = data.id.getValueOrDefaultIsZero()
                                 it.name = data.name.getValueOrDefaultIsEmpty()
+                                it.isType = false
                                 listViewMvp?.notifyItemChanged(listData.indexOf(it))
                             }
                         }

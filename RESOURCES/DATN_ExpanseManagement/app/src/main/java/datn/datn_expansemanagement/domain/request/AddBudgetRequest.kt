@@ -4,15 +4,17 @@ import com.google.gson.annotations.SerializedName
 
 data class AddBudgetRequest(
     @SerializedName("Amount_Budget")
-    var amountBudget: Int,
+    val amountBudget: Double,
     @SerializedName("Id_Cate")
-    var idCate: Int? = null,
+    val idCate: String? = null,
     @SerializedName("Id_Type")
-    var idType: Int? = null,
+    val idType: String? = null,
     @SerializedName("Id_Wallet")
-    var idWallet: Int,
+    val idWallet: String,
     @SerializedName("time_e")
-    var timeE: String,
+    val timeE: String,
     @SerializedName("time_s")
-    var timeS: String
+    val timeS: String,
+    @SerializedName("id_Time")
+    val idTime: String
 )

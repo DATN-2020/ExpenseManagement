@@ -9,6 +9,10 @@ class AddExpenseDonateResource : AndroidResourceProvider(){
         return resourceManager.getDrawable(R.drawable.ic_keyboard_arrow_down_blue_24dp)
     }
 
+    fun getColorStatusBar(): Int {
+        return resourceManager.getColor(R.color.color_status_bar_opacity)
+    }
+
     fun getIconCollapse(): Drawable?{
         return resourceManager.getDrawable(R.drawable.ic_keyboard_arrow_up_blue_24dp)
     }

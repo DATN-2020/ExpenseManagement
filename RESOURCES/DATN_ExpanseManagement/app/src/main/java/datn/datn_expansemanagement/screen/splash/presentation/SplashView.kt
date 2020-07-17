@@ -14,6 +14,7 @@ import datn.datn_expansemanagement.core.app.config.ConfigUtil
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
+import datn.datn_expansemanagement.kotlinex.boolean.getValueOrDefault
 import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.screen.splash.data.PassportDataIntent
@@ -55,9 +56,11 @@ class SplashView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreat
                 mPresenter.gotoLoginActivity(
                     true,
                     PassportDataIntent(
-                        id = data.data.userId.getValueOrDefaultIsZero(),
-                        phone = data.data.userName.getValueOrDefaultIsEmpty(),
-                        name = data.data.fullName.getValueOrDefaultIsEmpty()
+                        userId = data.data.userId.getValueOrDefaultIsZero(),
+                        userName = data.data.userName.getValueOrDefaultIsEmpty(),
+                        fullName = data.data.fullName.getValueOrDefaultIsEmpty(),
+                        password = data.data.password.getValueOrDefaultIsEmpty(),
+                        checkWallet = data.data.checkWallet.getValueOrDefault()
                     )
                 )
             }

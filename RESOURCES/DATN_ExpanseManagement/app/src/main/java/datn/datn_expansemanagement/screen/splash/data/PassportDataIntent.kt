@@ -6,7 +6,9 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 class PassportDataIntent (
-    var id: Int,
-    var phone: String,
-    var name: String
+    val checkWallet: Boolean,
+    val fullName: String,
+    val password: String? = null,
+    val userId: Int,
+    val userName: String
 ): Parcelable, ViewModel

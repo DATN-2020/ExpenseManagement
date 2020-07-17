@@ -1,10 +1,17 @@
 package datn.datn_expansemanagement.screen.add_expense_donate.presentation
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
+import android.graphics.Color
+import android.os.Build
+import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
@@ -12,20 +19,30 @@ import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
+import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.OnItemRvClickedListener
 import datn.datn_expansemanagement.core.event.EventBusData
 import datn.datn_expansemanagement.core.event.EventBusLifeCycle
 import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
+import datn.datn_expansemanagement.screen.add_expense_donate.presentation.model.AddExpenseBudgetViewModel
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.model.AddExpenseCategoryViewModel
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.model.AddExpenseDonateInfoViewModel
+import datn.datn_expansemanagement.screen.add_expense_donate.presentation.renderer.AddExpenseBudgetViewRenderer
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.renderer.AddExpenseCategoryRenderer
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.renderer.AddExpenseDonateInfoRenderer
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.renderer.AddExpenseDonateTotalMoneyRenderer
+import datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentation.model.BudgetItemViewModel
+import datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentation.renderer.BudgetItemViewRenderer
+import datn.datn_expansemanagement.screen.plan_detail.presentation.PlanDetailResource
+import kotlinx.android.synthetic.main.custom_bottomsheet_recycleview.*
+import kotlinx.android.synthetic.main.custom_dialog_cancel_contact.*
 import kotlinx.android.synthetic.main.layout_add_expense_donate.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 import java.util.*
 
-class AddExpenseDonateView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator,
-private val isDonate: Boolean = false) :
+class AddExpenseDonateView(
+    mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator,
+    private val isDonate: Boolean = false
+) :
     AndroidMvpView(mvpActivity, viewCreator), AddExpenseDonateContract.View {
 
     class ViewCreator(context: Context, viewGroup: ViewGroup?) :
@@ -34,7 +51,10 @@ private val isDonate: Boolean = false) :
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
     private val mResource = AddExpenseDonateResource()
     private val mPresenter =
-        AddExpenseDonatePresenter(screenNavigator = AndroidScreenNavigator((mvpActivity)))
+        AddExpenseDonatePresenter(
+            screenNavigator = AndroidScreenNavigator((mvpActivity)),
+            mvpActivity = mvpActivity
+        )
     private val listData = mutableListOf<ViewModel>()
     private var listViewMvp: ListViewMvp? = null
     private val renderInput = LinearRenderConfigFactory.Input(
@@ -42,10 +62,61 @@ private val isDonate: Boolean = false) :
         orientation = LinearRenderConfigFactory.Orientation.VERTICAL
     )
     private val renderConfig = LinearRenderConfigFactory(renderInput).create()
+
+    private val listBottom = mutableListOf<ViewModel>()
+    private var listViewBottom: ListViewMvp? = null
+
+    private val renderBottom = LinearRenderConfigFactory.Input(
+        context = mvpActivity,
+        orientation = LinearRenderConfigFactory.Orientation.VERTICAL
+    )
+    private val renderConfigBottom = LinearRenderConfigFactory(renderBottom).create()
+    private val customView = LayoutInflater.from(mvpActivity)
+        .inflate(R.layout.custom_bottomsheet_recycleview, null, false)
+    private val bottomSheet = BottomSheetDialog(mvpActivity)
     private val onClickExpand = object : OnActionData<AddExpenseDonateInfoViewModel> {
         override fun onAction(data: AddExpenseDonateInfoViewModel) {
             data.isExpand = !data.isExpand
             listViewMvp?.notifyItemChanged(listData.indexOf(data))
+        }
+    }
+
+    private val onChooseBudget = object : OnActionData<AddExpenseBudgetViewModel> {
+        override fun onAction(data: AddExpenseBudgetViewModel) {
+            if (AddExpenseFragment.model.wallet?.id != null) {
+                mPresenter.getListBudget(AddExpenseFragment.model.wallet?.id!!)
+                bottomSheet.show()
+                bottomSheet.tvTitle.text = "Chọn ngân sách áp dụng"
+            }else{
+                showDialogNotify(title = "Bạn chưa chọn ví tiền cho giao dịch này")
+            }
+
+        }
+
+    }
+
+    private fun setDialogFullScreen(dialog: AlertDialog) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            dialog.window?.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            dialog.window?.statusBarColor = mResource.getColorStatusBar()
+            dialog.window?.navigationBarColor = Color.TRANSPARENT
+            dialog.window?.decorView?.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        }
+    }
+
+    private fun showDialogNotify(title: String? = null) {
+        val layoutView = LayoutInflater.from(mvpActivity)
+            .inflate(R.layout.custom_dialog_cancel_contact, null, false)
+        val dialogRegister =
+            AlertDialog.Builder(mvpActivity, R.style.DialogNotify).setView(layoutView).create()
+        setDialogFullScreen(dialogRegister)
+        dialogRegister.show()
+        dialogRegister.btnCancel.setOnClickListener {
+            dialogRegister.dismiss()
+        }
+        if(!title.isNullOrEmpty()){
+            dialogRegister.tvTitleChooseDate.text = title
         }
     }
 
@@ -177,6 +248,32 @@ private val isDonate: Boolean = false) :
         listViewMvp?.notifyDataChanged()
     }
 
+    override fun showBottomData(list: MutableList<ViewModel>) {
+        listBottom.clear()
+        if (list.isNotEmpty()) {
+            listBottom.addAll(list)
+        }
+        listViewBottom?.setItems(listBottom)
+        listViewBottom?.notifyDataChanged()
+        bottomSheet.show()
+    }
+
+    private val mResourceProvider = PlanDetailResource()
+    private val onItemBottomClick = object : OnItemRvClickedListener<ViewModel> {
+        override fun onItemClicked(view: View, position: Int, dataItem: ViewModel) {
+            dataItem as BudgetItemViewModel
+            listData.forEach {
+                if (it is AddExpenseBudgetViewModel) {
+                    it.id = dataItem.id
+                    it.name = dataItem.name
+                    listViewMvp?.notifyItemChanged(listData.indexOf(it))
+                    bottomSheet.dismiss()
+                }
+            }
+        }
+
+    }
+
     private fun initRecycleView() {
         listViewMvp = ListViewMvp(mvpActivity, view.rvAddExpanse, renderConfig)
         listViewMvp?.addViewRenderer(
@@ -199,8 +296,16 @@ private val isDonate: Boolean = false) :
                 onChooseLocation
             )
         )
+        listViewMvp?.addViewRenderer(AddExpenseBudgetViewRenderer(mvpActivity, onChooseBudget))
         listViewMvp?.addViewRenderer(AddExpenseDonateTotalMoneyRenderer(mvpActivity, mResource))
         listViewMvp?.createView()
+
+        bottomSheet.setContentView(customView)
+        bottomSheet.create()
+        listViewBottom = ListViewMvp(mvpActivity, bottomSheet.rvChoose, renderConfigBottom)
+        listViewBottom?.addViewRenderer(BudgetItemViewRenderer(mvpActivity, mResourceProvider))
+        listViewBottom?.setOnItemRvClickedListener(onItemBottomClick)
+        listViewBottom?.createView()
     }
 
 }

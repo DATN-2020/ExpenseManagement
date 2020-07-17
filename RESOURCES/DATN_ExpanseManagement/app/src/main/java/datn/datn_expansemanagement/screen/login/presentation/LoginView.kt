@@ -63,9 +63,11 @@ class LoginView(
                     var dataIntent: PassportDataIntent? = null
                     if (userData?.data != null) {
                         dataIntent = PassportDataIntent(
-                            id = userData.data.userId.getValueOrDefaultIsZero(),
-                            name = userData.data.fullName.getValueOrDefaultIsEmpty(),
-                            phone = userData.data.userName.getValueOrDefaultIsEmpty()
+                            userId = userData.data.userId.getValueOrDefaultIsZero(),
+                            fullName = userData.data.fullName.getValueOrDefaultIsEmpty(),
+                            userName = userData.data.userName.getValueOrDefaultIsEmpty(),
+                            checkWallet = userData.data.checkWallet.getValueOrDefault(),
+                            password = userData.data.password.getValueOrDefaultIsEmpty()
                         )
                     }
                     if (dataIntent != null) {

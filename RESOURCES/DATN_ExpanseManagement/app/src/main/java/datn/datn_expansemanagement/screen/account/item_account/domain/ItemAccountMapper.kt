@@ -24,7 +24,8 @@ class ItemAccountMapper(private val tapId: Int? = null) :
                             name = it.nameWallet.getValueOrDefaultIsEmpty(),
                             money = it.amountWallet.getValueOrDefaultIsZero(),
                             tabId = 1,
-                            des = it.description.getValueOrDefaultIsEmpty()
+                            des = it.description.getValueOrDefaultIsEmpty(),
+                            currentPrice = it.amountNow.getValueOrDefaultIsZero()
                         )
                     )
                     totalPrice += it.amountWallet

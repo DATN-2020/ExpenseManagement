@@ -24,6 +24,8 @@ class WalletViewRenderer(
     override fun getModelClass(): Class<WalletViewModel> = WalletViewModel::class.java
     override fun bindView(model: WalletViewModel, viewRoot: View) {
         viewRoot.tvWallet.text = model.name
+        val currentPrice = Utils.formatMoney(model.currentPrice)
+        viewRoot.tvCurrentPrice.text = "Còn lại : ".plus(currentPrice)
         val money = Utils.formatMoney(model.money)
         viewRoot.tvMoney.text = money
 

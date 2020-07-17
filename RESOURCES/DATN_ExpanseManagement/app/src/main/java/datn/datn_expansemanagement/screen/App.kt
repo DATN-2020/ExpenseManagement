@@ -21,7 +21,7 @@ class App : Application(){
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         app = this
         Paper.init(this)
-        initOneSignal()
+//        initOneSignal()
         setupApplication()
         initLogger()
         initLogActivity()

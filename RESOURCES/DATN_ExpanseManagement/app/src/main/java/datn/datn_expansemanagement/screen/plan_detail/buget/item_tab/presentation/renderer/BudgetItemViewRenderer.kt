@@ -25,7 +25,7 @@ class BudgetItemViewRenderer(
         viewRoot.tvWallet.text = model.name
         viewRoot.tvAccumulation.text = Utils.formatMoney(model.totalPrice)
         viewRoot.sbPercent.progress = ((model.currentPrice / model.totalPrice) * 100).toInt()
-        viewRoot.tvRest.text = Utils.formatMoney(model.currentPrice)
+        viewRoot.tvRest.text ="Đã dùng ".plus(Utils.formatMoney(model.currentPrice))
         GlideImageHelper(context).loadThumbnail(viewRoot.ivWallet, model.imgUrl, R.drawable.ic_default)
 
         when {

@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import datn.datn_expansemanagement.R
+import datn.datn_expansemanagement.core.app.config.ConfigUtil
 import datn.datn_expansemanagement.core.app.util.Utils
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
@@ -19,7 +20,9 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivit
 import datn.datn_expansemanagement.core.event.EventBusData
 import datn.datn_expansemanagement.core.event.EventBusLifeCycle
 import datn.datn_expansemanagement.domain.request.WalletRequest
+import datn.datn_expansemanagement.domain.response.PassportResponse
 import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
+import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.screen.login.data.FinishLoginData
 import datn.datn_expansemanagement.screen.splash.data.PassportDataIntent
 import datn.datn_expansemanagement.screen.splash.presentation.SplashResource
@@ -52,14 +55,14 @@ class ItemCreateWalletView(
             if (result.isNullOrEmpty()) {
                 mPresenter.createWallet(
                     WalletRequest(
-                        userId = data?.id.getValueOrDefaultIsZero(),
+                        userId = data?.userId.getValueOrDefaultIsZero(),
                         amountWallet = 0.0
                     )
                 )
             } else {
                 mPresenter.createWallet(
                     WalletRequest(
-                        userId = data?.id.getValueOrDefaultIsZero(),
+                        userId = data?.userId.getValueOrDefaultIsZero(),
                         amountWallet = result.toDouble()
                     )
                 )
@@ -104,6 +107,17 @@ class ItemCreateWalletView(
     }
 
     override fun handleCreateWallet() {
+        ConfigUtil.savePassport(null)
+        val user = PassportResponse.Data(
+            userId = data?.userId.getValueOrDefaultIsZero(),
+            fullName = data?.fullName.getValueOrDefaultIsEmpty(),
+            password = data?.password.getValueOrDefaultIsEmpty(),
+            userName = data?.userName.getValueOrDefaultIsEmpty(),
+            checkWallet = true
+        )
+        ConfigUtil.savePassport(PassportResponse(
+            data = user
+        ))
         eventBusLifeCycle.sendData(FinishLoginData())
     }
 

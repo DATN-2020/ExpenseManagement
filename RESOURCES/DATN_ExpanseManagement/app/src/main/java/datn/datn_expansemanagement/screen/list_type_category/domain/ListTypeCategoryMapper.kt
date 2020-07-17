@@ -18,7 +18,7 @@ class ListTypeCategoryMapper(private val typeId: Int? = null) :
                 if (i == input.size - 1) {
                     list.add(
                         TypeCategoryItemViewModel(
-                            id = it.id.getValueOrDefaultIsZero(),
+                            id = it.idType.getValueOrDefaultIsZero(),
                             name = it.nameType.getValueOrDefaultIsEmpty(),
                             imageUrl = it.imageType.getValueOrDefaultIsEmpty(),
                             isLast = true
@@ -27,7 +27,7 @@ class ListTypeCategoryMapper(private val typeId: Int? = null) :
                 } else {
                     list.add(
                         TypeCategoryItemViewModel(
-                            id = it.id.getValueOrDefaultIsZero(),
+                            id = it.idType.getValueOrDefaultIsZero(),
                             name = it.nameType.getValueOrDefaultIsEmpty(),
                             imageUrl = it.imageType.getValueOrDefaultIsEmpty(),
                             isChoose = false

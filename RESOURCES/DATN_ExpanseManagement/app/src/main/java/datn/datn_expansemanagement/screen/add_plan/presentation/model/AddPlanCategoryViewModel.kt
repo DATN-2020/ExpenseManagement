@@ -4,5 +4,6 @@ import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 
 class AddPlanCategoryViewModel (
     var id: Int? = null,
-    var name: String? = null
+    var name: String? = null,
+    var isType: Boolean = false
 ): ViewModel

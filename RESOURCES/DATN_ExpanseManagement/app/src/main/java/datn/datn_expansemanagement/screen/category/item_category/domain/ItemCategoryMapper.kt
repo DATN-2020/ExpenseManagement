@@ -43,7 +43,7 @@ class ItemCategoryMapper(private val typeExpense: String, private val categoryId
                         if (typeExpense.trim() == "Chi tiền") {
                             list.add(
                                 ItemTypeCategoryViewModel(
-                                    id = it.id.getValueOrDefaultIsZero(),
+                                    id = it.idType.getValueOrDefaultIsZero(),
                                     name = it.nameType.getValueOrDefaultIsEmpty(),
                                     imgUrl = it.imageType.getValueOrDefaultIsEmpty(),
                                     listItem = listItem
@@ -55,7 +55,7 @@ class ItemCategoryMapper(private val typeExpense: String, private val categoryId
                         if (typeExpense.trim() == "Thu tiền") {
                             list.add(
                                 ItemTypeCategoryViewModel(
-                                    id = it.id.getValueOrDefaultIsZero(),
+                                    id = it.idType.getValueOrDefaultIsZero(),
                                     name = it.nameType.getValueOrDefaultIsEmpty(),
                                     imgUrl = it.imageType.getValueOrDefaultIsEmpty(),
                                     listItem = listItem
@@ -67,7 +67,7 @@ class ItemCategoryMapper(private val typeExpense: String, private val categoryId
                         if (typeExpense.trim() == "Vay nợ") {
                             list.add(
                                 ItemTypeCategoryViewModel(
-                                    id = it.id.getValueOrDefaultIsZero(),
+                                    id = it.idType.getValueOrDefaultIsZero(),
                                     name = it.nameType.getValueOrDefaultIsEmpty(),
                                     imgUrl = it.imageType.getValueOrDefaultIsEmpty(),
                                     listItem = listItem
@@ -78,7 +78,7 @@ class ItemCategoryMapper(private val typeExpense: String, private val categoryId
                     else -> {
                         list.add(
                             ItemTypeCategoryViewModel(
-                                id = it.id.getValueOrDefaultIsZero(),
+                                id = it.idType.getValueOrDefaultIsZero(),
                                 name = it.nameType.getValueOrDefaultIsEmpty(),
                                 imgUrl = it.imageType.getValueOrDefaultIsEmpty(),
                                 listItem = listItem
@@ -86,8 +86,6 @@ class ItemCategoryMapper(private val typeExpense: String, private val categoryId
                         )
                     }
                 }
-//                if (/*it.typeExpense.trim().toLowerCase() == typeExpense.trim().toLowerCase()*/) {
-
             }
         }
         return list
