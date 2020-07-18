@@ -19,6 +19,7 @@ class ListWalletMapper(private val idWallet: Int? = null) :
                         ListWalletItemViewModel(
                             id = it.idWallet.getValueOrDefaultIsZero(),
                             name = it.nameWallet.getValueOrDefaultIsEmpty(),
+                            currentPrice = it.amountNow.getValueOrDefaultIsZero(),
                             totalMoney = it.amountWallet.getValueOrDefaultIsZero(),
                             isChoose = true
                         )
@@ -28,6 +29,7 @@ class ListWalletMapper(private val idWallet: Int? = null) :
                         ListWalletItemViewModel(
                             id = it.idWallet.getValueOrDefaultIsZero(),
                             name = it.nameWallet.getValueOrDefaultIsEmpty(),
+                            currentPrice = it.amountNow.getValueOrDefaultIsZero(),
                             totalMoney = it.amountWallet.getValueOrDefaultIsZero()
                         )
                     )

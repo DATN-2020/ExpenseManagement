@@ -13,16 +13,18 @@ class GetBudgetMapper : Mapper<GetBudgetResponse, MutableList<ViewModel>> {
         val list = mutableListOf<ViewModel>()
         if (!input.data.isNullOrEmpty()) {
             input.data.forEach {
-                list.add(
-                    BudgetItemViewModel(
-                        id = it.idBudget.getValueOrDefaultIsZero(),
-                        name = it.name.getValueOrDefaultIsEmpty(),
-                        imgUrl = it.image.getValueOrDefaultIsEmpty(),
-                        totalPrice = it.amount.getValueOrDefaultIsZero(),
-                        currentPrice = it.remain.getValueOrDefaultIsZero(),
-                        isFinish = it.check.getValueOrDefault()
+                if(!it.check){
+                    list.add(
+                        BudgetItemViewModel(
+                            id = it.idBudget.getValueOrDefaultIsZero(),
+                            name = it.name.getValueOrDefaultIsEmpty(),
+                            imgUrl = it.image.getValueOrDefaultIsEmpty(),
+                            totalPrice = it.amount.getValueOrDefaultIsZero(),
+                            currentPrice = it.remain.getValueOrDefaultIsZero(),
+                            isFinish = it.check.getValueOrDefault()
+                        )
                     )
-                )
+                }
             }
         }
         return list

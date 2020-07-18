@@ -19,6 +19,13 @@ class ControlWalletListBottomViewRenderer (context: Context): ViewRenderer<Contr
     override fun bindView(model: ControlWalletListBottomViewModel, viewRoot: View) {
         viewRoot.tvWallet.text = model.name
         viewRoot.tvMoney.text = Utils.formatMoney(model.price)
+        if (model.currentPrice >= 0) {
+            viewRoot.tvCurrentPrice.text = "Còn lại : ".plus(Utils.formatMoney(model.currentPrice))
+            viewRoot.tvCurrentPrice.setTextColor(context.resources.getColor(R.color.color_389b54))
+        } else {
+            viewRoot.tvCurrentPrice.setTextColor(context.resources.getColor(R.color.color_ee403f))
+            viewRoot.tvCurrentPrice.text = "Nợ : ".plus(Utils.formatMoney(model.currentPrice))
+        }
         viewRoot.imgMore.gone()
     }
 

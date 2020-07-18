@@ -9,7 +9,11 @@ import datn.datn_expansemanagement.kotlinex.view.gone
 import datn.datn_expansemanagement.kotlinex.view.invisible
 import datn.datn_expansemanagement.kotlinex.view.visible
 import datn.datn_expansemanagement.screen.list_wallet.presentation.model.ListWalletItemViewModel
-import kotlinx.android.synthetic.main.item_layout_list_wallet.view.*
+import kotlinx.android.synthetic.main.item_layout_list_wallet.view.imgMore
+import kotlinx.android.synthetic.main.item_layout_list_wallet.view.tvCurrentPrice
+import kotlinx.android.synthetic.main.item_layout_list_wallet.view.tvMoney
+import kotlinx.android.synthetic.main.item_layout_list_wallet.view.tvWallet
+import kotlinx.android.synthetic.main.item_layout_list_wallet.view.viewBottom
 
 class ListWalletItemViewRenderer (context: Context): ViewRenderer<ListWalletItemViewModel>(context){
     override fun getLayoutId(): Int {
@@ -32,6 +36,14 @@ class ListWalletItemViewRenderer (context: Context): ViewRenderer<ListWalletItem
             viewRoot.imgMore.visible()
         }else{
             viewRoot.imgMore.invisible()
+        }
+
+        if (model.currentPrice >= 0) {
+            viewRoot.tvCurrentPrice.text = "Còn lại : ".plus(Utils.formatMoney(model.currentPrice))
+            viewRoot.tvCurrentPrice.setTextColor(context.resources.getColor(R.color.color_389b54))
+        } else {
+            viewRoot.tvCurrentPrice.setTextColor(context.resources.getColor(R.color.color_ee403f))
+            viewRoot.tvCurrentPrice.text = "Nợ : ".plus(Utils.formatMoney(model.currentPrice))
         }
     }
 

@@ -8,6 +8,7 @@ class TransactionItemViewModel (
     var imgUrl: String,
     var price: Double,
     var startDate: String,
+    var currentDate: String,
     var endDate: String,
     var isFinish: Boolean = false
 ): ViewModel

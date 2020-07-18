@@ -17,7 +17,8 @@ class ControlListWalletMapper(private val idWallet: Int) : Mapper<WalletResponse
                     list.add(ControlWalletListBottomViewModel(
                         id = it.idWallet.getValueOrDefaultIsZero(),
                         name = it.nameWallet.getValueOrDefaultIsEmpty(),
-                        price = it.amountWallet.getValueOrDefaultIsZero()
+                        price = it.amountWallet.getValueOrDefaultIsZero(),
+                        currentPrice = it.amountNow.getValueOrDefaultIsZero()
                     ))
                 }
             }

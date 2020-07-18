@@ -11,6 +11,7 @@ data class BillResponse(
     @SerializedName("status_code")
     val statusCode: String
 ) {
+
     data class Data(
         @SerializedName("amount")
         val amount: Double,
@@ -18,17 +19,23 @@ data class BillResponse(
         val dateE: String,
         @SerializedName("date_s")
         val dateS: String,
+        @SerializedName("date_time_e")
+        val dateTimeE: String,
+        @SerializedName("date_time_s")
+        val dateTimeS: String,
         @SerializedName("idBill")
         val idBill: Int,
         @SerializedName("idwallet")
-        val idwallet: Int,
+        val idwallet: String,
         @SerializedName("image")
         val image: String,
-        @SerializedName("isDeadline")
-        val isDeadline: Boolean,
+        @SerializedName("isFinnish")
+        val isFinnish: Boolean,
         @SerializedName("isPay")
         val isPay: Boolean,
         @SerializedName("name")
-        val name: String
+        val name: String,
+        @SerializedName("time")
+        val time: String
     )
 }

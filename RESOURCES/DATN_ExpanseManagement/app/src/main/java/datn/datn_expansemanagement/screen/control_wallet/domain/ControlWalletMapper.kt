@@ -21,7 +21,7 @@ class ControlWalletMapper(private val isOtherWallet: Boolean?) :
                 ControlWalletHeaderViewModel(
                     nameWallet = input.name.getValueOrDefaultIsEmpty(),
                     price = 0.0,
-                    maxPrice = input.money.getValueOrDefaultIsZero(),
+                    maxPrice = input.currentPrice.getValueOrDefaultIsZero(),
                     title = "Nhập số tiền cần chuyển",
                     isOtherWallet = true
                 )
@@ -33,7 +33,7 @@ class ControlWalletMapper(private val isOtherWallet: Boolean?) :
             list.add(
                 ControlWalletHeaderViewModel(
                     nameWallet = input.name.getValueOrDefaultIsEmpty(),
-                    price = input.money.getValueOrDefaultIsZero(),
+                    price = input.currentPrice.getValueOrDefaultIsZero(),
                     title = "Nhập số dư hiện tại của ví"
                 )
             )

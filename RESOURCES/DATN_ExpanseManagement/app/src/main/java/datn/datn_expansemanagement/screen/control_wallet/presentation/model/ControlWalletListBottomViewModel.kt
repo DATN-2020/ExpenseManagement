@@ -5,5 +5,6 @@ import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 class ControlWalletListBottomViewModel (
     var id: Int,
     var name: String,
-    var price: Double
+    var price: Double,
+    var currentPrice: Double
 ): ViewModel

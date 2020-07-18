@@ -23,6 +23,13 @@ class TransactionItemViewRenderer (context: Context): ViewRenderer<TransactionIt
         GlideImageHelper(context).loadThumbnail(viewRoot.imgTypeExpense, model.imgUrl, R.drawable.ic_default)
         viewRoot.tvTitleTypeExpense.text = model.name
         viewRoot.tvMoneyTypeExpense.text = Utils.formatMoney(model.price)
+        if(model.isFinish){
+            viewRoot.tvContentTypeExpense.text = "Đã kết thúc"
+
+        }else{
+            viewRoot.tvContentTypeExpense.text = "Lần xuất hiện tiếp theo: ${model.currentDate}"
+
+        }
     }
 
     private fun getDayBetween2Day(startDay: String,dayEnd: String): String{
