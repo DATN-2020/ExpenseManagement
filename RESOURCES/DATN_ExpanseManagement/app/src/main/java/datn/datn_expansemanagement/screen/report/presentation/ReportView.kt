@@ -18,6 +18,7 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvp
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.OnItemRvClickedListener
+import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.screen.report.presentation.model.GetWalletItemViewModel
 import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewModel
 import datn.datn_expansemanagement.screen.report.presentation.renderer.*
@@ -68,6 +69,7 @@ class ReportView(
     private val bottomSheet = BottomSheetDialog(mvpActivity)
 
     private var dateChoose: String? = null
+    private var idWalletChoose : Int? = null
 
 
     private val onItemClick = object : OnItemRvClickedListener<ViewModel> {
@@ -84,6 +86,16 @@ class ReportView(
             view.tvWalletName.text = dataItem.name
             view.tvPriceWallet.text = Utils.formatMoney(dataItem.money)
             // gọi api đổ lại list report
+            idWalletChoose = dataItem.id
+            mPresenter.getData(
+                idWalletChoose,
+                isCardWallet,
+                Utils.convertDateFormat(
+                    dateChoose.getValueOrDefaultIsEmpty(),
+                    SimpleDateFormat("MM/yyyy"),
+                    SimpleDateFormat("yyyy-MM")
+                )
+            )
             listViewBottom?.notifyDataChanged()
             bottomSheet.dismiss()
         }
@@ -93,7 +105,8 @@ class ReportView(
     private val onActionChart = object : OnActionNotify {
         override fun onActionNotify() {
             val data = ReportViewModel(
-                date = dateChoose
+                date = dateChoose,
+                idWallet = idWalletChoose
             )
             mPresenter.gotoReportDetailActivity(data)
         }
@@ -108,6 +121,11 @@ class ReportView(
             getCurrentMonth()
         } else {
             dateChoose
+        }
+
+        dateChoose = getCurrentMonth()
+        if(idWallet != null){
+            idWalletChoose = idWallet
         }
     }
 
@@ -200,6 +218,13 @@ class ReportView(
             view.tvMonth.text = dateChoose
 
             // call api
+            var idWallet : Int? = null
+            listBottom.forEach {
+                if(it is GetWalletItemViewModel && it.isChoose){
+                    idWallet = it.id
+                }
+            }
+            mPresenter.getData(idWallet, isCardWallet, dateChoose)
             dialog.dismiss()
         }
     }
@@ -292,15 +317,22 @@ class ReportView(
         this.listBottom.clear()
         if (list.isNotEmpty()) {
             this.listBottom.addAll(list)
+            val data = listBottom[0] as GetWalletItemViewModel
+            view.tvWalletName.text = data.name
+            view.tvPriceWallet.text = Utils.formatMoney(data.money)
+            data.isChoose = true
+            idWalletChoose = data.id
+
+            mPresenter.getData(idWalletChoose, isCardWallet, getCurrentMonth())
         }
 
         listViewBottom?.setItems(this.listBottom)
         listViewBottom?.notifyDataChanged()
+
     }
 
     override fun initData() {
         super.initData()
-        mPresenter.getData(idWallet, isCardWallet)
         mPresenter.getWalletForUser(idWallet)
     }
 

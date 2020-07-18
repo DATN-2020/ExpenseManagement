@@ -7,9 +7,10 @@ import datn.datn_expansemanagement.screen.add_plan.presentation.model.*
 class AddTransactionMapper : Mapper<String, MutableList<ViewModel>>{
     override fun map(input: String): MutableList<ViewModel> {
         val list = mutableListOf<ViewModel>()
-        list.add(AddPlanPriceViewModel())
+        list.add(AddPlanPriceViewModel(title = "Số tiền"))
         list.add(AddPlanCategoryViewModel())
         list.add(AddPlanDesViewModel())
+        list.add(AddPlanChooseDateViewModel())
         list.add(AddPlanDateViewModel())
         list.add(AddPlanWalletViewModel())
         return list

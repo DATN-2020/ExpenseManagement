@@ -1,5 +1,6 @@
 package datn.datn_expansemanagement.screen.report.presentation.renderer
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import datn.datn_expansemanagement.R
@@ -18,9 +19,16 @@ class GetWalletItemViewRenderer (context: Context): ViewRenderer<GetWalletItemVi
 
     override fun getModelClass(): Class<GetWalletItemViewModel> = GetWalletItemViewModel::class.java
 
+    @SuppressLint("ResourceAsColor")
     override fun bindView(model: GetWalletItemViewModel, viewRoot: View) {
         viewRoot.tvWallet.text = model.name
-        viewRoot.tvCurrentPrice.text = "Còn lại: ${Utils.formatMoney(model.currentMoney)}"
+        if (model.currentMoney >= 0) {
+            viewRoot.tvCurrentPrice.text = "Còn lại : ".plus(Utils.formatMoney(model.currentMoney))
+            viewRoot.tvCurrentPrice.setTextColor(context.resources.getColor(R.color.color_389b54))
+        } else {
+            viewRoot.tvCurrentPrice.setTextColor(context.resources.getColor(R.color.color_ee403f))
+            viewRoot.tvCurrentPrice.text = "Nợ : ".plus(Utils.formatMoney(model.currentMoney))
+        }
         val money = Utils.formatMoney(model.money)
         viewRoot.tvMoney.text = money
         if(model.isChoose){

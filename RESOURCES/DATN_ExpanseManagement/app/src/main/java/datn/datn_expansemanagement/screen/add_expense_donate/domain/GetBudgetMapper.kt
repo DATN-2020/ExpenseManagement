@@ -8,7 +8,7 @@ import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentation.model.BudgetItemViewModel
 
-class GetBudgetMapper : Mapper<GetBudgetResponse, MutableList<ViewModel>>{
+class GetBudgetMapper : Mapper<GetBudgetResponse, MutableList<ViewModel>> {
     override fun map(input: GetBudgetResponse): MutableList<ViewModel> {
         val list = mutableListOf<ViewModel>()
         if (!input.data.isNullOrEmpty()) {

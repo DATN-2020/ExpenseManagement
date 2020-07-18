@@ -27,10 +27,15 @@ import datn.datn_expansemanagement.screen.splash.data.PassportDataIntent
 import datn.datn_expansemanagement.screen.trip.TripActivity
 
 class AndroidScreenNavigator constructor(private val mvpActivity: MvpActivity) : ScreenNavigator {
-    override fun gotoCategoryActivity(categoryId: Int?, isPlan: Boolean) {
+    override fun gotoCategoryActivity(
+        categoryId: Int?,
+        isPlan: Boolean,
+        isDonate: Boolean
+    ) {
         val intent = Intent(mvpActivity, CategoryActivity::class.java)
         intent.putExtra("idCategory", categoryId)
         intent.putExtra("isPlan", isPlan)
+        intent.putExtra("isDonate", isDonate)
         mvpActivity.startActivityForResult(intent, Request.REQUEST_CODE_CATEGORY)
     }
 

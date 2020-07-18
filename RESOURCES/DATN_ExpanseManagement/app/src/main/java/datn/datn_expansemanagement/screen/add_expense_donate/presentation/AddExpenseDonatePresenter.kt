@@ -43,8 +43,8 @@ class AddExpenseDonatePresenter(
         })
     }
 
-    override fun gotoCategoryActivity(categoryId: Int?) {
-        screenNavigator.gotoCategoryActivity(categoryId)
+    override fun gotoCategoryActivity(categoryId: Int?, isDonate: Boolean) {
+        screenNavigator.gotoCategoryActivity(categoryId, isDonate = isDonate)
     }
 
     override fun gotoChooseWalletActivity(walletId: Int?) {

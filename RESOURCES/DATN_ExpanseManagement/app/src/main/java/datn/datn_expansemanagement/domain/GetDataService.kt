@@ -61,4 +61,21 @@ interface GetDataService {
     @POST("budgets")
     fun addBudget(@Body request: AddBudgetRequest): Call<BaseResponse>
 
+    @POST("periodics")
+    fun addTransaction(@Body request: TransactionRequest): Call<BaseResponse>
+
+    @POST("bills")
+    fun addBill(@Body request: BillRequest): Call<BaseResponse>
+
+    @GET("Summaries/1")
+    fun getReport(
+        @Query("date") date: String,
+        @Query("id") idWallet: Int
+    ): Call<ReportResponse>
+
+    @GET("Income_Outcome/1")
+    fun getReportDetail(
+        @Query("date") date: String,
+        @Query("id") idWallet: Int
+    ): Call<ReportDetailResponse>
 }

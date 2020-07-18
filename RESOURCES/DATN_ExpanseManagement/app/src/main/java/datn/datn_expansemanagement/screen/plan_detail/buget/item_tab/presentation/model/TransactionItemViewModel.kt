@@ -9,5 +9,5 @@ class TransactionItemViewModel (
     var price: Double,
     var startDate: String,
     var endDate: String,
-    var isComeback: Boolean
+    var isFinish: Boolean = false
 ): ViewModel

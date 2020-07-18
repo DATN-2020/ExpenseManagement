@@ -14,7 +14,6 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivit
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
 import datn.datn_expansemanagement.core.event.EventBusData
 import datn.datn_expansemanagement.core.event.EventBusLifeCycle
-import datn.datn_expansemanagement.kotlinex.collection.getValueOrDefault
 import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
@@ -31,7 +30,7 @@ import java.util.*
 
 class AddExpenseLoanView(
     mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator,
-    private val isDonate: Boolean = false
+    private val isLoan: Boolean = false
 ) : AndroidMvpView(mvpActivity, viewCreator), AddExpenseLoanContract.View {
 
     class ViewCreator(context: Context, viewGroup: ViewGroup?) :
@@ -80,7 +79,7 @@ class AddExpenseLoanView(
 
     override fun initData() {
         super.initData()
-        mPresenter.getData(isDonate)
+        mPresenter.getData(isLoan)
     }
 
     override fun startMvpView() {

@@ -63,7 +63,8 @@ class ItemCategoryView(
             }else{
                 val model = AddExpenseViewModel.Info.Category(
                     id = dataItem.id.getValueOrDefaultIsZero(),
-                    name = dataItem.name.getValueOrDefaultIsEmpty()
+                    name = dataItem.name.getValueOrDefaultIsEmpty(),
+                    isTypeCategory = true
                 )
                 AddExpenseFragment.model.category = model
                 mvpActivity.setResult(Activity.RESULT_OK)

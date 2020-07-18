@@ -4,6 +4,8 @@ import android.widget.Toast
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.domain.GetDataService
 import datn.datn_expansemanagement.domain.RetrofitClientInstance
+import datn.datn_expansemanagement.domain.request.InOutComeRequest
+import datn.datn_expansemanagement.domain.response.BaseResponse
 import datn.datn_expansemanagement.domain.response.BillResponse
 import datn.datn_expansemanagement.domain.response.GetBudgetResponse
 import datn.datn_expansemanagement.domain.response.TransactionResponse
@@ -78,7 +80,24 @@ class ItemTabBudgetPresenter(private val mvpActivity: MvpActivity) : ItemTabBudg
                 })
             }
         }
-
     }
 
+    override fun payBill(request: InOutComeRequest) {
+        val call = service?.createInOutCome(request)
+        call?.enqueue(object : Callback<BaseResponse> {
+            override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
+                Toast.makeText(mvpActivity, t.message, Toast.LENGTH_LONG).show()
+                view?.hideLoading()
+            }
+
+            override fun onResponse(
+                call: Call<BaseResponse>,
+                response: Response<BaseResponse>
+            ) {
+                view?.handleAfterPayBill()
+                view?.hideLoading()
+            }
+
+        })
+    }
 }

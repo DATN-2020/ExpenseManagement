@@ -129,9 +129,9 @@ class AddExpenseDonateView(
     private val onChooseCategory = object : OnActionData<AddExpenseCategoryViewModel> {
         override fun onAction(data: AddExpenseCategoryViewModel) {
             if (data.idCategory != null) {
-                mPresenter.gotoCategoryActivity(data.idCategory)
+                mPresenter.gotoCategoryActivity(data.idCategory, isDonate)
             } else {
-                mPresenter.gotoCategoryActivity()
+                mPresenter.gotoCategoryActivity(isDonate = isDonate)
             }
         }
     }

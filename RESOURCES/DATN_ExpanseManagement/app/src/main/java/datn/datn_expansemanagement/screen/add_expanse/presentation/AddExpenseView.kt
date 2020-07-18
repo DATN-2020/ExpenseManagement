@@ -256,14 +256,23 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
             AddExpenseFragment.model.title = "Không có mô tả cho chi tiêu này"
         }
 
+        var idTypeCategory : String? = null
+        var idCategory : String? = null
+        if(AddExpenseFragment.model.category?.isTypeCategory == true){
+            idTypeCategory = AddExpenseFragment.model.category?.id.toString()
+        }else{
+            idCategory = AddExpenseFragment.model.category?.id.toString()
+        }
+
+
         if(AddExpenseFragment.model.idBudget == null){
             val request = InOutComeRequest(
                 loanIdLoan = if(AddExpenseFragment.model.loaner?.id != null) AddExpenseFragment.model.loaner?.id.toString() else null,
                 amount = AddExpenseFragment.model.totalMoney.getValueOrDefaultIsZero(),
-                categoryIdCate = AddExpenseFragment.model.category?.id.getValueOrDefaultIsZero().toString(),
-                dateCome = AddExpenseFragment.model.date.getValueOrDefaultIsEmpty(),
+                categoryIdCate = idCategory,
+                dateCome = Utils.convertDateFormat(AddExpenseFragment.model.date.getValueOrDefaultIsEmpty(), SimpleDateFormat("dd/MM/yyyy"), SimpleDateFormat("yyyy-MM-dd")),
                 descriptionCome = AddExpenseFragment.model.title.getValueOrDefaultIsEmpty(),
-                idType = typeIncome.getValueOrDefaultIsZero().toString(),
+                idType = idTypeCategory,
                 tripIdTrip = if(AddExpenseFragment.model.trip?.id != null) AddExpenseFragment.model.trip?.id.toString() else null,
                 walletIdWallet = AddExpenseFragment.model.wallet?.id.getValueOrDefaultIsZero().toString()
             )
@@ -272,10 +281,10 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
             val request = InOutComeRequest(
                 loanIdLoan = if(AddExpenseFragment.model.loaner?.id != null) AddExpenseFragment.model.loaner?.id.toString() else null,
                 amount = AddExpenseFragment.model.totalMoney.getValueOrDefaultIsZero(),
-                categoryIdCate = AddExpenseFragment.model.category?.id.getValueOrDefaultIsZero().toString(),
+                categoryIdCate = idCategory,
                 dateCome = Utils.convertDateFormat(AddExpenseFragment.model.date.getValueOrDefaultIsEmpty(), SimpleDateFormat("dd/MM/yyyy"), SimpleDateFormat("yyyy-MM-dd")),
                 descriptionCome = AddExpenseFragment.model.title.getValueOrDefaultIsEmpty(),
-                idType = typeIncome.getValueOrDefaultIsZero().toString(),
+                idType = idTypeCategory,
                 idBudget = AddExpenseFragment.model.idBudget.getValueOrDefaultIsZero().toString(),
                 tripIdTrip = if(AddExpenseFragment.model.trip?.id != null) AddExpenseFragment.model.trip?.id.toString() else null,
                 walletIdWallet = AddExpenseFragment.model.wallet?.id.getValueOrDefaultIsZero().toString()

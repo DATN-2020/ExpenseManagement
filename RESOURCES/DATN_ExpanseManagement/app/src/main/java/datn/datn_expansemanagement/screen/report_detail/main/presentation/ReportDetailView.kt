@@ -33,7 +33,7 @@ private val data : ReportViewModel? = null): AndroidMvpView(mvpActivity, viewCre
         AndroidMvpView.LayoutViewCreator(R.layout.layout_report_detail, context, viewGroup)
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
-    private val mPresenter = ReportDetailPresenter()
+    private val mPresenter = ReportDetailPresenter(mvpActivity)
     private val listData = mutableListOf<ViewModel>()
     private var listViewMvp: ListViewMvp? = null
 
@@ -64,7 +64,7 @@ private val data : ReportViewModel? = null): AndroidMvpView(mvpActivity, viewCre
 
     override fun initData() {
         super.initData()
-        mPresenter.getData()
+        mPresenter.getData(data)
     }
 
     override fun startMvpView() {

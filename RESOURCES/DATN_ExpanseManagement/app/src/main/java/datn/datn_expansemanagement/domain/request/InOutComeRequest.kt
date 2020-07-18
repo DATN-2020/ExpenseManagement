@@ -4,13 +4,13 @@ import com.google.gson.annotations.SerializedName
 
 data class InOutComeRequest(
     @SerializedName("Amount")
-    val amount: Double,
+    val amount: Double? = null,
     @SerializedName("CategoryId_Cate")
     val categoryIdCate: String? = null,
     @SerializedName("Date_come")
-    val dateCome: String,
+    val dateCome: String? = null,
     @SerializedName("Description_come")
-    val descriptionCome: String,
+    val descriptionCome: String? = null,
     @SerializedName("Id_Bill")
     val idBill: String? = null,
     @SerializedName("Id_Budget")
@@ -24,5 +24,5 @@ data class InOutComeRequest(
     @SerializedName("TripId_Trip ")
     val tripIdTrip: String? = null,
     @SerializedName("WalletId_Wallet")
-    val walletIdWallet: String
+    val walletIdWallet: String? = null
 )

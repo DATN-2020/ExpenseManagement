@@ -25,7 +25,7 @@ class ItemTransactionMapper(private val tab: TabItemViewModel) :
                         price = it.amount.getValueOrDefaultIsZero().toDouble(),
                         endDate = it.dateE.getValueOrDefaultIsEmpty(),
                         startDate = it.dateS.getValueOrDefaultIsEmpty(),
-                        isComeback = it.isComeback.getValueOrDefault()
+                        isFinish = it.isFinish.getValueOrDefault()
                     )
                 )
             }
@@ -35,7 +35,7 @@ class ItemTransactionMapper(private val tab: TabItemViewModel) :
             list.forEach {
                 when (it) {
                     is TransactionItemViewModel -> {
-                        if (!it.isComeback) {
+                        if (!it.isFinish) {
                             listReturn.add(it)
                         }
                     }
@@ -47,7 +47,7 @@ class ItemTransactionMapper(private val tab: TabItemViewModel) :
             list.forEach {
                 when (it) {
                     is TransactionItemViewModel -> {
-                        if (it.isComeback) {
+                        if (it.isFinish) {
                             listReturn.add(it)
                         }
                     }

@@ -12,6 +12,7 @@ import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
+import datn.datn_expansemanagement.kotlinex.boolean.getValueOrDefault
 import datn.datn_expansemanagement.kotlinex.view.gone
 import datn.datn_expansemanagement.screen.account.presentation.model.TabItemViewModel
 import datn.datn_expansemanagement.screen.category.item_category.ItemCategoryFragment
@@ -21,7 +22,8 @@ import kotlinx.android.synthetic.main.toolbar_category.view.*
 class CategoryView(
     mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator,
     private val idCategory: Int? = null,
-    private val isPlan: Boolean? = false
+    private val isPlan: Boolean? = false,
+    private val isDonate: Boolean? = false
 ) : AndroidMvpView(mvpActivity, viewCreator), CategoryContract.View {
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
@@ -56,7 +58,7 @@ class CategoryView(
 
     override fun initData() {
         super.initData()
-        mPresenter.getData()
+        mPresenter.getData(isDonate = isDonate.getValueOrDefault(), isPlan = isPlan.getValueOrDefault())
     }
 
     override fun startMvpView() {

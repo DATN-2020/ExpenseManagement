@@ -20,7 +20,7 @@ class AddPlanPriceViewRenderer(context: Context) : ViewRenderer<AddPlanPriceView
     override fun getModelClass(): Class<AddPlanPriceViewModel> = AddPlanPriceViewModel::class.java
 
     override fun bindView(model: AddPlanPriceViewModel, viewRoot: View) {
-        viewRoot.tvTitleTotalMoney.text = "Mục tiêu"
+        viewRoot.tvTitleTotalMoney.text = model.title
         viewRoot.edtMoney.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 viewRoot.edtMoney.removeTextChangedListener(this)

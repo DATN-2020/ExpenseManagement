@@ -9,7 +9,8 @@ data class GetBudgetResponse(
     val message: String,
     @SerializedName("status_code")
     val statusCode: String
-) {
+){
+
     data class Data(
         @SerializedName("amount")
         val amount: Double,

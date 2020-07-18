@@ -25,11 +25,11 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.lifecycle.
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.OnItemRvClickedListener
 import datn.datn_expansemanagement.domain.request.AddBudgetRequest
+import datn.datn_expansemanagement.domain.request.BillRequest
+import datn.datn_expansemanagement.domain.request.TransactionRequest
 import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.screen.add_category.data.TypeCategoryDataIntent
-import datn.datn_expansemanagement.screen.add_expense_donate.presentation.model.AddExpenseBudgetViewModel
-import datn.datn_expansemanagement.screen.add_expense_donate.presentation.renderer.AddExpenseBudgetViewRenderer
 import datn.datn_expansemanagement.screen.add_plan.presentation.model.*
 import datn.datn_expansemanagement.screen.add_plan.presentation.renderer.*
 import datn.datn_expansemanagement.screen.category.item_category.presentation.model.CategoryItemViewModel
@@ -103,19 +103,19 @@ class AddPlanView(
         }
     }
 
-    private fun showDialogNotify(title: String? = null) {
+    private fun showDialogNotify(title: String? = null, titleClose: String? = null) {
         val layoutView = LayoutInflater.from(mvpActivity)
             .inflate(R.layout.custom_dialog_cancel_contact, null, false)
         val dialogRegister =
             AlertDialog.Builder(mvpActivity, R.style.DialogNotify).setView(layoutView).create()
         setDialogFullScreen(dialogRegister)
         dialogRegister.show()
-        dialogRegister.btnCancel.text = "Quay lại ngân sách"
+        dialogRegister.btnCancel.text = titleClose
         dialogRegister.btnCancel.setOnClickListener {
             dialogRegister.dismiss()
             mvpActivity.onBackPressed()
         }
-        if(!title.isNullOrEmpty()){
+        if (!title.isNullOrEmpty()) {
             dialogRegister.tvTitleChooseDate.text = title
         }
     }
@@ -208,12 +208,13 @@ class AddPlanView(
         view.imgSave.setOnClickListener {
             var isSuccess = true
             var price = 0.0
-            var idTime : String? = null
-            var idWallet : Int? = null
+            var idTime: String? = null
+            var idWallet: Int? = null
             var idCate: String? = null
             var idTypeCate: String? = null
             var startDate: String? = null
             var endDate: String? = null
+            var des: String? = null
 
             listData.forEach {
                 when (it) {
@@ -231,11 +232,11 @@ class AddPlanView(
                         }
                     }
                     is AddPlanChooseDateViewModel -> {
-                        if(it.startDate.isNullOrEmpty() && it.endDate.isNullOrEmpty()){
+                        if (it.startDate.isNullOrEmpty() && it.endDate.isNullOrEmpty()) {
                             showError("Bạn chưa chọn thời gian áp dụng")
                             isSuccess = false
                             return@forEach
-                        }else{
+                        } else {
                             startDate = it.startDate
                             endDate = it.endDate
                         }
@@ -245,7 +246,7 @@ class AddPlanView(
                             showError("Bạn chưa chọn thời gian lặp")
                             isSuccess = false
                             return@forEach
-                        }else{
+                        } else {
                             idTime = it.id.toString()
                         }
                     }
@@ -254,7 +255,7 @@ class AddPlanView(
                             showError("Bạn chưa nhập mục tiêu áp dụng")
                             isSuccess = false
                             return@forEach
-                        }else{
+                        } else {
                             price = it.price.getValueOrDefaultIsZero()
                         }
                     }
@@ -263,9 +264,12 @@ class AddPlanView(
                             showError("Bạn chưa chọn ví áp dụng")
                             isSuccess = false
                             return@forEach
-                        }else{
+                        } else {
                             idWallet = it.id
                         }
+                    }
+                    is AddPlanDesViewModel -> {
+                        des = it.des
                     }
                 }
             }
@@ -278,16 +282,79 @@ class AddPlanView(
                             idWallet = idWallet.getValueOrDefaultIsZero().toString(),
                             idCate = idCate,
                             idType = idTypeCate,
-                            timeE = Utils.convertDateFormat(endDate.getValueOrDefaultIsEmpty(), SimpleDateFormat("dd/MM/yyyy"),SimpleDateFormat("yyyy-MM-dd")),
-                            timeS = Utils.convertDateFormat(startDate.getValueOrDefaultIsEmpty(), SimpleDateFormat("dd/MM/yyyy"),SimpleDateFormat("yyyy-MM-dd")),
+                            timeE = Utils.convertDateFormat(
+                                endDate.getValueOrDefaultIsEmpty(),
+                                SimpleDateFormat("dd/MM/yyyy"),
+                                SimpleDateFormat("yyyy-MM-dd")
+                            ),
+                            timeS = Utils.convertDateFormat(
+                                startDate.getValueOrDefaultIsEmpty(),
+                                SimpleDateFormat("dd/MM/yyyy"),
+                                SimpleDateFormat("yyyy-MM-dd")
+                            ),
                             idTime = idTime.getValueOrDefaultIsEmpty()
                         )
                         mPresenter.addBudget(request = request)
                     }
+                    PlanItemViewModel.Type.TRANSACTION -> {
+                        val request = TransactionRequest(
+                            amountPer = price.getValueOrDefaultIsZero(),
+                            idWallet = idWallet.getValueOrDefaultIsZero().toString(),
+                            idCate = if (idCate != null) idCate else null,
+                            idType = if (idTypeCate != null) idTypeCate else null,
+                            dateE = Utils.convertDateFormat(
+                                endDate.getValueOrDefaultIsEmpty(),
+                                SimpleDateFormat("dd/MM/yyyy"),
+                                SimpleDateFormat("yyyy-MM-dd")
+                            ),
+                            dateS = Utils.convertDateFormat(
+                                startDate.getValueOrDefaultIsEmpty(),
+                                SimpleDateFormat("dd/MM/yyyy"),
+                                SimpleDateFormat("yyyy-MM-dd")
+                            ),
+                            idTime = idTime.getValueOrDefaultIsEmpty(),
+                            desciption = des.getValueOrDefaultIsEmpty()
+                        )
+                        mPresenter.addTransaction(request = request)
+                    }
+                    else->{
+                        val request = BillRequest(
+                            amountBill = price.getValueOrDefaultIsZero(),
+                            idWallet = idWallet.getValueOrDefaultIsZero().toString(),
+                            idCategory = if (idCate != null) idCate else null,
+                            idType = if (idTypeCate != null) idTypeCate else null,
+                            dateE = Utils.convertDateFormat(
+                                endDate.getValueOrDefaultIsEmpty(),
+                                SimpleDateFormat("dd/MM/yyyy"),
+                                SimpleDateFormat("yyyy-MM-dd")
+                            ),
+                            dateS = Utils.convertDateFormat(
+                                startDate.getValueOrDefaultIsEmpty(),
+                                SimpleDateFormat("dd/MM/yyyy"),
+                                SimpleDateFormat("yyyy-MM-dd")
+                            ),
+                            idTime = idTime.getValueOrDefaultIsEmpty(),
+                            desciption = des.getValueOrDefaultIsEmpty()
+                        )
+                        mPresenter.addBill(request = request)
+                    }
                 }
-//                mvpActivity.onBackPressed()
             }
         }
+    }
+
+    override fun handleAfterAddTransaction() {
+        showDialogNotify(
+            "Bạn đã tạo thành công cho mình một giao dịch định kỳ mới",
+            titleClose = "Quay lại giao dịch định kỳ"
+        )
+    }
+
+    override fun handleAfterAddBill() {
+        showDialogNotify(
+            "Bạn đã tạo thành công cho mình một hóa đơn mới",
+            titleClose = "Quay lại hóa đơn"
+        )
     }
 
     private fun showError(message: String) {
@@ -392,7 +459,10 @@ class AddPlanView(
     }
 
     override fun handleAfterAddBudget() {
-        showDialogNotify("Bạn đã tạo thành công cho mình một ngân sách mới")
+        showDialogNotify(
+            title = "Bạn đã tạo thành công cho mình một ngân sách mới",
+            titleClose = "Quay lại ngân sách"
+        )
     }
 
     override fun onViewResult(viewResult: ViewResult) {

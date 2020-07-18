@@ -7,7 +7,12 @@ import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewMo
 import datn.datn_expansemanagement.screen.splash.data.PassportDataIntent
 
 interface ScreenNavigator {
-    fun gotoCategoryActivity(categoryId: Int? = null, isPlan: Boolean = false)
+    fun gotoCategoryActivity(
+        categoryId: Int? = null,
+        isPlan: Boolean = false,
+        isDonate: Boolean = false
+    )
+
     fun gotoListTypeCategory(data: TypeCategoryDataIntent? = null)
     fun gotoAddCategoryActivity()
     fun gotoChooseWalletActivity(walletId: Int? = null)
@@ -21,6 +26,6 @@ interface ScreenNavigator {
     fun gotoMainActivity()
     fun gotoPlanDetailActivity(planType: PlanItemViewModel)
     fun gotoAddWalletActivity(type: Int)
-    fun gotoControlWalletActivity(data : WalletViewModel, isOtherWallet: Boolean)
+    fun gotoControlWalletActivity(data: WalletViewModel, isOtherWallet: Boolean)
     fun gotoAddPlanActivity(typeAdd: PlanItemViewModel)
 }

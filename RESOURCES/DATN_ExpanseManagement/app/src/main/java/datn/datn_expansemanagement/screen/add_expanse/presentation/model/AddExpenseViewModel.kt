@@ -30,7 +30,8 @@ class AddExpenseViewModel(
         class Category(
             var id: Int? = null,
             var name: String? = null,
-            var isChoose: Boolean = false
+            var isChoose: Boolean = false,
+            var isTypeCategory: Boolean = false
         ) : ViewModel
 
         class Wallet(

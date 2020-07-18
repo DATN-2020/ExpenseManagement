@@ -1,5 +1,6 @@
 package datn.datn_expansemanagement.screen.account.item_account.presentation.renderer
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import datn.datn_expansemanagement.R
@@ -27,7 +28,9 @@ class WalletViewRenderer(
         val currentPrice = Utils.formatMoney(model.currentPrice)
         if (model.currentPrice >= 0) {
             viewRoot.tvCurrentPrice.text = "Còn lại : ".plus(currentPrice)
+            viewRoot.tvCurrentPrice.setTextColor(context.resources.getColor(R.color.color_389b54))
         } else {
+            viewRoot.tvCurrentPrice.setTextColor(context.resources.getColor(R.color.color_ee403f))
             viewRoot.tvCurrentPrice.text = "Nợ : ".plus(currentPrice)
         }
 

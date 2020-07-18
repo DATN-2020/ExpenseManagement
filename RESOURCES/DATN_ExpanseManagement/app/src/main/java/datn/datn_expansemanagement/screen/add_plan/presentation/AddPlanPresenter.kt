@@ -7,6 +7,8 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivit
 import datn.datn_expansemanagement.domain.GetDataService
 import datn.datn_expansemanagement.domain.RetrofitClientInstance
 import datn.datn_expansemanagement.domain.request.AddBudgetRequest
+import datn.datn_expansemanagement.domain.request.BillRequest
+import datn.datn_expansemanagement.domain.request.TransactionRequest
 import datn.datn_expansemanagement.domain.response.BaseResponse
 import datn.datn_expansemanagement.domain.response.TimePeriodicResponse
 import datn.datn_expansemanagement.domain.response.WalletResponse
@@ -62,6 +64,46 @@ class AddPlanPresenter(
 
     }
 
+    override fun addBill(request: BillRequest) {
+        view?.showLoading()
+        val call = service?.addBill(request)
+        call?.enqueue(object : Callback<BaseResponse> {
+            override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
+                Toast.makeText(mvpActivity, t.message, Toast.LENGTH_LONG).show()
+                view?.hideLoading()
+            }
+
+            override fun onResponse(
+                call: Call<BaseResponse>,
+                response: Response<BaseResponse>
+            ) {
+                view?.handleAfterAddBill()
+                view?.hideLoading()
+            }
+
+        })
+    }
+
+    override fun addTransaction(request: TransactionRequest) {
+        view?.showLoading()
+        val call = service?.addTransaction(request)
+        call?.enqueue(object : Callback<BaseResponse> {
+            override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
+                Toast.makeText(mvpActivity, t.message, Toast.LENGTH_LONG).show()
+                view?.hideLoading()
+            }
+
+            override fun onResponse(
+                call: Call<BaseResponse>,
+                response: Response<BaseResponse>
+            ) {
+                view?.handleAfterAddTransaction()
+                view?.hideLoading()
+            }
+
+        })
+    }
+
     override fun addBudget(request: AddBudgetRequest) {
         view?.showLoading()
         val call = service?.addBudget(request)
@@ -83,7 +125,7 @@ class AddPlanPresenter(
     }
 
     override fun gotoCategoryActivity(id: Int?) {
-        screenNavigator.gotoCategoryActivity(id, true)
+        screenNavigator.gotoCategoryActivity(id, isPlan = true)
     }
 
     override fun getWalletForUser(idWallet: Int?) {

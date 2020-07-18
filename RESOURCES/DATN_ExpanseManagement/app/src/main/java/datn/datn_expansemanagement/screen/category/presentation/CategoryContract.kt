@@ -12,7 +12,7 @@ interface CategoryContract {
     }
 
     abstract class Presenter : MvpPresenter<View>() {
-        abstract fun getData()
+        abstract fun getData(isDonate: Boolean = false, isPlan: Boolean = false)
         abstract fun gotoAddCategoryActivity()
     }
 }
