@@ -21,7 +21,7 @@ data class InOutComeRequest(
     val idType: String? = null,
     @SerializedName("LoanId_Loan")
     val loanIdLoan: String? = null,
-    @SerializedName("TripId_Trip ")
+    @SerializedName("TripId_Trip")
     val tripIdTrip: String? = null,
     @SerializedName("WalletId_Wallet")
     val walletIdWallet: String? = null

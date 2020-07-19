@@ -30,10 +30,8 @@ import datn.datn_expansemanagement.screen.add_expanse.presentation.model.AddExpe
 import datn.datn_expansemanagement.screen.contacts.presentation.model.ContactsViewModel
 import datn.datn_expansemanagement.screen.contacts.presentation.renderer.ContactTitleViewRenderer
 import datn.datn_expansemanagement.screen.contacts.presentation.renderer.ContactsItemViewRenderer
-import datn.datn_expansemanagement.screen.trip.item_trip.presentation.model.ItemTripViewModel
 import kotlinx.android.synthetic.main.custom_dialog_edit_trip.*
 import kotlinx.android.synthetic.main.layout_contacts.view.*
-import kotlinx.android.synthetic.main.layout_item_account.view.*
 import kotlinx.android.synthetic.main.toolbar_category.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 import java.util.*
@@ -93,12 +91,12 @@ class ContactsView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCre
             LayoutInflater.from(mvpActivity).inflate(R.layout.custom_dialog_edit_trip, null, false)
         val dialog = AlertDialog.Builder(mvpActivity).setView(customView).create()
         dialog.show()
+        dialog.tvTitleChooseDate.text = "Tạo liên hệ mới"
         dialog.edtChangeName.hint = "Nhập tên liên hệ mới"
         dialog.tvCancel.setOnClickListener {
             dialog.dismiss()
         }
         dialog.tvDelete.gone()
-        dialog.ckIsFinished.gone()
         dialog.tvOk.setOnClickListener {
             // gọi api chỉnh sửa item
             listData.add(

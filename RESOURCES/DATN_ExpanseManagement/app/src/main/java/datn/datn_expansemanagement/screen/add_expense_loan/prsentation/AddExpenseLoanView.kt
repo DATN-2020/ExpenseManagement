@@ -125,8 +125,7 @@ class AddExpenseLoanView(
                 mResourceProvider,
                 onClickExpand,
                 onChooseTrip,
-                onChooseFriend,
-                onChooseLocation
+                onChooseFriend
             )
         )
         listViewMvp?.createView()
@@ -142,12 +141,6 @@ class AddExpenseLoanView(
     private val onChooseTrip = object : OnActionData<AddExpenseDonateInfoViewModel> {
         override fun onAction(data: AddExpenseDonateInfoViewModel) {
             mPresenter.gotoChooseTripActivity()
-        }
-    }
-
-    private val onChooseLocation = object : OnActionData<AddExpenseDonateInfoViewModel> {
-        override fun onAction(data: AddExpenseDonateInfoViewModel) {
-            mPresenter.gotoLocationActivity()
         }
     }
 

@@ -22,7 +22,6 @@ import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.screen.report.presentation.model.GetWalletItemViewModel
 import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewModel
 import datn.datn_expansemanagement.screen.report.presentation.renderer.*
-import datn.datn_expansemanagement.screen.report_detail.main.presentation.model.ReportDetailItemViewModel
 import datn.datn_expansemanagement.screen.report_detail.main.presentation.renderer.ReportDetailItemViewRenderer
 import datn.datn_expansemanagement.view.numberpicker.NumberPicker
 import kotlinx.android.synthetic.main.custom_bottomsheet_recycleview.*
@@ -249,14 +248,14 @@ class ReportView(
             viewMvp.addViewRenderer(ReportDetailItemViewRenderer(mvpActivity))
             viewMvp.createView()
 
-            for (i in 1..2) {
-                list.add(
-                    ReportDetailItemViewModel(
-                        name = "Đi lại",
-                        price = 300000.0
-                    )
-                )
-            }
+//            for (i in 1..2) {
+//                list.add(
+//                    ReportDetailItemViewModel(
+//                        name = "Đi lại",
+//                        price = 300000.0
+//                    )
+//                )
+//            }
 
             viewMvp.setItems(list)
             viewMvp.notifyDataChanged()
@@ -317,12 +316,22 @@ class ReportView(
         this.listBottom.clear()
         if (list.isNotEmpty()) {
             this.listBottom.addAll(list)
-            val data = listBottom[0] as GetWalletItemViewModel
-            view.tvWalletName.text = data.name
-            view.tvPriceWallet.text = Utils.formatMoney(data.money)
-            data.isChoose = true
-            idWalletChoose = data.id
-
+            var isExitsChoose = false
+            this.listBottom.forEach {
+                if(it is GetWalletItemViewModel && it.isChoose){
+                    isExitsChoose = true
+                    idWalletChoose = it.id
+                    view.tvWalletName.text = it.name
+                    view.tvPriceWallet.text = Utils.formatMoney(it.money)
+                }
+            }
+            if(!isExitsChoose){
+                val data = listBottom[0] as GetWalletItemViewModel
+                view.tvWalletName.text = data.name
+                view.tvPriceWallet.text = Utils.formatMoney(data.money)
+                data.isChoose = true
+                idWalletChoose = data.id
+            }
             mPresenter.getData(idWalletChoose, isCardWallet, getCurrentMonth())
         }
 

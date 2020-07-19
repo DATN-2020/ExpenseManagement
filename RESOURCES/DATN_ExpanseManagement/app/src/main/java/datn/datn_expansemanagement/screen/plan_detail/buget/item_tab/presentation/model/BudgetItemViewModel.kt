@@ -8,5 +8,6 @@ class BudgetItemViewModel (
     var imgUrl: String,
     var totalPrice: Double,
     var currentPrice: Double,
+    var idWallet: Int,
     var isFinish: Boolean = false
 ): ViewModel

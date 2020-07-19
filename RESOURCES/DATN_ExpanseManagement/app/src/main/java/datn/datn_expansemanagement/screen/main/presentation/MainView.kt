@@ -44,20 +44,13 @@ class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :
     private val eventBusLifeCycle = EventBusLifeCycle(object : OnActionData<EventBusData> {
         override fun onAction(data: EventBusData) {
             when(data){
-                is TransactionDataBus->{
+                is OnReportWalletDataBus->{
+                    idWallet = data.idWallet
                     view.bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
                         showFragmentForMenuItem(menuItem.itemId)
                         return@setOnNavigationItemSelectedListener true
                     }
                     view.bottomNavigation.selectedItemId = R.id.menuReport
-                }
-
-                is OnReportWalletDataBus->{
-                    view.bottomNavigation.selectedItemId = R.id.menuReport
-                    idWallet = data.idWallet
-                    isCard = data.isCard
-                    showFragmentForMenuItem(view.bottomNavigation.selectedItemId )
-
                 }
             }
         }

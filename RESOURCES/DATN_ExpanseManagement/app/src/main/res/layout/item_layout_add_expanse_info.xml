@@ -115,41 +115,6 @@
             app:layout_constraintStart_toStartOf="@id/clContact"
             app:layout_constraintTop_toBottomOf="@id/clContact" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clLocation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:paddingStart="@dimen/spacing_20dp"
-            android:paddingTop="@dimen/spacing_14dp"
-            android:paddingEnd="@dimen/spacing_20dp"
-            android:paddingBottom="@dimen/spacing_14dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/viewBottom2">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imgLocation"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                app:layout_constraintBottom_toBottomOf="@id/edtLocation"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/edtLocation"
-                app:srcCompat="@drawable/ic_location_on_black_24dp" />
-
-            <TextView
-                android:id="@+id/edtLocation"
-                style="@style/StyleTextView.Medium.Black"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
-                android:hint="@string/text_location"
-                android:paddingStart="@dimen/spacing_20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/imgLocation"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

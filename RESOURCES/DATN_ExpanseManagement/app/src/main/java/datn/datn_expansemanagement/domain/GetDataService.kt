@@ -22,6 +22,12 @@ interface GetDataService {
         @Body request: UpdateWalletRequest
     ): Call<BaseResponse>
 
+    @PUT("trips/{id}")
+    fun updateTrip(
+        @Path("id") idTrip: Int,
+        @Body request: UpdateTripRequest
+    ): Call<BaseResponse>
+
     @DELETE("wallets/5")
     fun deleteWallet(@Query("id") walletId: Int): Call<BaseResponse>
 
@@ -42,6 +48,27 @@ interface GetDataService {
 
     @GET("exchange/export")
     fun getListExchangeRate(): Call<ExchangeRateResponse>
+
+    @GET("budgets/5")
+    fun reportBudget(
+        @Query("id_wallet") idWallet: Int,
+        @Query("id_budget") idBudget: Int,
+        @Query("date") date: String
+    ): Call<ReportDetailResponse>
+
+    @GET("periodics/5")
+    fun reportPeriodic(
+        @Query("id_wallet") idWallet: Int,
+        @Query("id_per") idPeriodic: Int,
+        @Query("date") date: String
+    ): Call<ReportDetailResponse>
+
+    @GET("bills/5")
+    fun reportBill(
+        @Query("id_wallet") idWallet: Int,
+        @Query("id_bill") idBill: Int,
+        @Query("date") date: String
+    ): Call<ReportDetailResponse>
 
     @POST("logins")
     fun login(@Body passportRequest: PassportRequest): Call<PassportResponse>
@@ -66,6 +93,15 @@ interface GetDataService {
 
     @POST("bills")
     fun addBill(@Body request: BillRequest): Call<BaseResponse>
+
+    @POST("trips")
+    fun addTrip(@Body request: AddTripRequest): Call<BaseResponse>
+
+    @GET("trips/5")
+    fun getTrip(@Query("id") idUser: String): Call<TripResponse>
+
+    @DELETE("trips/{id}")
+    fun deleteTrip(@Path("id") idTrip: Int): Call<BaseResponse>
 
     @GET("Summaries/1")
     fun getReport(

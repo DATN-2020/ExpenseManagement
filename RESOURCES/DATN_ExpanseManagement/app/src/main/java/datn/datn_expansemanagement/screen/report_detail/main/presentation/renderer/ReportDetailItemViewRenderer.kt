@@ -27,6 +27,8 @@ class ReportDetailItemViewRenderer(context: Context) :
             R.drawable.ic_default
         )
         viewRoot.tvName.text = model.name
+        viewRoot.tvDate.text = model.date
+        viewRoot.tvDes.text = model.des
         viewRoot.tvPrice.text = Utils.formatMoney(model.price)
 
         if(model.isLast){

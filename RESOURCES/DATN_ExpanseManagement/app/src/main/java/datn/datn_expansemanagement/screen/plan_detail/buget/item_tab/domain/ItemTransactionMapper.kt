@@ -32,7 +32,8 @@ class ItemTransactionMapper(private val tab: TabItemViewModel) :
                             it.dateTimeS.getValueOrDefaultIsEmpty(),
                             SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss"),
                             SimpleDateFormat("dd/MM/yyyy")
-                        )
+                        ),
+                        idWallet = it.idwallet.getValueOrDefaultIsEmpty().toInt()
                     )
                 )
             }

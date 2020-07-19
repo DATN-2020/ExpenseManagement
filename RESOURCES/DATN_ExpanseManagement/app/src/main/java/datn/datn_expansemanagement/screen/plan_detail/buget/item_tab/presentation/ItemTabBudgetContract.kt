@@ -5,6 +5,7 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.base.MvpPresenter
 import datn.datn_expansemanagement.core.base.presentation.mvp.base.MvpView
 import datn.datn_expansemanagement.domain.request.InOutComeRequest
 import datn.datn_expansemanagement.screen.account.presentation.model.TabItemViewModel
+import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewModel
 
 interface ItemTabBudgetContract {
     interface View: MvpView {
@@ -17,5 +18,6 @@ interface ItemTabBudgetContract {
     abstract class Presenter : MvpPresenter<View>(){
         abstract fun getData(tab: TabItemViewModel, idWallet: Int)
         abstract fun payBill(request: InOutComeRequest)
+        abstract fun gotoReportDetail(data: ReportViewModel)
     }
 }

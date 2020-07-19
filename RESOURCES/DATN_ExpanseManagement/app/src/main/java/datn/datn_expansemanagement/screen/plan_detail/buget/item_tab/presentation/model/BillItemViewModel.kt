@@ -8,6 +8,7 @@ class BillItemViewModel(
     val dateS: String,
     val currentDate: String,
     val idBill: Int,
+    val idWallet: Int,
     val image: String,
     val isDeadline: Boolean,
     val isPay: Boolean,

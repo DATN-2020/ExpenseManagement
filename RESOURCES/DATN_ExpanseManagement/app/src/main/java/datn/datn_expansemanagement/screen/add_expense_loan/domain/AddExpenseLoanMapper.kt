@@ -11,7 +11,7 @@ class AddExpenseLoanMapper(private val isDonate: Boolean = false) : Mapper<Strin
         val list = mutableListOf<ViewModel>()
         list.add(AddExpenseLoanTotalMoneyViewModel(isDonate))
         list.add(AddExpenseLoanRequireViewModel(isLoan = isDonate))
-        list.add(AddExpenseDonateInfoViewModel())
+//        list.add(AddExpenseDonateInfoViewModel())
         return list
     }
 

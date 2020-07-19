@@ -18,10 +18,6 @@ import datn.datn_expansemanagement.screen.report_detail.main.presentation.render
 import datn.datn_expansemanagement.screen.report_detail.main.presentation.renderer.ReportDetailHeaderViewRenderer
 import datn.datn_expansemanagement.screen.report_detail.main.presentation.renderer.ReportDetailItemViewRenderer
 import datn.datn_expansemanagement.screen.report_detail.main.presentation.renderer.ReportDetailPieChartViewRenderer
-import datn.datn_expansemanagement.screen.report_detail.report_receive.ReportReceiveFragment
-import kotlinx.android.synthetic.main.custom_bottomsheet_recycleview.*
-import kotlinx.android.synthetic.main.layout_add_expanse.view.*
-import kotlinx.android.synthetic.main.layout_report.view.*
 import kotlinx.android.synthetic.main.layout_report_detail.view.*
 import kotlinx.android.synthetic.main.toolbar_category.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp

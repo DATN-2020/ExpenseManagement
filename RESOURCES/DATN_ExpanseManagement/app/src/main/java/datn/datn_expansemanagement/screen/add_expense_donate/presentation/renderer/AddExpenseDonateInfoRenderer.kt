@@ -27,8 +27,7 @@ class AddExpenseDonateInfoRenderer(
     val mvpActivity: MvpActivity, private val mResource: AddExpenseDonateResource,
     private val onClickExpand: OnActionData<AddExpenseDonateInfoViewModel>,
     private val onChooseTrip: OnActionData<AddExpenseDonateInfoViewModel>,
-    private val onChooseFriend: OnActionData<AddExpenseDonateInfoViewModel>,
-    private val onChooseLocation: OnActionData<AddExpenseDonateInfoViewModel>
+    private val onChooseFriend: OnActionData<AddExpenseDonateInfoViewModel>
 ) : ViewRenderer<AddExpenseDonateInfoViewModel>(mvpActivity) {
     override fun getLayoutId(): Int {
         return R.layout.item_layout_add_expanse_info
@@ -130,10 +129,6 @@ class AddExpenseDonateInfoRenderer(
 
         viewRoot.rvFriend.setOnClickListener {
             EventFireUtil.fireEvent(onChooseFriend, model)
-        }
-
-        viewRoot.clLocation.setOnClickListener {
-            EventFireUtil.fireEvent(onChooseLocation, model)
         }
     }
 

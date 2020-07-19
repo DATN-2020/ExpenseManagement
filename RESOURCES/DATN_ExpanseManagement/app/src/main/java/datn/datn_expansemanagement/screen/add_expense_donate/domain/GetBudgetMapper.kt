@@ -21,7 +21,8 @@ class GetBudgetMapper : Mapper<GetBudgetResponse, MutableList<ViewModel>> {
                             imgUrl = it.image.getValueOrDefaultIsEmpty(),
                             totalPrice = it.amount.getValueOrDefaultIsZero(),
                             currentPrice = it.remain.getValueOrDefaultIsZero(),
-                            isFinish = it.check.getValueOrDefault()
+                            isFinish = it.check.getValueOrDefault(),
+                            idWallet = it.idwallet.getValueOrDefaultIsEmpty().toInt()
                         )
                     )
                 }

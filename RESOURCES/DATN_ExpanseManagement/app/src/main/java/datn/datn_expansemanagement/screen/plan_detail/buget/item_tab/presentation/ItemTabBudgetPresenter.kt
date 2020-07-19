@@ -1,6 +1,7 @@
 package datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentation
 
 import android.widget.Toast
+import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.domain.GetDataService
 import datn.datn_expansemanagement.domain.RetrofitClientInstance
@@ -14,11 +15,15 @@ import datn.datn_expansemanagement.screen.main_plan.presentation.model.PlanItemV
 import datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.domain.ItemBillMapper
 import datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.domain.ItemTabBudgetMapper
 import datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.domain.ItemTransactionMapper
+import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ItemTabBudgetPresenter(private val mvpActivity: MvpActivity) : ItemTabBudgetContract.Presenter() {
+class ItemTabBudgetPresenter(
+    private val mvpActivity: MvpActivity,
+    private val screenNavigator: AndroidScreenNavigator
+) : ItemTabBudgetContract.Presenter() {
 
     private val service = RetrofitClientInstance().getClient()?.create(GetDataService::class.java)
 
@@ -61,7 +66,7 @@ class ItemTabBudgetPresenter(private val mvpActivity: MvpActivity) : ItemTabBudg
 
                 })
             }
-            else ->{
+            else -> {
                 val call = service?.getBills(idWallet)
                 call?.enqueue(object : Callback<BillResponse> {
                     override fun onFailure(call: Call<BillResponse>, t: Throwable) {
@@ -99,5 +104,9 @@ class ItemTabBudgetPresenter(private val mvpActivity: MvpActivity) : ItemTabBudg
             }
 
         })
+    }
+
+    override fun gotoReportDetail(data: ReportViewModel) {
+        screenNavigator.gotoReportDetailActivity(data)
     }
 }

@@ -25,6 +25,7 @@ import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.kotlinex.view.gone
 import datn.datn_expansemanagement.kotlinex.view.visible
+import datn.datn_expansemanagement.screen.account.item_account.data.OnReportWalletDataBus
 import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
 import datn.datn_expansemanagement.screen.add_expanse.data.TransactionDataBus
 import datn.datn_expansemanagement.screen.add_expanse.presentation.model.AddExpenseViewModel
@@ -176,6 +177,8 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
         dialogRegister.show()
         dialogRegister.btnCancel.setOnClickListener {
             dialogRegister.dismiss()
+            replaceFragment(AddExpenseDonateFragment(false))
+
         }
         if (!title.isNullOrEmpty()) {
             dialogRegister.tvTitleChooseDate.text = title
@@ -213,7 +216,7 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
         }
 
         view.imgHistory.setOnClickListener {
-            eventBusLifeCycle.sendData(TransactionDataBus())
+            eventBusLifeCycle.sendData(OnReportWalletDataBus(AddExpenseFragment.model.wallet?.id.getValueOrDefaultIsZero()))
         }
     }
 
@@ -256,38 +259,48 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
             AddExpenseFragment.model.title = "Không có mô tả cho chi tiêu này"
         }
 
-        var idTypeCategory : String? = null
-        var idCategory : String? = null
-        if(AddExpenseFragment.model.category?.isTypeCategory == true){
+        var idTypeCategory: String? = null
+        var idCategory: String? = null
+        if (AddExpenseFragment.model.category?.isTypeCategory == true) {
             idTypeCategory = AddExpenseFragment.model.category?.id.toString()
-        }else{
+        } else {
             idCategory = AddExpenseFragment.model.category?.id.toString()
         }
 
 
-        if(AddExpenseFragment.model.idBudget == null){
+        if (AddExpenseFragment.model.idBudget == null) {
             val request = InOutComeRequest(
-                loanIdLoan = if(AddExpenseFragment.model.loaner?.id != null) AddExpenseFragment.model.loaner?.id.toString() else null,
+                loanIdLoan = if (AddExpenseFragment.model.loaner?.id != null) AddExpenseFragment.model.loaner?.id.toString() else null,
                 amount = AddExpenseFragment.model.totalMoney.getValueOrDefaultIsZero(),
                 categoryIdCate = idCategory,
-                dateCome = Utils.convertDateFormat(AddExpenseFragment.model.date.getValueOrDefaultIsEmpty(), SimpleDateFormat("dd/MM/yyyy"), SimpleDateFormat("yyyy-MM-dd")),
+                dateCome = Utils.convertDateFormat(
+                    AddExpenseFragment.model.date.getValueOrDefaultIsEmpty(),
+                    SimpleDateFormat("dd/MM/yyyy"),
+                    SimpleDateFormat("yyyy-MM-dd")
+                ),
                 descriptionCome = AddExpenseFragment.model.title.getValueOrDefaultIsEmpty(),
                 idType = idTypeCategory,
-                tripIdTrip = if(AddExpenseFragment.model.trip?.id != null) AddExpenseFragment.model.trip?.id.toString() else null,
-                walletIdWallet = AddExpenseFragment.model.wallet?.id.getValueOrDefaultIsZero().toString()
+                tripIdTrip = if (AddExpenseFragment.model.trip?.id != null) AddExpenseFragment.model.trip?.id.toString() else null,
+                walletIdWallet = AddExpenseFragment.model.wallet?.id.getValueOrDefaultIsZero()
+                    .toString()
             )
             mPresenter.createExpense(request)
-        }else{
+        } else {
             val request = InOutComeRequest(
-                loanIdLoan = if(AddExpenseFragment.model.loaner?.id != null) AddExpenseFragment.model.loaner?.id.toString() else null,
+                loanIdLoan = if (AddExpenseFragment.model.loaner?.id != null) AddExpenseFragment.model.loaner?.id.toString() else null,
                 amount = AddExpenseFragment.model.totalMoney.getValueOrDefaultIsZero(),
                 categoryIdCate = idCategory,
-                dateCome = Utils.convertDateFormat(AddExpenseFragment.model.date.getValueOrDefaultIsEmpty(), SimpleDateFormat("dd/MM/yyyy"), SimpleDateFormat("yyyy-MM-dd")),
+                dateCome = Utils.convertDateFormat(
+                    AddExpenseFragment.model.date.getValueOrDefaultIsEmpty(),
+                    SimpleDateFormat("dd/MM/yyyy"),
+                    SimpleDateFormat("yyyy-MM-dd")
+                ),
                 descriptionCome = AddExpenseFragment.model.title.getValueOrDefaultIsEmpty(),
                 idType = idTypeCategory,
                 idBudget = AddExpenseFragment.model.idBudget.getValueOrDefaultIsZero().toString(),
-                tripIdTrip = if(AddExpenseFragment.model.trip?.id != null) AddExpenseFragment.model.trip?.id.toString() else null,
-                walletIdWallet = AddExpenseFragment.model.wallet?.id.getValueOrDefaultIsZero().toString()
+                tripIdTrip = if (AddExpenseFragment.model.trip?.id != null) AddExpenseFragment.model.trip?.id.toString() else null,
+                walletIdWallet = AddExpenseFragment.model.wallet?.id.getValueOrDefaultIsZero()
+                    .toString()
             )
             mPresenter.createExpense(request)
         }

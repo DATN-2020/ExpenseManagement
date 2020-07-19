@@ -10,34 +10,48 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.R
+import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
+import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.OnItemRvClickedListener
 import datn.datn_expansemanagement.domain.request.InOutComeRequest
-import datn.datn_expansemanagement.kotlinex.view.gone
-import datn.datn_expansemanagement.kotlinex.view.visible
 import datn.datn_expansemanagement.screen.account.presentation.model.TabItemViewModel
 import datn.datn_expansemanagement.screen.add_expanse.presentation.AddExpenseResource
 import datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentation.model.BillItemViewModel
+import datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentation.model.BudgetItemViewModel
+import datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentation.model.TransactionItemViewModel
 import datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentation.renderer.BillItemViewRenderer
 import datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentation.renderer.BudgetItemViewRenderer
 import datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentation.renderer.NoDataViewRenderer
 import datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentation.renderer.TransactionItemViewRenderer
 import datn.datn_expansemanagement.screen.plan_detail.presentation.PlanDetailResource
+import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewModel
 import kotlinx.android.synthetic.main.custom_dialog_cancel_contact.*
 import kotlinx.android.synthetic.main.layou_item_tab_control_detail_budget.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
+import java.text.SimpleDateFormat
+import java.util.*
 
-class ItemTabBudgetView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator,
-private val tabId: TabItemViewModel?, private val idWallet: Int): AndroidMvpView(mvpActivity, viewCreator), ItemTabBudgetContract.View{
+class ItemTabBudgetView(
+    mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator,
+    private val tabId: TabItemViewModel?, private val idWallet: Int
+) : AndroidMvpView(mvpActivity, viewCreator), ItemTabBudgetContract.View {
 
     class ViewCreator(context: Context, viewGroup: ViewGroup?) :
-        AndroidMvpView.LayoutViewCreator(R.layout.layou_item_tab_control_detail_budget, context, viewGroup)
+        AndroidMvpView.LayoutViewCreator(
+            R.layout.layou_item_tab_control_detail_budget,
+            context,
+            viewGroup
+        )
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
-    private val mPresenter = ItemTabBudgetPresenter(mvpActivity)
+    private val mPresenter = ItemTabBudgetPresenter(
+        mvpActivity = mvpActivity,
+        screenNavigator = AndroidScreenNavigator(mvpActivity)
+    )
     private val mResource = PlanDetailResource()
     private val listData = mutableListOf<ViewModel>()
     private var listViewMvp: ListViewMvp? = null
@@ -86,13 +100,23 @@ private val tabId: TabItemViewModel?, private val idWallet: Int): AndroidMvpView
         listViewMvp?.notifyDataChanged()
     }
 
-    private val onActionPayBill = object : OnActionData<BillItemViewModel>{
+    private fun getCurrentDate(): String {
+        val format = "yyyy-MM-dd"
+        val sdf = SimpleDateFormat(format, Locale.US)
+        val calendar = Calendar.getInstance()
+        return sdf.format(calendar.time)
+    }
+
+    private val onActionPayBill = object : OnActionData<BillItemViewModel> {
         override fun onAction(data: BillItemViewModel) {
-            var request : InOutComeRequest? = null
+            var request: InOutComeRequest? = null
             listData.forEach {
-                if(it is BillItemViewModel){
+                if (it is BillItemViewModel) {
                     request = InOutComeRequest(
-                        idBill = it.idBill.toString())
+                        walletIdWallet = it.idWallet.toString(),
+                        idBill = it.idBill.toString(),
+                        dateCome = getCurrentDate()
+                    )
                 }
             }
             request?.let { mPresenter.payBill(it) }
@@ -131,12 +155,45 @@ private val tabId: TabItemViewModel?, private val idWallet: Int): AndroidMvpView
         showDialogNotify("Thanh toán hóa đơn thành công")
     }
 
-    private fun initRecycleView(){
+    private val onActionItemRvClickedListener = object : OnItemRvClickedListener<ViewModel> {
+        override fun onItemClicked(view: View, position: Int, dataItem: ViewModel) {
+            var request: ReportViewModel? = null
+            when (dataItem) {
+                is BudgetItemViewModel -> {
+                    request = ReportViewModel(
+                        idWallet = dataItem.idWallet,
+                        idBudget = dataItem.id
+                    )
+                }
+                is TransactionItemViewModel -> {
+                    request = ReportViewModel(
+                        idWallet = dataItem.idWallet,
+                        idPeriodic = dataItem.id
+                    )
+                }
+                is BillItemViewModel -> {
+                    request = ReportViewModel(
+                        idWallet = dataItem.idWallet,
+                        idBill = dataItem.idBill
+                    )
+                }
+            }
+
+            if (request != null) {
+                mPresenter.gotoReportDetail(request)
+            }
+
+        }
+
+    }
+
+    private fun initRecycleView() {
         listViewMvp = ListViewMvp(mvpActivity, view.rvControlDetailBudget, renderConfig)
         listViewMvp?.addViewRenderer(BudgetItemViewRenderer(mvpActivity, mResource))
         listViewMvp?.addViewRenderer(TransactionItemViewRenderer(mvpActivity))
         listViewMvp?.addViewRenderer(NoDataViewRenderer(mvpActivity))
         listViewMvp?.addViewRenderer(BillItemViewRenderer(mvpActivity, onActionPayBill))
+        listViewMvp?.setOnItemRvClickedListener(onActionItemRvClickedListener)
         listViewMvp?.createView()
     }
 

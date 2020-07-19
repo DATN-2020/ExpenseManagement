@@ -9,15 +9,14 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.model.ViewRenderer
-import datn.datn_expansemanagement.kotlinex.view.gone
-import datn.datn_expansemanagement.kotlinex.view.visible
 import datn.datn_expansemanagement.screen.report.presentation.ReportResource
 import datn.datn_expansemanagement.screen.report_detail.main.presentation.model.ReportDetailPieChartViewModel
 import kotlinx.android.synthetic.main.item_layout_report_pie_chart.view.*
 
 class ReportDetailPieChartViewRenderer(
     context: Context,
-    private val mResource: ReportResource) :
+    private val mResource: ReportResource
+) :
     ViewRenderer<ReportDetailPieChartViewModel>(context) {
     override fun getLayoutId(): Int {
         return R.layout.item_layout_report_pie_chart
@@ -51,12 +50,7 @@ class ReportDetailPieChartViewRenderer(
 
         chart.animate()
 
-        if(model.list.isNullOrEmpty()){
-            viewRoot.tvNoData.visible()
-        }else{
-            viewRoot.tvNoData.gone()
-            setData(chart, model.list)
-        }
+        setData(chart, model.list)
         setLegend(chart)
     }
 

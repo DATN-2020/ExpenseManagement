@@ -13,7 +13,9 @@
         android:paddingStart="@dimen/spacing_20dp"
         android:paddingTop="@dimen/spacing_10dp"
         android:paddingEnd="@dimen/spacing_20dp"
+        android:paddingBottom="@dimen/spacing_10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -55,10 +57,10 @@
             tools:ignore="RtlCompat" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:background="?attr/selectableItemBackgroundBorderless"
             android:id="@+id/imgEdit"
             android:layout_width="@dimen/spacing_24dp"
             android:layout_height="@dimen/spacing_24dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="@dimen/spacing_6dp"
             android:src="@drawable/ic_edit_black_24dp"
             app:layout_constraintBottom_toBottomOf="@id/tvTrip"
@@ -68,7 +70,7 @@
         <View
             android:id="@+id/viewBottom"
             android:layout_width="0dp"
-            android:layout_height="0.5dp"
+            android:layout_height="1dp"
             android:layout_marginStart="@dimen/spacing_20dp"
             android:layout_marginTop="@dimen/spacing_10dp"
             android:background="@color/color_f5f5f5"

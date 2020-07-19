@@ -68,12 +68,7 @@ class ReportPieChartViewRenderer(
 
         })
 
-        if(model.list.isNullOrEmpty()){
-            viewRoot.tvNoData.visible()
-        }else{
-            viewRoot.tvNoData.gone()
-            setData(chart, model.list)
-        }
+        setData(chart, model.list)
         setLegend(chart)
     }
 

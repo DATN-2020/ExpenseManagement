@@ -4,6 +4,7 @@ import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 
 class TransactionItemViewModel (
     var id: Int,
+    var idWallet: Int,
     var name: String,
     var imgUrl: String,
     var price: Double,
