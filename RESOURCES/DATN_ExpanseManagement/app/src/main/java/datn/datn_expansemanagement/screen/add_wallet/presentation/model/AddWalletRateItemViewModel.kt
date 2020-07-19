@@ -5,5 +5,7 @@ import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 class AddWalletRateItemViewModel(
     var rate: Double? = null,
     var title: String,
-    var unit: String
+    var unit: String,
+    var price: Double = 0.0,
+    var isResult: Boolean = false
 ) : ViewModel

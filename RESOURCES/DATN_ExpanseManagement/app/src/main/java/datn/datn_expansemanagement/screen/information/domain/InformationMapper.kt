@@ -13,7 +13,7 @@ class InformationMapper : Mapper<PassportResponse, MutableList<ViewModel>> {
         val list = mutableListOf<ViewModel>()
 
         if(input.data != null){
-            list.add(InfoHeaderItemViewModel())
+//            list.add(InfoHeaderItemViewModel())
             list.add(
                 InfoItemViewModel(
                     name = input.data.userName

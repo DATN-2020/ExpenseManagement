@@ -1,5 +1,6 @@
 package datn.datn_expansemanagement.core.app.change_screen
 
+import datn.datn_expansemanagement.screen.account.item_account.presentation.model.ItemAccountAccumulationViewModel
 import datn.datn_expansemanagement.screen.account.item_account.presentation.model.WalletViewModel
 import datn.datn_expansemanagement.screen.add_category.data.TypeCategoryDataIntent
 import datn.datn_expansemanagement.screen.main_plan.presentation.model.PlanItemViewModel
@@ -28,4 +29,5 @@ interface ScreenNavigator {
     fun gotoAddWalletActivity(type: Int)
     fun gotoControlWalletActivity(data: WalletViewModel, isOtherWallet: Boolean)
     fun gotoAddPlanActivity(typeAdd: PlanItemViewModel)
+    fun gotoControlSavingActivity(isCome: Boolean, data : ItemAccountAccumulationViewModel)
 }

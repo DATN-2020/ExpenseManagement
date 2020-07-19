@@ -27,7 +27,6 @@ import datn.datn_expansemanagement.kotlinex.view.gone
 import datn.datn_expansemanagement.kotlinex.view.visible
 import datn.datn_expansemanagement.screen.account.item_account.data.OnReportWalletDataBus
 import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
-import datn.datn_expansemanagement.screen.add_expanse.data.TransactionDataBus
 import datn.datn_expansemanagement.screen.add_expanse.presentation.model.AddExpenseViewModel
 import datn.datn_expansemanagement.screen.add_expanse.presentation.renderer.AddExpenseRenderer
 import datn.datn_expansemanagement.screen.add_expense_donate.AddExpenseDonateFragment
@@ -154,7 +153,7 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
     }
 
     override fun handleAfterCreate() {
-        showDialogNotify()
+        showDialogNotify(isFinish = true)
         view.imgNotify.visible()
     }
 
@@ -168,7 +167,7 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
         }
     }
 
-    private fun showDialogNotify(title: String? = null) {
+    private fun showDialogNotify(title: String? = null, isFinish: Boolean = false) {
         val layoutView = LayoutInflater.from(mvpActivity)
             .inflate(R.layout.custom_dialog_cancel_contact, null, false)
         val dialogRegister =
@@ -177,8 +176,24 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
         dialogRegister.show()
         dialogRegister.btnCancel.setOnClickListener {
             dialogRegister.dismiss()
-            replaceFragment(AddExpenseDonateFragment(false))
+            if (isFinish) {
+                when (typeIncome) {
+                    1 -> {
+                        replaceFragment(AddExpenseDonateFragment(true))
+                    }
+                    2 -> {
+                        replaceFragment(AddExpenseDonateFragment(false))
 
+                    }
+                    3 -> {
+                        replaceFragment(AddExpenseLoanFragment(false))
+                    }
+                    else -> {
+                        replaceFragment(AddExpenseLoanFragment(true))
+                    }
+                }
+
+            }
         }
         if (!title.isNullOrEmpty()) {
             dialogRegister.tvTitleChooseDate.text = title

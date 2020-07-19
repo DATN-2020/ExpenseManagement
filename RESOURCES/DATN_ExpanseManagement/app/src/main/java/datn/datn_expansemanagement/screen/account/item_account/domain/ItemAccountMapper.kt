@@ -31,20 +31,21 @@ class ItemAccountMapper(private val tapId: Int? = null) :
                     totalPrice += it.amountWallet
                 }
             }
-            if(listItem.isNotEmpty()){
+            if (listItem.isNotEmpty()) {
                 val dataLast = listItem.last() as WalletViewModel
                 dataLast.isLast = true
             }
-        }
-        else{
-            listItem.add(ItemAccountAccumulationViewModel(
-                id = 0,
-                name = "Tài khoản tiết kiệm",
-                moneyAccumulation = 3000000.0,
-                moneyCurrent = 250000.0,
-                isLast = true
-            ))
-//            totalPrice += amountWallet
+        } else {
+            listItem.add(
+                ItemAccountAccumulationViewModel(
+                    id = 0,
+                    name = "Tài khoản tiết kiệm",
+                    startDate = "19/7/2020",
+                    endDate = "21/10/2021",
+                    price = 300000000.0
+                )
+            )
+//            totalPrice += price
         }
         listReturn.add(ItemAccountTotalMoneyViewModel(total = totalPrice))
         listReturn.addAll(listItem)

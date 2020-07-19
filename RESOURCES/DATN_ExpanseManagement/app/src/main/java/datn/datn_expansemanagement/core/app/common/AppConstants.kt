@@ -13,5 +13,7 @@ interface AppConstants {
 
         val MONTH_30_DAYS: Array<String>
             get() = App.app?.resources!!.getStringArray(R.array.list_month_30_days)
+
+        val MAGIC: Long = 86400000L
     }
 }

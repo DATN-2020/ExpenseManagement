@@ -30,7 +30,6 @@ import datn.datn_expansemanagement.screen.account.item_account.presentation.rend
 import datn.datn_expansemanagement.screen.account.item_account.presentation.renderer.WalletViewRenderer
 import kotlinx.android.synthetic.main.custom_bottom_sheet_account.*
 import kotlinx.android.synthetic.main.custom_bottom_sheet_accumulation.*
-import kotlinx.android.synthetic.main.custom_dialog_cancel_contact.*
 import kotlinx.android.synthetic.main.custom_dialog_cancel_contact.btnCancel
 import kotlinx.android.synthetic.main.custom_dialog_cancel_contact.tvTitleChooseDate
 import kotlinx.android.synthetic.main.custom_dialog_notify.*
@@ -140,24 +139,41 @@ class ItemAccountView(
 
     private val layoutView = LayoutInflater.from(mvpActivity)
         .inflate(R.layout.custom_dialog_notify, null, false)
-    private val dialogRegister =
+    private val dialogNotify =
         AlertDialog.Builder(mvpActivity, R.style.DialogNotify).setView(layoutView).create()
 
-    private fun showDialogNotify(title: String? = null, data: WalletViewModel) {
+    private fun showDialogNotify(
+        title: String? = null,
+        data: WalletViewModel? = null,
+        dataAccum: ItemAccountAccumulationViewModel? = null,
+        type: String? = null
+    ) {
 
-        setAlertDialogFullScreen(dialogRegister)
-        dialogRegister.show()
-        dialogRegister.btnCancel.setOnClickListener {
-            dialogRegister.dismiss()
+        setAlertDialogFullScreen(dialogNotify)
+        dialogNotify.show()
+        dialogNotify.btnCancel.setOnClickListener {
+            dialogNotify.dismiss()
         }
 
-        dialogRegister.btnOk.text = "Đồng ý"
-        dialogRegister.btnOk.setOnClickListener {
-            mPresenter.deleteWallet(data.id.getValueOrDefaultIsZero())
+        dialogNotify.btnOk.text = "Đồng ý"
+        dialogNotify.btnOk.setOnClickListener {
+            if(data != null){
+                mPresenter.deleteWallet(data.id.getValueOrDefaultIsZero())
+            }
+            if(dataAccum != null){
+                when(type){
+                    "delete"->{
+                        mPresenter.deleteAccumulation(dataAccum.id.getValueOrDefaultIsZero())
+                    }
+                    "finish"->{
+                        mPresenter.finishAccumulation(dataAccum.id.getValueOrDefaultIsZero())
+                    }
+                }
+            }
         }
 
         if (!title.isNullOrEmpty()) {
-            dialogRegister.tvTitleChooseDate.text = title
+            dialogNotify.tvTitleChooseDate.text = title
         }
     }
 
@@ -171,24 +187,39 @@ class ItemAccountView(
         bottomDialog.show()
 
         bottomDialog.clSendTo.setOnClickListener {
-
+            mPresenter.gotoControlSavingActivity(true, data)
         }
 
         bottomDialog.clDelete.setOnClickListener {
-
+            showDialogNotify(
+                title = "Bạn có chắc muốn xóa ví tiết kiệm này ?",
+                type = "delete",
+                dataAccum = data
+            )
         }
 
-        bottomDialog.clUpdate.setOnClickListener {
-
-        }
+//        bottomDialog.clUpdate.setOnClickListener {
+//
+//        }
 
         bottomDialog.clPutOut.setOnClickListener {
-
+            mPresenter.gotoControlSavingActivity(false, data)
         }
 
         bottomDialog.clFinish.setOnClickListener {
-
+            showDialogNotify(
+                title = "Bạn có chắc muốn kết thúc việc gửi tiết kiệm này ?",
+                type = "finish",
+                dataAccum = data
+            )
         }
+    }
+
+    override fun handleAfterDeleteSaving() {
+
+    }
+
+    override fun handleAfterFinishSaving() {
     }
 
     private fun setDialogFullScreen(dialog: BottomSheetDialog) {
@@ -252,7 +283,7 @@ class ItemAccountView(
     }
 
     override fun handleAfterDeleteWallet() {
-        dialogRegister.dismiss()
+        dialogNotify.dismiss()
         bottomDialog.dismiss()
         mPresenter.getData(
             tabId.getValueOrDefaultIsZero(),

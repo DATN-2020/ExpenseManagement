@@ -104,39 +104,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/clDelete" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clUpdate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:paddingStart="@dimen/spacing_20dp"
-        android:paddingTop="@dimen/spacing_14dp"
-        android:paddingEnd="@dimen/spacing_20dp"
-        android:paddingBottom="@dimen/spacing_14dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewDelete">
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/clUpdate"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="?attr/selectableItemBackground"-->
+<!--        android:paddingStart="@dimen/spacing_20dp"-->
+<!--        android:paddingTop="@dimen/spacing_14dp"-->
+<!--        android:paddingEnd="@dimen/spacing_20dp"-->
+<!--        android:paddingBottom="@dimen/spacing_14dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/viewDelete">-->
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imgUpdate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@id/tvUpdate"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvUpdate"
-            app:srcCompat="@drawable/ic_update_black_24dp" />
+<!--        <androidx.appcompat.widget.AppCompatImageView-->
+<!--            android:id="@+id/imgUpdate"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/tvUpdate"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="@id/tvUpdate"-->
+<!--            app:srcCompat="@drawable/ic_update_black_24dp" />-->
 
-        <TextView
-            android:id="@+id/tvUpdate"
-            style="@style/StyleTextView.Medium.Black"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/spacing_20dp"
-            android:text="@string/text_update"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/imgUpdate"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--        <TextView-->
+<!--            android:id="@+id/tvUpdate"-->
+<!--            style="@style/StyleTextView.Medium.Black"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:paddingStart="@dimen/spacing_20dp"-->
+<!--            android:text="@string/text_update"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@id/imgUpdate"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 
     <View
@@ -146,7 +146,7 @@
         android:background="@color/color_f5f5f5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/clUpdate" />
+        app:layout_constraintTop_toBottomOf="@id/clDelete" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clPutOut"

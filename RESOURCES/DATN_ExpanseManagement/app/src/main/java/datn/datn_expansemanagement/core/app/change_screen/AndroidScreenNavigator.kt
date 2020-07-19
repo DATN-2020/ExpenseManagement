@@ -3,6 +3,7 @@ package datn.datn_expansemanagement.core.app.change_screen
 import android.content.Intent
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.screen.MapsActivity
+import datn.datn_expansemanagement.screen.account.item_account.presentation.model.ItemAccountAccumulationViewModel
 import datn.datn_expansemanagement.screen.account.item_account.presentation.model.WalletViewModel
 import datn.datn_expansemanagement.screen.add_category.AddCategoryActivity
 import datn.datn_expansemanagement.screen.add_category.data.TypeCategoryDataIntent
@@ -11,6 +12,7 @@ import datn.datn_expansemanagement.screen.add_plan.AddPlanActivity
 import datn.datn_expansemanagement.screen.add_wallet.AddWalletActivity
 import datn.datn_expansemanagement.screen.category.CategoryActivity
 import datn.datn_expansemanagement.screen.contacts.ContactsActivity
+import datn.datn_expansemanagement.screen.control_saving.ControlSavingActivity
 import datn.datn_expansemanagement.screen.control_wallet.ControlWalletActivity
 import datn.datn_expansemanagement.screen.exchange_rate.ExchangeRateActivity
 import datn.datn_expansemanagement.screen.history.HistoryActivity
@@ -122,6 +124,16 @@ class AndroidScreenNavigator constructor(private val mvpActivity: MvpActivity) :
     override fun gotoAddPlanActivity(typeAdd: PlanItemViewModel) {
         val intent = Intent(mvpActivity, AddPlanActivity::class.java)
         intent.putExtra(PlanItemViewModel::class.java.simpleName, typeAdd)
+        mvpActivity.startActivity(intent)
+    }
+
+    override fun gotoControlSavingActivity(
+        isCome: Boolean,
+        data: ItemAccountAccumulationViewModel
+    ) {
+        val intent = Intent(mvpActivity, ControlSavingActivity::class.java)
+        intent.putExtra(ItemAccountAccumulationViewModel::class.java.simpleName, data)
+        intent.putExtra("isCome", isCome)
         mvpActivity.startActivity(intent)
     }
 }

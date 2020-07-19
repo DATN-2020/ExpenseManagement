@@ -9,6 +9,7 @@ import datn.datn_expansemanagement.domain.request.GetWalletForUserRequest
 import datn.datn_expansemanagement.domain.response.BaseResponse
 import datn.datn_expansemanagement.domain.response.WalletResponse
 import datn.datn_expansemanagement.screen.account.item_account.domain.ItemAccountMapper
+import datn.datn_expansemanagement.screen.account.item_account.presentation.model.ItemAccountAccumulationViewModel
 import datn.datn_expansemanagement.screen.account.item_account.presentation.model.WalletViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -59,5 +60,19 @@ class ItemAccountPresenter(private val screenNavigator: AndroidScreenNavigator, 
             }
 
         })
+    }
+
+    override fun deleteAccumulation(id: Int) {
+
+    }
+
+    override fun finishAccumulation(id: Int) {
+    }
+
+    override fun gotoControlSavingActivity(
+        isCome: Boolean,
+        data: ItemAccountAccumulationViewModel
+    ) {
+        screenNavigator.gotoControlSavingActivity(isCome, data)
     }
 }

@@ -27,7 +27,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatEditText
+        <TextView
             android:background="@color/transparent"
             style="@style/StyleTextView.Medium.Black"
             android:fontFamily="@font/roboto_medium"

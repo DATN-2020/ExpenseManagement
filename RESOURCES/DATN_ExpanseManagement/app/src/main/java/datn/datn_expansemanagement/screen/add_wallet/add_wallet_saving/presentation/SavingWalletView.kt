@@ -11,6 +11,8 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvp
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
 import datn.datn_expansemanagement.screen.add_wallet.presentation.AddWalletResource
+import datn.datn_expansemanagement.screen.add_wallet.presentation.model.AddWalletHeaderItemViewModel
+import datn.datn_expansemanagement.screen.add_wallet.presentation.model.AddWalletRateItemViewModel
 import datn.datn_expansemanagement.screen.add_wallet.presentation.model.AddWalletTypeItemViewModel
 import datn.datn_expansemanagement.screen.add_wallet.presentation.renderer.*
 import datn.datn_expansemanagement.screen.main_plan.presentation.renderer.EmptyLineViewRenderer
@@ -65,11 +67,22 @@ class SavingWalletView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.Vi
         }
     }
 
+    private val onActionUpdateTotalPrice = object : OnActionData<AddWalletHeaderItemViewModel> {
+        override fun onAction(data: AddWalletHeaderItemViewModel) {
+            listData.forEach {
+                if(it is AddWalletRateItemViewModel && it.isResult){
+                    it.price = data.price
+                    listViewMvp?.notifyItemChanged(listData.indexOf(it))
+                }
+            }
+        }
+    }
+
+
     private val onActionSave = object : OnActionNotify{
         override fun onActionNotify() {
 
         }
-
     }
 
     override fun showData(list: MutableList<ViewModel>) {
@@ -83,7 +96,7 @@ class SavingWalletView (mvpActivity: MvpActivity, viewCreator: AndroidMvpView.Vi
 
     private fun initRecycleView(){
         listViewMvp = ListViewMvp(mvpActivity, view.rvItemAddWallet, renderConfig)
-        listViewMvp?.addViewRenderer(AddWalletHeaderItemViewRenderer(mvpActivity, mResource))
+        listViewMvp?.addViewRenderer(AddWalletHeaderItemViewRenderer(mvpActivity, mResource, onActionUpdateTotalPrice))
         listViewMvp?.addViewRenderer(AddWalletNameItemViewRenderer(mvpActivity, mResource))
         listViewMvp?.addViewRenderer(AddWalletBottomItemViewRenderer(mvpActivity, onActionSave))
         listViewMvp?.addViewRenderer(EmptyLineViewRenderer(mvpActivity))

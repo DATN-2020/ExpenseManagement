@@ -41,7 +41,7 @@ class ReportBarChartViewRenderer (context: Context, private val mResource : Repo
         chart.description.isEnabled = false
         chart.setBackgroundColor(mResource.getBackgroundChart())
         chart.setDrawGridBackground(false)
-        chart.setPinchZoom(true)
+        chart.setPinchZoom(false)
         chart.fitScreen()
         chart.enableScroll()
         chart.setVisibleXRangeMaximum(6f)
@@ -65,10 +65,10 @@ class ReportBarChartViewRenderer (context: Context, private val mResource : Repo
         aXisLeft.valueFormatter = object : ValueFormatter(){
             override fun getAxisLabel(value: Float, axis: AxisBase?): String {
                 var temp = ""
-                temp = if(value != 0f){
+                temp = if(value.toInt() != 0){
                     Utils.formatMoney(value.toDouble())
                 }else{
-                    "0"
+                    ""
                 }
                 return temp
             }
@@ -96,7 +96,7 @@ class ReportBarChartViewRenderer (context: Context, private val mResource : Repo
     private fun setLabelBottomChart(chart: CustomBarChart){
         val xAxis = chart.xAxis
         xAxis.position = XAxis.XAxisPosition.BOTTOM
-        xAxis.setDrawGridLines(true)
+        xAxis.setDrawGridLines(false)
         xAxis.setDrawAxisLine(false)
         xAxis.enableGridDashedLine(20f, 20f, 0f)
         xAxis.granularity = 1f

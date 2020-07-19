@@ -10,7 +10,7 @@ class SavingWalletMapper(private val mResource: AddWalletResource) :
     Mapper<String, MutableList<ViewModel>> {
     override fun map(input: String): MutableList<ViewModel> {
         val list = mutableListOf<ViewModel>()
-        list.add(AddWalletHeaderItemViewModel())
+        list.add(AddWalletHeaderItemViewModel(isAccumulation = true))
         list.add(AddWalletNameItemViewModel())
         list.add(
             AddWalletTypeItemViewModel(
@@ -39,14 +39,10 @@ class SavingWalletMapper(private val mResource: AddWalletResource) :
         )
         list.add(
             AddWalletRateItemViewModel(
-                title = mResource.getTextNonInterestRate(),
-                unit = mResource.getTextUnitRate()
-            )
-        )
-        list.add(
-            AddWalletRateItemViewModel(
-                title = mResource.getTextDateRate(),
-                unit = mResource.getTextDay()
+                title = "Lãi dự tính",
+                unit = mResource.getTextUnitRate(),
+                isResult = true,
+                price = 300000.0
             )
         )
         list.add(AddWalletBottomItemViewModel())
