@@ -15,7 +15,7 @@ class AddExpenseDonateMapper(private val isDonate: Boolean = false) :
         listReturn.add(AddExpenseCategoryViewModel())
         if (isDonate) {
             listReturn.add(AddExpenseBudgetViewModel())
-            listReturn.add(AddExpenseDonateInfoViewModel())
+//            listReturn.add(AddExpenseDonateInfoViewModel())
         }
         return listReturn
     }
