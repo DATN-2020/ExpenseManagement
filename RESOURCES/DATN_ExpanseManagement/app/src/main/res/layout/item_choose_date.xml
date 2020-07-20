@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvCancel"
+        style="@style/StyleTextView.MediumLarge.696969"
+        android:layout_marginStart="@dimen/spacing_10dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:fontFamily="@font/roboto_regular"
+        android:padding="@dimen/spacing_10dp"
+        android:text="Huỷ"
+        android:textColor="@color/color_a4a4a4"
+        app:layout_constraintBottom_toBottomOf="@id/tvTitleChooseDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvTitleChooseDate" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvSave"
+        style="@style/StyleTextViewMedium.MediumLarge.6D30AB"
+        android:layout_marginEnd="@dimen/spacing_10dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:fontFamily="@font/roboto_medium"
+        android:padding="@dimen/spacing_10dp"
+        android:text="@string/text_save"
+        android:textColor="@color/color_6d30ab"
+        app:layout_constraintBottom_toBottomOf="@id/tvTitleChooseDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvTitleChooseDate" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTitleChooseDate"
+        style="@style/StyleTextViewMedium.Large.Black"
+        android:layout_marginTop="@dimen/spacing_16dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Chọn tháng"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/vDivider"
+        android:layout_width="match_parent"
+        android:layout_height="0.75dp"
+        android:layout_marginTop="@dimen/spacing_14dp"
+        android:background="@color/color_a4a4a4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitleChooseDate" />
+
+    <LinearLayout
+        android:id="@+id/llTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vDivider">
+
+        <TextView
+            android:id="@+id/tvTitleDay"
+            style="@style/StyleTextViewMedium.Medium.Black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/roboto_regular"
+            android:gravity="center"
+            android:text="Ngày" />
+
+        <TextView
+            android:id="@+id/tvTitleMonthPicker"
+            style="@style/StyleTextViewMedium.Medium.Black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/roboto_regular"
+            android:gravity="center"
+            android:text="Tháng" />
+
+        <TextView
+            android:id="@+id/tvTitleYearPicker"
+            style="@style/StyleTextViewMedium.Medium.Black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/roboto_regular"
+            android:gravity="center"
+            android:text="Năm" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llTitle">
+
+        <datn.datn_expansemanagement.view.numberpicker.NumberPicker
+            android:id="@+id/wpDay"
+            android:layout_width="wrap_content"
+            android:layout_height="120dp"
+            android:layout_marginBottom="@dimen/spacing_16dp"
+            android:layout_weight="1"
+            android:textColor="@color/color_a4a4a4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/vDivider"
+            app:np_dividerThickness="0dp"
+            app:np_formatter="@string/number_picker_format_string"
+            app:np_max="31"
+            app:np_min="1"
+            app:np_selectedTextColor="@color/color_9167f1"
+            app:np_selectedTextSize="@dimen/spacing_16dp"
+            app:np_textSize="@dimen/spacing_14dp"
+            app:np_wheelItemCount="3"
+            app:np_wrapSelectorWheel="false" />
+
+        <datn.datn_expansemanagement.view.numberpicker.NumberPicker
+            android:id="@+id/wpMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="120dp"
+            android:layout_marginBottom="@dimen/spacing_16dp"
+            android:layout_weight="1"
+            android:textColor="@color/color_a4a4a4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/vDivider"
+            app:np_dividerThickness="0dp"
+            app:np_formatter="@string/number_picker_format_string"
+            app:np_max="12"
+            app:np_min="1"
+            app:np_selectedTextColor="@color/color_9167f1"
+            app:np_selectedTextSize="@dimen/spacing_16dp"
+            app:np_textSize="@dimen/spacing_14dp"
+            app:np_wheelItemCount="3"
+            app:np_wrapSelectorWheel="false" />
+
+        <datn.datn_expansemanagement.view.numberpicker.NumberPicker
+            android:id="@+id/wpYear"
+            android:layout_width="wrap_content"
+            android:layout_height="120dp"
+            android:layout_marginBottom="@dimen/spacing_16dp"
+            android:layout_weight="1"
+            android:textColor="@color/color_a4a4a4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/vDivider"
+            app:np_dividerThickness="0dp"
+            app:np_formatter="@string/number_picker_formatter"
+            app:np_max="2050"
+            app:np_min="2000"
+            app:np_selectedTextColor="@color/color_9167f1"
+            app:np_selectedTextSize="@dimen/spacing_16dp"
+            app:np_textSize="@dimen/spacing_14dp"
+            app:np_wheelItemCount="3"
+            app:np_wrapSelectorWheel="false" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

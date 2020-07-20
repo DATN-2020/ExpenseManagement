@@ -9,9 +9,13 @@ interface SavingWalletContact {
         fun showLoading()
         fun hideLoading()
         fun showData(list: MutableList<ViewModel>)
+        fun showListBank(list: MutableList<ViewModel>)
+        fun handleAfterCreate()
     }
 
     abstract class Presenter : MvpPresenter<View>(){
         abstract fun getData()
+        abstract fun getListBank()
+        abstract fun createWalletSaving()
     }
 }

@@ -14,4 +14,12 @@ class SavingWalletPresenter : SavingWalletContact.Presenter(){
     override fun getData() {
         view?.showData(SavingWalletMapper(mResource).map(""))
     }
+
+    override fun getListBank() {
+        view?.showListBank(mutableListOf())
+    }
+
+    override fun createWalletSaving() {
+
+    }
 }

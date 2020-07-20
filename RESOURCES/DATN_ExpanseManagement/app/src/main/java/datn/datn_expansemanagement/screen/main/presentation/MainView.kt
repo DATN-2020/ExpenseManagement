@@ -46,6 +46,7 @@ class MainView(mvpActivity: MvpActivity, viewCreator: ViewCreator) :
             when(data){
                 is OnReportWalletDataBus->{
                     idWallet = data.idWallet
+                    isCard = data.isCard
                     view.bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
                         showFragmentForMenuItem(menuItem.itemId)
                         return@setOnNavigationItemSelectedListener true
