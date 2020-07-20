@@ -5,47 +5,32 @@ import datn.datn_expansemanagement.core.base.domain.mapper.Mapper
 import datn.datn_expansemanagement.domain.response.WalletResponse
 import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
-import datn.datn_expansemanagement.screen.account.item_account.presentation.model.ItemAccountAccumulationViewModel
 import datn.datn_expansemanagement.screen.account.item_account.presentation.model.ItemAccountTotalMoneyViewModel
 import datn.datn_expansemanagement.screen.account.item_account.presentation.model.WalletViewModel
 
-class ItemAccountMapper(private val tapId: Int? = null) :
+class ItemAccountMapper :
     Mapper<WalletResponse, MutableList<ViewModel>> {
     override fun map(input: WalletResponse): MutableList<ViewModel> {
         val listReturn = mutableListOf<ViewModel>()
         val listItem = mutableListOf<ViewModel>()
         var totalPrice = 0.0
-        if (tapId == 1) {
-            if (!input.data.isNullOrEmpty()) {
-                input.data.forEach {
-                    listItem.add(
-                        WalletViewModel(
-                            id = it.idWallet.getValueOrDefaultIsZero(),
-                            name = it.nameWallet.getValueOrDefaultIsEmpty(),
-                            money = it.amountWallet.getValueOrDefaultIsZero(),
-                            tabId = 1,
-                            des = it.description.getValueOrDefaultIsEmpty(),
-                            currentPrice = it.amountNow.getValueOrDefaultIsZero()
-                        )
+        if (!input.data.isNullOrEmpty()) {
+            input.data.forEach {
+                listItem.add(
+                    WalletViewModel(
+                        id = it.idWallet.getValueOrDefaultIsZero(),
+                        name = it.nameWallet.getValueOrDefaultIsEmpty(),
+                        money = it.amountWallet.getValueOrDefaultIsZero(),
+                        des = it.description.getValueOrDefaultIsEmpty(),
+                        currentPrice = it.amountNow.getValueOrDefaultIsZero()
                     )
-                    totalPrice += it.amountWallet
-                }
-            }
-            if (listItem.isNotEmpty()) {
-                val dataLast = listItem.last() as WalletViewModel
-                dataLast.isLast = true
-            }
-        } else {
-            listItem.add(
-                ItemAccountAccumulationViewModel(
-                    id = 0,
-                    name = "Tài khoản tiết kiệm",
-                    startDate = "19/7/2020",
-                    endDate = "21/10/2021",
-                    price = 300000000.0
                 )
-            )
-//            totalPrice += price
+                totalPrice += it.amountWallet
+            }
+        }
+        if (listItem.isNotEmpty()) {
+            val dataLast = listItem.last() as WalletViewModel
+            dataLast.isLast = true
         }
         listReturn.add(ItemAccountTotalMoneyViewModel(total = totalPrice))
         listReturn.addAll(listItem)

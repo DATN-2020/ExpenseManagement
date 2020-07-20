@@ -13,6 +13,7 @@ import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.common.AppConstants
+import datn.datn_expansemanagement.core.app.config.ConfigUtil
 import datn.datn_expansemanagement.core.app.util.Utils
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
@@ -21,8 +22,12 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvp
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.OnItemRvClickedListener
+import datn.datn_expansemanagement.domain.request.WalletSavingRequest
 import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
+import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.kotlinex.view.gone
+import datn.datn_expansemanagement.screen.add_wallet.add_wallet_saving.presentation.model.BankItemViewModel
+import datn.datn_expansemanagement.screen.add_wallet.add_wallet_saving.presentation.renderer.BankItemViewRenderer
 import datn.datn_expansemanagement.screen.add_wallet.presentation.AddWalletResource
 import datn.datn_expansemanagement.screen.add_wallet.presentation.model.AddWalletHeaderItemViewModel
 import datn.datn_expansemanagement.screen.add_wallet.presentation.model.AddWalletNameItemViewModel
@@ -46,7 +51,7 @@ class SavingWalletView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.Vie
     class ViewCreator(context: Context, viewGroup: ViewGroup?) :
         AndroidMvpView.LayoutViewCreator(R.layout.item_layout_wallet, context, viewGroup)
 
-    private val mPresenter = SavingWalletPresenter()
+    private val mPresenter = SavingWalletPresenter(mvpActivity)
     private val listData = mutableListOf<ViewModel>()
     private val mResource = AddWalletResource()
     private var listViewMvp: ListViewMvp? = null
@@ -105,7 +110,6 @@ class SavingWalletView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.Vie
         }
         listViewBottom?.setItems(this.listBottom)
         listViewBottom?.notifyDataChanged()
-
 
         bottomSheet.show()
         bottomSheet.tvTitle.text = "Chọn ngân hàng"
@@ -226,7 +230,7 @@ class SavingWalletView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.Vie
         }
     }
 
-    private fun showDialogNotify(title: String? = null) {
+    private fun showDialogNotify(title: String? = null, isFinish: Boolean = false) {
         val layoutView = LayoutInflater.from(mvpActivity)
             .inflate(R.layout.custom_dialog_cancel_contact, null, false)
         val dialogRegister =
@@ -235,6 +239,9 @@ class SavingWalletView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.Vie
         dialogRegister.show()
         dialogRegister.btnCancel.setOnClickListener {
             dialogRegister.dismiss()
+            if(isFinish){
+                mvpActivity.onBackPressed()
+            }
         }
         if (!title.isNullOrEmpty()) {
             dialogRegister.tvTitleChooseDate.text = title
@@ -273,37 +280,51 @@ class SavingWalletView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.Vie
                         if (it.name.isNullOrEmpty()) {
                             showDialogNotify("Bạn chưa nhập giá trị ban đầu")
                             return
-                        }else{
+                        } else {
                             name = it.name
                         }
                     }
-                    is AddWalletTypeItemViewModel->{
-                        if(it.type == AddWalletTypeItemViewModel.Type.SAVING){
-                            if(it.id == null || it.id == 0){
+                    is AddWalletTypeItemViewModel -> {
+                        if (it.type == AddWalletTypeItemViewModel.Type.SAVING) {
+                            if (it.id == null || it.id == 0) {
                                 showDialogNotify("Bạn chưa chọn ngân hàng gửi tiết kiệm")
                                 return
-                            }else{
+                            } else {
                                 idBank = it.id
                             }
                         }
                     }
                 }
             }
-            if(dateChoose.isNullOrEmpty()){
+            if (dateChoose.isNullOrEmpty()) {
                 showDialogNotify("Bạn chưa chọn ngày gửi tiết kiệm")
                 return
             }
 
-            if(yearChoose.isNullOrEmpty()){
+            if (yearChoose.isNullOrEmpty()) {
                 showDialogNotify("Bạn chưa chọn kì hạn gửi")
                 return
             }
-            mPresenter.createWalletSaving()
+            val data = ConfigUtil.passport
+            if (data != null) {
+                val request = WalletSavingRequest(
+                    idUser = data.data.userId,
+                    price = price.getValueOrDefaultIsZero(),
+                    dateS = Utils.convertDateFormat(
+                        dateChoose!!, SimpleDateFormat("dd/MM/yyyy"),
+                        SimpleDateFormat("yyyy-MM-dd")
+                    ),
+                    dateE = "${yearChoose}-01-01",
+                    idBank = idBank.getValueOrDefaultIsZero(),
+                    nameSaving = name.getValueOrDefaultIsEmpty()
+                )
+                mPresenter.createWalletSaving(request)
+            }
         }
     }
 
     override fun handleAfterCreate() {
-
+        showDialogNotify("Bạn đã tạo thành công tài khoản tiết kiệm", true)
     }
 
     override fun showData(list: MutableList<ViewModel>) {
@@ -317,7 +338,21 @@ class SavingWalletView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.Vie
 
     private val onItemBankClick = object : OnItemRvClickedListener<ViewModel> {
         override fun onItemClicked(view: View, position: Int, dataItem: ViewModel) {
-
+            dataItem as BankItemViewModel
+            listData.forEach {
+                if (it is AddWalletTypeItemViewModel && it.type == AddWalletTypeItemViewModel.Type.SAVING) {
+                    it.id = dataItem.id
+                    it.name = dataItem.name
+                }
+                if (it is AddWalletRateItemViewModel && !it.isResult) {
+                    it.rate = dataItem.interest
+                }
+                if (it is AddWalletRateItemViewModel && it.isResult) {
+                    it.rate = dataItem.interest
+                }
+            }
+            bottomSheet.dismiss()
+            listViewMvp?.notifyDataChanged()
         }
 
     }
@@ -347,6 +382,7 @@ class SavingWalletView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.Vie
         bottomSheet.setContentView(customView)
         bottomSheet.create()
         listViewBottom = ListViewMvp(mvpActivity, bottomSheet.rvChoose, renderConfigBottom)
+        listViewBottom?.addViewRenderer(BankItemViewRenderer(mvpActivity))
         listViewBottom?.setOnItemRvClickedListener(onItemBankClick)
         listViewBottom?.createView()
     }

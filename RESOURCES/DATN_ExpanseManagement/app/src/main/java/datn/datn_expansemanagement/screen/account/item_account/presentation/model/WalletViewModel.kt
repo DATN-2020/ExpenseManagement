@@ -7,7 +7,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 class WalletViewModel(
     var id: Int,
-    var tabId: Int,
     var name: String,
     var money: Double,
     var currentPrice: Double,

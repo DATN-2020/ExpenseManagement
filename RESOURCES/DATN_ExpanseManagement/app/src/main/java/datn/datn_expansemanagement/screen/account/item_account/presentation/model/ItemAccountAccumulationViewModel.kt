@@ -11,5 +11,6 @@ class ItemAccountAccumulationViewModel (
     var startDate: String,
     var endDate : String,
     var price: Double,
+    var isFinish: Boolean = false,
     var isLast: Boolean = false
 ): ViewModel, Parcelable

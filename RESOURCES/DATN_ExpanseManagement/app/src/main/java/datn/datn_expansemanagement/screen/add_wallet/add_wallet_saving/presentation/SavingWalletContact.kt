@@ -3,6 +3,7 @@ package datn.datn_expansemanagement.screen.add_wallet.add_wallet_saving.presenta
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.core.base.presentation.mvp.base.MvpPresenter
 import datn.datn_expansemanagement.core.base.presentation.mvp.base.MvpView
+import datn.datn_expansemanagement.domain.request.WalletSavingRequest
 
 interface SavingWalletContact {
     interface View: MvpView {
@@ -16,6 +17,6 @@ interface SavingWalletContact {
     abstract class Presenter : MvpPresenter<View>(){
         abstract fun getData()
         abstract fun getListBank()
-        abstract fun createWalletSaving()
+        abstract fun createWalletSaving(request: WalletSavingRequest)
     }
 }

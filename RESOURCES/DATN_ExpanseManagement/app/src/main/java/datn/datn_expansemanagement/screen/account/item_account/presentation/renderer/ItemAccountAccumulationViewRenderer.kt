@@ -31,7 +31,7 @@ class ItemAccountAccumulationViewRenderer(
 
     override fun bindView(model: ItemAccountAccumulationViewModel, viewRoot: View) {
         viewRoot.tvWallet.text = model.name
-        viewRoot.tvAccumulation.text = "Số tiền gửi: ${Utils.formatMoney(model.price)}"
+        viewRoot.tvAccumulation.text = Utils.formatMoney(model.price)
         viewRoot.tvCurrent.text = "Từ ngày: ${model.startDate}"
         viewRoot.tvRest.text = "Đến ngày: ${model.endDate}"
         viewRoot.sbPercent.progress =
@@ -45,12 +45,17 @@ class ItemAccountAccumulationViewRenderer(
             viewRoot.viewBottom.visible()
         }
 
-        viewRoot.imgMore.setOnClickListener {
-            EventFireUtil.fireEvent(onActionClickMore, model)
-        }
+        if(model.isFinish){
+            viewRoot.clFinish.visible()
+        }else{
+            viewRoot.clFinish.gone()
+            viewRoot.imgMore.setOnClickListener {
+                EventFireUtil.fireEvent(onActionClickMore, model)
+            }
 
-        viewRoot.clItem.setOnClickListener {
-            EventFireUtil.fireEvent(onClickItem, model)
+            viewRoot.clItem.setOnClickListener {
+                EventFireUtil.fireEvent(onClickItem, model)
+            }
         }
     }
 
@@ -61,7 +66,7 @@ class ItemAccountAccumulationViewRenderer(
     }
 
     private fun convertStringToDate(value: String): Date? {
-        val format = SimpleDateFormat("dd/MM/yyyy")
+        val format = SimpleDateFormat("yyyy-MM-dd")
         return try {
             format.parse(value)
         } catch (e: ParseException) {
@@ -71,7 +76,7 @@ class ItemAccountAccumulationViewRenderer(
     }
 
     private fun getCurrentDate(): String {
-        val format = "dd/MM/yyyy"
+        val format = "yyyy-MM-dd"
         val sdf = SimpleDateFormat(format, Locale.US)
         val calendar = Calendar.getInstance()
         return sdf.format(calendar.time)

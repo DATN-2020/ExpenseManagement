@@ -114,4 +114,19 @@ interface GetDataService {
         @Query("date") date: String,
         @Query("id") idWallet: Int
     ): Call<ReportDetailResponse>
+
+    @GET("banks")
+    fun getListBank(): Call<List<BankResponse>>
+
+    @GET("SavingWallets/5")
+    fun getListWalletSaving(@Query("id") idUser: Int): Call<WalletSavingResponse>
+
+    @POST("SavingWallets")
+    fun createWalletSaving(@Body request: WalletSavingRequest): Call<BaseResponse>
+
+    @POST("Transactions")
+    fun putInWalletSaving(@Body request: PutInWalletSavingRequest): Call<BaseResponse>
+
+    @DELETE("SavingWallets/5")
+    fun deleteWalletSaving(@Query("id") id: Int): Call<BaseResponse>
 }

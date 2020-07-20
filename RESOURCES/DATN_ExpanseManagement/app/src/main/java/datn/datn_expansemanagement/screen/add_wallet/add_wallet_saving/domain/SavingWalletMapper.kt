@@ -39,10 +39,10 @@ class SavingWalletMapper(private val mResource: AddWalletResource) :
         )
         list.add(
             AddWalletRateItemViewModel(
-                title = "Lãi dự tính",
+                title = "Lãi dự tính mỗi năm",
                 unit = mResource.getTextUnitRate(),
                 isResult = true,
-                price = 300000.0
+                price = 0.0
             )
         )
         list.add(AddWalletBottomItemViewModel())

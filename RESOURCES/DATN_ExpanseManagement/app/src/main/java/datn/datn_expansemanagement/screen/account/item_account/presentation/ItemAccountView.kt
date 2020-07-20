@@ -196,6 +196,7 @@ class ItemAccountView(
                 type = "delete",
                 dataAccum = data
             )
+            bottomDialog.dismiss()
         }
 
 //        bottomDialog.clUpdate.setOnClickListener {
@@ -204,6 +205,7 @@ class ItemAccountView(
 
         bottomDialog.clPutOut.setOnClickListener {
             mPresenter.gotoControlSavingActivity(false, data)
+            bottomDialog.dismiss()
         }
 
         bottomDialog.clFinish.setOnClickListener {
@@ -212,14 +214,24 @@ class ItemAccountView(
                 type = "finish",
                 dataAccum = data
             )
+            bottomDialog.dismiss()
         }
     }
 
     override fun handleAfterDeleteSaving() {
+        dialogNotify.dismiss()
+        mPresenter.getData(
+            tabId.getValueOrDefaultIsZero(),
+            user?.data?.userId.getValueOrDefaultIsZero()
+        )
 
     }
 
     override fun handleAfterFinishSaving() {
+        mPresenter.getData(
+            tabId.getValueOrDefaultIsZero(),
+            user?.data?.userId.getValueOrDefaultIsZero()
+        )
     }
 
     private fun setDialogFullScreen(dialog: BottomSheetDialog) {

@@ -3,6 +3,7 @@ package datn.datn_expansemanagement.screen.add_wallet.presentation.renderer
 import android.content.Context
 import android.view.View
 import datn.datn_expansemanagement.R
+import datn.datn_expansemanagement.core.app.util.Utils
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.model.ViewRenderer
 import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
 import datn.datn_expansemanagement.kotlinex.view.gone
@@ -22,7 +23,7 @@ class AddWalletRateItemViewRenderer(context: Context) :
         viewRoot.tvTitleChooseDate.text = model.title
         if (model.isResult) {
             viewRoot.tvUnit.gone()
-            viewRoot.edtRate.text = (model.rate.getValueOrDefaultIsZero() * model.price).toString()
+            viewRoot.edtRate.text = Utils.formatMoney((model.rate.getValueOrDefaultIsZero() * model.price) / 100)
         } else {
             viewRoot.tvUnit.text = model.unit
             viewRoot.edtRate.text = model.rate.getValueOrDefaultIsZero().toString()
