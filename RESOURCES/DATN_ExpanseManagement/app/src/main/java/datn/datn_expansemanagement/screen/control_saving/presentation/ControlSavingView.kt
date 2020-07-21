@@ -119,14 +119,16 @@ class ControlSavingView(
                     idSaving = data?.id.getValueOrDefaultIsZero(),
                     dateTrans = getCurrentDate(),
                     nameTrans = "Gửi vào",
-                    priceTrans = price
+                    priceTrans = price,
+                    isIncome = true
                 )
             }else{
                 PutInWalletSavingRequest(
                     idSaving = data?.id.getValueOrDefaultIsZero(),
                     dateTrans = getCurrentDate(),
                     nameTrans = "Rút ra",
-                    priceTrans = price
+                    priceTrans = price,
+                    isIncome = false
                 )
             }
             mPresenter.saveControlSaving(request)

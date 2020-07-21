@@ -19,6 +19,7 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivit
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.OnItemRvClickedListener
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
+import datn.datn_expansemanagement.kotlinex.view.gone
 import datn.datn_expansemanagement.screen.report.presentation.model.GetWalletItemViewModel
 import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewModel
 import datn.datn_expansemanagement.screen.report.presentation.renderer.*
@@ -93,7 +94,8 @@ class ReportView(
                     dateChoose.getValueOrDefaultIsEmpty(),
                     SimpleDateFormat("MM/yyyy"),
                     SimpleDateFormat("yyyy-MM")
-                )
+                ),
+                dataItem
             )
             listViewBottom?.notifyDataChanged()
             bottomSheet.dismiss()
@@ -125,6 +127,11 @@ class ReportView(
         dateChoose = getCurrentMonth()
         if(idWallet != null){
             idWalletChoose = idWallet
+        }
+
+        if(isCardWallet){
+            view.imgChooseDate.gone()
+            view.tvMonth.gone()
         }
     }
 
@@ -223,7 +230,7 @@ class ReportView(
                     idWallet = it.id
                 }
             }
-            mPresenter.getData(idWallet, isCardWallet, dateChoose)
+            mPresenter.getData(idWallet, isCardWallet, dateChoose, listBottom.find { (it as GetWalletItemViewModel).isChoose } as GetWalletItemViewModel)
             dialog.dismiss()
         }
     }
@@ -332,7 +339,7 @@ class ReportView(
                 data.isChoose = true
                 idWalletChoose = data.id
             }
-            mPresenter.getData(idWalletChoose, isCardWallet, getCurrentMonth())
+            mPresenter.getData(idWalletChoose, isCardWallet, getCurrentMonth(), listBottom.find { (it as GetWalletItemViewModel).isChoose } as GetWalletItemViewModel)
         }
 
         listViewBottom?.setItems(this.listBottom)
@@ -342,7 +349,7 @@ class ReportView(
 
     override fun initData() {
         super.initData()
-        mPresenter.getWalletForUser(idWallet)
+        mPresenter.getWalletForUser(idWallet, isCardWallet)
     }
 
     override fun startMvpView() {

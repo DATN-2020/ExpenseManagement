@@ -7,6 +7,8 @@ data class PutInWalletSavingRequest(
     val dateTrans: String,
     @SerializedName("id_saving")
     val idSaving: Int,
+    @SerializedName("is_Income")
+    val isIncome: Boolean,
     @SerializedName("name_trans")
     val nameTrans: String,
     @SerializedName("price_trans")

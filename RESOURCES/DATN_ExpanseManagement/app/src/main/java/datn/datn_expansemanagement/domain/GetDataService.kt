@@ -115,6 +115,12 @@ interface GetDataService {
         @Query("id") idWallet: Int
     ): Call<ReportDetailResponse>
 
+
+    @GET("Transactions/5")
+    fun getReportWalletSaving(
+        @Query("id") idWallet: Int
+    ): Call<ReportWalletSavingResponse>
+
     @GET("banks")
     fun getListBank(): Call<List<BankResponse>>
 
