@@ -228,6 +228,7 @@ class ItemAccountView(
     }
 
     override fun handleAfterFinishSaving() {
+        dialogNotify.dismiss()
         mPresenter.getData(
             tabId.getValueOrDefaultIsZero(),
             user?.data?.userId.getValueOrDefaultIsZero()

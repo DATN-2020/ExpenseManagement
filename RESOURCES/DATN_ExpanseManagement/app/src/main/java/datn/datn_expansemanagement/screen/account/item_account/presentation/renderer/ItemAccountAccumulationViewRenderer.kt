@@ -38,6 +38,7 @@ class ItemAccountAccumulationViewRenderer(
             (dateToDays(convertStringToDate(getCurrentDate())!!) * 100) / dateToDays(
                 convertStringToDate(model.endDate)!!
             )
+        viewRoot.sbPercent.max = model.maxProcess
 
         if (model.isLast) {
             viewRoot.viewBottom.gone()

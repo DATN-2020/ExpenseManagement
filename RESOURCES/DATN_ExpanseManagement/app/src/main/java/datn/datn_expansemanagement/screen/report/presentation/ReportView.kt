@@ -69,7 +69,7 @@ class ReportView(
     private val bottomSheet = BottomSheetDialog(mvpActivity)
 
     private var dateChoose: String? = null
-    private var idWalletChoose : Int? = null
+    private var idWalletChoose: Int? = null
 
 
     private val onItemClick = object : OnItemRvClickedListener<ViewModel> {
@@ -125,11 +125,11 @@ class ReportView(
         }
 
         dateChoose = getCurrentMonth()
-        if(idWallet != null){
+        if (idWallet != null) {
             idWalletChoose = idWallet
         }
 
-        if(isCardWallet){
+        if (isCardWallet) {
             view.imgChooseDate.gone()
             view.tvMonth.gone()
         }
@@ -224,50 +224,36 @@ class ReportView(
             view.tvMonth.text = dateChoose
 
             // call api
-            var idWallet : Int? = null
+            var idWallet: Int? = null
             listBottom.forEach {
-                if(it is GetWalletItemViewModel && it.isChoose){
+                if (it is GetWalletItemViewModel && it.isChoose) {
                     idWallet = it.id
                 }
             }
-            mPresenter.getData(idWallet, isCardWallet, dateChoose, listBottom.find { (it as GetWalletItemViewModel).isChoose } as GetWalletItemViewModel)
+            mPresenter.getData(
+                idWallet,
+                isCardWallet,
+                dateChoose,
+                listBottom.find { (it as GetWalletItemViewModel).isChoose } as GetWalletItemViewModel)
             dialog.dismiss()
         }
     }
 
+    private val list = mutableListOf<ViewModel>()
+    private val customViewTransaction = LayoutInflater.from(mvpActivity)
+        .inflate(R.layout.custom_bottomsheet_recycleview, null, false)
+    private val bottomSheetTransaction = BottomSheetDialog(mvpActivity)
+    private var viewMvp: ListViewMvp? = null
+
+    val input = LinearRenderConfigFactory.Input(
+        context = mvpActivity,
+        orientation = LinearRenderConfigFactory.Orientation.VERTICAL
+    )
+    val config = LinearRenderConfigFactory(input).create()
+
     private val showTransaction = object : OnActionNotify {
         override fun onActionNotify() {
-            val customViewTransaction = LayoutInflater.from(mvpActivity)
-                .inflate(R.layout.custom_bottomsheet_recycleview, null, false)
-            val bottomSheet = BottomSheetDialog(mvpActivity)
-            bottomSheet.setContentView(customViewTransaction)
-            bottomSheet.show()
-
-            val list = mutableListOf<ViewModel>()
-            var viewMvp: ListViewMvp? = null
-
-            val input = LinearRenderConfigFactory.Input(
-                context = mvpActivity,
-                orientation = LinearRenderConfigFactory.Orientation.VERTICAL
-            )
-            val config = LinearRenderConfigFactory(input).create()
-            viewMvp = ListViewMvp(mvpActivity, bottomSheet.rvChoose, config)
-            viewMvp.addViewRenderer(ReportDetailItemViewRenderer(mvpActivity))
-            viewMvp.createView()
-
-//            for (i in 1..2) {
-//                list.add(
-//                    ReportDetailItemViewModel(
-//                        name = "Đi lại",
-//                        price = 300000.0
-//                    )
-//                )
-//            }
-
-            viewMvp.setItems(list)
-            viewMvp.notifyDataChanged()
-
-            bottomSheet.tvTitle.text = "Lịch sử giao dịch"
+            mPresenter.getTransaction(idWalletChoose!!)
         }
 
     }
@@ -299,6 +285,12 @@ class ReportView(
         listViewBottom?.addViewRenderer(GetWalletItemViewRenderer(mvpActivity))
         listViewBottom?.setOnItemRvClickedListener(onItemClick)
         listViewBottom?.createView()
+
+        bottomSheetTransaction.setContentView(customViewTransaction)
+        bottomSheetTransaction.create()
+        viewMvp = ListViewMvp(mvpActivity, bottomSheetTransaction.rvChoose, config)
+        viewMvp?.addViewRenderer(ReportDetailItemViewRenderer(mvpActivity))
+        viewMvp?.createView()
     }
 
     override fun showLoading() {
@@ -325,26 +317,41 @@ class ReportView(
             this.listBottom.addAll(list)
             var isExitsChoose = false
             this.listBottom.forEach {
-                if(it is GetWalletItemViewModel && it.isChoose){
+                if (it is GetWalletItemViewModel && it.isChoose) {
                     isExitsChoose = true
                     idWalletChoose = it.id
                     view.tvWalletName.text = it.name
                     view.tvPriceWallet.text = Utils.formatMoney(it.money)
                 }
             }
-            if(!isExitsChoose){
+            if (!isExitsChoose) {
                 val data = listBottom[0] as GetWalletItemViewModel
                 view.tvWalletName.text = data.name
                 view.tvPriceWallet.text = Utils.formatMoney(data.money)
                 data.isChoose = true
                 idWalletChoose = data.id
             }
-            mPresenter.getData(idWalletChoose, isCardWallet, getCurrentMonth(), listBottom.find { (it as GetWalletItemViewModel).isChoose } as GetWalletItemViewModel)
+            mPresenter.getData(
+                idWalletChoose,
+                isCardWallet,
+                getCurrentMonth(),
+                listBottom.find { (it as GetWalletItemViewModel).isChoose } as GetWalletItemViewModel)
         }
 
         listViewBottom?.setItems(this.listBottom)
         listViewBottom?.notifyDataChanged()
 
+    }
+
+    override fun showListTransaction(list: MutableList<ViewModel>) {
+        this.list.clear()
+        if(list.isNotEmpty()){
+            this.list.addAll(list)
+        }
+        viewMvp?.setItems(this.list)
+        viewMvp?.notifyDataChanged()
+        bottomSheetTransaction.tvTitle.text = "Lịch sử giao dịch"
+        bottomSheetTransaction.show()
     }
 
     override fun initData() {

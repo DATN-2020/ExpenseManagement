@@ -4,5 +4,6 @@ import com.github.mikephil.charting.data.PieEntry
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 
 class ReportPieChartViewModel(
-    var list : ArrayList<PieEntry>
+    var list : ArrayList<PieEntry>,
+    var isCreditCard: Boolean = false
 ) : ViewModel

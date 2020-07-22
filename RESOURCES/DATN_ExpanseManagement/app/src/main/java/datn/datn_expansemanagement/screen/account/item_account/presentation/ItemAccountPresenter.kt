@@ -6,6 +6,7 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivit
 import datn.datn_expansemanagement.domain.GetDataService
 import datn.datn_expansemanagement.domain.RetrofitClientInstance
 import datn.datn_expansemanagement.domain.request.GetWalletForUserRequest
+import datn.datn_expansemanagement.domain.request.PutWalletSavingRequest
 import datn.datn_expansemanagement.domain.response.BaseResponse
 import datn.datn_expansemanagement.domain.response.WalletResponse
 import datn.datn_expansemanagement.domain.response.WalletSavingResponse
@@ -102,6 +103,21 @@ class ItemAccountPresenter(private val screenNavigator: AndroidScreenNavigator, 
     }
 
     override fun finishAccumulation(id: Int) {
+        view?.showLoading()
+        val request = PutWalletSavingRequest(id)
+        val call = service?.putWalletSaving(request)
+        call?.enqueue(object : Callback<BaseResponse>{
+            override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
+                Toast.makeText(mvpActivity, t.message, Toast.LENGTH_LONG).show()
+                view?.hideLoading()
+            }
+
+            override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
+                view?.handleAfterFinishSaving()
+                view?.hideLoading()
+            }
+
+        })
     }
 
     override fun gotoControlSavingActivity(

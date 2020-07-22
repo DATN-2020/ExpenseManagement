@@ -12,6 +12,11 @@ class GetTransactionMapper : Mapper<ReportWalletSavingResponse, MutableList<View
         val list = mutableListOf<ViewModel>()
         if(!input.data.isNullOrEmpty()){
             input.data.forEach {
+                list.add(ReportDetailItemViewModel(
+                    name = it.nameTrans.getValueOrDefaultIsEmpty(),
+                    date = it.dateTrans.getValueOrDefaultIsEmpty(),
+                    price = it.priceTrans.getValueOrDefaultIsZero()
+                ))
             }
         }
         return list

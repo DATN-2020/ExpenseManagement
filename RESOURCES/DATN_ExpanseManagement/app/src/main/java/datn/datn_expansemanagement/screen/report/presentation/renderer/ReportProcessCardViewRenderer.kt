@@ -21,6 +21,7 @@ class ReportProcessCardViewRenderer (context: Context): ViewRenderer<ReportProce
         viewRoot.tvPriceBeginBalance.text = Utils.formatMoney(model.currentPrice)
         viewRoot.tvPriceEndBalance.text = Utils.convertDateFormat(model.endDate.getValueOrDefaultIsEmpty(), SimpleDateFormat("yyyy-MM-dd"), SimpleDateFormat("dd/MM/yyyy"))
         viewRoot.sbPercent.progress = model.progress
+        viewRoot.sbPercent.max = model.maxProcess
     }
 
 }

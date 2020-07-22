@@ -12,6 +12,7 @@ interface ReportContract {
         fun hideLoading()
         fun showData(list: MutableList<ViewModel>)
         fun handleAfterGetWallet(list: MutableList<ViewModel>)
+        fun showListTransaction(list: MutableList<ViewModel>)
     }
 
     abstract class Presenter : MvpPresenter<View>() {
@@ -21,7 +22,7 @@ interface ReportContract {
             date: String? = null,
             data: GetWalletItemViewModel? = null
         )
-
+        abstract fun getTransaction(idWallet: Int)
         abstract fun gotoReportDetailActivity(data: ReportViewModel)
         abstract fun getWalletForUser(idWallet: Int? = null, isCreditCard: Boolean = false)
     }

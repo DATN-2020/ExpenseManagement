@@ -24,12 +24,12 @@ class ReportHeaderCardViewRenderer(context: Context) :
     override fun bindView(model: ReportHeaderCardViewModel, viewRoot: View) {
         viewRoot.tvPrice.text = Utils.formatMoney(model.price)
         viewRoot.tvValueDate.text = Utils.convertDateFormat(
-            model.date, SimpleDateFormat("yyyy-MM-dd"),
+            model.startDate, SimpleDateFormat("yyyy-MM-dd"),
             SimpleDateFormat
                 ("dd/MM/yyyy")
         )
         if (!model.isFinish) {
-            viewRoot.tvDayLeft.text = "Còn lại ${getDayBetween2Day(model.date)} ngày"
+            viewRoot.tvDayLeft.text = "Còn lại ${getDayBetween2Day(model.endDate)} ngày"
         } else {
             viewRoot.tvDayLeft.invisible()
         }

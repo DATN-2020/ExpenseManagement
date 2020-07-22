@@ -2,22 +2,20 @@ package datn.datn_expansemanagement.screen.report.presentation.renderer
 
 import android.content.Context
 import android.view.View
-import androidx.core.view.marginStart
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.domain.excecutor.EventFireUtil
 import datn.datn_expansemanagement.core.base.domain.listener.OnActionNotify
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.model.ViewRenderer
-import datn.datn_expansemanagement.kotlinex.view.gone
-import datn.datn_expansemanagement.kotlinex.view.visible
 import datn.datn_expansemanagement.screen.report.presentation.ReportResource
 import datn.datn_expansemanagement.screen.report.presentation.model.ReportPieChartViewModel
-import datn.datn_expansemanagement.view.custom_charts.CustomBarChart
-import datn.datn_expansemanagement.view.custom_charts.CustomMarkerView
 import kotlinx.android.synthetic.main.item_layout_report_pie_chart.view.*
 
 class ReportPieChartViewRenderer(
@@ -56,17 +54,20 @@ class ReportPieChartViewRenderer(
 
         chart.animate()
 
-        chart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
-            override fun onNothingSelected() {
+        if (!model.isCreditCard) {
+            chart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
+                override fun onNothingSelected() {
 
-            }
+                }
 
-            override fun onValueSelected(e: Entry?, h: Highlight?) {
-                // next activity
-                EventFireUtil.fireEvent(onActionChart)
-            }
+                override fun onValueSelected(e: Entry?, h: Highlight?) {
+                    // next activity
+                    EventFireUtil.fireEvent(onActionChart)
+                }
 
-        })
+            })
+        }
+
 
         setData(chart, model.list)
         setLegend(chart)

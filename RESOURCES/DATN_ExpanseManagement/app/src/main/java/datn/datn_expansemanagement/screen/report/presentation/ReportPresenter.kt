@@ -13,12 +13,10 @@ import datn.datn_expansemanagement.domain.response.WalletResponse
 import datn.datn_expansemanagement.domain.response.WalletSavingResponse
 import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
-import datn.datn_expansemanagement.screen.report.domain.GetWalletMapper
-import datn.datn_expansemanagement.screen.report.domain.GetWalletSavingMapper
-import datn.datn_expansemanagement.screen.report.domain.ReportCreditCardMapper
-import datn.datn_expansemanagement.screen.report.domain.ReportDefaultMapper
+import datn.datn_expansemanagement.screen.report.domain.*
 import datn.datn_expansemanagement.screen.report.presentation.model.GetWalletItemViewModel
 import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewModel
+import datn.datn_expansemanagement.screen.report_detail.main.presentation.model.ReportDetailItemViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,6 +27,25 @@ class ReportPresenter(
 ) : ReportContract.Presenter() {
 
     private val service = RetrofitClientInstance().getClient()?.create(GetDataService::class.java)
+
+    override fun getTransaction(idWallet: Int) {
+        val call = service?.getReportWalletSaving(idWallet)
+        call?.enqueue(object : Callback<ReportWalletSavingResponse> {
+            override fun onFailure(call: Call<ReportWalletSavingResponse>, t: Throwable) {
+                Toast.makeText(mvpActivity, t.message, Toast.LENGTH_LONG).show()
+                view?.hideLoading()
+            }
+
+            override fun onResponse(
+                call: Call<ReportWalletSavingResponse>,
+                response: Response<ReportWalletSavingResponse>
+            ) {
+                view?.showListTransaction(GetTransactionMapper().map(response.body()!!))
+                view?.hideLoading()
+            }
+
+        })
+    }
 
     override fun getData(
         idWallet: Int?,

@@ -6,6 +6,7 @@ import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.util.Utils
 import datn.datn_expansemanagement.core.app.util.image.GlideImageHelper
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.model.ViewRenderer
+import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
 import datn.datn_expansemanagement.kotlinex.view.invisible
 import datn.datn_expansemanagement.kotlinex.view.visible
 import datn.datn_expansemanagement.screen.report_detail.main.presentation.model.ReportDetailItemViewModel
@@ -29,7 +30,7 @@ class ReportDetailItemViewRenderer(context: Context) :
         viewRoot.tvName.text = model.name
         viewRoot.tvDate.text = model.date
         viewRoot.tvDes.text = model.des
-        viewRoot.tvPrice.text = Utils.formatMoney(model.price)
+        viewRoot.tvPrice.text = Utils.formatMoney(model.price.getValueOrDefaultIsZero())
 
         if(model.isLast){
             viewRoot.viewBottom.invisible()

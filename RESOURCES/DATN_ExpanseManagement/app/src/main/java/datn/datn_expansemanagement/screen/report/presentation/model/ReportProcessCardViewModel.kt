@@ -6,5 +6,6 @@ class ReportProcessCardViewModel (
     var currentPrice: Double,
     var progress: Int,
     var startDate: String? = null,
-    var endDate: String? = null
+    var endDate: String? = null,
+    var maxProcess: Int
 ): ViewModel

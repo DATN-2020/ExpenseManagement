@@ -4,9 +4,9 @@ import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 
 class ReportDetailItemViewModel(
     var imgUrl: String? = null,
-    var name: String,
-    var date: String,
-    var des: String,
-    var price: Double,
+    var name: String? = null,
+    var date: String? = null,
+    var des: String? = null,
+    var price: Double? = null,
     var isLast: Boolean = false
 ) : ViewModel

@@ -1,6 +1,5 @@
 package datn.datn_expansemanagement.screen.report.domain
 
-import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.PieEntry
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.core.app.common.AppConstants
@@ -13,7 +12,6 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.random.Random
 
 class ReportCreditCardMapper(private val data: GetWalletItemViewModel) :
     Mapper<ReportWalletSavingResponse, MutableList<ViewModel>> {
@@ -26,37 +24,37 @@ class ReportCreditCardMapper(private val data: GetWalletItemViewModel) :
         listReturn.add(
             ReportHeaderCardViewModel(
                 price = data.money.getValueOrDefaultIsZero(),
-                date = data.startDate.getValueOrDefaultIsEmpty(),
+                startDate = data.startDate.getValueOrDefaultIsEmpty(),
+                endDate = data.endDate.getValueOrDefaultIsEmpty(),
                 isFinish = data.isFinish
             )
         )
+        val currentDay = dateToDays(convertStringToDate(getCurrentDate())!!).toDouble()
+        val endDate = dateToDays(convertStringToDate(data.endDate!!)!!).toDouble()
+        val start = dateToDays(convertStringToDate(data.startDate!!)!!).toDouble()
         listReturn.add(
             ReportProcessCardViewModel(
-                currentPrice = (
-                        ((dateToDays(convertStringToDate(getCurrentDate())!!)).toDouble() - dateToDays(
-                            convertStringToDate(data.startDate!!)!!
-                        ).toDouble()) / 365 * data.interest!!),
+                currentPrice = ((currentDay - start) / 365 * data.interest!! * data.money),
                 endDate = data.endDate.getValueOrDefaultIsEmpty(),
-                progress = (dateToDays(convertStringToDate(getCurrentDate())!!) * 100) / dateToDays(
-                    convertStringToDate(data.endDate!!)!!
-                )
+                progress = (currentDay * 100 / endDate).toInt(),
+                maxProcess = endDate.toInt()
             )
         )
 
         if (!input.data.isNullOrEmpty() && data != null) {
             input.data.forEach {
-                if(it.isIncome){
+                if (it.isIncome) {
                     totalIncome += it.priceTrans
-                }else{
+                } else {
                     totalOutcome += it.priceTrans
                 }
             }
 
             list.add(PieEntry(totalIncome.toFloat(), "Nhập vào"))
             list.add(PieEntry(totalOutcome.toFloat(), "Rút ra"))
-            listReturn.add(ReportPieChartViewModel(list))
-        }else{
-            listReturn.add(ReportPieChartViewModel(list))
+            listReturn.add(ReportPieChartViewModel(list, true))
+        } else {
+            listReturn.add(ReportPieChartViewModel(list, true))
         }
 
         listReturn.add(
