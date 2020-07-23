@@ -21,6 +21,8 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:paddingStart="@dimen/spacing_20dp"
+            android:paddingEnd="@dimen/spacing_20dp"
             android:id="@+id/tvTitleChooseDate"
             style="@style/StyleTextViewMedium.Medium.Black"
             android:layout_width="match_parent"
@@ -28,7 +30,7 @@
             android:layout_marginTop="@dimen/spacing_56dp"
             android:fontFamily="@font/roboto_regular"
             android:gravity="center"
-            android:text="Bạn đã thêm 1 muc thành công"
+            android:text="Bạn đã thêm 1 chi tiêu thành công"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

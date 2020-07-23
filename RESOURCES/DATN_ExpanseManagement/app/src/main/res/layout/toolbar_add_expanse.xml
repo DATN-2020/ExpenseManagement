@@ -5,27 +5,6 @@
     android:layout_height="wrap_content"
     android:background="@color/color_219dfd">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/imgHistory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_10dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:padding="@dimen/spacing_10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_history_black_24dp" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgNotify"
-        android:layout_width="@dimen/spacing_10dp"
-        android:layout_height="@dimen/spacing_10dp"
-        android:src="@color/color_ee403f"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@id/imgHistory"
-        app:layout_constraintTop_toTopOf="@id/imgHistory" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -154,7 +154,7 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
 
     override fun handleAfterCreate() {
         showDialogNotify(isFinish = true)
-        view.imgNotify.visible()
+        AddExpenseFragment.model = AddExpenseViewModel.Info()
     }
 
     private fun setDialogFullScreen(dialog: AlertDialog) {
@@ -230,9 +230,6 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
             view.cvType.gone()
         }
 
-        view.imgHistory.setOnClickListener {
-            eventBusLifeCycle.sendData(OnReportWalletDataBus(AddExpenseFragment.model.wallet?.id.getValueOrDefaultIsZero()))
-        }
     }
 
     private fun checkDataRequest() {
@@ -271,7 +268,8 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
         }
 
         if (AddExpenseFragment.model.title.isNullOrEmpty()) {
-            AddExpenseFragment.model.title = "Không có mô tả cho chi tiêu này"
+            showDialogNotify(title = "Bạn chưa nhập mô tả cho chi tiêu này")
+            return
         }
 
         var idTypeCategory: String? = null

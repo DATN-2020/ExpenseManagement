@@ -14,7 +14,7 @@ class RetrofitClientInstance {
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
         retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.50.58:5000/api/")
+            .baseUrl("http://192.168.50.59:5000/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
