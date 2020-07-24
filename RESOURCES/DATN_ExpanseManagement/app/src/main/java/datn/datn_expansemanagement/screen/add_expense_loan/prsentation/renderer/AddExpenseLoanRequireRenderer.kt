@@ -2,6 +2,8 @@ package datn.datn_expansemanagement.screen.add_expense_loan.prsentation.renderer
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.domain.excecutor.EventFireUtil
@@ -63,13 +65,35 @@ class AddExpenseLoanRequireRenderer(
             viewRoot.tvWallet.text = mResource.getTextWalletEmpty()
         }
         viewRoot.tvWallet.setTextColor(mResource.getColorCategory())
+        viewRoot.tvLoaner.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+                AddExpenseFragment.model.nameLoaner = s.toString()
+            }
 
-        if (model.idLoaner != null) {
-            viewRoot.tvLoaner.text = model.nameLoaner.getValueOrDefaultIsEmpty()
-        } else {
-            viewRoot.tvLoaner.text = ""
-            viewRoot.tvLoaner.hint = mResource.getEmptyLoaner()
-        }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+
+        })
+
+        viewRoot.edtComment.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+                AddExpenseFragment.model.title = s.toString()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+
+        })
 
         if (model.isLoan) {
             viewRoot.tvLoan.text = mResource.getTextLoan()

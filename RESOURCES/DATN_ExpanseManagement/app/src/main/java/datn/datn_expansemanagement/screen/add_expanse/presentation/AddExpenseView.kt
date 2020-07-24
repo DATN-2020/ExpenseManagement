@@ -253,7 +253,7 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
         }
 
         if (typeIncome == 3 || typeIncome == 4) {
-            if (AddExpenseFragment.model.loaner == null) {
+            if (AddExpenseFragment.model.nameLoaner.isNullOrEmpty()) {
                 showDialogNotify(title = "Vui lòng điền đầy đủ thông tin")
                 return
             }
@@ -280,10 +280,16 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
             idCategory = AddExpenseFragment.model.category?.id.toString()
         }
 
+        if(typeIncome == 3){
+            idTypeCategory = "17"
+        }
 
+        if(typeIncome == 4){
+            idTypeCategory = "18"
+        }
         if (AddExpenseFragment.model.idBudget == null) {
             val request = InOutComeRequest(
-                loanIdLoan = if (AddExpenseFragment.model.loaner?.id != null) AddExpenseFragment.model.loaner?.id.toString() else null,
+                loanIdLoan = if (AddExpenseFragment.model.nameLoaner != null) AddExpenseFragment.model.nameLoaner else null,
                 amount = AddExpenseFragment.model.totalMoney.getValueOrDefaultIsZero(),
                 categoryIdCate = idCategory,
                 dateCome = Utils.convertDateFormat(
@@ -299,8 +305,9 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
             )
             mPresenter.createExpense(request)
         } else {
+
             val request = InOutComeRequest(
-                loanIdLoan = if (AddExpenseFragment.model.loaner?.id != null) AddExpenseFragment.model.loaner?.id.toString() else null,
+                loanIdLoan = if (AddExpenseFragment.model.nameLoaner != null) AddExpenseFragment.model.nameLoaner else null,
                 amount = AddExpenseFragment.model.totalMoney.getValueOrDefaultIsZero(),
                 categoryIdCate = idCategory,
                 dateCome = Utils.convertDateFormat(

@@ -34,7 +34,11 @@ class AddExpensePresenter(private val screenNavigator: AndroidScreenNavigator, p
             }
 
             override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
-                view?.handleAfterCreate()
+                if(response.code() == 200){
+                    view?.handleAfterCreate()
+                }else{
+                    Toast.makeText(mvpActivity, response.message(), Toast.LENGTH_LONG).show()
+                }
                 view?.hideLoading()
             }
         })

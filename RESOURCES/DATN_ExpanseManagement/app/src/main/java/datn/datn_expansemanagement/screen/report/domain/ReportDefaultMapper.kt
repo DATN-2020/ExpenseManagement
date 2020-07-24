@@ -13,17 +13,18 @@ class ReportDefaultMapper : Mapper<ReportResponse, MutableList<ViewModel>> {
     override fun map(input: ReportResponse): MutableList<ViewModel> {
         val listReturn = mutableListOf<ViewModel>()
         val list = ArrayList<BarEntry>()
-        if(input.data != null){
+        if (input.data != null) {
             listReturn.add(
-                ReportHeaderItemViewModel(
-                    beginBalance = input.data.beginBalance.getValueOrDefaultIsZero(),
-                    endBalance = input.data.endBalance.getValueOrDefaultIsZero()
-                )
+                    ReportHeaderItemViewModel(
+                            beginBalance = input.data.beginBalance.getValueOrDefaultIsZero(),
+                            endBalance = input.data.endBalance.getValueOrDefaultIsZero()
+                    )
             )
             listReturn.add(
-                ReportNetIncomeViewModel(
-                    priceNetIncome = input.data.endBalance.getValueOrDefaultIsZero()
-                )
+                    ReportNetIncomeViewModel(
+                            priceNetIncome = input.data.endBalance.getValueOrDefaultIsZero() -
+                                    input.data.beginBalance.getValueOrDefaultIsZero()
+                    )
             )
 
             list.add(BarEntry(1.toFloat(), input.data.totalIncomeOutcome1.toFloat()))
@@ -42,29 +43,29 @@ class ReportDefaultMapper : Mapper<ReportResponse, MutableList<ViewModel>> {
             listReturn.add(ReportBarChartViewModel(list))
 
             listReturn.add(
-                ReportBalanceViewModel(
-                    priceReceive = input.data.totalIncome,
-                    priceDonate = input.data.totalOutcome
-                )
+                    ReportBalanceViewModel(
+                            priceReceive = input.data.totalIncome,
+                            priceDonate = input.data.totalOutcome
+                    )
             )
 
             val listPieEntry = ArrayList<PieEntry>()
-            if(input.data.totalIncome != 0.0){
+            if (input.data.totalIncome != 0.0) {
                 listPieEntry.add(PieEntry((input.data.totalIncome / (input.data.totalIncome + input.data.totalOutcome) * 100).toFloat(), "Khoản thu"))
 
             }
-            if(input.data.totalOutcome != 0.0){
+            if (input.data.totalOutcome != 0.0) {
                 listPieEntry.add(PieEntry(100 - (input.data.totalIncome / (input.data.totalIncome + input.data.totalOutcome) * 100).toFloat(), "Khoản chi"))
 
             }
             listReturn.add(ReportPieChartViewModel(listPieEntry))
 
             listReturn.add(
-                ReportBottomItemViewModel(
-                    priceDue = input.data.totalLoan,
-                    priceBorrow = input.data.totalBorrow,
-                    priceOther = input.data.totalOther
-                )
+                    ReportBottomItemViewModel(
+                            priceDue = input.data.totalLoan,
+                            priceBorrow = input.data.totalBorrow,
+                            priceOther = input.data.totalOther
+                    )
             )
         }
 

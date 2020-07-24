@@ -17,7 +17,6 @@
         app:srcCompat="@drawable/splash_1" />
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:inputType="phone"
         android:id="@+id/edtUser"
         style="@style/StyleTextView.Normal.Black"
         android:layout_width="match_parent"
@@ -25,6 +24,7 @@
         android:layout_marginTop="@dimen/spacing_40dp"
         android:background="@drawable/bg_corner_e8e8e8"
         android:hint="@string/text_hint_enter_phone"
+        android:inputType="phone"
         android:padding="@dimen/spacing_6dp"
         android:paddingStart="@dimen/spacing_20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -111,17 +111,19 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_10dp"
         android:background="@drawable/bg_corner_blue_facebook"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textOr">
+        app:layout_constraintTop_toBottomOf="@id/textOr"
+        app:layout_constraintVertical_bias="0">
 
         <Button
-            android:padding="@dimen/spacing_10dp"
             android:id="@+id/btnRegister"
             style="@style/StyleTextView.Medium.White"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
+            android:padding="@dimen/spacing_10dp"
             android:text="Đăng ký tài khoản"
             android:textAllCaps="false" />
     </LinearLayout>

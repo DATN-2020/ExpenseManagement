@@ -24,8 +24,7 @@ class AddExpenseViewModel(
         var idBudget: Int? = null,
         var listFriend: ListFriend? = null,
         var location: Location? = null,
-        var loaner: Loaner? = null
-
+        var nameLoaner: String? = null
     ) : ViewModel {
         class Category(
             var id: Int? = null,

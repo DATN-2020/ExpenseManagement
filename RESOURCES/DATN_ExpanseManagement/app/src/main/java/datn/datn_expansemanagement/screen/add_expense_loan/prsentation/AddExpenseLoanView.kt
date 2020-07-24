@@ -55,7 +55,6 @@ class AddExpenseLoanView(
                 val item = AddExpenseFragment.listFriend.list[0] as AddExpenseViewModel.Info.ListFriend.Friend
                 listData.forEach {
                     if(it is AddExpenseLoanRequireViewModel){
-                        it.idLoaner = item.id.getValueOrDefaultIsZero()
                         it.nameLoaner = item.name.getValueOrDefaultIsEmpty()
                     }
                 }

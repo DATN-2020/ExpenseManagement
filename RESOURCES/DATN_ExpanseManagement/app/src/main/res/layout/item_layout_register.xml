@@ -17,7 +17,6 @@
         app:srcCompat="@drawable/splash_1" />
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:inputType="phone"
         android:id="@+id/edtUser"
         style="@style/StyleTextView.Normal.Black"
         android:layout_width="match_parent"
@@ -25,6 +24,7 @@
         android:layout_marginTop="@dimen/spacing_40dp"
         android:background="@drawable/bg_corner_e8e8e8"
         android:hint="@string/text_hint_enter_phone"
+        android:inputType="phone"
         android:padding="@dimen/spacing_6dp"
         android:paddingStart="@dimen/spacing_20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,7 +32,6 @@
         app:layout_constraintTop_toBottomOf="@id/imgLogo" />
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/tvErrorUser"
         style="@style/StyleTextView.Small.DB5A5A"
         android:layout_width="match_parent"
@@ -41,6 +40,7 @@
         android:paddingStart="@dimen/spacing_20dp"
         android:paddingEnd="@dimen/spacing_20dp"
         android:text="@string/text_error_empty"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edtUser" />
@@ -61,7 +61,6 @@
         app:layout_constraintTop_toBottomOf="@id/tvErrorUser" />
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/tvErrorPassword"
         style="@style/StyleTextView.Small.DB5A5A"
         android:layout_width="match_parent"
@@ -70,6 +69,7 @@
         android:paddingStart="@dimen/spacing_20dp"
         android:paddingEnd="@dimen/spacing_20dp"
         android:text="@string/text_error_empty"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edtPassword" />
@@ -89,7 +89,6 @@
         app:layout_constraintTop_toBottomOf="@id/tvErrorPassword" />
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/tvErrorName"
         style="@style/StyleTextView.Small.DB5A5A"
         android:layout_width="match_parent"
@@ -98,6 +97,7 @@
         android:paddingStart="@dimen/spacing_20dp"
         android:paddingEnd="@dimen/spacing_20dp"
         android:text="@string/text_error_empty"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edtName" />
@@ -139,9 +139,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_10dp"
         android:background="@drawable/bg_corner_blue_facebook"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textOr">
+        app:layout_constraintTop_toBottomOf="@id/textOr"
+        app:layout_constraintVertical_bias="0">
 
         <Button
             android:id="@+id/btnLogin"

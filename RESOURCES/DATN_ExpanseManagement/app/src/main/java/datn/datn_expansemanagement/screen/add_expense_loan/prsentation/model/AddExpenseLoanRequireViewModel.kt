@@ -5,12 +5,11 @@ import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class AddExpenseLoanRequireViewModel (
-    var idLoaner: Int? = null,
-    var nameLoaner: String? = null,
-    var idWallet: Int? = null,
-    var nameWallet: String? = null,
-    var date: String? = null,
-    var time: String? = null,
-    var isLoan : Boolean = false
-): ViewModel, Parcelable
+class AddExpenseLoanRequireViewModel(
+        var nameLoaner: String? = null,
+        var idWallet: Int? = null,
+        var nameWallet: String? = null,
+        var date: String? = null,
+        var time: String? = null,
+        var isLoan: Boolean = false
+) : ViewModel, Parcelable
