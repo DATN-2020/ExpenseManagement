@@ -265,8 +265,8 @@ class ReportView(
         listViewMvp?.addViewRenderer(
             ReportPieChartViewRenderer(
                 mvpActivity,
-                mResource,
-                onActionChart
+                mResource
+
             )
         )
         listViewMvp?.addViewRenderer(ReportHeaderItemViewRenderer(mvpActivity))

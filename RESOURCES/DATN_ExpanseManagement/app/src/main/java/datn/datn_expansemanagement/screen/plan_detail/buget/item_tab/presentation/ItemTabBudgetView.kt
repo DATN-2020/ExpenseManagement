@@ -30,6 +30,9 @@ import datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentatio
 import datn.datn_expansemanagement.screen.plan_detail.presentation.PlanDetailResource
 import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewModel
 import kotlinx.android.synthetic.main.custom_dialog_cancel_contact.*
+import kotlinx.android.synthetic.main.custom_dialog_cancel_contact.btnCancel
+import kotlinx.android.synthetic.main.custom_dialog_cancel_contact.tvTitleChooseDate
+import kotlinx.android.synthetic.main.custom_dialog_notify.*
 import kotlinx.android.synthetic.main.layou_item_tab_control_detail_budget.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
 import java.text.SimpleDateFormat
@@ -109,17 +112,7 @@ class ItemTabBudgetView(
 
     private val onActionPayBill = object : OnActionData<BillItemViewModel> {
         override fun onAction(data: BillItemViewModel) {
-            var request: InOutComeRequest? = null
-            listData.forEach {
-                if (it is BillItemViewModel) {
-                    request = InOutComeRequest(
-                        walletIdWallet = it.idWallet.toString(),
-                        idBill = it.idBill.toString(),
-                        dateCome = getCurrentDate()
-                    )
-                }
-            }
-            request?.let { mPresenter.payBill(it) }
+            showDialogNotifyBill("Xác nhận trả hóa đơn này", data)
         }
 
     }
@@ -134,6 +127,44 @@ class ItemTabBudgetView(
         }
     }
 
+    private val layoutView = LayoutInflater.from(mvpActivity)
+            .inflate(R.layout.custom_dialog_notify, null, false)
+    private val dialogNotify =
+            AlertDialog.Builder(mvpActivity, R.style.DialogNotify).setView(layoutView).create()
+
+    private fun showDialogNotifyBill(
+            title: String? = null,
+            data: BillItemViewModel? = null
+    ) {
+
+        setDialogFullScreen(dialogNotify)
+        dialogNotify.show()
+        dialogNotify.btnCancel.setOnClickListener {
+            dialogNotify.dismiss()
+        }
+
+        dialogNotify.btnOk.text = "Đồng ý"
+        dialogNotify.btnOk.setOnClickListener {
+            if(data != null){
+                var request: InOutComeRequest? = null
+                listData.forEach {
+                    if (it is BillItemViewModel) {
+                        request = InOutComeRequest(
+                                walletIdWallet = it.idWallet.toString(),
+                                idBill = it.idBill.toString(),
+                                dateCome = getCurrentDate()
+                        )
+                    }
+                }
+                request?.let { mPresenter.payBill(it) }
+                dialogNotify.dismiss()
+            }
+        }
+
+        if (!title.isNullOrEmpty()) {
+            dialogNotify.tvTitleChooseDate.text = title
+        }
+    }
     private val mResourceProvider = AddExpenseResource()
     private fun showDialogNotify(title: String? = null) {
         val layoutView = LayoutInflater.from(mvpActivity)

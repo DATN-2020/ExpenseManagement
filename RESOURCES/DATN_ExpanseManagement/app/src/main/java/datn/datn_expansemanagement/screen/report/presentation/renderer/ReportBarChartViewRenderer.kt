@@ -3,12 +3,16 @@ package datn.datn_expansemanagement.screen.report.presentation.renderer
 import android.content.Context
 import android.graphics.Color
 import android.view.View
+import android.widget.Toast
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.util.Utils
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.model.ViewRenderer
@@ -22,7 +26,7 @@ import kotlinx.android.synthetic.main.layout_report_receive.view.*
 import kotlinx.android.synthetic.main.layout_report_receive.view.customChart
 import kotlin.random.Random
 
-class ReportBarChartViewRenderer (context: Context, private val mResource : ReportResource): ViewRenderer<ReportBarChartViewModel>(context){
+class ReportBarChartViewRenderer(context: Context, private val mResource: ReportResource) : ViewRenderer<ReportBarChartViewModel>(context) {
     override fun getLayoutId(): Int {
         return R.layout.item_layout_report_bar_chart
     }
@@ -36,6 +40,13 @@ class ReportBarChartViewRenderer (context: Context, private val mResource : Repo
     private fun initCustomChart(view: View, model: ReportBarChartViewModel) {
         val chart = view.customChart
         chart.clear()
+        val colors: MutableList<Int> = java.util.ArrayList()
+        val green = Color.rgb(113, 191, 134)
+        val red = Color.rgb(234, 130, 130)
+        for (i in model.list.indices) {
+            val d: BarEntry = model.list[i]
+            if (d.y >= 0) colors.add(green) else colors.add(red)
+        }
         chart.extraTopOffset = -10f
         chart.extraBottomOffset = 10f
         chart.description.isEnabled = false
@@ -51,23 +62,36 @@ class ReportBarChartViewRenderer (context: Context, private val mResource : Repo
         setLabelLeftRightChart(chart)
         setLegend(chart)
 
-        if(model.list.isNullOrEmpty()){
+        if (model.list.isNullOrEmpty()) {
             view.tvNoData.visible()
-        }else{
+        } else {
             view.tvNoData.gone()
             setData(chart, model.list)
         }
 
+        chart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
+            override fun onNothingSelected() {
+            }
+
+            override fun onValueSelected(e: Entry?, h: Highlight?) {
+                e as BarEntry
+                if(e.data != 0){
+                    Toast.makeText(context, e.x.toString(), Toast.LENGTH_LONG).show()
+                }
+            }
+
+        })
+
     }
 
-    private fun setLabelLeftRightChart(chart: CustomBarChart){
+    private fun setLabelLeftRightChart(chart: CustomBarChart) {
         val aXisLeft = chart.axisLeft
-        aXisLeft.valueFormatter = object : ValueFormatter(){
+        aXisLeft.valueFormatter = object : ValueFormatter() {
             override fun getAxisLabel(value: Float, axis: AxisBase?): String {
                 var temp = ""
-                temp = if(value.toInt() != 0){
+                temp = if (value.toInt() != 0) {
                     Utils.formatMoney(value.toDouble())
-                }else{
+                } else {
                     ""
                 }
                 return temp
@@ -88,12 +112,12 @@ class ReportBarChartViewRenderer (context: Context, private val mResource : Repo
         aXisRight.isEnabled = false
     }
 
-    private fun setLegend(chart: CustomBarChart){
+    private fun setLegend(chart: CustomBarChart) {
         val legend = chart.legend
         legend.isEnabled = false
     }
 
-    private fun setLabelBottomChart(chart: CustomBarChart){
+    private fun setLabelBottomChart(chart: CustomBarChart) {
         val xAxis = chart.xAxis
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.setDrawGridLines(false)

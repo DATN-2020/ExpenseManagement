@@ -292,7 +292,7 @@ class AddPlanView(
                                 SimpleDateFormat("dd/MM/yyyy"),
                                 SimpleDateFormat("yyyy-MM-dd")
                             ),
-                            idTime = idTime.getValueOrDefaultIsEmpty()
+                            idTime = idTime
                         )
                         mPresenter.addBudget(request = request)
                     }

@@ -12,7 +12,7 @@ class AddPlanMapper : Mapper<String, MutableList<ViewModel>> {
         list.add(AddPlanPriceViewModel(title = "Mục tiêu"))
         list.add(AddPlanCategoryViewModel())
         list.add(AddPlanChooseDateViewModel())
-        list.add(AddPlanDateViewModel())
+//        list.add(AddPlanDateViewModel())
         list.add(AddPlanWalletViewModel())
         return list
     }

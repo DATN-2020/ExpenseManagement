@@ -16,5 +16,5 @@ data class AddBudgetRequest(
     @SerializedName("time_s")
     val timeS: String,
     @SerializedName("id_Time")
-    val idTime: String
+    val idTime: String? = null
 )

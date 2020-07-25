@@ -19,8 +19,7 @@ import datn.datn_expansemanagement.screen.report.presentation.model.ReportPieCha
 import kotlinx.android.synthetic.main.item_layout_report_pie_chart.view.*
 
 class ReportPieChartViewRenderer(
-    context: Context, private val mResource: ReportResource,
-    private val onActionChart: OnActionNotify
+    context: Context, private val mResource: ReportResource
 ) : ViewRenderer<ReportPieChartViewModel>(context) {
     override fun getLayoutId(): Int {
         return R.layout.item_layout_report_pie_chart
@@ -61,8 +60,7 @@ class ReportPieChartViewRenderer(
                 }
 
                 override fun onValueSelected(e: Entry?, h: Highlight?) {
-                    // next activity
-                    EventFireUtil.fireEvent(onActionChart)
+
                 }
 
             })

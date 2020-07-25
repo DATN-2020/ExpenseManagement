@@ -2,11 +2,13 @@ package datn.datn_expansemanagement.view.custom_charts;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import com.github.mikephil.charting.charts.BarLineChartBase;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.highlight.BarHighlighter;
+import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.dataprovider.BarDataProvider;
 
 public class CustomBarChart extends BarLineChartBase<BarData> implements BarDataProvider{
@@ -48,6 +50,23 @@ public class CustomBarChart extends BarLineChartBase<BarData> implements BarData
         }
 
         mAxisLeft.calculate(mData.getYMin(YAxis.AxisDependency.LEFT), mData.getYMax(YAxis.AxisDependency.LEFT));
+    }
+
+
+    @Override
+    public Highlight getHighlightByTouchPoint(float x, float y) {
+        if (mData == null) {
+            Log.e(LOG_TAG, "Can't select by touch. No data set.");
+            return null;
+        } else {
+            Highlight h = getHighlighter().getHighlight(x, y);
+            if (h == null || !isHighlightFullBarEnabled()) return h;
+
+            // For isHighlightFullBarEnabled, remove stackIndex
+            return new Highlight(h.getX(), h.getY(),
+                    h.getXPx(), h.getYPx(),
+                    h.getDataSetIndex(), -1, h.getAxis());
+        }
     }
 
     @Override
