@@ -99,7 +99,11 @@ class ItemTabBudgetPresenter(
                 call: Call<BaseResponse>,
                 response: Response<BaseResponse>
             ) {
-                view?.handleAfterPayBill()
+                if(response.body()!!.statusCode == "200"){
+                    view?.handleAfterPayBill()
+                }else{
+                    Toast.makeText(mvpActivity, response.body()!!.message, Toast.LENGTH_LONG).show()
+                }
                 view?.hideLoading()
             }
 

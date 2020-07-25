@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:padding="@dimen/spacing_10dp">
+    android:paddingStart="@dimen/spacing_10dp"
+    android:paddingEnd="@dimen/spacing_10dp"
+    android:paddingTop="@dimen/spacing_10dp">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivWallet"
@@ -75,8 +77,21 @@
         android:maxLines="1"
         android:text="Đã dùng 1.000.000 $"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/glVertical"
+        app:layout_constraintStart_toStartOf="@id/tvWallet"
         app:layout_constraintTop_toBottomOf="@id/sbPercent" />
+
+    <TextView
+        android:fontFamily="@font/roboto_light_italic"
+        android:id="@+id/tvDate"
+        style="@style/StyleTextView.Small.Black"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/spacing_20dp"
+        android:maxLines="1"
+        android:text="1/7/2020 den 31/7/2020"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvWallet"
+        app:layout_constraintTop_toBottomOf="@id/tvRest" />
 
     <View
         android:id="@+id/viewBottom"
@@ -88,5 +103,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvRest" />
+        app:layout_constraintTop_toBottomOf="@id/tvDate" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,7 @@ package datn.datn_expansemanagement.screen.add_expense_donate.domain
 
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.core.app.common.AppConstants
+import datn.datn_expansemanagement.core.app.util.Utils
 import datn.datn_expansemanagement.core.base.domain.mapper.Mapper
 import datn.datn_expansemanagement.domain.response.GetBudgetResponse
 import datn.datn_expansemanagement.kotlinex.boolean.getValueOrDefault
@@ -20,7 +21,7 @@ class GetBudgetMapper : Mapper<GetBudgetResponse, MutableList<ViewModel>> {
                 val start = dateToDays(convertStringToDate(it.dateTimeS)!!)
                 val current = dateToDays(convertStringToDate(getCurrentDate())!!)
                 val end = dateToDays(convertStringToDate(it.dateTimeE)!!)
-                if (current in start.. end) {
+                if (current in start..end) {
                     if (!it.check) {
                         list.add(
                                 BudgetItemViewModel(
@@ -30,7 +31,11 @@ class GetBudgetMapper : Mapper<GetBudgetResponse, MutableList<ViewModel>> {
                                         totalPrice = it.amount.getValueOrDefaultIsZero(),
                                         currentPrice = it.remain.getValueOrDefaultIsZero(),
                                         isFinish = it.check.getValueOrDefault(),
-                                        idWallet = it.idwallet.getValueOrDefaultIsEmpty().toInt()
+                                        idWallet = it.idwallet.getValueOrDefaultIsEmpty().toInt(),
+                                        startDate = Utils.convertDateFormat(it.dateTimeS, SimpleDateFormat("yyyy-MM-dd"),
+                                                SimpleDateFormat("dd/MM/yyyy")),
+                                        endDate = Utils.convertDateFormat(it.dateTimeE, SimpleDateFormat("yyyy-MM-dd"),
+                                                SimpleDateFormat("dd/MM/yyyy"))
                                 )
                         )
                     }

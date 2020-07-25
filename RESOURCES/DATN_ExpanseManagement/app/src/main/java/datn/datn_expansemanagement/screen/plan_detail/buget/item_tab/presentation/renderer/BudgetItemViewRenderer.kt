@@ -12,8 +12,8 @@ import datn.datn_expansemanagement.screen.plan_detail.presentation.PlanDetailRes
 import kotlinx.android.synthetic.main.item_layout_plan_detail_budget.view.*
 
 class BudgetItemViewRenderer(
-    context: Context,
-    private val mResource: PlanDetailResource
+        context: Context,
+        private val mResource: PlanDetailResource
 ) : ViewRenderer<BudgetItemViewModel>(context) {
     override fun getLayoutId(): Int {
         return R.layout.item_layout_plan_detail_budget
@@ -25,7 +25,8 @@ class BudgetItemViewRenderer(
         viewRoot.tvWallet.text = model.name
         viewRoot.tvAccumulation.text = Utils.formatMoney(model.totalPrice)
         viewRoot.sbPercent.progress = ((model.currentPrice / model.totalPrice) * 100).toInt()
-        viewRoot.tvRest.text ="Đã dùng ".plus(Utils.formatMoney(model.currentPrice))
+        viewRoot.tvRest.text = "Đã dùng ${Utils.formatMoney(model.currentPrice)}"
+        viewRoot.tvDate.text = "Từ ngày ${model.startDate} đến ${model.endDate}"
         GlideImageHelper(context).loadThumbnail(viewRoot.ivWallet, model.imgUrl, R.drawable.ic_default)
 
         when {

@@ -40,7 +40,7 @@
         android:id="@+id/tvTitleChooseDate"
         style="@style/StyleTextViewMedium.Large.Black"
         android:layout_marginTop="@dimen/spacing_16dp"
-        android:text="Chọn tháng"
+        android:text="Chọn năm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -63,15 +63,15 @@
         app:layout_constraintTop_toBottomOf="@id/vDivider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            style="@style/StyleTextViewMedium.Medium.Black"
-            android:id="@+id/tvTitleMonthPicker"
-            android:fontFamily="@font/roboto_regular"
-            android:gravity="center"
-            android:text="Tháng"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
+<!--        <TextView-->
+<!--            style="@style/StyleTextViewMedium.Medium.Black"-->
+<!--            android:id="@+id/tvTitleMonthPicker"-->
+<!--            android:fontFamily="@font/roboto_regular"-->
+<!--            android:gravity="center"-->
+<!--            android:text="Tháng"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"/>-->
         <TextView
             style="@style/StyleTextViewMedium.Medium.Black"
             android:id="@+id/tvTitleYearPicker"
@@ -92,26 +92,26 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <datn.datn_expansemanagement.view.numberpicker.NumberPicker
-            app:np_min="1"
-            app:np_max="12"
-            android:id="@+id/wpMonth"
-            android:layout_width="wrap_content"
-            android:layout_height="120dp"
-            android:layout_marginBottom="@dimen/spacing_16dp"
-            android:layout_weight="1"
-            android:textColor="@color/color_a4a4a4"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/vDivider"
-            app:np_dividerThickness="0dp"
-            app:np_formatter="@string/number_picker_format_string"
-            app:np_selectedTextColor="@color/color_9167f1"
-            app:np_selectedTextSize="@dimen/spacing_16dp"
-            app:np_textSize="@dimen/spacing_14dp"
-            app:np_wheelItemCount="3"
-            app:np_wrapSelectorWheel="false" />
+<!--        <datn.datn_expansemanagement.view.numberpicker.NumberPicker-->
+<!--            app:np_min="1"-->
+<!--            app:np_max="12"-->
+<!--            android:id="@+id/wpMonth"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="120dp"-->
+<!--            android:layout_marginBottom="@dimen/spacing_16dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:textColor="@color/color_a4a4a4"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/vDivider"-->
+<!--            app:np_dividerThickness="0dp"-->
+<!--            app:np_formatter="@string/number_picker_format_string"-->
+<!--            app:np_selectedTextColor="@color/color_9167f1"-->
+<!--            app:np_selectedTextSize="@dimen/spacing_16dp"-->
+<!--            app:np_textSize="@dimen/spacing_14dp"-->
+<!--            app:np_wheelItemCount="3"-->
+<!--            app:np_wrapSelectorWheel="false" />-->
 
         <datn.datn_expansemanagement.view.numberpicker.NumberPicker
             app:np_min="2000"

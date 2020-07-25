@@ -119,12 +119,12 @@ class ReportView(
         initRecycleView()
         initView()
         view.tvMonth.text = if (dateChoose.isNullOrEmpty()) {
-            getCurrentMonth()
+            getCurrentYear()
         } else {
             dateChoose
         }
 
-        dateChoose = getCurrentMonth()
+        dateChoose = getCurrentYear()
         if (idWallet != null) {
             idWalletChoose = idWallet
         }
@@ -135,8 +135,8 @@ class ReportView(
         }
     }
 
-    private fun getCurrentMonth(): String {
-        val dateFormat = SimpleDateFormat("MM/yyyy")
+    private fun getCurrentYear(): String {
+        val dateFormat = SimpleDateFormat("yyyy")
         val date = Date()
         return dateFormat.format(date)
     }
@@ -202,12 +202,12 @@ class ReportView(
         dialog.setContentView(customView)
         dialog.create()
         dialog.show()
-        dialog.wpMonth.displayedValues = AppConstants.MONTH_IN_YEAR
+//        dialog.wpMonth.displayedValues = AppConstants.MONTH_IN_YEAR
         val monthOld: Int? = null
         val yearOld: Int? = null
 
         if (monthOld != null && yearOld != null) {
-            dialog.wpMonth.value = monthOld as Int
+//            dialog.wpMonth.value = monthOld as Int
             dialog.wpYear.value = yearOld as Int
         }
 
@@ -216,10 +216,10 @@ class ReportView(
         }
 
         dialog.tvSave.setOnClickListener {
-            val month = dialog.wpMonth.value
+//            val month = dialog.wpMonth.value
             val year = dialog.wpYear.value
             var result = ""
-            result += "$month/$year"
+            result += "$year"
             dateChoose = result
             view.tvMonth.text = dateChoose
 
@@ -334,7 +334,7 @@ class ReportView(
             mPresenter.getData(
                 idWalletChoose,
                 isCardWallet,
-                getCurrentMonth(),
+                getCurrentYear(),
                 listBottom.find { (it as GetWalletItemViewModel).isChoose } as GetWalletItemViewModel)
         }
 

@@ -9,5 +9,7 @@ class BudgetItemViewModel (
     var totalPrice: Double,
     var currentPrice: Double,
     var idWallet: Int,
+    var startDate: String,
+    var endDate: String,
     var isFinish: Boolean = false
 ): ViewModel
