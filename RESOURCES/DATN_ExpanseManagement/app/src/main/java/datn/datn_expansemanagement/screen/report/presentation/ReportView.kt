@@ -13,6 +13,7 @@ import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
 import datn.datn_expansemanagement.core.app.common.AppConstants
 import datn.datn_expansemanagement.core.app.util.Utils
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
+import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
 import datn.datn_expansemanagement.core.base.domain.listener.OnActionNotify
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
@@ -20,6 +21,7 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.Linea
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.OnItemRvClickedListener
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.kotlinex.view.gone
+import datn.datn_expansemanagement.screen.report.data.ReportDetailExtra
 import datn.datn_expansemanagement.screen.report.presentation.model.GetWalletItemViewModel
 import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewModel
 import datn.datn_expansemanagement.screen.report.presentation.renderer.*
@@ -258,15 +260,24 @@ class ReportView(
 
     }
 
+    private val onChooseChart = object : OnActionData<ReportDetailExtra>{
+        override fun onAction(data: ReportDetailExtra) {
+            val extra = ReportViewModel(
+                    date = "${data.month}/$dateChoose",
+                    idWallet = idWalletChoose
+            )
+            mPresenter.gotoReportDetailActivity(extra)
+        }
+
+    }
 
     private fun initRecycleView() {
         listViewMvp = ListViewMvp(mvpActivity, view.rvReport, renderConfig)
-        listViewMvp?.addViewRenderer(ReportBarChartViewRenderer(mvpActivity, mResource))
+        listViewMvp?.addViewRenderer(ReportBarChartViewRenderer(mvpActivity, mResource, onChooseChart))
         listViewMvp?.addViewRenderer(
             ReportPieChartViewRenderer(
                 mvpActivity,
                 mResource
-
             )
         )
         listViewMvp?.addViewRenderer(ReportHeaderItemViewRenderer(mvpActivity))

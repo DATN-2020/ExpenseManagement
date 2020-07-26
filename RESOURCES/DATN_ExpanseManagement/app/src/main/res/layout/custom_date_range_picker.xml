@@ -9,6 +9,7 @@
 
     <com.archit.calendardaterangepicker.customviews.DateRangeCalendarView
         android:id="@+id/datePicker"
+        android:padding="@dimen/spacing_20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"

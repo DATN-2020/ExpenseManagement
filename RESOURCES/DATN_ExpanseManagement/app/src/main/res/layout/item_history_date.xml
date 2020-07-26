@@ -1,97 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@color/white">
 
     <View
-        android:layout_marginStart="@dimen/spacing_20dp"
         android:id="@+id/viewTop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="@dimen/spacing_20dp"
         android:background="@color/color_f5f5f5"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"/>
-    <androidx.constraintlayout.widget.ConstraintLayout
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewTop"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewTop">
+
         <View
             android:id="@+id/viewLeft"
-            android:background="@color/color_219dfd"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/tvMonth"
             android:layout_width="8dp"
-            android:layout_height="0dp"/>
+            android:layout_height="0dp"
+            android:background="@color/color_219dfd"
+            app:layout_constraintBottom_toBottomOf="@id/tvMonth"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
-            android:layout_marginStart="@dimen/spacing_10dp"
+            android:id="@+id/tvNumberDay"
             style="@style/StyleTextView.Huge.Black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_10dp"
             android:fontFamily="@font/roboto_bold"
             android:text="30"
             app:layout_constraintBottom_toBottomOf="@id/tvMonth"
-            app:layout_constraintTop_toTopOf="@id/tvDay"
             app:layout_constraintStart_toEndOf="@id/viewLeft"
-            android:id="@+id/tvNumberDay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            app:layout_constraintTop_toTopOf="@id/tvDay" />
+
         <TextView
-            android:paddingTop="@dimen/spacing_10dp"
-            android:layout_marginStart="@dimen/spacing_20dp"
+            android:id="@+id/tvDay"
             style="@style/StyleTextView.Normal.Black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_20dp"
             android:fontFamily="@font/roboto_regular"
+            android:paddingTop="@dimen/spacing_10dp"
             android:text="Hôm qua"
             app:layout_constraintStart_toEndOf="@id/tvNumberDay"
-            app:layout_constraintTop_toTopOf="parent"
-            android:id="@+id/tvDay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
-            android:layout_marginTop="@dimen/spacing_4dp"
-            android:paddingBottom="@dimen/spacing_10dp"
-            android:fontFamily="@font/roboto_regular"
-            android:text="05/2020"
-            app:layout_constraintTop_toBottomOf="@id/tvDay"
-            app:layout_constraintStart_toStartOf="@id/tvDay"
             android:id="@+id/tvMonth"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_4dp"
+            android:fontFamily="@font/roboto_regular"
+            android:paddingBottom="@dimen/spacing_10dp"
+            android:text="05/2020"
+            app:layout_constraintStart_toStartOf="@id/tvDay"
+            app:layout_constraintTop_toBottomOf="@id/tvDay" />
+
         <TextView
-            android:paddingTop="@dimen/spacing_10dp"
-            android:fontFamily="@font/roboto_medium"
-            style="@style/StyleTextView.Medium.Green"
-            android:layout_marginEnd="@dimen/spacing_20dp"
-            android:text="5.000.000 đ"
             android:id="@+id/tvTotalMoneyIncome"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/tvDay"
-            app:layout_constraintTop_toTopOf="@id/tvDay"
+            style="@style/StyleTextView.Medium.Green"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:layout_marginTop="@dimen/spacing_10dp"
-            android:fontFamily="@font/roboto_medium"
-            style="@style/StyleTextView.Medium.Red"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/spacing_20dp"
-            android:text="419.000 đ"
-            android:id="@+id/tvTotalMoneyOutcome"
+            android:fontFamily="@font/roboto_medium"
+            android:paddingTop="@dimen/spacing_10dp"
+            android:text="5.000.000 đ"
+            app:layout_constraintBottom_toBottomOf="@id/tvDay"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/tvMonth"
-            app:layout_constraintTop_toTopOf="@id/tvMonth"
+            app:layout_constraintTop_toTopOf="@id/tvDay" />
+
+        <TextView
+            android:id="@+id/tvTotalMoneyOutcome"
+            style="@style/StyleTextView.Medium.Red"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_10dp"
+            android:layout_marginEnd="@dimen/spacing_20dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="419.000 đ"
+            app:layout_constraintBottom_toBottomOf="@id/tvMonth"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvMonth" />
+
         <View
             android:id="@+id/viewBottom"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
             android:layout_marginTop="@dimen/spacing_10dp"
+            android:background="@color/color_f5f5f5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/tvNumberDay"
-            app:layout_constraintTop_toBottomOf="@id/viewLeft"
-            android:background="@color/color_f5f5f5"
-            android:layout_width="0dp"
-            android:layout_height="0.5dp"/>
+            app:layout_constraintTop_toBottomOf="@id/viewLeft" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

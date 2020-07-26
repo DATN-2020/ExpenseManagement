@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:paddingEnd="@dimen/spacing_20dp"
+    android:paddingStart="@dimen/spacing_20dp"
     android:paddingTop="@dimen/spacing_10dp"
-    android:paddingStart="@dimen/spacing_20dp">
+    android:paddingEnd="@dimen/spacing_20dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgTypeExpense"
@@ -20,11 +20,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:singleLine="true"
         android:id="@+id/tvTitleTypeExpense"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
+        android:singleLine="true"
         android:text="Mua sắm"
         android:textColor="#000000"
         android:textSize="20dp"
@@ -34,12 +34,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:gravity="end"
         android:id="@+id/tvMoneyTypeExpense"
+        style="@style/StyleTextView.Medium.Red"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="end"
         android:text="1,000,000"
-        style="@style/StyleTextView.Medium.Red"
         app:layout_constraintBottom_toBottomOf="@+id/tvTitleTypeExpense"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvTitleTypeExpense"
@@ -50,8 +50,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_10dp"
-        app:layout_constraintEnd_toEndOf="parent"
         android:text="Lần xuất hiện tiếp theo: Thứ Năm, 06/08/2020"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvTitleTypeExpense"
         app:layout_constraintTop_toBottomOf="@+id/tvTitleTypeExpense" />
 

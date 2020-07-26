@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/white"
     android:paddingStart="@dimen/spacing_20dp"
-    android:paddingEnd="@dimen/spacing_20dp"
-    android:layout_height="wrap_content">
+    android:paddingEnd="@dimen/spacing_20dp">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glCenter"
@@ -64,12 +64,12 @@
 
     <View
         android:id="@+id/viewTop"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/color_f5f5f5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/color_f5f5f5"
-        android:layout_width="0dp"
-        android:layout_height="1dp"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/viewBottom"
