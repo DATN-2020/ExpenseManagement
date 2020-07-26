@@ -13,6 +13,7 @@ import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
 import datn.datn_expansemanagement.core.app.common.AppConstants
 import datn.datn_expansemanagement.core.app.util.Utils
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
+import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
 import datn.datn_expansemanagement.core.base.domain.listener.OnActionNotify
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.AndroidMvpView
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivity
@@ -20,6 +21,7 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.Linea
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.OnItemRvClickedListener
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
 import datn.datn_expansemanagement.kotlinex.view.gone
+import datn.datn_expansemanagement.screen.report.data.ReportDetailExtra
 import datn.datn_expansemanagement.screen.report.presentation.model.GetWalletItemViewModel
 import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewModel
 import datn.datn_expansemanagement.screen.report.presentation.renderer.*
@@ -34,25 +36,25 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class ReportView(
-    mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator,
-    private val idWallet: Int? = null,
-    private val isCardWallet: Boolean = false
+        mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator,
+        private val idWallet: Int? = null,
+        private val isCardWallet: Boolean = false
 ) :
-    AndroidMvpView(mvpActivity, viewCreator), ReportContract.View {
+        AndroidMvpView(mvpActivity, viewCreator), ReportContract.View {
 
     class ViewCreator(context: Context, viewGroup: ViewGroup?) :
-        AndroidMvpView.LayoutViewCreator(R.layout.layout_report, context, viewGroup)
+            AndroidMvpView.LayoutViewCreator(R.layout.layout_report, context, viewGroup)
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
     private val mPresenter =
-        ReportPresenter(AndroidScreenNavigator(mvpActivity), mvpActivity = mvpActivity)
+            ReportPresenter(AndroidScreenNavigator(mvpActivity), mvpActivity = mvpActivity)
     private val mResource = ReportResource(mvpActivity)
     private val listData = mutableListOf<ViewModel>()
     private var listViewMvp: ListViewMvp? = null
 
     private val renderInput = LinearRenderConfigFactory.Input(
-        context = mvpActivity,
-        orientation = LinearRenderConfigFactory.Orientation.VERTICAL
+            context = mvpActivity,
+            orientation = LinearRenderConfigFactory.Orientation.VERTICAL
     )
     private val renderConfig = LinearRenderConfigFactory(renderInput).create()
 
@@ -60,12 +62,12 @@ class ReportView(
     private var listViewBottom: ListViewMvp? = null
 
     private val renderBottom = LinearRenderConfigFactory.Input(
-        context = mvpActivity,
-        orientation = LinearRenderConfigFactory.Orientation.VERTICAL
+            context = mvpActivity,
+            orientation = LinearRenderConfigFactory.Orientation.VERTICAL
     )
     private val renderConfigBottom = LinearRenderConfigFactory(renderBottom).create()
     private val customView = LayoutInflater.from(mvpActivity)
-        .inflate(R.layout.custom_bottomsheet_recycleview, null, false)
+            .inflate(R.layout.custom_bottomsheet_recycleview, null, false)
     private val bottomSheet = BottomSheetDialog(mvpActivity)
 
     private var dateChoose: String? = null
@@ -88,14 +90,10 @@ class ReportView(
             // gọi api đổ lại list report
             idWalletChoose = dataItem.id
             mPresenter.getData(
-                idWalletChoose,
-                isCardWallet,
-                Utils.convertDateFormat(
-                    dateChoose.getValueOrDefaultIsEmpty(),
-                    SimpleDateFormat("MM/yyyy"),
-                    SimpleDateFormat("yyyy-MM")
-                ),
-                dataItem
+                    idWalletChoose,
+                    isCardWallet,
+                    dateChoose,
+                    dataItem
             )
             listViewBottom?.notifyDataChanged()
             bottomSheet.dismiss()
@@ -106,8 +104,8 @@ class ReportView(
     private val onActionChart = object : OnActionNotify {
         override fun onActionNotify() {
             val data = ReportViewModel(
-                date = dateChoose,
-                idWallet = idWalletChoose
+                    date = dateChoose,
+                    idWallet = idWalletChoose
             )
             mPresenter.gotoReportDetailActivity(data)
         }
@@ -153,9 +151,9 @@ class ReportView(
     }
 
     private fun handleActionMonth(
-        monthPicker: NumberPicker,
-        dayPicker: NumberPicker,
-        yearPicker: NumberPicker
+            monthPicker: NumberPicker,
+            dayPicker: NumberPicker,
+            yearPicker: NumberPicker
     ) {
         monthPicker.setOnValueChangedListener { _, _, newVal ->
             checkLogicDate(AppConstants.MONTH_IN_YEAR[newVal - 1], dayPicker, yearPicker)
@@ -163,9 +161,9 @@ class ReportView(
     }
 
     private fun checkLogicDate(
-        monthValue: String,
-        dayPicker: NumberPicker,
-        yearPicker: NumberPicker
+            monthValue: String,
+            dayPicker: NumberPicker,
+            yearPicker: NumberPicker
     ) {
         val valueMax: Int = if (AppConstants.MONTH_31_DAYS.contains(monthValue)) {
             31
@@ -197,18 +195,14 @@ class ReportView(
     @RequiresApi(Build.VERSION_CODES.O)
     private fun showBottomChooseDate() {
         val customView = LayoutInflater.from(mvpActivity)
-            .inflate(R.layout.layout_choose_date_bottom_sheet, null, false)
+                .inflate(R.layout.layout_choose_date_bottom_sheet, null, false)
         val dialog = BottomSheetDialog(mvpActivity)
         dialog.setContentView(customView)
         dialog.create()
         dialog.show()
-//        dialog.wpMonth.displayedValues = AppConstants.MONTH_IN_YEAR
-        val monthOld: Int? = null
-        val yearOld: Int? = null
 
-        if (monthOld != null && yearOld != null) {
-//            dialog.wpMonth.value = monthOld as Int
-            dialog.wpYear.value = yearOld as Int
+        if(dateChoose != null){
+            dialog.wpYear.value = dateChoose!!.toInt()
         }
 
         dialog.tvCancel.setOnClickListener {
@@ -216,7 +210,6 @@ class ReportView(
         }
 
         dialog.tvSave.setOnClickListener {
-//            val month = dialog.wpMonth.value
             val year = dialog.wpYear.value
             var result = ""
             result += "$year"
@@ -231,23 +224,23 @@ class ReportView(
                 }
             }
             mPresenter.getData(
-                idWallet,
-                isCardWallet,
-                dateChoose,
-                listBottom.find { (it as GetWalletItemViewModel).isChoose } as GetWalletItemViewModel)
+                    idWallet,
+                    isCardWallet,
+                    dateChoose,
+                    listBottom.find { (it as GetWalletItemViewModel).isChoose } as GetWalletItemViewModel)
             dialog.dismiss()
         }
     }
 
     private val list = mutableListOf<ViewModel>()
     private val customViewTransaction = LayoutInflater.from(mvpActivity)
-        .inflate(R.layout.custom_bottomsheet_recycleview, null, false)
+            .inflate(R.layout.custom_bottomsheet_recycleview, null, false)
     private val bottomSheetTransaction = BottomSheetDialog(mvpActivity)
     private var viewMvp: ListViewMvp? = null
 
     val input = LinearRenderConfigFactory.Input(
-        context = mvpActivity,
-        orientation = LinearRenderConfigFactory.Orientation.VERTICAL
+            context = mvpActivity,
+            orientation = LinearRenderConfigFactory.Orientation.VERTICAL
     )
     val config = LinearRenderConfigFactory(input).create()
 
@@ -258,16 +251,25 @@ class ReportView(
 
     }
 
+    private val onChooseChart = object : OnActionData<ReportDetailExtra>{
+        override fun onAction(data: ReportDetailExtra) {
+            val extra = ReportViewModel(
+                    date = "${data.month}/$dateChoose",
+                    idWallet = idWalletChoose
+            )
+            mPresenter.gotoReportDetailActivity(extra)
+        }
+
+    }
 
     private fun initRecycleView() {
         listViewMvp = ListViewMvp(mvpActivity, view.rvReport, renderConfig)
-        listViewMvp?.addViewRenderer(ReportBarChartViewRenderer(mvpActivity, mResource))
+        listViewMvp?.addViewRenderer(ReportBarChartViewRenderer(mvpActivity, mResource, onChooseChart))
         listViewMvp?.addViewRenderer(
-            ReportPieChartViewRenderer(
-                mvpActivity,
-                mResource
-
-            )
+                ReportPieChartViewRenderer(
+                        mvpActivity,
+                        mResource
+                )
         )
         listViewMvp?.addViewRenderer(ReportHeaderItemViewRenderer(mvpActivity))
         listViewMvp?.addViewRenderer(ReportNetIncomeViewRenderer(mvpActivity))
@@ -332,10 +334,10 @@ class ReportView(
                 idWalletChoose = data.id
             }
             mPresenter.getData(
-                idWalletChoose,
-                isCardWallet,
-                getCurrentYear(),
-                listBottom.find { (it as GetWalletItemViewModel).isChoose } as GetWalletItemViewModel)
+                    idWalletChoose,
+                    isCardWallet,
+                    getCurrentYear(),
+                    listBottom.find { (it as GetWalletItemViewModel).isChoose } as GetWalletItemViewModel)
         }
 
         listViewBottom?.setItems(this.listBottom)

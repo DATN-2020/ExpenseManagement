@@ -32,9 +32,12 @@ class ReportCreditCardMapper(private val data: GetWalletItemViewModel) :
         val currentDay = dateToDays(convertStringToDate(getCurrentDate())!!).toDouble()
         val endDate = dateToDays(convertStringToDate(data.endDate!!)!!).toDouble()
         val start = dateToDays(convertStringToDate(data.startDate!!)!!).toDouble()
+
+        val interest = data.interest.getValueOrDefaultIsZero() * data.money
         listReturn.add(
             ReportProcessCardViewModel(
-                currentPrice = ((currentDay - start) / 365 * data.interest!! * data.money),
+                currentPrice = if (checkYear(getYearCurrent()!!.toInt())) ((currentDay - start) / 366).toInt() * interest
+                else ((currentDay - start) / 365).toInt() * interest,
                 endDate = data.endDate.getValueOrDefaultIsEmpty(),
                 progress = (currentDay * 100 / endDate).toInt(),
                 maxProcess = endDate.toInt()
@@ -81,6 +84,20 @@ class ReportCreditCardMapper(private val data: GetWalletItemViewModel) :
             e.printStackTrace()
             null
         }
+    }
+
+    private fun checkYear(year: Int): Boolean {
+        if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)) {
+            return true
+        }
+        return false
+    }
+
+    private fun getYearCurrent(): String? {
+        val format = "yyyy"
+        val sdf = SimpleDateFormat(format, Locale.US)
+        val calendar = Calendar.getInstance()
+        return sdf.format(calendar.time)
     }
 
     private fun getCurrentDate(): String {

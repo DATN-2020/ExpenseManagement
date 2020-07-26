@@ -79,7 +79,7 @@ class ItemTabBudgetView(
 
     override fun initData() {
         super.initData()
-        tabId?.let { mPresenter.getData(it, idWallet) }
+//        tabId?.let { mPresenter.getData(it, idWallet) }
     }
 
     override fun startMvpView() {

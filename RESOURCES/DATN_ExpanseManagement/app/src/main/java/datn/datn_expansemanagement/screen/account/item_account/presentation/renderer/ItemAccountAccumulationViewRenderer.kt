@@ -32,8 +32,15 @@ class ItemAccountAccumulationViewRenderer(
     override fun bindView(model: ItemAccountAccumulationViewModel, viewRoot: View) {
         viewRoot.tvWallet.text = model.name
         viewRoot.tvAccumulation.text = Utils.formatMoney(model.price)
-        viewRoot.tvCurrent.text = "Từ ngày: ${model.startDate}"
-        viewRoot.tvRest.text = "Đến ngày: ${model.endDate}"
+        viewRoot.tvCurrent.text = "Từ ${Utils.convertDateFormat(
+            model.startDate,
+            SimpleDateFormat("yyyy-MM-dd"),
+            SimpleDateFormat("dd/MM/yyyy")
+        )} đến ${Utils.convertDateFormat(
+            model.endDate,
+            SimpleDateFormat("yyyy-MM-dd"),
+            SimpleDateFormat("dd/MM/yyyy")
+        )}"
         viewRoot.sbPercent.progress =
             (dateToDays(convertStringToDate(getCurrentDate())!!) * 100) / dateToDays(
                 convertStringToDate(model.endDate)!!
@@ -46,9 +53,9 @@ class ItemAccountAccumulationViewRenderer(
             viewRoot.viewBottom.visible()
         }
 
-        if(model.isFinish){
+        if (model.isFinish) {
             viewRoot.clFinish.visible()
-        }else{
+        } else {
             viewRoot.clFinish.gone()
             viewRoot.imgMore.setOnClickListener {
                 EventFireUtil.fireEvent(onActionClickMore, model)

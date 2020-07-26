@@ -157,15 +157,15 @@ class ItemAccountView(
 
         dialogNotify.btnOk.text = "Đồng ý"
         dialogNotify.btnOk.setOnClickListener {
-            if(data != null){
+            if (data != null) {
                 mPresenter.deleteWallet(data.id.getValueOrDefaultIsZero())
             }
-            if(dataAccum != null){
-                when(type){
-                    "delete"->{
+            if (dataAccum != null) {
+                when (type) {
+                    "delete" -> {
                         mPresenter.deleteAccumulation(dataAccum.id.getValueOrDefaultIsZero())
                     }
-                    "finish"->{
+                    "finish" -> {
                         mPresenter.finishAccumulation(dataAccum.id.getValueOrDefaultIsZero())
                     }
                 }
@@ -262,20 +262,18 @@ class ItemAccountView(
 
     override fun initData() {
         super.initData()
+//        mPresenter.getData(
+//            tabId.getValueOrDefaultIsZero(),
+//            user?.data?.userId.getValueOrDefaultIsZero()
+//        )
+    }
+
+    override fun startMvpView() {
+        bottomDialog.dismiss()
         mPresenter.getData(
             tabId.getValueOrDefaultIsZero(),
             user?.data?.userId.getValueOrDefaultIsZero()
         )
-    }
-
-    override fun startMvpView() {
-        if (isBack) {
-            bottomDialog.dismiss()
-            mPresenter.getData(
-                tabId.getValueOrDefaultIsZero(),
-                user?.data?.userId.getValueOrDefaultIsZero()
-            )
-        }
         mPresenter.attachView(this)
         super.startMvpView()
     }

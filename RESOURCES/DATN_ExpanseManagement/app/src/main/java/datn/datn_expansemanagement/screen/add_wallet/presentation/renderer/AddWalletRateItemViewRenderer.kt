@@ -23,7 +23,7 @@ class AddWalletRateItemViewRenderer(context: Context) :
         viewRoot.tvTitleChooseDate.text = model.title
         if (model.isResult) {
             viewRoot.tvUnit.gone()
-            viewRoot.edtRate.text = Utils.formatMoney((model.rate.getValueOrDefaultIsZero() * model.price) / 100)
+            viewRoot.edtRate.text = Utils.formatMoney((model.rate.getValueOrDefaultIsZero() * model.price))
         } else {
             viewRoot.tvUnit.text = model.unit
             viewRoot.edtRate.text = model.rate.getValueOrDefaultIsZero().toString()
