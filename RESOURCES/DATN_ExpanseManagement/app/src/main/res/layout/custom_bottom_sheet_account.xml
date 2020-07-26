@@ -48,15 +48,6 @@
 
     </LinearLayout>
 
-    <View
-        android:id="@+id/viewBottom1"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="@color/color_f5f5f5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/llControl" />
-
     <LinearLayout
         android:id="@+id/llDelete"
         android:layout_width="match_parent"
@@ -65,7 +56,7 @@
         android:padding="@dimen/spacing_14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewBottom1">
+        app:layout_constraintTop_toBottomOf="@id/viewTop">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgDelete"
