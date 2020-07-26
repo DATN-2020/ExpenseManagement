@@ -133,8 +133,8 @@
                 style="@style/StyleTextView.Medium.Black"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
                 android:layout_marginStart="@dimen/spacing_20dp"
+                android:background="?attr/selectableItemBackground"
                 android:text="19/03/1998"
                 app:layout_constraintStart_toEndOf="@id/imgCalendar"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -164,14 +164,14 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clWallet"
-            app:layout_constraintTop_toBottomOf="@id/viewBottom2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
             android:paddingStart="@dimen/spacing_20dp"
             android:paddingTop="@dimen/spacing_14dp"
             android:paddingEnd="@dimen/spacing_20dp"
             android:paddingBottom="@dimen/spacing_14dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            app:layout_constraintTop_toBottomOf="@id/viewBottom2">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imgChooseWallet"

@@ -334,10 +334,10 @@ class ReportView(
                 idWalletChoose = data.id
             }
             mPresenter.getData(
-                    idWalletChoose,
-                    isCardWallet,
-                    getCurrentYear(),
-                    listBottom.find { (it as GetWalletItemViewModel).isChoose } as GetWalletItemViewModel)
+                idWalletChoose,
+                isCardWallet,
+                getCurrentYear(),
+                listBottom.find { (it as GetWalletItemViewModel).isChoose } as GetWalletItemViewModel)
         }
 
         listViewBottom?.setItems(this.listBottom)

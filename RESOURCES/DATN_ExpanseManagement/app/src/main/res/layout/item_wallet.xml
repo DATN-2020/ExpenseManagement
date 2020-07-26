@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/clItemWallet"
-    android:background="@color/white"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clItem"
-        android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
         android:padding="@dimen/spacing_10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,8 +65,8 @@
             style="@style/StyleTextView.Medium.Blue"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Còn lại 1.000.000 $"
             android:layout_marginStart="@dimen/spacing_20dp"
+            android:text="Còn lại 1.000.000 $"
             app:layout_constraintBottom_toBottomOf="@id/tvWallet"
             app:layout_constraintStart_toEndOf="@id/tvWallet"
             app:layout_constraintTop_toTopOf="@id/tvWallet" />
