@@ -19,5 +19,7 @@ interface ItemTabBudgetContract {
         abstract fun getData(tab: TabItemViewModel, idWallet: Int)
         abstract fun payBill(request: InOutComeRequest)
         abstract fun gotoReportDetail(data: ReportViewModel)
+        abstract fun deleteBudget(idBudget: Int)
+
     }
 }

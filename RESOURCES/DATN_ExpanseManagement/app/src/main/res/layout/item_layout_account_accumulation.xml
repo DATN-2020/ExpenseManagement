@@ -112,13 +112,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
         android:layout_height="0dp">
-        <androidx.appcompat.widget.AppCompatImageView
+        <TextView
+            style="@style/StyleTextView.Normal.Black"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:text="Đã kết thúc"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:srcCompat="@drawable/ic_finish_saving"
-            android:layout_width="70dp"
+            android:layout_width="wrap_content"
             android:layout_height="70dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

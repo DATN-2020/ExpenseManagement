@@ -8,7 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.AdapterView
+import android.widget.Toast
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
@@ -18,6 +21,11 @@ import datn.datn_expansemanagement.core.base.presentation.mvp.android.MvpActivit
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.LinearRenderConfigFactory
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.list.OnItemRvClickedListener
 import datn.datn_expansemanagement.domain.request.InOutComeRequest
+import datn.datn_expansemanagement.kotlinex.number.getValueOrDefaultIsZero
+import datn.datn_expansemanagement.kotlinex.view.gone
+import datn.datn_expansemanagement.screen.account.item_account.presentation.ItemAccountResource
+import datn.datn_expansemanagement.screen.account.item_account.presentation.model.ItemAccountAccumulationViewModel
+import datn.datn_expansemanagement.screen.account.item_account.presentation.model.WalletViewModel
 import datn.datn_expansemanagement.screen.account.presentation.model.TabItemViewModel
 import datn.datn_expansemanagement.screen.add_expanse.presentation.AddExpenseResource
 import datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentation.model.BillItemViewModel
@@ -29,6 +37,7 @@ import datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentatio
 import datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentation.renderer.TransactionItemViewRenderer
 import datn.datn_expansemanagement.screen.plan_detail.presentation.PlanDetailResource
 import datn.datn_expansemanagement.screen.report.presentation.model.ReportViewModel
+import kotlinx.android.synthetic.main.custom_bottom_sheet_account.*
 import kotlinx.android.synthetic.main.custom_dialog_cancel_contact.*
 import kotlinx.android.synthetic.main.custom_dialog_cancel_contact.btnCancel
 import kotlinx.android.synthetic.main.custom_dialog_cancel_contact.tvTitleChooseDate
@@ -186,6 +195,65 @@ class ItemTabBudgetView(
         showDialogNotify("Thanh toán hóa đơn thành công")
     }
 
+    private val onLongBudgetClick = object : OnActionData<BudgetItemViewModel>{
+        override fun onAction(data: BudgetItemViewModel) {
+            showBottomDialog(data)
+        }
+
+    }
+
+    private fun setDialogFullScreen(dialog: BottomSheetDialog) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            dialog.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            dialog.window?.statusBarColor = mResourceProvider.getColorStatusBar()
+            dialog.window?.navigationBarColor = Color.TRANSPARENT
+            dialog.window?.decorView?.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        }
+    }
+
+    private val bottomDialog = BottomSheetDialog(mvpActivity, R.style.BaseBottomSheetDialog)
+    private fun showBottomDialog(data: ViewModel) {
+
+        val bottomDialogView = LayoutInflater.from(mvpActivity)
+            .inflate(R.layout.custom_bottom_sheet_account, null, false)
+        bottomDialog.setContentView(bottomDialogView)
+        bottomDialog.create()
+        setDialogFullScreen(bottomDialog)
+        bottomDialog.show()
+        bottomDialog.llUpdate.gone()
+
+        bottomDialog.llDelete.setOnClickListener {
+            showDialogDelete(title = "Bạn có chắc chắn muốn xoá ví này ??", data = data)
+        }
+    }
+
+    private fun showDialogDelete(
+        title: String? = null,
+        data: ViewModel? = null
+    ) {
+
+        setDialogFullScreen(dialogNotify)
+        dialogNotify.show()
+        dialogNotify.btnCancel.setOnClickListener {
+            dialogNotify.dismiss()
+        }
+
+        dialogNotify.btnOk.text = "Đồng ý"
+        dialogNotify.btnOk.setOnClickListener {
+            if (data != null) {
+                if(data is BudgetItemViewModel){
+                    mPresenter.deleteBudget(data.id.getValueOrDefaultIsZero())
+
+                }
+            }
+        }
+
+        if (!title.isNullOrEmpty()) {
+            dialogNotify.tvTitleChooseDate.text = title
+        }
+    }
+
     private val onActionItemRvClickedListener = object : OnItemRvClickedListener<ViewModel> {
         override fun onItemClicked(view: View, position: Int, dataItem: ViewModel) {
             var request: ReportViewModel? = null
@@ -220,7 +288,7 @@ class ItemTabBudgetView(
 
     private fun initRecycleView() {
         listViewMvp = ListViewMvp(mvpActivity, view.rvControlDetailBudget, renderConfig)
-        listViewMvp?.addViewRenderer(BudgetItemViewRenderer(mvpActivity, mResource))
+        listViewMvp?.addViewRenderer(BudgetItemViewRenderer(mvpActivity, mResource, onLongBudgetClick))
         listViewMvp?.addViewRenderer(TransactionItemViewRenderer(mvpActivity))
         listViewMvp?.addViewRenderer(NoDataViewRenderer(mvpActivity))
         listViewMvp?.addViewRenderer(BillItemViewRenderer(mvpActivity, onActionPayBill))

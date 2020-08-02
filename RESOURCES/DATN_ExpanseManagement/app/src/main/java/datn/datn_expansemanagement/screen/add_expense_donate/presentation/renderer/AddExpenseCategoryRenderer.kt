@@ -9,6 +9,7 @@ import datn.datn_expansemanagement.core.app.domain.excecutor.EventFireUtil
 import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.model.ViewRenderer
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
+import datn.datn_expansemanagement.kotlinex.view.gone
 import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.AddExpenseDonateResource
 import datn.datn_expansemanagement.screen.add_expense_donate.presentation.model.AddExpenseCategoryViewModel
@@ -61,6 +62,7 @@ class AddExpenseCategoryRenderer(
 
         })
 
+        viewRoot.tvTime.gone()
         if (!model.time.isNullOrEmpty()) {
             viewRoot.tvTime.text = model.time
         } else {

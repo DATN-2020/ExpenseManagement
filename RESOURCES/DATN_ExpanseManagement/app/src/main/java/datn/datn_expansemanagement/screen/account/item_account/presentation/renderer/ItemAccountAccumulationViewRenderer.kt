@@ -64,6 +64,10 @@ class ItemAccountAccumulationViewRenderer(
             viewRoot.clItem.setOnClickListener {
                 EventFireUtil.fireEvent(onClickItem, model)
             }
+
+            viewRoot.clFinish.setOnClickListener {
+                EventFireUtil.fireEvent(onClickItem, model)
+            }
         }
     }
 

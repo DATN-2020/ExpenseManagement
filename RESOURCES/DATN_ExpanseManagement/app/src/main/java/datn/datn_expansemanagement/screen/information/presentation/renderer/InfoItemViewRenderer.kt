@@ -14,7 +14,11 @@ class InfoItemViewRenderer (context: Context): ViewRenderer<InfoItemViewModel>(c
 
     override fun getModelClass(): Class<InfoItemViewModel> = InfoItemViewModel::class.java
     override fun bindView(model: InfoItemViewModel, viewRoot: View) {
-        viewRoot.edtUser.setText(model.name)
+        if(model.isPassword){
+            viewRoot.edtUser.setText("******")
+        }else{
+            viewRoot.edtUser.setText(model.name)
+        }
         viewRoot.edtUser.isEnabled = false
     }
 

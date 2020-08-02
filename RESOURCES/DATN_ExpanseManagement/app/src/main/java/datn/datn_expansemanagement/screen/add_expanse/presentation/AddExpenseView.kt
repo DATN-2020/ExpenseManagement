@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import datn.datn_expansemanagement.R
 import datn.datn_expansemanagement.core.app.change_screen.AndroidScreenNavigator
+import datn.datn_expansemanagement.core.app.common.AppConstants
 import datn.datn_expansemanagement.core.app.util.Utils
 import datn.datn_expansemanagement.core.app.view.loading.Loadinger
 import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
@@ -36,6 +37,7 @@ import kotlinx.android.synthetic.main.custom_dialog_cancel_contact.*
 import kotlinx.android.synthetic.main.layout_add_expanse.view.*
 import kotlinx.android.synthetic.main.toolbar_add_expanse.view.*
 import vn.minerva.core.base.presentation.mvp.android.list.ListViewMvp
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -261,6 +263,11 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
 
         if (AddExpenseFragment.model.date == null) {
             AddExpenseFragment.model.date = getCurrentDate()
+        }else{
+            if(dateToDays(convertStringToDate(AddExpenseFragment.model.date!!)!!) > dateToDays(convertStringToDate(getCurrentDate())!!)){
+                showDialogNotify(title = "Ngày thực hiện chưa hợp lệ")
+                return
+            }
         }
 
         if (AddExpenseFragment.model.time == null) {
@@ -323,6 +330,22 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
                     .toString()
             )
             mPresenter.createExpense(request)
+        }
+    }
+
+    private fun dateToDays(date: Date): Int {
+        //  convert a date to an integer and back again
+        val currentTime = date.time
+        return (currentTime / AppConstants.MAGIC).toInt()
+    }
+
+    private fun convertStringToDate(value: String): Date? {
+        val format = SimpleDateFormat("dd/MM/yyyy")
+        return try {
+            format.parse(value)
+        } catch (e: ParseException) {
+            e.printStackTrace()
+            null
         }
     }
 

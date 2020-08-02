@@ -113,4 +113,24 @@ class ItemTabBudgetPresenter(
     override fun gotoReportDetail(data: ReportViewModel) {
         screenNavigator.gotoReportDetailActivity(data)
     }
+
+    override fun deleteBudget(idBudget: Int) {
+//        view?.showLoading()
+//        val call = service?.getWalletForUser(userId)
+//        call?.enqueue(object : Callback<WalletResponse> {
+//            override fun onFailure(call: Call<WalletResponse>, t: Throwable) {
+//                Toast.makeText(mvpActivity, t.message, Toast.LENGTH_LONG).show()
+//                view?.hideLoading()
+//            }
+//
+//            override fun onResponse(
+//                call: Call<WalletResponse>,
+//                response: Response<WalletResponse>
+//            ) {
+//                view?.handleAfterGetWallet(PlanDetailWalletMapper(idWallet).map(response.body()!!))
+//                view?.hideLoading()
+//            }
+//
+//        })
+    }
 }

@@ -11,6 +11,7 @@ import datn.datn_expansemanagement.core.app.util.image.GlideImageHelper
 import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.model.ViewRenderer
 import datn.datn_expansemanagement.kotlinex.string.getValueOrDefaultIsEmpty
+import datn.datn_expansemanagement.kotlinex.view.gone
 import datn.datn_expansemanagement.screen.add_expanse.AddExpenseFragment
 import datn.datn_expansemanagement.screen.add_expense_loan.prsentation.AddExpenseLoanResource
 import datn.datn_expansemanagement.screen.add_expense_loan.prsentation.model.AddExpenseLoanRequireViewModel
@@ -34,6 +35,7 @@ class AddExpenseLoanRequireRenderer(
 
     @SuppressLint("SetTextI18n")
     override fun bindView(model: AddExpenseLoanRequireViewModel, viewRoot: View) {
+        viewRoot.tvTime.gone()
         if (!model.time.isNullOrEmpty()) {
             viewRoot.tvTime.text = model.time
         } else {

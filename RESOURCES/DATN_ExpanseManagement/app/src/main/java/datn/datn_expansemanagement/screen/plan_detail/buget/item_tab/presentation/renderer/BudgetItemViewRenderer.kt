@@ -4,8 +4,10 @@ import android.content.Context
 import android.graphics.PorterDuff
 import android.view.View
 import datn.datn_expansemanagement.R
+import datn.datn_expansemanagement.core.app.domain.excecutor.EventFireUtil
 import datn.datn_expansemanagement.core.app.util.Utils
 import datn.datn_expansemanagement.core.app.util.image.GlideImageHelper
+import datn.datn_expansemanagement.core.base.domain.listener.OnActionData
 import datn.datn_expansemanagement.core.base.presentation.mvp.android.model.ViewRenderer
 import datn.datn_expansemanagement.screen.plan_detail.buget.item_tab.presentation.model.BudgetItemViewModel
 import datn.datn_expansemanagement.screen.plan_detail.presentation.PlanDetailResource
@@ -13,7 +15,8 @@ import kotlinx.android.synthetic.main.item_layout_plan_detail_budget.view.*
 
 class BudgetItemViewRenderer(
         context: Context,
-        private val mResource: PlanDetailResource
+        private val mResource: PlanDetailResource,
+        private val onLongClick: OnActionData<BudgetItemViewModel>? = null
 ) : ViewRenderer<BudgetItemViewModel>(context) {
     override fun getLayoutId(): Int {
         return R.layout.item_layout_plan_detail_budget
@@ -40,6 +43,11 @@ class BudgetItemViewRenderer(
             else -> {
                 viewRoot.tvRest.setTextColor(mResource.getColorLow())
             }
+        }
+
+        viewRoot.clBudget.setOnLongClickListener {
+            EventFireUtil.fireEvent(onLongClick, model)
+            true
         }
     }
 

@@ -22,7 +22,8 @@ class InformationMapper : Mapper<PassportResponse, MutableList<ViewModel>> {
 
             list.add(
                 InfoItemViewModel(
-                    name = input.data.password.getValueOrDefaultIsEmpty()
+                    name = input.data.password.getValueOrDefaultIsEmpty(),
+                    isPassword = true
                 )
             )
 
