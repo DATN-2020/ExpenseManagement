@@ -113,9 +113,6 @@ class AddExpenseLoanRequireRenderer(
             )
         }
 
-        viewRoot.clLoaner.setOnClickListener {
-            EventFireUtil.fireEvent(onChooseLoaner, model)
-        }
 
         viewRoot.clWallet.setOnClickListener {
             EventFireUtil.fireEvent(onChooseWallet, model)
