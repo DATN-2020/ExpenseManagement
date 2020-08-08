@@ -17,7 +17,8 @@ import java.util.concurrent.TimeUnit
 
 class BillItemViewRenderer(
     context: Context,
-    private val onActionData: OnActionData<BillItemViewModel>
+    private val onActionData: OnActionData<BillItemViewModel>,
+    private val onLongClick: OnActionData<BillItemViewModel>
 ) : ViewRenderer<BillItemViewModel>(context) {
     override fun getLayoutId(): Int {
         return R.layout.item_layout_plan_detail_bill
@@ -59,6 +60,11 @@ class BillItemViewRenderer(
 
         viewRoot.btnPayBill.setOnClickListener {
             EventFireUtil.fireEvent(onActionData, model)
+        }
+
+        viewRoot.clBill.setOnLongClickListener {
+            EventFireUtil.fireEvent(onLongClick, model)
+            true
         }
     }
 

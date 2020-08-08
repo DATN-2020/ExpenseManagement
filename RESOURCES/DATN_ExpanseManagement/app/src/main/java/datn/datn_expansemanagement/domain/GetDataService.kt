@@ -138,4 +138,13 @@ interface GetDataService {
 
     @PUT("SavingWallets/5")
     fun putWalletSaving(@Body request: PutWalletSavingRequest): Call<BaseResponse>
+
+    @DELETE("Budgets/5")
+    fun deleteBudget(@Query("id") idBudget: Int): Call<BaseResponse>
+
+    @DELETE("Periodics/5")
+    fun deletePeriodic(@Query("id") idPeriodic: Int): Call<BaseResponse>
+
+    @DELETE("Bills/5")
+    fun deleteBill(@Query("id") idBudget: Int): Call<BaseResponse>
 }

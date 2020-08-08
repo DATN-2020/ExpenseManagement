@@ -202,6 +202,26 @@ class ItemTabBudgetView(
 
     }
 
+    private val onLongPeriodicClick = object : OnActionData<TransactionItemViewModel>{
+        override fun onAction(data: TransactionItemViewModel) {
+            showBottomDialog(data)
+        }
+
+    }
+
+    private val onLongBillClick = object : OnActionData<BillItemViewModel>{
+        override fun onAction(data: BillItemViewModel) {
+            showBottomDialog(data)
+        }
+
+    }
+
+    override fun handleAfterDelete() {
+        dialogNotify.dismiss()
+        bottomDialog.dismiss()
+        tabId?.let { it1 -> mPresenter.getData(it1, idWallet) }
+    }
+
     private fun setDialogFullScreen(dialog: BottomSheetDialog) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             dialog.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
@@ -224,7 +244,19 @@ class ItemTabBudgetView(
         bottomDialog.llUpdate.gone()
 
         bottomDialog.llDelete.setOnClickListener {
-            showDialogDelete(title = "Bạn có chắc chắn muốn xoá ví này ??", data = data)
+            when(data){
+                is BudgetItemViewModel->{
+                    showDialogDelete(title = "Bạn có chắc chắn muốn xoá ngân sách này ?", data = data)
+                }
+
+                is TransactionItemViewModel->{
+                    showDialogDelete(title = "Bạn có chắc chắn muốn xoá giao dịch định kì này ?", data = data)
+                }
+
+                is BillItemViewModel->{
+                    showDialogDelete(title = "Bạn có chắc chắn muốn xoá hóa đơn này ?", data = data)
+                }
+            }
         }
     }
 
@@ -237,14 +269,22 @@ class ItemTabBudgetView(
         dialogNotify.show()
         dialogNotify.btnCancel.setOnClickListener {
             dialogNotify.dismiss()
+            bottomDialog.dismiss()
         }
 
         dialogNotify.btnOk.text = "Đồng ý"
         dialogNotify.btnOk.setOnClickListener {
             if (data != null) {
-                if(data is BudgetItemViewModel){
-                    mPresenter.deleteBudget(data.id.getValueOrDefaultIsZero())
-
+                when (data) {
+                    is BudgetItemViewModel->{
+                        mPresenter.deleteBudget(data.id.getValueOrDefaultIsZero())
+                    }
+                    is TransactionItemViewModel->{
+                        mPresenter.deletePeriodic(data.id.getValueOrDefaultIsZero())
+                    }
+                    is BillItemViewModel->{
+                        mPresenter.deleteBill(data.idBill.getValueOrDefaultIsZero())
+                    }
                 }
             }
         }
@@ -289,9 +329,9 @@ class ItemTabBudgetView(
     private fun initRecycleView() {
         listViewMvp = ListViewMvp(mvpActivity, view.rvControlDetailBudget, renderConfig)
         listViewMvp?.addViewRenderer(BudgetItemViewRenderer(mvpActivity, mResource, onLongBudgetClick))
-        listViewMvp?.addViewRenderer(TransactionItemViewRenderer(mvpActivity))
+        listViewMvp?.addViewRenderer(TransactionItemViewRenderer(mvpActivity, onLongPeriodicClick))
         listViewMvp?.addViewRenderer(NoDataViewRenderer(mvpActivity))
-        listViewMvp?.addViewRenderer(BillItemViewRenderer(mvpActivity, onActionPayBill))
+        listViewMvp?.addViewRenderer(BillItemViewRenderer(mvpActivity, onActionPayBill, onLongBillClick))
         listViewMvp?.setOnItemRvClickedListener(onActionItemRvClickedListener)
         listViewMvp?.createView()
     }

@@ -13,6 +13,7 @@ interface ItemTabBudgetContract {
         fun hideLoading()
         fun showData(list: MutableList<ViewModel>)
         fun handleAfterPayBill()
+        fun handleAfterDelete()
     }
 
     abstract class Presenter : MvpPresenter<View>(){
@@ -20,6 +21,8 @@ interface ItemTabBudgetContract {
         abstract fun payBill(request: InOutComeRequest)
         abstract fun gotoReportDetail(data: ReportViewModel)
         abstract fun deleteBudget(idBudget: Int)
+        abstract fun deletePeriodic(id: Int)
+        abstract fun deleteBill(id: Int)
 
     }
 }

@@ -115,22 +115,68 @@ class ItemTabBudgetPresenter(
     }
 
     override fun deleteBudget(idBudget: Int) {
-//        view?.showLoading()
-//        val call = service?.getWalletForUser(userId)
-//        call?.enqueue(object : Callback<WalletResponse> {
-//            override fun onFailure(call: Call<WalletResponse>, t: Throwable) {
-//                Toast.makeText(mvpActivity, t.message, Toast.LENGTH_LONG).show()
-//                view?.hideLoading()
-//            }
-//
-//            override fun onResponse(
-//                call: Call<WalletResponse>,
-//                response: Response<WalletResponse>
-//            ) {
-//                view?.handleAfterGetWallet(PlanDetailWalletMapper(idWallet).map(response.body()!!))
-//                view?.hideLoading()
-//            }
-//
-//        })
+        view?.showLoading()
+        val call = service?.deleteBudget(idBudget)
+        call?.enqueue(object : Callback<BaseResponse> {
+            override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
+                Toast.makeText(mvpActivity, t.message, Toast.LENGTH_LONG).show()
+                view?.hideLoading()
+            }
+
+            override fun onResponse(
+                call: Call<BaseResponse>,
+                response: Response<BaseResponse>
+            ) {
+                if(response.body()?.statusCode?.toInt() == 200){
+                    view?.handleAfterDelete()
+                    view?.hideLoading()
+                }
+            }
+
+        })
+    }
+
+    override fun deletePeriodic(id: Int) {
+        view?.showLoading()
+        val call = service?.deletePeriodic(id)
+        call?.enqueue(object : Callback<BaseResponse> {
+            override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
+                Toast.makeText(mvpActivity, t.message, Toast.LENGTH_LONG).show()
+                view?.hideLoading()
+            }
+
+            override fun onResponse(
+                    call: Call<BaseResponse>,
+                    response: Response<BaseResponse>
+            ) {
+                if(response.body()?.statusCode?.toInt() == 200){
+                    view?.handleAfterDelete()
+                    view?.hideLoading()
+                }
+            }
+
+        })
+    }
+
+    override fun deleteBill(id: Int) {
+        view?.showLoading()
+        val call = service?.deleteBill(id)
+        call?.enqueue(object : Callback<BaseResponse> {
+            override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
+                Toast.makeText(mvpActivity, t.message, Toast.LENGTH_LONG).show()
+                view?.hideLoading()
+            }
+
+            override fun onResponse(
+                    call: Call<BaseResponse>,
+                    response: Response<BaseResponse>
+            ) {
+                if(response.body()?.statusCode?.toInt() == 200){
+                    view?.handleAfterDelete()
+                    view?.hideLoading()
+                }
+            }
+
+        })
     }
 }
