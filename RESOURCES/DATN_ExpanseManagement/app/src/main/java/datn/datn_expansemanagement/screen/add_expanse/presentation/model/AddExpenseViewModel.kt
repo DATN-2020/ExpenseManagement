@@ -22,6 +22,8 @@ class AddExpenseViewModel(
         var wallet: Wallet? = null,
         var trip: Trip? = null,
         var idBudget: Int? = null,
+        var startDateBudget: String? = null,
+        var endDateBudget: String? = null,
         var listFriend: ListFriend? = null,
         var location: Location? = null,
         var nameLoaner: String? = null

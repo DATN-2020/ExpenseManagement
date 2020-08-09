@@ -261,6 +261,8 @@ class AddExpenseDonateView(
                     it.id = dataItem.id
                     it.name = dataItem.name
                     AddExpenseFragment.model.idBudget = dataItem.id
+                    AddExpenseFragment.model.startDateBudget = dataItem.startDate
+                    AddExpenseFragment.model.endDateBudget = dataItem.endDate
                     listViewMvp?.notifyItemChanged(listData.indexOf(it))
                     bottomSheet.dismiss()
                 }

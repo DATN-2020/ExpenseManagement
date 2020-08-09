@@ -42,25 +42,25 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewCreator) :
-    AndroidMvpView(mvpActivity, viewCreator), AddExpenseContract.View {
+        AndroidMvpView(mvpActivity, viewCreator), AddExpenseContract.View {
 
     class ViewCreator(context: Context, viewGroup: ViewGroup?) :
-        AndroidMvpView.LayoutViewCreator(R.layout.layout_add_expanse, context, viewGroup)
+            AndroidMvpView.LayoutViewCreator(R.layout.layout_add_expanse, context, viewGroup)
 
     private val loadingView = Loadinger.create(mvpActivity, mvpActivity.window)
     private val mPresenter =
-        AddExpensePresenter(
-            screenNavigator = AndroidScreenNavigator(mvpActivity),
-            mvpActivity = mvpActivity
-        )
+            AddExpensePresenter(
+                    screenNavigator = AndroidScreenNavigator(mvpActivity),
+                    mvpActivity = mvpActivity
+            )
     private val mResource = AddExpenseResource()
     private val listData = mutableListOf<ViewModel>()
     private var listViewMvp: ListViewMvp? = null
     private var isOpen = false
     private var typeIncome = 1 // 1 donate, 2 receive , 3 loan, 4 borrow
     private val renderInput = LinearRenderConfigFactory.Input(
-        context = mvpActivity,
-        orientation = LinearRenderConfigFactory.Orientation.VERTICAL
+            context = mvpActivity,
+            orientation = LinearRenderConfigFactory.Orientation.VERTICAL
     )
 
     private val eventBusLifeCycle = EventBusLifeCycle(object : OnActionData<EventBusData> {
@@ -165,15 +165,15 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
             dialog.window?.statusBarColor = mResource.getColorStatusBar()
             dialog.window?.navigationBarColor = Color.TRANSPARENT
             dialog.window?.decorView?.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         }
     }
 
     private fun showDialogNotify(title: String? = null, isFinish: Boolean = false) {
         val layoutView = LayoutInflater.from(mvpActivity)
-            .inflate(R.layout.custom_dialog_cancel_contact, null, false)
+                .inflate(R.layout.custom_dialog_cancel_contact, null, false)
         val dialogRegister =
-            AlertDialog.Builder(mvpActivity, R.style.DialogNotify).setView(layoutView).create()
+                AlertDialog.Builder(mvpActivity, R.style.DialogNotify).setView(layoutView).create()
         setDialogFullScreen(dialogRegister)
         dialogRegister.show()
         dialogRegister.btnCancel.setOnClickListener {
@@ -204,8 +204,8 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
 
     private fun replaceFragment(frm: Fragment) {
         mvpActivity.supportFragmentManager.beginTransaction()
-            .replace(R.id.flChange, frm)
-            .commit()
+                .replace(R.id.flChange, frm)
+                .commit()
     }
 
     private fun initView() {
@@ -263,8 +263,8 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
 
         if (AddExpenseFragment.model.date == null) {
             AddExpenseFragment.model.date = getCurrentDate()
-        }else{
-            if(dateToDays(convertStringToDate(AddExpenseFragment.model.date!!)!!) > dateToDays(convertStringToDate(getCurrentDate())!!)){
+        } else {
+            if (dateToDays(convertStringToDate(AddExpenseFragment.model.date!!)!!) > dateToDays(convertStringToDate(getCurrentDate())!!)) {
                 showDialogNotify(title = "Ngày thực hiện chưa hợp lệ")
                 return
             }
@@ -287,49 +287,56 @@ class AddExpenseView(mvpActivity: MvpActivity, viewCreator: AndroidMvpView.ViewC
             idCategory = AddExpenseFragment.model.category?.id.toString()
         }
 
-        if(typeIncome == 3){
+        if (typeIncome == 3) {
             idTypeCategory = "17"
         }
 
-        if(typeIncome == 4){
+        if (typeIncome == 4) {
             idTypeCategory = "18"
         }
+
         if (AddExpenseFragment.model.idBudget == null) {
             val request = InOutComeRequest(
-                loanIdLoan = if (AddExpenseFragment.model.nameLoaner != null) AddExpenseFragment.model.nameLoaner else null,
-                amount = AddExpenseFragment.model.totalMoney.getValueOrDefaultIsZero(),
-                categoryIdCate = idCategory,
-                dateCome = Utils.convertDateFormat(
-                    AddExpenseFragment.model.date.getValueOrDefaultIsEmpty(),
-                    SimpleDateFormat("dd/MM/yyyy"),
-                    SimpleDateFormat("yyyy-MM-dd")
-                ),
-                descriptionCome = AddExpenseFragment.model.title.getValueOrDefaultIsEmpty(),
-                idType = idTypeCategory,
-                tripIdTrip = if (AddExpenseFragment.model.trip?.id != null) AddExpenseFragment.model.trip?.id.toString() else null,
-                walletIdWallet = AddExpenseFragment.model.wallet?.id.getValueOrDefaultIsZero()
-                    .toString()
+                    loanIdLoan = if (AddExpenseFragment.model.nameLoaner != null) AddExpenseFragment.model.nameLoaner else null,
+                    amount = AddExpenseFragment.model.totalMoney.getValueOrDefaultIsZero(),
+                    categoryIdCate = idCategory,
+                    dateCome = Utils.convertDateFormat(
+                            AddExpenseFragment.model.date.getValueOrDefaultIsEmpty(),
+                            SimpleDateFormat("dd/MM/yyyy"),
+                            SimpleDateFormat("yyyy-MM-dd")
+                    ),
+                    descriptionCome = AddExpenseFragment.model.title.getValueOrDefaultIsEmpty(),
+                    idType = idTypeCategory,
+                    tripIdTrip = if (AddExpenseFragment.model.trip?.id != null) AddExpenseFragment.model.trip?.id.toString() else null,
+                    walletIdWallet = AddExpenseFragment.model.wallet?.id.getValueOrDefaultIsZero()
+                            .toString()
             )
             mPresenter.createExpense(request)
         } else {
-
-            val request = InOutComeRequest(
-                loanIdLoan = if (AddExpenseFragment.model.nameLoaner != null) AddExpenseFragment.model.nameLoaner else null,
-                amount = AddExpenseFragment.model.totalMoney.getValueOrDefaultIsZero(),
-                categoryIdCate = idCategory,
-                dateCome = Utils.convertDateFormat(
-                    AddExpenseFragment.model.date.getValueOrDefaultIsEmpty(),
-                    SimpleDateFormat("dd/MM/yyyy"),
-                    SimpleDateFormat("yyyy-MM-dd")
-                ),
-                descriptionCome = AddExpenseFragment.model.title.getValueOrDefaultIsEmpty(),
-                idType = idTypeCategory,
-                idBudget = AddExpenseFragment.model.idBudget.getValueOrDefaultIsZero().toString(),
-                tripIdTrip = if (AddExpenseFragment.model.trip?.id != null) AddExpenseFragment.model.trip?.id.toString() else null,
-                walletIdWallet = AddExpenseFragment.model.wallet?.id.getValueOrDefaultIsZero()
-                    .toString()
-            )
-            mPresenter.createExpense(request)
+            val date = dateToDays(convertStringToDate(AddExpenseFragment.model.date!!)!!)
+            if (dateToDays(convertStringToDate(AddExpenseFragment.model.startDateBudget!!)!!) <=
+                    date && date <= dateToDays(convertStringToDate(AddExpenseFragment.model.endDateBudget!!)!!)
+            ) {
+                val request = InOutComeRequest(
+                        loanIdLoan = if (AddExpenseFragment.model.nameLoaner != null) AddExpenseFragment.model.nameLoaner else null,
+                        amount = AddExpenseFragment.model.totalMoney.getValueOrDefaultIsZero(),
+                        categoryIdCate = idCategory,
+                        dateCome = Utils.convertDateFormat(
+                                AddExpenseFragment.model.date.getValueOrDefaultIsEmpty(),
+                                SimpleDateFormat("dd/MM/yyyy"),
+                                SimpleDateFormat("yyyy-MM-dd")
+                        ),
+                        descriptionCome = AddExpenseFragment.model.title.getValueOrDefaultIsEmpty(),
+                        idType = idTypeCategory,
+                        idBudget = AddExpenseFragment.model.idBudget.getValueOrDefaultIsZero().toString(),
+                        tripIdTrip = if (AddExpenseFragment.model.trip?.id != null) AddExpenseFragment.model.trip?.id.toString() else null,
+                        walletIdWallet = AddExpenseFragment.model.wallet?.id.getValueOrDefaultIsZero()
+                                .toString()
+                )
+                mPresenter.createExpense(request)
+            }else{
+                showDialogNotify("Ngày áp dụng cho ngân sách này chưa hợp lệ")
+            }
         }
     }
 
